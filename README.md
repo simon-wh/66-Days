@@ -1,7 +1,5 @@
 # 66-Days
 
-Test push by jhancock532. gg
-
 ## Description
 
 66 DAYS is a habit focussed nutrition course aimed at using behavioural science and evidence based nutrition to improve eating habits.
