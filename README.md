@@ -22,3 +22,5 @@ The fewer barriers there are to completing habit practice and logging it the bet
 We're excited about our concept and believe that in the future it could be a useful healthcare tool for those trying to lose weight or just be a bit healthier. Whether it's a solution for businesses and their employees or something that could be sold in packages for healthcare providers is something we'd like to explore well down the road when we're a bit clearer about what it is.
 
 We'd be fascinated to hear what you think about the project and how you could potentially help out.
+
+
