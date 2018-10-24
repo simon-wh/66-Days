@@ -13,3 +13,9 @@ Stakeholder Analysis
 - Data Protection Enforcers
 - General Public
 
+Functional Requirements
+-----------------------
+
+
+Non-Functional Requirements
+---------------------------
