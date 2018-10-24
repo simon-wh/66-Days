@@ -5,6 +5,8 @@ Based on the first client meeting notes, we discussed the implementation of poss
 
 We performed this prototyping experiment for two main reasons.
 
-- To specify the features that the client wants, to create 
-- How we would implement the abstract ideas as actual pixels on a screen.
+- To specify the features that the client wants, which will help us create the requirements for the solution. 
+- To test how we could implement the abstract ideas as actual pixels on a screen.
+
+
 
