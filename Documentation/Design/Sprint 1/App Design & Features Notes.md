@@ -4,18 +4,19 @@ App Design & Features
 First Meeting with Client
 -------------------------
 
-**Problems faced by BEN**
+Problems faced by BEN
+---------------------
 - Fragmentation of systems
 - Barrier of entry isn’t low enough
 - Not scalable 
 - Note that technical level is just above average, no coding experience, therefore we will have to make a GUI for Ben that he can use.
 - Ben has currently made a squarespace website.
 
-**Flexibility of the client**
-
+**Flexibility of the client** : 
 Ben stated that he is relatively flexible, but not after November 5th, however online means of communication are still viable
 
 **What BEN wants**
+------------------
 - An integrated, localised solution which allows users to complete the course as easily as possible and help develop the four main principles
 - Ben notes that while exercise is important, it’s no way near as important as diet and so the main focus should be on developing/correcting the core habits
 - Ben specified that trialists haven’t fully experienced the website format yet, bar one who he is awaiting feedback from.
@@ -40,18 +41,28 @@ Important for customers to have accountability to what they said at the start of
 Personalized, not generic. Based on experiments - you are allowed to fail, they don’t always work. 
 
 1. Easily digestible course information
+
         Potentially have it linked with the habit progress
 1. “News”-esque section for seeing blog posts
 1. Notifications
+
         - notifications of encouragement and reminders but not forceful ones saying to do it precisely then.
 1. Positive streak and history of stuff achieved over time.
+
         - 1st week is setting an overall image goal.
+        
         - For each habit, each one is two weeks. For each section, the user sets how they apply it.
+        
         - A list of experiments to apply for themselves. They pick one, but they can make one up.
+        
         - Ideation session on how to measure progress on diet / wholefoods?
+        
         - Possible future consequences with lots of users – not enough time to organise meetings.
+        
         - Facebook group to chat to each other and post messages etc.
+        
         - An online forum system. A big system is difficult to manage.
+        
 1. Habits
         -You can enter your own habits / personalize the data in some way.
 1. Schedule of when Ben is doing streams
