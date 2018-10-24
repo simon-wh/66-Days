@@ -1,6 +1,11 @@
 App Design & Features
 =====================
 
--- First Meeting with Client --
+First Meeting with Client
+-------------------------
 
--- Initial Ideation Session --
+
+Initial Ideation Session
+------------------------
+
+
