@@ -12,6 +12,7 @@ First Meeting with Client
 - Ben has currently made a squarespace website.
 
 **Flexibility of the client**
+
 Ben stated that he is relatively flexible, but not after November 5th, however online means of communication are still viable
 
 **What BEN wants**
@@ -19,7 +20,8 @@ Ben stated that he is relatively flexible, but not after November 5th, however o
 - Ben notes that while exercise is important, it’s no way near as important as diet and so the main focus should be on developing/correcting the core habits
 - Ben specified that trialists haven’t fully experienced the website format yet, bar one who he is awaiting feedback from.
 
-**Core Habits**
+Core Habits
+-----------
 1. Eating slowly
 1. Drink more water 
         - Less liquid calories from e.g. soft drinks
@@ -28,10 +30,12 @@ Ben stated that he is relatively flexible, but not after November 5th, however o
 1. Portion control 
         - Reduce snacking
 
-**Notification system:**
+Notification system:
+--------------------
 Ben focuses on the “Cue → Habit → Reward” system, where the cue is not necessarily an “in the face” notification, but a gentle reminder
 
-**APP Features**
+APP Features
+------------
 Important for customers to have accountability to what they said at the start of the program.
 Personalized, not generic. Based on experiments - you are allowed to fail, they don’t always work. 
 
