@@ -1,38 +1,7 @@
-App Design & Features
-=====================
+Initial App Design & Features
+=============================
 
-Problems faced by Client
-------------------------
-- Fragmentation of systems
-- Barrier of entry isn’t low enough
-- Not scalable 
-- Note that technical level is just above average, no coding experience, therefore we will have to make a GUI for Ben that he can use.
-- Ben has currently made a squarespace website.
-
-**Flexibility of the Client** : 
-Ben stated that he is relatively flexible, but not after November 5th, however online means of communication are still viable
-
-**What Client wants**
----------------------
-- An integrated, localised solution which allows users to complete the course as easily as possible and help develop the four main principles
-- Ben notes that while exercise is important, it’s no way near as important as diet and so the main focus should be on developing/correcting the core habits
-- Ben specified that trialists haven’t fully experienced the website format yet, bar one who he is awaiting feedback from.
-
-Core Habits
------------
-1. **Eating slowly**
-1. **Drink more water** 
-        - Less liquid calories from e.g. soft drinks
-1. **Eat whole foods** 
-        - Gradually shift ratios of food over time
-1. **Portion control** 
-        - Reduce snacking
-
-Notification system:
---------------------
-Ben focuses on the “Cue → Habit → Reward” system, where the cue is not necessarily an “in the face” notification, but a gentle reminder
-
-APP Features
+App Features
 ------------
 Important for customers to have accountability to what they said at the start of the program.
 Personalized, not generic. Based on experiments - you are allowed to fail, they don’t always work. 
@@ -84,15 +53,6 @@ Personalized, not generic. Based on experiments - you are allowed to fail, they 
         - Some system that sends progress information so Ben can look over it and see how well stuff is working
         - Dashboard for how individuals are doing / how people are doing overall.
         - Ways he can edit and add new content into the app.
-
-**Initial Ideation Session**
-------------------------
-
-To Do:
-------
-1. Email : Send an email out on the 17th October about whether the project will be going ahead”
-1. Next Client Meeting on 24th October MVB 10.am – in two weeks. 
-1. Any course materials/outlines/any extra materials he can provide
 
 Research
 --------
