@@ -4,7 +4,6 @@ Prototyping Experiments
 Based on the first client meeting notes, we discussed the implementation of possible features of the app. James then designed a prototype app based on these features using Atomic.io, the live app prototype can be seen [here.](https://app.atomic.io/d/7w6BSbwPqoL0)
 
 We performed this prototyping experiment for two main reasons.
-
 - To specify the features that the client wants, which will help us create the requirements for the solution. 
 - To test how we could implement the abstract ideas as actual pixels on a screen.
 
@@ -48,30 +47,18 @@ Clients Thoughts
 1. Likes the idea of a notification reminding the user to check in once a day, sent in the evening, so that they track their progress.
 1. Streaming notifications would be a useful addition.
 
-**Things to Test with Users**
-1. What if we could add a feature that prompts them to complete habit that they didn't successfully complete previously?
-
 **Livestream Schedule Feature**
 1. Likes that we've left it out entirely (due to its complexity), thinks that email is a good way to go, and will consider YouTube Livestreaming as a possibility for reaching out to users.
 1. If we could load a streaming schedule into another section of the app that would be great, and provide streaming notifications.
 
+**Things to Test with Users**
+1. What if we could add a feature that prompts them to complete habit that they didn't successfully complete previously?
 
-***Other notes from the same meeting***
-Science behind keystone habits leads to other positive behaviours
-Set up queue of habit items so when you do one thing you do another
-The whole foods section is one of the hardest ones, one of the easiest to not do correctly
-Sign up on website and pay through that then have access to that
-Potentially sign in with google then store data locally
-First 3 weeks of content have been made
-Will send us what he’s got so far so we can get a better idea of what it’s about
-Away for most of November
-Could do video call or email about stuff
-Could send email half-way to mvp with a list of the requirements that we’re putting in the mvp for him to review
-Maybe add a slider for shift workers for habit reset timing? But it makes sense to leave it as day-to-day habit checking
-Positive, not judging notifications, should encourage the user
-Set goals at the end of experiment week, rather than at the start so the user has more of an idea as to what they want to become
-Summary: Simple is better
+Conclusions
+-----------
+Implementing features into the app GUI is deceptively simple, we shall have to be careful to validate this in our user experience tests.
 
+This meeting with the client grounded us in understanding that simplicity in the app design is important, and that the idea of scoring, if implemented positively, could be a great example of compounding in action. From the clients opinions, we are able to refine the requirements of the app. 
 
-
+We made an enquiry into meeting up with users and showing the prototype to them; however as there are currently only three participants on the course, the client didn't think this as practical. We agreed that we will show our minimum viable product to users (12th December) and gain feedback then.
 
