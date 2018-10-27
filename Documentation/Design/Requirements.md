@@ -1,6 +1,10 @@
 Functional Requirements
 =======================
 These requirements describe how the app and supporting systems will function.
+- TIMELINE
+- HABITS
+- BLOGPOSTS
+- SETTINGS
 
 Timeline Features
 -----------------
@@ -44,7 +48,22 @@ These functional requirements are to do with how the app changes and progresses 
 
 ### Timeline 10 - The Final Week ###
 
+Habit Features
+--------------
+These functional requirements are to do with how habits work, in what way they are managed and displayed.
 
+- HABIT-0.0 Habits must be displayed as a checklist on the home screen of the app (this allows the user to easily check off their progress at the end of the day, making the barrier for tracking their progress as low as possible).
+
+Blog Post Features
+------------------
+These functional requirements are to do with how the app displays and curates blog content.
+
+- BLOGPOST-0.0 Blog content must be stored externally on a website and then pulled into the app for display. (This means that Ben can edit the blog content without having to modify or update the app itself.)
+- BLOGPOST-0.1 Blog content must be readable, that is a font-size greater than 8px on mobile devices.
+
+<br>
+<br>
+<br>
 
 Non-Functional Requirements
----------------------------
+===========================
