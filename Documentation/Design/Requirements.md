@@ -4,6 +4,7 @@ These requirements describe how the app and supporting systems will function.
 - TIMELINE
 - HABITS
 - COURSE
+- PROGRESSION
 - SETTINGS
 
 Timeline Features
@@ -47,6 +48,10 @@ These functional requirements are to do with how the app changes and progresses 
 ### Timeline 9 - The Ninth Week ###
 
 ### Timeline 10 - The Final Week ###
+
+Progression Features
+--------------------
+These functional requirements are to do with how habits are scored, in what way the users progress is tracked and visualised.
 
 Habit Features
 --------------
