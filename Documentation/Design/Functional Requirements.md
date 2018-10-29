@@ -6,7 +6,6 @@ These requirements describe how the app and supporting systems will function.
 - COURSE
 - PROGRESSION
 - SETTINGS
-g
 
 Timeline Features
 -----------------
@@ -37,8 +36,10 @@ These functional requirements are to do with how habits are scored, in what way 
 
 - PROGRESSION-0.0 The completion of habits must contribute/add to an overall score, stored within the app.
 - PROGRESSION-0.1 As you complete habits, a multiplier effect occurs to the score you gain from completing a habit. For example, completing a habit once may gain you 5 points, twice - 6 points, three times, 8 points. 
-- PROGRESSION-0.2 There is a streak bonus adding to total for consistently performing habits daily. If the user...
+- PROGRESSION-0.2 There is a streak bonus adding to the users total score for consistently performing habits daily. This should be implemented in a way that doesn't punish failure.
 
+- PROGRESSION-1.0 There must be a line graph on the home page showing the users overall progress in terms of score since the start of the course.
+- PROGRESSION-1.1 When the user taps on the line graph, additional statistics should be displayed regarding the users frequency of completing habits. For example, a heatmap showing activity per day.
 
 Habit Features
 --------------
