@@ -7,6 +7,7 @@ These requirements describe how the app and supporting systems will function.
 - PROGRESSION
 - LAYOUT
 - SETTINGS
+- REPORTING
 
 Timeline Features
 -----------------
@@ -43,8 +44,8 @@ How will we track and visualise the users progress over time?
 - PROGRESSION-0.3 There is a streak bonus adding to the users total score for consistently performing habits daily. This should be implemented in a way that doesn't punish failure of missing the streak for one day, but clearly rewards consistent habit action.
 
 A potential streak bonus scheme could look like...
-``` If the user completes all habits for the day, 1 point gets added to a streak bonus score award, and the streak bonus score award gets added to their score. The streak bonus score award starts at 0, and is continually built up on over time. If the user misses a day, they don't increase the streak bonus award or receive the extra points - however, the streak bonus award isn't reset, so they can regain their progress the next day. The gradient of the score chart will decrease, but the user won't loose progress.
-```
+> If the user completes all habits for the day, 1 point gets added to a streak bonus score award, and the streak bonus score award gets added to their score. The streak bonus score award starts at 0, and is continually built up on over time. If the user misses a day, they don't increase the streak bonus award or receive the extra points - however, the streak bonus award isn't reset, so they can regain their progress the next day. The gradient of the score chart will decrease, but the user won't loose progress.
+
 - PROGRESSION-1.0 There must be a line graph on the home page showing the users overall progress in terms of score since the start of the course.
 - PROGRESSION-1.1 When the user taps on the line graph, additional statistics should be displayed regarding the users frequency of completing habits. For example, a heatmap showing activity per day.
 
@@ -93,3 +94,10 @@ How is the app displayed to the user?
 - LAYOUT-4.0 The Settings screen gives the user control over their account and fundamental workings of the app.
   - LAYOUT-4.1 There must be a user interface to control various nofitication settings.
   - LAYOUT-4.2 There must be a user interface to control the time that the habit tracker will reset.
+  
+Reporting Features
+------------------
+How will you learn about the progression of your clients? (Not fully defined.)
+
+- REPORTING-0.0 The progress of the user must be reported weekly, depending on when the user opens the app to send data.
+- REPORTING-0.1 The progress is anonymised, and the data is gathered to get an idea of how well the data is working. 
