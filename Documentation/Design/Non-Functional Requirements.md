@@ -1,4 +1,4 @@
-# Non - Functional Requirements
+Non - Functional Requirements
 ===========
 A non-functional requirement (NFR) is a requirement that specifies criteria that can be used to judge the operation of a system, rather than specific behaviors. 
 They are contrasted with functional requirements that define specific behavior or functions. **Functional requirements** define what a system is *supposed to do* and **non-functional requirements** define how a system is *supposed to be*.
