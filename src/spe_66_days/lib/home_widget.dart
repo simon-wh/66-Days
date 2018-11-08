@@ -49,7 +49,12 @@ class _HomeState extends State<Home> {
     return Scaffold(
       //We put an Appbar in the scaffold
       appBar: AppBar(
-        title: Text('66 Days'),
+        centerTitle: true,
+        title: Text(
+            '66 Days',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
       ),
       /*This states that the body of the scaffold (the bit between the app and navigation bar)
         will be which ever widget belongs to the currentIndex
