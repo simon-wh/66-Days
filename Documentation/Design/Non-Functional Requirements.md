@@ -5,9 +5,6 @@ They are contrasted with functional requirements that define specific behavior o
 
 
  # Product Requirements:-
- --------------------
- 
- 
  
  
  # Usability Requirements
