@@ -8,9 +8,9 @@ They are contrasted with functional requirements that define specific behavior o
 
 # Product Requirements
 1. **Usability Requirements**
-    a. Provide Value Right Away - If you want new users to return to your app, you need to make sure that they discover the value early on, preferably during the onboarding process. If you don’t convince users to stay within the first week, you’re likely going to lose them forever. Millions of apps saturate the market, all of them competing for user attention, so it’s critical to make sure you offer immediate value. 
+a. Provide Value Right Away - If you want new users to return to your app, you need to make sure that they discover the value early on, preferably during the onboarding process. If you don’t convince users to stay within the first week, you’re likely going to lose them forever. Millions of apps saturate the market, all of them competing for user attention, so it’s critical to make sure you offer immediate value. 
     
-    b. Simple Navigation - When a user first downloads your app, they need to clearly understand how to navigate to complete their goal.This means that your navigation should have as few barriers as possible.The navigation should be comprehensible for the user so they won’t end up lost on a random page.
+b. Simple Navigation - When a user first downloads your app, they need to clearly understand how to navigate to complete their goal.This means that your navigation should have as few barriers as possible.The navigation should be comprehensible for the user so they won’t end up lost on a random page.
     
     c.
 		
@@ -24,7 +24,7 @@ They are contrasted with functional requirements that define specific behavior o
         (An estimated 27% of working age adults has a vision difficulty or impairment.)
 
 1. **Security Requirements**
-    a. HTTP is strongly not recommended. Since iOS 9.0 App Transport Security (ATS) is enabled by default, so you have to use HTTPS instead of not encrypted HTTP. Unfortunately ATS can be easily disabled. That's fine if the app is during development and your server doesn't offer SSL yet, but an App Store build should never call HTTP requests and ATS should be enabled.
+a. HTTP is strongly not recommended. Since iOS 9.0 App Transport Security (ATS) is enabled by default, so you have to use HTTPS instead of not encrypted HTTP. Unfortunately ATS can be easily disabled. That's fine if the app is during development and your server doesn't offer SSL yet, but an App Store build should never call HTTP requests and ATS should be enabled.
     
     b. According to NowSecure 80% of 201 of the most downloaded free iOS apps did opt out of ATS in December 2016.
 
@@ -56,7 +56,7 @@ They are contrasted with functional requirements that define specific behavior o
 
 
 
-# External Requirements=
+# External Requirements
 1. **Regulatory Requirements**
 
 1. **Ethical Requirements**
