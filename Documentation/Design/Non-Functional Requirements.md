@@ -9,6 +9,7 @@ They are contrasted with functional requirements that define specific behavior o
  
  
  
+ 
  # Usability Requirements
 
 1. **Provide Value Right Away** - If you want new users to return to your app, you need to make sure that they discover the value early on, preferably during the onboarding process. If you don’t convince users to stay within the first week, you’re likely going to lose them forever. Millions of apps saturate the market, all of them competing for user attention, so it’s critical to make sure you offer immediate value. 
@@ -57,25 +58,3 @@ The extent to which the software system can be used by people with the widest ra
     
 1. The system shall be available during **99.98% of business hours**.
 
-
-# Space Requirements
-
-
-
-# Organizational Requirements
-1. **Environmental Requirements**
-
-1. **Operational Requirements**
-
-1. **Development Requirements**
-
-
-
-# External Requirements
-1. **Regulatory Requirements**
-
-1. **Ethical Requirements**
-
-1. **Accounting Requirements**
-
-1. **Safety/Security Requirements**
