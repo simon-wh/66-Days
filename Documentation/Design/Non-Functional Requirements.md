@@ -18,7 +18,7 @@ They are contrasted with functional requirements that define specific behavior o
 
 1. **Great Aesthetics** - Don’t overlook aesthetics. People often start with a template, and you can tell by the look and feel. You should think through the aesthetics, as well as speed and interaction, so you can engage users on a deeper level. 
 
-1. **Platform Usability** - The **focus should be on building the IOS version** of the app. Also could give a hand at **Android after being done with IOS**.
+1. **Platform Usability** - The **focus should be on building the IOS version** of the app. Also **might** give a hand at **Android after being done with IOS**.
 		
 #  Accessibility Requirements : 
 
