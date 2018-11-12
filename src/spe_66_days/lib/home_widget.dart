@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
+import 'progress_widget.dart';
 
 
 /*This widget will act as the homepage. Stateful widgets are useful for when the
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = [
     PlaceholderWidget(Colors.white),
     PlaceholderWidget(Colors.deepOrange),
-    PlaceholderWidget(Colors.green),
+    ProgressWidget.withSampleData(),
     PlaceholderWidget(Colors.yellow),
     PlaceholderWidget(Colors.black)
   ];
@@ -50,8 +51,7 @@ class _HomeState extends State<Home> {
       //We put an Appbar in the scaffold
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-            '66 Days',
+        title: Text('66 Days',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         backgroundColor: Colors.white,
