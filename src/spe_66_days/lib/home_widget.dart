@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import 'progress_widget.dart';
-
+import 'habits_widget.dart';
 
 /*This widget will act as the homepage. Stateful widgets are useful for when the
   interface will change depending on the state of the application. In this example
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     PlaceholderWidget(Colors.white),
-    PlaceholderWidget(Colors.deepOrange),
+    HabitsWidget(),
     ProgressWidget.withSampleData(),
     PlaceholderWidget(Colors.yellow),
     PlaceholderWidget(Colors.black)
