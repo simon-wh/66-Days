@@ -13,7 +13,7 @@ Requirements
 - **Users of the app**
   - People looking to build new habits to meet underlying needs.
   - Self-help community members.
-  - People who are obese, have eating disorders, or are otherwise unsatisfied with thier current relationship with food.
+  - People who are obese, have eating disorders, or are otherwise unsatisfied with their current relationship with food.
   - Users who download the app but haven't signed up to the 66 Days course with Ben.
   - Users who aren't familiar with technology.
 
