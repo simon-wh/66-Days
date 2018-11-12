@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import 'progress_widget.dart';
 import 'habits_widget.dart';
-import 'INavBar.dart';
 
 /*This widget will act as the homepage. Stateful widgets are useful for when the
   interface will change depending on the state of the application. In this example
@@ -27,7 +26,7 @@ class _HomeState extends State<Home> {
     being used.
   */
   int _currentIndex = 0;
-  final List<INavBar> _children = [
+  final List<BottomNavigationBarItem> _children = [
     PlaceholderWidget(new Icon(Icons.home), new Text('Home'), Colors.white),
     HabitsWidget(new Icon(Icons.assignment), new Text("Habits")),
     ProgressWidget.withSampleData(new Icon(Icons.timeline), new Text('Progress')),
@@ -79,7 +78,7 @@ class _HomeState extends State<Home> {
           each time this item is pressed, it changes the widget
           We map the list of the children to the ButtomNavigationBarItems that we want
         */
-        items: _children.map((n) => BottomNavigationBarItem(icon: n.icon, title: n.title)).toList()
+        items: _children.map((n) => BottomNavigationBarItem(icon: n.icon, title: n.title, activeIcon: n.activeIcon, backgroundColor: n.backgroundColor)).toList()
       ),
     );
   }

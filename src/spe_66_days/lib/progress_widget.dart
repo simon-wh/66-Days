@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'INavBar.dart';
 /*This class will display some sample lineGraph
 */
-class ProgressWidget extends StatelessWidget implements INavBar {
+class ProgressWidget extends StatelessWidget implements BottomNavigationBarItem {
   final List<charts.Series> seriesList;
   final bool animate;
   final Icon icon;
   final Text title;
+  final Icon activeIcon;
+  final Color backgroundColor;
 
-  ProgressWidget(this.icon, this.title, this.seriesList, {this.animate});
+  ProgressWidget(this.icon, this.title, this.seriesList, {this.activeIcon, this.backgroundColor, this.animate});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory ProgressWidget.withSampleData(Icon icon, Text title) {

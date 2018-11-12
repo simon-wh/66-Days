@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'INavBar.dart';
 
-class HabitsWidget extends StatefulWidget implements INavBar{
+class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem{
   final Icon icon;
   final Text title;
+  final Icon activeIcon;
+  final Color backgroundColor;
 
-  HabitsWidget(this.icon, this.title);
+  HabitsWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
 
   @override
   State<StatefulWidget> createState() {
