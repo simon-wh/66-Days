@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'INavBar.dart';
 
-class HabitsWidget extends StatefulWidget{
+class HabitsWidget extends StatefulWidget implements INavBar{
+  final Icon icon;
+  final Text title;
+
+  HabitsWidget(this.icon, this.title);
+
   @override
   State<StatefulWidget> createState() {
     return _HabitsState();

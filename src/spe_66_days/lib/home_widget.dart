@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import 'progress_widget.dart';
 import 'habits_widget.dart';
+import 'INavBar.dart';
 
 /*This widget will act as the homepage. Stateful widgets are useful for when the
   interface will change depending on the state of the application. In this example
@@ -26,12 +27,12 @@ class _HomeState extends State<Home> {
     being used.
   */
   int _currentIndex = 0;
-  final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
-    HabitsWidget(),
-    ProgressWidget.withSampleData(),
-    PlaceholderWidget(Colors.yellow),
-    PlaceholderWidget(Colors.black)
+  final List<INavBar> _children = [
+    PlaceholderWidget(new Icon(Icons.home), new Text('Home'), Colors.white),
+    HabitsWidget(new Icon(Icons.assignment), new Text("Habits")),
+    ProgressWidget.withSampleData(new Icon(Icons.timeline), new Text('Progress')),
+    PlaceholderWidget(new Icon(Icons.laptop), new Text('Webinar'), Colors.green),
+    PlaceholderWidget(Icon(Icons.person), Text('Profile'), Colors.blue)
   ];
 
   /*This function updates the state of the widget so that the current index is the
@@ -54,12 +55,12 @@ class _HomeState extends State<Home> {
         title: Text('66 Days',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: _children[_currentIndex] is PlaceholderWidget ? (_children[_currentIndex] as PlaceholderWidget).color.withOpacity(0.75) : Colors.red,
       ),
       /*This states that the body of the scaffold (the bit between the app and navigation bar)
         will be which ever widget belongs to the currentIndex
       */
-      body: _children[_currentIndex],
+      body: _children[_currentIndex] as Widget,
       //We also put a bottom navigation bar in the scaffold
       bottomNavigationBar: BottomNavigationBar(
         /*To allow more than 3 items to be added to a BottomNavigationBar
@@ -76,29 +77,9 @@ class _HomeState extends State<Home> {
         currentIndex: _currentIndex,
         /*Below is all the items that will belong to the navigation bar
           each time this item is pressed, it changes the widget
+          We map the list of the children to the ButtomNavigationBarItems that we want
         */
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.assignment),
-            title: new Text('Habits'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.timeline),
-            title: new Text('Progress'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.laptop),
-            title: new Text('Webinar'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Profile'),
-          ),
-        ],
+        items: _children.map((n) => BottomNavigationBarItem(icon: n.icon, title: n.title)).toList()
       ),
     );
   }
