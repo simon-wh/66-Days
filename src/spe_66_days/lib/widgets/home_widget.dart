@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import 'progress_widget.dart';
-import 'habits_widget.dart';
+import 'package:spe_66_days/widgets/habits_widget.dart';
 
 /*This widget will act as the homepage. Stateful widgets are useful for when the
   interface will change depending on the state of the application. In this example
