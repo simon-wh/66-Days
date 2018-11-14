@@ -29,6 +29,16 @@ Each annotated arrow desrcibes the following processes:
 1. All data that needs visualising, e.g. Score, days logged in etc. is processed and sent to the device.
 1. All recieved data is then displayed on the device for the user to view.
 
+### Components within the application:
+There are three main high level components within the application:
+1. The habit manager
+1. The visualisation manager
+1. The course content manager
+
+The habit manager holds information for all the habits that can be tracked and directly retrieves information of the specific instances for these habits, it also ensures that habits are being stored correctly. The visualisation manager outputs data recieved from the habit manager to the device in a specific format e.g. a line graph to show progression of habits tracked over time, any updates to the data must then be updated in real time to the visualastion manager so that the visualised data is representative. 
+
+The course content manager simply outputs any course content that the user wishes to view to the device, and must be able to communicate with the server so that any updates that Ben wishes to make the course can be updated by him, and then displayed as required within the application. 
+
 # Static UML Diagram: Habits
 ![](https://github.com/simon-wh/66-Days/blob/master/Portfolio%20A/Images/Habits%20UML.png?raw=true)
 
