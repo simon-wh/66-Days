@@ -94,48 +94,49 @@ Habit Features
 --------------
 How do habits work?
 
-- HABIT-0.0 Habits must be displayed as a checklist on the home screen of the app (this prominence allows the user to easily check off their progress at the end of the day, making the barrier for tracking their progress as low as possible.)
-- HABIT-0.1 Habits must be able to be ticked off daily by the user. This process should take less than 10 seconds to complete, to open the app, check items, and close the app again. (Once agian, making the barrier for engagement with the app as low as possible.)
-- HABIT-0.2 The habit checklist must get reset (all items unchecked to be ticked again) when the app detects a new day has begun. The precise time should be after 3am in the morning, the user should be able to change this time to a custom value. (If a user is a night shift worker, then a different time might be more suitable for them.)
-- HABIT-0.3 The score for the previous day's habits must be stored into the system when the app detects a new day has begun. 
-- HABIT-0.4 The user should receive a daily notification in the evening to update their habit tracking for today. If this is implemented, the user must be able control whether this notification is active.
-- HABIT-0.5 There must be a single, seperate check box for daily movement which must act like the core habits of the course (HABIT-0.1, HABIT-0.2, HABIT-0.3). (This part of the course is non-customizable and non-negoatiable, all users should do some form of daily movement - because this part of the course isn't customisable, it is displayed as seperate to the other habits.)
-- HABIT-0.6 On closing the app, the habits checked off for the day must remain in the same state when the app is opened again if it isn't a new day. (This means is the app is closed accidentally, or reopened later, the data the user entered is still in the app.)
+- HABIT-0.0 Habits must be displayed as a **checklist** on the home screen of the app (this prominence allows the user to easily check off their progress at the end of the day, making the barrier for tracking their progress as low as possible.)
+- HABIT-0.1 Habits must be able to be **ticked off daily** by the user. This process should take less than 10 seconds to complete, to open the app, check items, and close the app again. (Once agian, making the barrier for engagement with the app as low as possible, and hence engagement with the overall course higher.)
+- HABIT-0.2 The habit checklist must get **reset** (all items unchecked to be ticked again) when the app detects a **new day** has begun. The precise time should be after 3am in the morning, the user should be able to change this time to a custom value. (If a user is a night shift worker, then a different time might be more suitable for them.)
+- HABIT-0.3 The score for the previous day's habits must be **stored** into the app when the app detects a new day has begun. The app should check for a new day when the app is reopened. 
+- HABIT-0.4 The user should receive a **daily notification** in the evening to update their habit tracking for today. If this is implemented, the user must be able control whether this notification is active.
+- HABIT-0.5 There must be a single, seperate check box for **daily movement** which must act like the core habits of the course (HABIT-0.1, HABIT-0.2, HABIT-0.3). (This part of the course is non-customizable and non-negoatiable, all users should do some form of daily movement - because this part of the course isn't customisable, it is displayed as seperate to the other habits.)
+- HABIT-0.6 On closing the app, the habits checked off for the day **must remain in the same state** when the app is opened again if it isn't a new day. (This means is the app is closed accidentally, or reopened later, the data the user entered is still in the app.)
 
-- HABIT-1.0 Habits must be able to be edited after two weeks of that habit being part of their daily routine. (This edit can either make the habit easier if the habit is unrealistic or to build on the habit). A potential alternative is that the habit can be edited after two weeks of consistently completing it - this should be tested with users. 
-- HABIT-1.1 When a habit is availible to be edited, the user should be notified that they have unlocked this feature. (Ideally, the notification should tell the user why they might want to edit the habit).
-- HABIT-2.0 The user must have control over how they are notified to act on each habit / check in. Control includes whether the notification shows, and what time the notification shows. There is only one notification for each habit. (The app should help the user in their day to day life, and not annoy or distract them. Hence, the control of notifications is vital.)
-- HABIT-3.0 Habits must be created by the user after reading certain key course material pieces, which occur throughout the course. Within the course material there will be suggestions of different habits the user can implement, but it is up to the user to type in the habit which they shall commit to. (The user of the app takes ownership of the habits they are implementing, and they type their own habit instead of choosing from a list as they know best what will work for themselves - a list of habits won't cover all the possibilities.)
-- HABIT-3.1 The habit that the user commits to at the end of certain course content posts must be what is later displayed to the user on their home page.
+- HABIT-1.0 The text for a habit must be able to be **edited** after two weeks of that habit being part of the users daily routine. (This edit can either make the habit easier if the habit is unrealistic or to build on the habit). A potential alternative is that the habit can be edited after two weeks of consistently completing it - this should be tested with users. 
+- HABIT-1.1 When a habit is availible to be edited, the user should be **notified** that they have **unlocked this feature**. (Ideally, the notification should tell the user why they might want to edit the habit).
+- HABIT-2.0 The user must have **control** over how they are notified to act on each habit / check in. Control includes **whether** the notification shows, and what **time** the notification shows. There is only one notification for each habit. (The app should help the user in their day to day life, and not annoy or distract them. Hence, the control of notifications is vital.)
+- HABIT-3.0 Habits must be **created by the user** after reading certain key course material pieces, which occur throughout the course. Within the course material there will be suggestions of different habits the user can implement, but it is up to the user to **type in** the habit which they shall commit to. (The user of the app takes ownership of the habits they are implementing, and they type their own habit instead of choosing from a list as they know best what will work for themselves - a list of habits won't cover all the possibilities.)
+- HABIT-3.1 The habit that the user commits to at the end of certain course content posts must be what is **later displayed** to the user on their home page.
 
 Layout Features
 ---------------
 How is the app displayed to the user?
 
-- LAYOUT-0.0 There must be a menu bar at the bottom of the screen which allows the user to navigate different areas of the app.
-- LAYOUT-1.0 The Home screen is the first page that loads when opening the app. (To make ticking off habits as easy as possible, to encourage engagement with the course.)
-  - LAYOUT-1.1 Home must contain a checklist of the current users habits that the user can tick off.
-  - LAYOUT-1.2 Home must contain a score overview chart showing the users progression since day one. (To encourage the user to commit to the course and motivate them with the progress they've made).
-  - LAYOUT-1.3 Home must contain a single, seperate check box for daily movement. (This part of the course is non-customizable and non-negoatiable, all users should do some form of daily movement - because this part of the course isn't customisable, it is displayed as seperate to the other habits.)
-  - LAYOUT-1.4 Home should contain occasional messages of encouragement when habits are missed. (To encourage the user that failure isn't a bad thing, but in fact part of the process.)
-  - LAYOUT-1.5 Home should contain the users self-image goal. (To remind the user why they are trying to change, and what they are trying to change to.)
+- LAYOUT-0.0 There must be a **menu bar** at the bottom of the screen which allows the user to navigate different areas of the app.
+- LAYOUT-1.0 The Home screen is the **first page that loads** when opening the app. (To make ticking off habits as easy as possible, which will encourage engagement with the course.)
+  - LAYOUT-1.1 Home must contain a **checklist** of the current users habits that the user can tick off.
+  - LAYOUT-1.2 Home must contain a **score overview chart** showing the users progression since day one. (To encourage the user to commit to the course and motivate them with the progress they've made).
+  - LAYOUT-1.3 Home must contain a single, seperate check box for **daily movement**. (This part of the course is non-customizable and non-negoatiable, all users should do some form of daily movement - because this part of the course isn't customisable, it is displayed as seperate to the other habits.)
+  - LAYOUT-1.4 Home should contain **occasional messages of encouragement** when habits are missed. (To encourage the user that failure isn't a bad thing, but in fact part of the process.)
+  - LAYOUT-1.5 Home should contain the users **self-image goal**. (To remind the user why they are trying to change, and what they are trying to change to.)
 
 Progression Features
 --------------------
 How will we track and visualise the users progress over time?
 
-- PROGRESSION-0.0 The completion of habits must contribute/add to an overall score, stored within the app.
-- PROGRESSION-0.1 The more habits you complete each day, the higher the score awarded for that days efforts should be. (More engagement with the course promises more rewards, and due to the principle of compounding, a clear benefit of completing multiple habits should be reflected in the score.)
-- PROGRESSION-0.2 As the user ticks and unticks checkbox items, the score for the day and the visualisations must update to reflect that change. (Making the app interactive and showing the user that every action towards their goal is having a postive effect.)
-- PROGRESSION-0.3 On completing the daily movement action, a score bonus should be awarded. This could be a multplier applied to todays total score so far. (Once agian, emphasising to the user about the rewards of the principle of compounding.)
-- PROGRESSION-0.4 There is a streak bonus adding to the users total score for consistently performing habits daily. This should be implemented in a way that doesn't punish failure of missing the streak for one day, but clearly rewards consistent habit action.
+- PROGRESSION-0.0 The completion of habits must contribute/add to **an overall score**, stored within the app.
+- PROGRESSION-0.1 The more habits you complete each day, the **higher the score** awarded for that days efforts should be. (More engagement with the course promises more rewards, and due to the principle of compounding, a clear benefit of completing multiple habits should be reflected in the score.)
+- PROGRESSION-0.2 As the user ticks and unticks checkbox items, the score for the day and the **visualisations must update** to reflect that change. (Making the app interactive and showing the user that every action towards their goal is having a postive effect.)
+- PROGRESSION-0.3 On completing the **daily movement action, a score bonus** should be awarded. This could be a multplier applied to todays total score so far. (Once agian, emphasising to the user about the rewards of the principle of compounding.)
+- PROGRESSION-0.4 There is a **streak bonus** adding to the users total score for consistently performing habits daily. This should be implemented in a way that doesn't punish failure of missing the streak for one day, but clearly rewards consistent habit action.
 
 A potential streak bonus scheme could look like...
 > If the user completes all habits for the day, 1 point gets added to a streak bonus score award, and the streak bonus score award gets added to their score. The streak bonus score award starts at 0, and is continually built up on over time. If the user misses a day, they don't increase the streak bonus award or receive the extra points - however, the streak bonus award isn't reset, so they can regain their progress the next day. The gradient of the score chart will decrease, but the user won't loose progress.
 
-- PROGRESSION-0.5 If the user misses a day, then the app logs the score gain for that day as zero.
-- PROGRESSION-1.0 There must be a line graph on the home page showing the users overall progress in terms of score since the start of the course. 
-- PROGRESSION-1.1 When the user taps on the line graph, additional statistics should be displayed regarding the users frequency of completing habits. For example, a heatmap showing activity per day. (An additional level of detail for users who are interested in the statistics behind their progress which will hopefully help them engage more in the app.)
+- PROGRESSION-0.5 If the user misses a day, then the app logs the score gain for that day as **zero**. (There is no negative minus number connotation here, the app instead should demonstate that if you don't engage you won't progress.)
+- PROGRESSION-1.0 There must be **a line graph on the home page** showing the users overall progress in terms of score since the start of the course. 
+- PROGRESSION-1.1 When the user taps on the line graph, **additional statistics** should be displayed regarding the users frequency of completing habits. For example, a heatmap showing activity per day. (An additional level of detail for users who are interested in the statistics behind their progress which will hopefully help them engage more in the app.)
+
 
 
 # Non-Functional Requirements
@@ -164,9 +165,8 @@ A potential streak bonus scheme could look like...
 1. HTTP is strongly not recommended. Since iOS 9.0 App Transport Security (ATS) is enabled by default, so we must **use HTTPS instead of not encrypted HTTP**. Unfortunately ATS can be easily disabled. That's fine if the app is during development and your server doesn't offer SSL yet, but an AppStore build must never call HTTP requests and ATS should be enabled.
 According to NowSecure 80% of 201 of the most downloaded free iOS apps did opt out of ATS in December 2016.
 
-1. **Login / Access levels**
-1. **Password requirements** – length, special characters, expiry, recycling policies, 2FA.
-1. **Inactivity timeouts** – durations, actions, traceability.
+1. **Login / Access levels** - only users who are a part of the 66 Days course should be able to access the course material, and a user should only be able to access their own habit data.
+1. **Password requirements** – Should follow Google's standards on length, special characters, expiry, recycling policies and 2FA. 
 1. **Encryption** (data in flight and at rest) – All external communications between the system’s data server and clients **should be encrypted**.
    
 ### Performance Requirements
