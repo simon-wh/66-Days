@@ -41,10 +41,10 @@ Requirements
 > The training week is different to the rest of the course structure, as it is a week of observation and reading instead of habit forming. Where the habit checklist is displayed, there is instead displayed a single checkbox, which the user checks to show that they've taken photos of their meals for today (the observation task for the first week). The user will set their first habit and the self image goal after reading relevant course blog posts - there will be text input and prompts at the bottom of the course posts in question (3 and 6 are involved throughout). A mixture of blog posts and tutorial pop-ups will familiarize the user with features of the app.
 
 # Core Use Case Goals
-## Tracking Progress 
-(exception - the user misses a day! alternative - the first photography observation week)
+## Tracking Habits 
+*This covers the core user goals of habit tracking and progression through the course being displayed. *
 #### Basic Flow ####
-1. The user opens the app once daily in the evening.
+1. The user opens the app. Ben expects them to do this once daily in the evening.
 1. The home screen of the app is displayed.
   1. The checklist of habits to complete is shown, habits are displayed depending on what stage of the course the user is in.
   1. A graph of the users progress over time is rendered.
@@ -54,6 +54,8 @@ Requirements
 1. The user taps a submit button to finalise their checklist.
 1. The score achieved for today is displayed, the streaks and charts are updated.
 #### Alternative Flow ####
+* The user has previously opened the app that day and already selected their habits.
+  - ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * The user is completing the first week of the course.
   - Only one item to check off is displayed, alongside a useful explainer text which describes how the habit checklist works. 
   - The first time the user checks the habit, text appears explaining about how scoring works.
@@ -88,8 +90,7 @@ Requirements
   1. An error pop-up message is displayed to the user.
   1. The text field is reverted to the value it was before it was edited.
 
-# Sample Goal Analysis
+# Key Goal Analysis
 
 > Select one goal that you believe to be of paramount importance or of particular interest. For this goal, decompose the flow steps into a set of atomic requirements. Specify both functional and non-functional requirements as structured natural language, using a clear and simple template structure. It is up to you to decide what fields to include in your template, but you are advised to keep things simple (whilst providing as much detail). As with many things, this is a delicate balance to reach !
 
-> To give you an idea of the complexity and detail expected in your portfolio, this whole section should occupy approximately 4 pages of A4.
