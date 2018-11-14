@@ -16,7 +16,7 @@ Requirements
   - Users who aren't familiar with technology, and so need extra guidance and support when using features of the app.
 
 # Use Case Diagram
-![The Use Case Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/UserCaseDiagram3.0.JPG)
+![The Use Case Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/UserCaseDiagram3.0.JPG)
 
 # Primary Functional Goals
 ### Ben
@@ -60,6 +60,7 @@ Requirements
 #### Exceptional Flow ####
 * The user misses a day.
   - On loading the app, the app checks the current date. If a day has been missed, the score gain for the previous missed days is recorded as zero.
+  - The app is displayed and 
 
 ## Updating Habit Settings 
 *This covers the core user goals of changing the notification settings and text of individual habits.*
