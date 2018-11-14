@@ -28,11 +28,11 @@ Requirements
 * **Following the Course.** 
   - The user wants to read the content related to the course, which server provides to the app (2). They access the content within the app via a library folder stucture, with the *course material broken into several blog posts for each week*. As described above, certain parts of the course are unlocked and availible for the user to access depending on how far they have progressed through the course.
   - The user wants to set a new habit as they have met a new course milestone. After reading key course content blog posts, which suggest to the user several ideas for the new habit, *the user is prompted to enter the description text of their next habit* (6).
-* **Updating Settings** (All actions involve app interaction, 6)
+* **Updating Settings**
   - The user wants to update the text for a habit - this feature is unlocked within the app after having the habit active for two weeks (i.e. part of their daily habit checklist). The user can access the *habit management screen within the app to edit the habit*.
   - The user wants to update the notification settings for a habit. A *custom notification is made for every habit*, which can be activated or deactivated by the user as they prefer. The timing of the notification can also be edited within the app. The user is then notified accordingly (3).
   - The user wants to control various settings about their account and other features of the app. These can be controlled within the *app settings screen*.
-* **Training Week.** The user wants to complete the training week (first week of the course) (All actions involve app interation, 6). 
+* **Training Week.** The user wants to complete the training week (first week of the course). 
   - They want to download and open the app for the first time, logging into their account.
   - They want to understand the features of the app - scoring, notifications, habit management.
   - Throughout the first week of use, they want to check off that they've done the observation tasks - this information is relayed to the server (5).
@@ -41,8 +41,6 @@ Requirements
 > The training week is different to the rest of the course structure, as it is a week of observation and reading instead of habit forming. Where the habit checklist is displayed, there is instead displayed a single checkbox, which the user checks to show that they've taken photos of their meals for today (the observation task for the first week). The user will set their first habit and the self image goal after reading relevant course blog posts - there will be text input and prompts at the bottom of the course posts in question (3 and 6 are involved throughout). A mixture of blog posts and tutorial pop-ups will familiarize the user with features of the app.
 
 # Core Use Case Goals
-> For a core set of the use-case goals, list the sequence of steps involved in achieving each goal. Within this set, describe at least one alternative and one exceptional flow.
-
 ## Tracking Progress 
 (exception - the user misses a day! alternative - the first photography observation week)
 #### Basic Flow ####
@@ -56,12 +54,15 @@ Requirements
 1. The user taps a submit button to finalise their checklist.
 1. The score achieved for today is displayed, the streaks and charts are updated.
 #### Alternative Flow ####
-
+* The user is completing the first week of the course.
+  - Only one item to check off is displayed, alongside a useful explainer text which describes how the habit checklist works. 
+  - The first time the user checks the habit, text appears explaining about how scoring works.
+  - The second time the user checks the habit, text appears explaining the streak function.
+  - The third time the user checks the habit, the overall progress chart appears.
 #### Exceptional Flow ####
 * The user misses a day.
   - On loading the app, the app checks the current date. If a day has been missed, the score gain for the previous missed days is recorded as zero.
-  - The app is displayed and 
-
+  - The home screen of the app is rendered with the new data. 
 ## Updating Habit Settings 
 *This covers the core user goals of changing the notification settings and text of individual habits.*
 #### Basic Flow ####
