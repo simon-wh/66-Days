@@ -16,8 +16,8 @@ Requirements
   - Users who aren't familiar with technology, and so need extra guidance and support when using features of the app.
 
 # Use Case Diagram
-![The Use Case Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/UserCaseDiagram3.0.JPG)
-
+![The Use Case Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/Architecture%20diagram.jpg)
+    
 # Primary Functional Goals
 ### Ben
 * Ben wishes to monitor the overall engagement with his course. To do this, the user's device must send regular update messages to the server with status reports on how user is doing (5), and this data is then shared with Ben from the server (4).
