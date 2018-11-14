@@ -18,9 +18,9 @@ This section must not exceed 3 pages of A4, including the diagrams and their res
 ![The Architecture Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/Architecture%20diagram.jpg)
 
 Each annotated arrow desrcibes the following processes:
-1. The user sends data to the device, this could be a checked habit for the day, for example.
-1. The data sent to the device from the user is then forwarded to the habit manager, which will process and update the appropriate        variables within the application.
-1. The habit manager will send the appropriate data to the server, i.e. the information surrounding habit completion overall.
+1. The user tracks a habit, or multiple habits for the day on their device.
+1. The tracked habits inputted to the device is then sent as data to the habit manager, which will process and update the appropriate        variables within the application.
+1. The habit manager will send the appropriate information to the server, i.e. the information surrounding habit completion overall.
 1. The habit manager processes the score based on the input from the user and forwards it to the visualisation class.
 1. The server communicates interaction data of all users to Ben.
 1. Ben sends any updates he wishes to make to the course content to the server.
