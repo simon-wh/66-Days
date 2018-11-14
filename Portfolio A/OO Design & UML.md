@@ -11,5 +11,5 @@ Together with the diagram provide a section of written text that describes:
 
 This section must not exceed 3 pages of A4, including the diagrams and their respective analysis.
 
-![](Resources/Habits UML.png)
+![](https://github.com/simon-wh/66-Days/blob/master/Portfolio%20A/Images/Habits%20UML.png?raw=true)
 
