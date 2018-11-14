@@ -1,25 +1,11 @@
-OO Design & UML
----------------
+# OO Design & UML
 
-Provide a high-level architecture diagram of your application. The diagram should make clear if you are building a client-server application, or a stand alone application. It should include relevant external systems (if applicable) your application depends on.
-
-For the diagram, add two or three paragraphs that explain what the meaning of the components represented in the diagram.
-
-Provide one example of a static and a dynamic UML modelling aspect of your system.
-
-Together with the diagram provide a section of written text that describes:
-
-The context within which you created this diagram. This might for example be the use case that you were working on or modelling.
-The motivation behind your choice of this particular aspect. This might be due to a challenging design decision or uncertainty about the relationship of domain concepts.
-A brief reflection on the modelling choices you made and any knowledge that you gained from this model.
-This section must not exceed 3 pages of A4, including the diagrams and their respective analysis.
-
-# High-level Architecture diagram
+## High-level Architecture diagram
 ![The Architecture Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/Architecture%20diagram.jpg)
 
-Each annotated arrow desrcibes the following processes:
+Each annotated arrow describes the following processes:
 1. The user tracks a habit, or multiple habits for the day on their device.
-1. The tracked habits inputted to the device is then sent as data to the habit manager, which will process and update the appropriate        variables within the application.
+1. The tracked habits inputted to the device is then sent as data to the habit manager, which will process and update the appropriate variables within the application.
 1. The habit manager will send the appropriate information to the server, i.e. the information surrounding habit completion overall.
 1. The habit manager processes the score based on the input from the user and forwards it to the visualisation class.
 1. The server communicates interaction data of all users to Ben.
@@ -39,6 +25,26 @@ The habit manager holds information for all the habits that can be tracked and d
 
 The course content manager simply outputs any course content that the user wishes to view to the device, and must be able to communicate with the server so that any updates that Ben wishes to make the course can be updated by him, and then displayed as required within the application. 
 
-# Static UML Diagram: Habits
+## Static UML: Habits
 ![](https://github.com/simon-wh/66-Days/blob/master/Portfolio%20A/Images/Habits%20UML.png?raw=true)
 
+The habit tracking system is one of the key aspects of the 66-Days system, being one of the two core systems that the user will interact with, at least for the MVP. This system serves as a core centre-point that the other systems will interact with so it was crucial to ensure this was designed as a baseline to work off of for the other systems, or at least to have an idea of how aspects will interact with it. The habit system is used for the user to keep track of the various CoreHabits, what experiment is being tracked(See CheckTitle and CheckDescription under CoreHabit) and to store when the experiments were marked off. The `HabitManager` also serves to handle the notifications that have been chosen by the user for particular habits and ensure that these notifications are pushed to the user at the selected times. There is also the simple visualisation interface which will be used to have multiple implementations of data visualisers which display a representation of the historical data for the habits being checked off over time. The core benefit we experienced from modelling this system was that we were able to find a much simpler design than we had originally planned, we had a couple of iterations of the design which all contrast with each other. With the resulting design being much more refined and simple, focusing on the core requirements of the system and should be easier to implement with regards to the wider system.
+
+## Dynamic UML: User interaction with the Library
+
+![](https://github.com/simon-wh/66-Days/blob/master/Portfolio%20A/Images/Dynamic%20Library%20UML.png?raw=true)
+
+The above Dynamic UML portrays the the week-post display process. 
+
+1. The user clicks on **Library** which opens the **Library** **screen**. The **Library** **screen** needs to display all the weeks in minimised state.
+2. The **Library** **Screen** gets the week structure from the **Library** class.
+3.  The **Library** class then communicates with the **Server** and gets the week-post indexes (the raw data) to be displayed.
+4. The **Library** process the raw data received by the **Server** and then displays it to the **Library** **Screen**.
+5. The **Library** **Screen** displays the week structure and then gets the post structure (object instances) of all the post within all the weeks from **Week** class.
+6. The **Library** **Screen** generates the required widgets and displays the *Week-Post Structure* to the **User**.
+7. When the **User** clicks on the individual post on the **Library** **Screen** he needs to be redirected to the Post page.
+8. The **Library** **Screen** calls the **Post** class which communicates with the **Server** to get the post data. After getting the required widgets **Library** **Screen** displays it to the **User**.
+
+The **Motivation** behind designing this Dynamic UML is to display the contents of posts to the user in the most simple and efficient manner. Also Knowing when to communicate with the server to extract data.
+
+**Reflection** - this UML really simplifies the display process by breaking it down and makes implementation much easier.
