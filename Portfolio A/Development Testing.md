@@ -12,7 +12,7 @@
 
 #### Back end tests
 
-To test that information stored on the server is correct, we will us black box testing. We would like to ensure that our range of inputs to the server, gets stored and remains unedited on the server, so that when the data is recalled, it is exactly the same as we stored it. This tests all aspects of Ben pushing updates of course content to the server, whilst recieveing usage data of all his clients, and also that the course content is replicated correctly to the user.
+To test that information stored on the server is correct, we will use black box testing. We would like to ensure that our range of inputs to the server, gets stored and remains unedited on the server, so that when the data is recalled, it is exactly the same as we stored it. This tests all aspects of Ben pushing updates of course content to the server, whilst recieveing usage data of all his clients, and also that the course content is replicated correctly to the user.
 
 #### Front end tests
 
@@ -24,9 +24,11 @@ To test that the course content manager is correct, we will use black box testin
 
 ### Testing framework to develop the tests
 
-We will take advantage of the JUnit framework to test our components, namely the JUnit assertions. We can use assertions on the habit manager to make sure that `CoreHabit` can be stored and read correctly, by feeding a sample `CoreHabit` storing it, and asserting that reading it back in generates the same result, which is also the same technique that can be used to assure that the course content is correct. We can also assert that if we feed in a `CoreHabit` with sample specifications, then the habit manager can refer to and return any information that we require, e.g. if the Habit is checked.
+We will take advantage of the JUnit framework to test our components, namely the JUnit assertions. We can use assertions on the habit manager to make sure that `CoreHabit` can be stored and read correctly, by feeding a sample `CoreHabit` storing it, and asserting that reading it back in generates the same result, which is also the same technique that can be used to assure that the course content, and other information retrieved from the server is correct. We can also assert that if we feed in a `CoreHabit` with sample specifications, then the habit manager can refer to and return any information that we require, e.g. if the Habit is checked. 
 
 ### Challenges that may affect the testability of the components
+
+There may be issues should we wish to test that the widgets within flutter function appropriately according to the underlying logic classes in our application. To overcome this issue we will make use of flutters built in library for widget testing to ensure that values update correctly and hence show that if our logic tests pass, and the our tests for the widgets show that values within the code update appropriately, then our code should be tested to an approriate degree.
 
 
 
