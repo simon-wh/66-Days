@@ -12,6 +12,7 @@
 
 #### Back end tests
 
+To test that information stored on the server is correct, we will us black box testing. We would like to ensure that our range of inputs to the server, gets stored and remains unedited on the server, so that when the data is recalled, it is exactly the same as we stored it. This tests all aspects of Ben pushing updates of course content to the server, whilst recieveing usage data of all his clients, and also that the course content is replicated correctly to the user.
 
 #### Front end tests
 
