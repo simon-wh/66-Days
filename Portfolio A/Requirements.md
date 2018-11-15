@@ -137,8 +137,6 @@ A potential streak bonus scheme could look like...
 - PROGRESSION-1.0 There must be **a line graph on the home page** showing the users overall progress in terms of score since the start of the course. 
 - PROGRESSION-1.1 When the user taps on the line graph, **additional statistics** should be displayed regarding the users frequency of completing habits. For example, a heatmap showing activity per day. (An additional level of detail for users who are interested in the statistics behind their progress which will hopefully help them engage more in the app.)
 
-
-
 # Non-Functional Requirements
 
 ### Usability Requirements
@@ -149,10 +147,10 @@ A potential streak bonus scheme could look like...
 1. **Platform Usability** - This app is being developed using Flutter, and must be availible on both Android and iOS devices. When making design choices between Android and iOS, the preference should be towards the iOS version of the app.
 
   1. The iOS app should run on **iPhone 5s devices and later with iOS 11 onwards**.
-  1. The Android app should run on **Android devices with Android 8 onwards**.
-		
+  1. The Android app should run on **Android devices with Android 6 onwards**.
+     ​	
 ### Accessibility Requirements
-	
+
 1. The app should be accessible to people with disabilities in accordance with the **Disabilities Act of 1990**. As the two operating systems, Android and iOS support this act, our app should be compatible with the disability tools that Android and iOS provide.
 1. The system should be accessible by people with **specific vision needs**, to the extent that a user should be able to:
 	- Display the whole user interface in a large font without truncating displayed text or other values.
