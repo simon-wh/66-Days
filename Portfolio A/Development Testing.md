@@ -8,13 +8,18 @@
 >
 > This section must not exceed a single sheet of A4.
 
-#### Testing each component in the architecture diagram
+### Testing each component in the architecture diagram
+
+#### Back end tests
+
+
+#### Front end tests
 
 For two of the components within the application program of our architecture diagram, namely the habit manager and the visualisation manager, we will adopt the equivalence partioning strategy. If we hand the habit manager a range of inputs, e.g. habits being checked, then our component should behave the same for all of these inputs. It should refer to the instance of the habit and update any variables as is necessary. If we input a selection of `CoreHabit` instances to the habit manager, then it should also ensure that each of these instances are stored in the correct file format, and can also be read from this file format as appropriate.
 
 Similarly with the visualisation manager, if we hand this component a range of inputs, with these inputs being instances of `CoreHabit`, then it should abstract the appropriate information from these inputs and display it in various formats. The behaviour for the inputs should be the same, we must ensure that that inputs get displayed in a specific form, hence equivalence partioning, but the outputted result may be different, i.e. there may be a line graph output, or a heatmap output.
 
-To test that the course content manager is correct, we will use black box testing. We don't necessarily need to see the internal representation of this component, however we must ensure that the output is correct. The range of acceptable inputs for this component would be all of the course content that is uploaded to the server from Ben, hence the corresponding correct outputs, would simply be the same content to be outputted to the device, meaning that our code for the content manager so simply read, and write without any edits. We can do this by splitting up the input, i.e. the whole course, into the corresponding weeks. That is, we are ensuring that when we input week 1, the course content for week 1 is outputted correctly and unedited, and this is repeated for all weeks.
+To test that the course content manager is correct, we will use black box testing. We don't necessarily need to see the internal representation of this component, however we must ensure that the output is correct. The range of acceptable inputs for this component would be all of the course content that is uploaded to the server from Ben, hence the corresponding correct outputs, would simply be the same content to be outputted to the device, meaning that our code for the content manager will simply read, and write without any edits. We can do this by splitting up the input, i.e. the whole course, into the corresponding weeks. That is, we are ensuring that when we input week 1, the course content for week 1 is outputted correctly and unedited, and this is repeated for all weeks.
 
 ### Testing framework to develop the tests
 
