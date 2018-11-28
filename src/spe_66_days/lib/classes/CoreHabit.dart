@@ -6,7 +6,15 @@ class CoreHabit {
   //String description;
   //bool unlocked;
   String checkTitle;
-  String checkDescription;
+  //String checkDescription;
   List<Notification> reminders;
   Map<DateTime, bool> markedOff;
+
+  CoreHabit(this.title, this.checkTitle, {this.reminders, this.markedOff}){
+    assert(this.title.isNotEmpty);
+    assert(this.checkTitle.isNotEmpty);
+    //assert(this.checkDescription.isNotEmpty);
+    reminders ??= List<Notification>();
+    markedOff ??= Map<DateTime,bool>();
+  }
 }

@@ -1,7 +1,12 @@
 import 'CoreHabit.dart';
 
 class HabitManager {
-  Map<String, CoreHabit> _habits;
+  static final HabitManager instance = HabitManager();
+
+  Map<String, CoreHabit> _habits = <String, CoreHabit> {
+    "observation": CoreHabit("Eating Observation", "Taken a photo of my meal", ),
+    "eat_slowly": CoreHabit("Eat Slowly", "Put down your cutlery after each mouthful ")
+  };
 
   CoreHabit getHabit (String core){
     assert(_habits.containsKey(core));
