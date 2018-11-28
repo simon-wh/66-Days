@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
+import 'package:spe_66_days/classes/CoreHabit.dart';
 
 class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem{
   final Icon icon;
@@ -16,49 +17,47 @@ class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem{
 }
 
 class _HabitsState extends State<HabitsWidget> {
-  DateTime currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime _currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   Widget build(BuildContext context) {
     //Return a new scaffold to output to screen
-    return Scaffold(
       //Body of the scaffold is a column that displays text and a flexible check list
-      body: new Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          new Flexible(
-              child: new ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: HabitManager.instance.habits.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return new Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        new Text(HabitManager.instance.habits.values.toList()[index].title,
-                          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                        ),
-                        new Row(
-                         children: <Widget> [
-                           new Checkbox(
-                            activeColor: Colors.black,
-                            value: HabitManager.instance.habits.values.toList()[index].markedOff.contains(currentDate),
-                            onChanged: (bool checked){
-                              if (checked)
-                                HabitManager.instance.habits.values.toList()[index].markedOff.add(currentDate);
-                              else
-                                HabitManager.instance.habits.values.toList()[index].markedOff.remove(currentDate);
-                              setState(() {});
-                            },
+      return new Container(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: new Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            new Flexible(
+                child: new ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: HabitManager.instance.getHabits().length,
+                    itemBuilder: (BuildContext context, int index){
+                      CoreHabit _habit = HabitManager.instance.getHabits().values.toList()[index];
+                      return new Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          new Text(_habit.title,
+                            style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
+                          new Row(
+                              children: <Widget> [
+                                new Checkbox(
+                                  activeColor: Colors.black,
+                                  value: _habit.markedOff.contains(_currentDate),
+                                  onChanged: (bool checked){
+                                    if (checked) { _habit.markedOff.add(_currentDate);}
+                                    else { _habit.markedOff.remove(_currentDate); }
+                                    setState(() {});
+                                  },
+                                ),
+                                new Text(_habit.checkTitle, style: new TextStyle(color: Colors.black)),
+                              ]
                           ),
-                          new Text(HabitManager.instance.habits.values.toList()[index].checkTitle,
-                              style: new TextStyle(color: Colors.black)),
-                          ]
-                        ),
-                      ],
-                    );
-                  }
-              )
-          ),
-        ],
-      ),
-    );
+                        ],
+                      );
+                    }
+                )
+            ),
+          ],
+        ),
+      );
   }
 }
