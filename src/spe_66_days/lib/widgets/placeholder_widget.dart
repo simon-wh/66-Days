@@ -18,6 +18,7 @@ class PlaceholderWidget extends StatelessWidget implements BottomNavigationBarIt
     /*The build method then returns a container of this color and puts it in the
       body of the page
     */
+    //OutlineButton(onPressed:null, child: Text("M"), highlightedBorderColor: Colors.blue, shape: CircleBorder(side: BorderSide(width: 5, color: Colors.blue, style: BorderStyle.solid )))
     return Container(
       color: color,
     );

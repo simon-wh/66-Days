@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
 import 'package:spe_66_days/classes/Notification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:async';
 
 class EditNotificationWidget extends StatefulWidget {
   final HabitNotification notification;
@@ -24,21 +25,38 @@ class EditNotificationState extends State<EditNotificationWidget> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return  Column(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Text(notification.time.toString()),
-            Checkbox(
-              activeColor: Colors.black,
-              value: notification.enabled,
-              onChanged: (checked) {
-                notification.enabled = checked;
-                setState(() {});
+            FlatButton(
+              onPressed: () async {
+                TimeOfDay initial = TimeOfDay(hour: notification.time.hour, minute: notification.time.minute);
+                final TimeOfDay picked = await showTimePicker(
+                    context: context,
+                    initialTime: initial
+                );
+
+                if (picked != null && picked != initial){
+                  setState(() {
+                    notification.time = Time(picked.hour, picked.minute);
+                  });
+                }
               },
+              child: Text(notification.time.hour.toString().padLeft(2, "0") + ":" + notification.time.minute.toString().padLeft(2, "0"), style: TextStyle(fontSize: 24) )
+            ),
+              Checkbox(
+                activeColor: Colors.black,
+                value: notification.enabled,
+                onChanged: (checked) {
+                  notification.enabled = checked;
+                  setState(() {});
+                },
             )
           ],
         ),
@@ -64,6 +82,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
             : new Container(),
         expanded
             ? new Container(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
                 //width: 100,
                 child: TextField(
                   autocorrect: true,
@@ -78,7 +97,8 @@ class EditNotificationState extends State<EditNotificationWidget> {
         Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
-          Text(!expanded ? "days" + "." + notification.message : ""),
+          Flexible(child:
+          Text(!expanded ? notification.message  + " : " + notification.getDayString() : "", overflow: TextOverflow.ellipsis)),
           IconButton(
               icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
               onPressed: () {

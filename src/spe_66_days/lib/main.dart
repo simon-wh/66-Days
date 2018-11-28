@@ -15,6 +15,8 @@ class StartApp extends StatelessWidget{
       case, the home page.
     */
     return MaterialApp(
+      builder: (context, child) =>
+          MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child),
       title: '66 Days',
       home: ScreenNavigation(),
     );
