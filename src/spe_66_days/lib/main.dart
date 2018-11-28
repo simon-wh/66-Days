@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/widgets/home_widget.dart';
+import 'package:spe_66_days/widgets/screen_navigation.dart';
 
 void main() => runApp(StartApp());
 
@@ -16,7 +16,7 @@ class StartApp extends StatelessWidget{
     */
     return MaterialApp(
       title: '66 Days',
-      home: Home(),
+      home: ScreenNavigation(),
     );
   }
 }

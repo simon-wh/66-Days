@@ -8,7 +8,7 @@ import 'package:spe_66_days/widgets/habits_widget.dart';
   the navigation bar will make the Home widget render a different widget based
   on what tab has been selected.
 */
-class Home extends StatefulWidget {
+class ScreenNavigation extends StatefulWidget {
   /*This widget doesn't have a build class. When it comes to StatefulWidgets
     the build method is implemented in the widgets corresponding State class.
     Therefore the only required method in a StatefulWidget is the createState
@@ -17,11 +17,11 @@ class Home extends StatefulWidget {
   */
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _ScreenNavigationState();
   }
 }
 
-class _HomeState extends State<Home> {
+class _ScreenNavigationState extends State<ScreenNavigation> {
   /*The currentIndex will decide which widget in the list of children is currently
     being used.
   */
