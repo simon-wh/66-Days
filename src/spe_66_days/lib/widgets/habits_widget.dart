@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spe_66_days/classes/HabitManager.dart';
 
 class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem{
   final Icon icon;
@@ -15,13 +16,7 @@ class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem{
 }
 
 class _HabitsState extends State<HabitsWidget> {
-  TextEditingController eCtrl = new TextEditingController();
-  List<String> textList = ["Put down cuterly after each mouthful",
-                           "Chew food five times for each bite",
-                           "50 pressups after each bite"
-                          ];
-  List<bool> textCheckBox = [false, false, false];
-
+  DateTime currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   Widget build(BuildContext context) {
     //Return a new scaffold to output to screen
     return Scaffold(
@@ -29,90 +24,34 @@ class _HabitsState extends State<HabitsWidget> {
       body: new Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          new Text("Core Habit: Lengthening meal times",
-            style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-          ),
           new Flexible(
               child: new ListView.builder(
                   shrinkWrap: true,
-                  itemCount: textList.length,
+                  itemCount: HabitManager.instance.habits.length,
                   itemBuilder: (BuildContext context, int index){
-                    //Return row to align text and button, can change to column if text is to be
-                    //beneath checkbox
-                    return new Row(
+                    return new Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        new Checkbox(
-                            activeColor: Colors.black,
-                            value: textCheckBox[index],
-                            onChanged: (bool checked){
-                               textCheckBox[index] = checked;
-                               setState(() {});
-                            },
+                        new Text(HabitManager.instance.habits.values.toList()[index].title,
+                          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
-                        new Text(textList[index], style: new TextStyle(color: Colors.black)),
-                      ],
-                    );
-                  }
-              )
-          ),
-          new Text("Core Habit: Reduce liquid calories",
-            style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-          ),
-          new Flexible(
-              child: new ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: textList.length,
-                  itemBuilder: (BuildContext context, int index){
-                    //Return row to align text and button, can change to column if text is to be
-                    //beneath checkbox
-                    return new Row(
-                      children: <Widget>[
-                            new IconButton(icon: Icon(Icons.lock), onPressed: null),
-                            new Text("Unlocked on week 3",
-                                style: new TextStyle(color: Colors.grey)
-                            )
-                          ],
-                    );
-                  }
-              )
-          ),
-          new Text("Core Habit: Eat whole food",
-            style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-          ),
-          new Flexible(
-              child: new ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: textList.length,
-                  itemBuilder: (BuildContext context, int index){
-                    //Return row to align text and button, can change to column if text is to be
-                    //beneath checkbox
-                    return new Row(
-                      children: <Widget>[
-                        new IconButton(icon: Icon(Icons.lock), onPressed: null),
-                        new Text("Unlocked on week 5",
-                            style: new TextStyle(color: Colors.grey)
-                        )
-                      ],
-                    );
-                  }
-              )
-          ),
-          new Text("Core Habit: Portion control",
-            style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-          ),
-          new Flexible(
-              child: new ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: textList.length,
-                  itemBuilder: (BuildContext context, int index){
-                    //Return row to align text and button, can change to column if text is to be
-                    //beneath checkbox
-                    return new Row(
-                      children: <Widget>[
-                        new IconButton(icon: Icon(Icons.lock), onPressed: null),
-                        new Text("Unlocked on week 7",
-                            style: new TextStyle(color: Colors.grey)
-                        )
+                        new Row(
+                         children: <Widget> [
+                           new Checkbox(
+                            activeColor: Colors.black,
+                            value: HabitManager.instance.habits.values.toList()[index].markedOff.contains(currentDate),
+                            onChanged: (bool checked){
+                              if (checked)
+                                HabitManager.instance.habits.values.toList()[index].markedOff.add(currentDate);
+                              else
+                                HabitManager.instance.habits.values.toList()[index].markedOff.remove(currentDate);
+                              setState(() {});
+                            },
+                          ),
+                          new Text(HabitManager.instance.habits.values.toList()[index].checkTitle,
+                              style: new TextStyle(color: Colors.black)),
+                          ]
+                        ),
                       ],
                     );
                   }

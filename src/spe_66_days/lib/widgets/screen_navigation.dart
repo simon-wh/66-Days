@@ -30,7 +30,6 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
     PlaceholderWidget(new Icon(Icons.home), new Text('Home'), Colors.white),
     HabitsWidget(new Icon(Icons.assignment), new Text("Habits")),
     ProgressWidget.withSampleData(new Icon(Icons.timeline), new Text('Progress')),
-    PlaceholderWidget(new Icon(Icons.laptop), new Text('Webinar'), Colors.green),
     PlaceholderWidget(Icon(Icons.person), Text('Profile'), Colors.blue)
   ];
 
