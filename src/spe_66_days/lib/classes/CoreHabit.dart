@@ -8,14 +8,14 @@ class CoreHabit {
   //bool unlocked;
   String experimentTitle;
   //String checkDescription;
-  List<Notification> reminders;
+  List<HabitNotification> reminders;
   HashSet<DateTime> markedOff;
 
   CoreHabit(this.title, this.experimentTitle, {this.reminders, this.markedOff}){
     assert(this.title.isNotEmpty);
     assert(this.experimentTitle.isNotEmpty);
     //assert(this.checkDescription.isNotEmpty);
-    reminders ??= List<Notification>();
+    reminders ??= List<HabitNotification>();
     markedOff ??= HashSet<DateTime>();
   }
 }
