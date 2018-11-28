@@ -23,27 +23,22 @@ class EditHabitState extends State<EditHabitWidget> {
           title: Text("Edit Habit")
         ),
         body: new Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10.0),
             child: new Column(
               children: <Widget>[
                 new TextField(
                   autocorrect: true,
                   decoration: InputDecoration(labelText: "Title"),
                   controller: TextEditingController(text: habit.title),
-                  onSubmitted: (val) {
-                    habit.title = val;
-                  },
+                  onSubmitted: (val) { habit.title = val; },
                 ),
                 new TextField(
                   autocorrect: true,
                   decoration: InputDecoration(labelText: "Experiment"),
                   controller: TextEditingController(text: habit.experimentTitle),
-                  onSubmitted: (val) {
-                    habit.experimentTitle = val;
-                  },
+                  onSubmitted: (val) { habit.experimentTitle = val; },
                 )
               ],
-
             )
         )
     );
