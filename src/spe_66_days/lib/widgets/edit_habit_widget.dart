@@ -102,21 +102,13 @@ class EditNotificationState extends State<EditNotificationWidget> {
     children: <Widget>[
           Flexible(child:
           Text(!expanded ? notification.message  + " : " + notification.getDayString() : "", overflow: TextOverflow.ellipsis)),
-          Row(children: <Widget>[
-            expanded ?
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              EditHabitWidget.of(context).setState((){ EditHabitWidget.of(context).habit.reminders.remove(notification);});
-              //setState(() {});
 
-            }) : Container(),
           IconButton(
               icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
               onPressed: () {
                 setExpansion(!expanded);
               })
-    ])
+
         ])
       ],
     );
@@ -165,9 +157,9 @@ class EditHabitState extends State<EditHabitWidget> {
 
           });
         }, icon: Icon(Icons.add), label: const Text('Add')),
-        body: new Container(
-            padding: EdgeInsets.all(10.0),
-            child: new Column(
+        body: new ListView(
+            padding: EdgeInsets.all(10),
+              shrinkWrap: true,
               children: <Widget>[
                 new TextField(
                   autocorrect: true,
@@ -188,14 +180,32 @@ class EditHabitState extends State<EditHabitWidget> {
                 ),
                 new ListView.builder(
                     shrinkWrap: true,
-                    cacheExtent: 0.0,
-                    scrollDirection: Axis.vertical,
                     itemCount: habit.reminders.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return EditNotificationWidget(habit.reminders[index]);
+                      return Dismissible(
+                        direction: DismissDirection.startToEnd,
+                          // Each Dismissible must contain a Key. Keys allow Flutter to
+                          // uniquely identify Widgets.
+
+                          key: Key(habit.reminders[index].hashCode.toString()),
+                      // We also need to provide a function that will tell our app
+                      // what to do after an item has been swiped away.
+                          background: Container(color: Colors.red, child: Icon(Icons.delete), alignment: Alignment(-1,0), padding: EdgeInsets.all(5.0),),
+                          onDismissed: (direction) {
+                      // Remove the item from our data source.
+                      setState(() {
+                      habit.reminders.removeAt(index);
+                      });
+
+                      // Show a snackbar! This snackbar could also contain "Undo" actions.
+                      Scaffold
+                          .of(context)
+                          .showSnackBar(SnackBar(content: Text("Notification removed")));
+                      },
+                      child: EditNotificationWidget(habit.reminders[index]));
                     } // Item Builder
                     )
               ],
-            )));
+            ));
   }
 }
