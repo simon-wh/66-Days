@@ -95,7 +95,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
                   decoration: InputDecoration(labelText: "Message"),
                   controller: TextEditingController(text: notification.message),
                   maxLines: 1,
-                  onSubmitted: (val) {
+                  onChanged: (val) {
                     notification.message = val;
                   },
                 ))
@@ -204,7 +204,7 @@ class EditHabitState extends State<EditHabitWidget> {
                       background: Container(
                         color: Colors.red,
                         child: Icon(Icons.delete),
-                        alignment: Alignment(-1, 0),
+                        alignment: Alignment.centerLeft,
                         padding: EdgeInsets.all(5.0),
                       ),
                       onDismissed: (direction) {
