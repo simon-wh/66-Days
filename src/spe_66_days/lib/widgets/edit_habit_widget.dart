@@ -3,6 +3,7 @@ import 'package:spe_66_days/classes/CoreHabit.dart';
 import 'package:spe_66_days/classes/Notification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
+import 'dart:collection';
 
 class EditNotificationWidget extends StatefulWidget {
   final HabitNotification notification;
@@ -66,7 +67,9 @@ class EditNotificationState extends State<EditNotificationWidget> {
                 children: List<Day>.generate(
                         7, (int index) => Day.values[index],
                         growable: false)
-                    .map((day) => new Checkbox(
+                    .map((day) => Column(children: <Widget> [
+                      Text(HabitNotification.DayStringMap[day][0]),
+                      Checkbox(
                         activeColor: Colors.blue,
                         value: notification.repeatDays.contains(day),
                         onChanged: (checked) {
@@ -76,7 +79,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
                             notification.repeatDays.remove(day);
                           }
                           setState(() {});
-                        }))
+                        })]))
                     .toList(),
               )
             : new Container(),
@@ -99,11 +102,21 @@ class EditNotificationState extends State<EditNotificationWidget> {
     children: <Widget>[
           Flexible(child:
           Text(!expanded ? notification.message  + " : " + notification.getDayString() : "", overflow: TextOverflow.ellipsis)),
+          Row(children: <Widget>[
+            expanded ?
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              EditHabitWidget.of(context).setState((){ EditHabitWidget.of(context).habit.reminders.remove(notification);});
+              //setState(() {});
+
+            }) : Container(),
           IconButton(
               icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
               onPressed: () {
                 setExpansion(!expanded);
               })
+    ])
         ])
       ],
     );
@@ -117,6 +130,23 @@ class EditHabitWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => EditHabitState(habit);
+
+  //Created with help from: https://stackoverflow.com/questions/49824461/how-to-pass-data-from-child-widget-to-its-parent/49825756
+  static EditHabitState of(BuildContext context) {
+    final EditHabitState navigator =
+    context.ancestorStateOfType(const TypeMatcher<EditHabitState>());
+
+    assert(() {
+      if (navigator == null) {
+        throw new FlutterError(
+            'EditHabitState operation requested with a context that does '
+                'not include a EditHabitWidget.');
+      }
+      return true;
+    }());
+
+    return navigator;
+  }
 }
 
 class EditHabitState extends State<EditHabitWidget> {
@@ -128,6 +158,13 @@ class EditHabitState extends State<EditHabitWidget> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(title: Text("Edit Habit")),
+        floatingActionButton: FloatingActionButton.extended(onPressed: () {
+          DateTime current = DateTime.now();
+          habit.reminders.add(HabitNotification("New Notification", Time(current.hour, current.minute), HashSet.from(Day.values), true));
+          setState(() {
+
+          });
+        }, icon: Icon(Icons.add), label: const Text('Add')),
         body: new Container(
             padding: EdgeInsets.all(10.0),
             child: new Column(
@@ -151,6 +188,8 @@ class EditHabitState extends State<EditHabitWidget> {
                 ),
                 new ListView.builder(
                     shrinkWrap: true,
+                    cacheExtent: 0.0,
+                    scrollDirection: Axis.vertical,
                     itemCount: habit.reminders.length,
                     itemBuilder: (BuildContext context, int index) {
                       return EditNotificationWidget(habit.reminders[index]);
