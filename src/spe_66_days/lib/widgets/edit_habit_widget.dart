@@ -26,38 +26,40 @@ class EditNotificationState extends State<EditNotificationWidget> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             FlatButton(
-              onPressed: () async {
-                TimeOfDay initial = TimeOfDay(hour: notification.time.hour, minute: notification.time.minute);
-                final TimeOfDay picked = await showTimePicker(
-                    context: context,
-                    initialTime: initial
-                );
+                onPressed: () async {
+                  TimeOfDay initial = TimeOfDay(
+                      hour: notification.time.hour,
+                      minute: notification.time.minute);
+                  final TimeOfDay picked = await showTimePicker(
+                      context: context, initialTime: initial);
 
-                if (picked != null && picked != initial){
-                  setState(() {
-                    notification.time = Time(picked.hour, picked.minute);
-                  });
-                }
-              },
-              child: Text(notification.time.hour.toString().padLeft(2, "0") + ":" + notification.time.minute.toString().padLeft(2, "0"), style: TextStyle(fontSize: 24) )
-            ),
-              Checkbox(
-                activeColor: Colors.black,
-                value: notification.enabled,
-                onChanged: (checked) {
-                  notification.enabled = checked;
-                  setState(() {});
+                  if (picked != null && picked != initial) {
+                    setState(() {
+                      notification.time = Time(picked.hour, picked.minute);
+                    });
+                  }
                 },
+                child: Text(
+                    notification.time.hour.toString().padLeft(2, "0") +
+                        ":" +
+                        notification.time.minute.toString().padLeft(2, "0"),
+                    style: TextStyle(fontSize: 24))),
+            Checkbox(
+              activeColor: Colors.black,
+              value: notification.enabled,
+              onChanged: (checked) {
+                notification.enabled = checked;
+                setState(() {});
+              },
             )
           ],
         ),
@@ -67,19 +69,20 @@ class EditNotificationState extends State<EditNotificationWidget> {
                 children: List<Day>.generate(
                         7, (int index) => Day.values[index],
                         growable: false)
-                    .map((day) => Column(children: <Widget> [
-                      Text(HabitNotification.DayStringMap[day][0]),
-                      Checkbox(
-                        activeColor: Colors.blue,
-                        value: notification.repeatDays.contains(day),
-                        onChanged: (checked) {
-                          if (checked) {
-                            notification.repeatDays.add(day);
-                          } else {
-                            notification.repeatDays.remove(day);
-                          }
-                          setState(() {});
-                        })]))
+                    .map((day) => Column(children: <Widget>[
+                          Text(HabitNotification.DayStringMap[day][0]),
+                          Checkbox(
+                              activeColor: Colors.blue,
+                              value: notification.repeatDays.contains(day),
+                              onChanged: (checked) {
+                                if (checked) {
+                                  notification.repeatDays.add(day);
+                                } else {
+                                  notification.repeatDays.remove(day);
+                                }
+                                setState(() {});
+                              })
+                        ]))
                     .toList(),
               )
             : new Container(),
@@ -98,18 +101,22 @@ class EditNotificationState extends State<EditNotificationWidget> {
                 ))
             : new Container(),
         Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
-          Flexible(child:
-          Text(!expanded ? notification.message  + " : " + notification.getDayString() : "", overflow: TextOverflow.ellipsis)),
-
-          IconButton(
-              icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
-              onPressed: () {
-                setExpansion(!expanded);
-              })
-
-        ])
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                  child: Text(
+                      !expanded
+                          ? notification.message +
+                              " : " +
+                              notification.getDayString()
+                          : "",
+                      overflow: TextOverflow.ellipsis)),
+              IconButton(
+                  icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
+                  onPressed: () {
+                    setExpansion(!expanded);
+                  })
+            ])
       ],
     );
   }
@@ -126,13 +133,13 @@ class EditHabitWidget extends StatefulWidget {
   //Created with help from: https://stackoverflow.com/questions/49824461/how-to-pass-data-from-child-widget-to-its-parent/49825756
   static EditHabitState of(BuildContext context) {
     final EditHabitState navigator =
-    context.ancestorStateOfType(const TypeMatcher<EditHabitState>());
+        context.ancestorStateOfType(const TypeMatcher<EditHabitState>());
 
     assert(() {
       if (navigator == null) {
         throw new FlutterError(
             'EditHabitState operation requested with a context that does '
-                'not include a EditHabitWidget.');
+            'not include a EditHabitWidget.');
       }
       return true;
     }());
@@ -150,62 +157,70 @@ class EditHabitState extends State<EditHabitWidget> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(title: Text("Edit Habit")),
-        floatingActionButton: FloatingActionButton.extended(onPressed: () {
-          DateTime current = DateTime.now();
-          habit.reminders.add(HabitNotification("New Notification", Time(current.hour, current.minute), HashSet.from(Day.values), true));
-          setState(() {
-
-          });
-        }, icon: Icon(Icons.add), label: const Text('Add')),
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              DateTime current = DateTime.now();
+              habit.reminders.add(HabitNotification(
+                  "New Notification",
+                  Time(current.hour, current.minute),
+                  HashSet.from(Day.values),
+                  true));
+              setState(() {});
+            },
+            icon: Icon(Icons.add),
+            label: const Text('Add')),
         body: new ListView(
-            padding: EdgeInsets.all(10),
-              shrinkWrap: true,
-              children: <Widget>[
-                new TextField(
-                  autocorrect: true,
-                  decoration: InputDecoration(labelText: "Title"),
-                  controller: TextEditingController(text: habit.title),
-                  onSubmitted: (val) {
-                    habit.title = val;
-                  },
-                ),
-                new TextField(
-                  autocorrect: true,
-                  decoration: InputDecoration(labelText: "Experiment"),
-                  controller:
-                      TextEditingController(text: habit.experimentTitle),
-                  onSubmitted: (val) {
-                    habit.experimentTitle = val;
-                  },
-                ),
-                new ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: habit.reminders.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Dismissible(
-                        direction: DismissDirection.startToEnd,
-                          // Each Dismissible must contain a Key. Keys allow Flutter to
-                          // uniquely identify Widgets.
-
-                          key: Key(habit.reminders[index].hashCode.toString()),
+          padding: EdgeInsets.only(top: 10, left:10, right:10, bottom: 50),
+          //shrinkWrap: true,
+          children: <Widget>[
+            new TextField(
+              autocorrect: true,
+              decoration: InputDecoration(labelText: "Title"),
+              controller: TextEditingController(text: habit.title),
+              onSubmitted: (val) {
+                habit.title = val;
+              },
+            ),
+            new TextField(
+              autocorrect: true,
+              decoration: InputDecoration(labelText: "Experiment"),
+              controller: TextEditingController(text: habit.experimentTitle),
+              onSubmitted: (val) {
+                habit.experimentTitle = val;
+              },
+            ),
+            new ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: habit.reminders.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Dismissible(
+                      direction: DismissDirection.startToEnd,
+                      // Each Dismissible must contain a Key. Keys allow Flutter to
+                      // uniquely identify Widgets.
+                      key: Key(habit.reminders[index].hashCode.toString()),
                       // We also need to provide a function that will tell our app
                       // what to do after an item has been swiped away.
-                          background: Container(color: Colors.red, child: Icon(Icons.delete), alignment: Alignment(-1,0), padding: EdgeInsets.all(5.0),),
-                          onDismissed: (direction) {
-                      // Remove the item from our data source.
-                      setState(() {
-                      habit.reminders.removeAt(index);
-                      });
+                      background: Container(
+                        color: Colors.red,
+                        child: Icon(Icons.delete),
+                        alignment: Alignment(-1, 0),
+                        padding: EdgeInsets.all(5.0),
+                      ),
+                      onDismissed: (direction) {
+                        // Remove the item from our data source.
+                        setState(() {
+                          habit.reminders.removeAt(index);
+                        });
 
-                      // Show a snackbar! This snackbar could also contain "Undo" actions.
-                      Scaffold
-                          .of(context)
-                          .showSnackBar(SnackBar(content: Text("Notification removed")));
+                        // Show a snackbar! This snackbar could also contain "Undo" actions.
+                        Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text("Notification removed")));
                       },
                       child: EditNotificationWidget(habit.reminders[index]));
-                    } // Item Builder
-                    )
-              ],
-            ));
+                } // Item Builder
+                )
+          ],
+        ));
   }
 }
