@@ -21,6 +21,8 @@ class HabitNotification {
   };
 
   String getDayString(){
-    return repeatDays.length >= 7 ? "Every day" : repeatDays.map((i) => DayStringMap[i]).join(", ");
+    List<Day> days = repeatDays.toList();
+    days.sort((a,b) => a.value.compareTo(b.value));
+    return repeatDays.length >= 7 ? "Every day" : days.map((i) => DayStringMap[i]).join(", ");
   }
 }
