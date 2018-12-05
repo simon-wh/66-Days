@@ -52,7 +52,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
                     notification.time.hour.toString().padLeft(2, "0") +
                         ":" +
                         notification.time.minute.toString().padLeft(2, "0"),
-                    style: TextStyle(fontSize: 24))),
+                    style: TextStyle(fontSize: 24.0))),
             Checkbox(
               activeColor: Colors.black,
               value: notification.enabled,
@@ -170,7 +170,7 @@ class EditHabitState extends State<EditHabitWidget> {
             icon: Icon(Icons.add),
             label: const Text('Add')),
         body: new ListView(
-          padding: EdgeInsets.only(top: 10, left:10, right:10, bottom: 50),
+          padding: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0, bottom: 50.0),
           //shrinkWrap: true,
           children: <Widget>[
             new TextField(
