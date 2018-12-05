@@ -1,6 +1,10 @@
 import 'Notification.dart';
 import 'dart:collection';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'CoreHabit.g.dart';
+
+@JsonSerializable()
 class CoreHabit {
   //Maybe move this to be associated with the enum values
   String title;
@@ -18,4 +22,9 @@ class CoreHabit {
     reminders ??= List<HabitNotification>();
     markedOff ??= HashSet<DateTime>();
   }
+
+  factory CoreHabit.fromJson(Map<String, dynamic> json) => _$CoreHabitFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CoreHabitToJson(this);
+
 }

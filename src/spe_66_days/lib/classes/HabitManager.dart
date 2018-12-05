@@ -2,6 +2,7 @@ import 'CoreHabit.dart';
 import 'Notification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
+import 'dart:convert';
 
 class HabitManager {
   static final HabitManager instance = HabitManager();
@@ -19,8 +20,22 @@ class HabitManager {
   }
 
   Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(_habits);}
-
-  void save(){}
+  
+  String getJson(){
+    return json.encode(_habits);
+  }
+  
+  Map<String, CoreHabit> getHabitsFromJson(String data){
+    Map habitMap = json.decode(data);
+    Map<String, CoreHabit> habits = habitMap.map((k, v) => MapEntry<String, CoreHabit>(k.toString(), CoreHabit.fromJson(v)));
+    return habits;
+  }
+  
+  void save(){
+    String output = json.encode(_habits);
+    print("pre:" + output);
+    print("post:" + json.encode(getHabitsFromJson(output)));
+  }
 
   void load(){}
 }
