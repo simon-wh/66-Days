@@ -50,10 +50,10 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
       //We put an Appbar in the scaffold
       appBar: AppBar(
         centerTitle: true,
-        title: Text('66 Days',
+        title: Text('6 6 DAYS',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        backgroundColor: _children[_currentIndex] is PlaceholderWidget ? (_children[_currentIndex] as PlaceholderWidget).color.withOpacity(0.75) : Colors.red,
+        backgroundColor: Colors.white,
       ),
       /*This states that the body of the scaffold (the bit between the app and navigation bar)
         will be which ever widget belongs to the currentIndex
@@ -67,6 +67,8 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
           of the bar to match it's background
         */
         type: BottomNavigationBarType.fixed,
+
+        fixedColor: Colors.black,
         /*This states that when an item on the bar is tapped, it calls the function
           onTabTapped
         */
@@ -75,7 +77,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
         currentIndex: _currentIndex,
         /*Below is all the items that will belong to the navigation bar
           each time this item is pressed, it changes the widget
-          We map the list of the children to the ButtomNavigationBarItems that we want
+          We map the list of the children to the BottomNavigationBarItems that we want
         */
         items: _children.map((n) => BottomNavigationBarItem(icon: n.icon, title: n.title, activeIcon: n.activeIcon, backgroundColor: n.backgroundColor)).toList()
       ),

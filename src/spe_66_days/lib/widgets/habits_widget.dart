@@ -37,32 +37,35 @@ class _HabitsState extends State<HabitsWidget> {
                     return new Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        new Text(
-                          _habit.title,
-                          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
                         new Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              new Row(
-                                  children: <Widget>[
-                                    new Checkbox(
-                                      activeColor: Colors.black,
-                                      value: _habit.markedOff.contains(_currentDate),
-                                      onChanged: (bool checked) {
-                                        if (checked) { _habit.markedOff.add(_currentDate); }
-                                        else { _habit.markedOff.remove(_currentDate); }
-                                        setState(() {});
-                                        },
-                                    ),
-                                    new Text(_habit.experimentTitle, style: new TextStyle(color: Colors.black)),
-                                  ]
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget> [
+                            SizedBox(width: (MediaQuery.of(context).size.width/8)),
+                             new Text(
+                                  _habit.title,
+                                  style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
                               ),
-                              new IconButton(
-                                  icon: new Icon(Icons.menu),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
-                                  }
-                              )
+                            new IconButton(
+                              icon: new Icon(Icons.edit),
+                              padding: EdgeInsets.all(2.0),
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
+                              }
+                            ),
+                          ]
+                        ),
+                        new Row(
+                            children: <Widget>[
+                              new Checkbox(
+                                activeColor: Colors.black,
+                                value: _habit.markedOff.contains(_currentDate),
+                                onChanged: (bool checked) {
+                                  if (checked) { _habit.markedOff.add(_currentDate); }
+                                  else { _habit.markedOff.remove(_currentDate); }
+                                  setState(() {});
+                                },
+                              ),
+                              new Text(_habit.experimentTitle, style: new TextStyle(color: Colors.black)),
                             ]
                         ),
                       ],
