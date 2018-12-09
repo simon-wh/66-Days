@@ -22,7 +22,6 @@ class _HabitsState extends State<HabitsWidget> {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   Widget build(BuildContext context) {
-    HabitManager.instance.save();
     return new Container(
       padding: const EdgeInsets.only(top: 10.0),
       child: new Column(

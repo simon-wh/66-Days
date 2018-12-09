@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 import 'progress_widget.dart';
 import 'package:spe_66_days/widgets/habits_widget.dart';
+import 'package:spe_66_days/classes/HabitManager.dart';
 
 /*This widget will act as the homepage. Stateful widgets are useful for when the
   interface will change depending on the state of the application. In this example
@@ -38,6 +39,9 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   */
   void onTabTapped(int index) {
     setState(() {
+      if (_currentIndex == _children.indexWhere((b) => b is HabitsWidget))
+        HabitManager.instance.save();
+
       _currentIndex = index;
     });
   }

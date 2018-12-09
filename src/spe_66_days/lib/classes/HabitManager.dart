@@ -3,8 +3,11 @@ import 'HabitNotification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'dart:convert';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class HabitManager {
+  static const String saveFileName = "habit_manager.json";
   static final HabitManager instance = HabitManager();
 
   Map<String, CoreHabit> _habits = <String, CoreHabit> {
@@ -30,12 +33,38 @@ class HabitManager {
     Map<String, CoreHabit> habits = habitMap.map((k, v) => MapEntry<String, CoreHabit>(k.toString(), CoreHabit.fromJson(v)));
     return habits;
   }
-  
-  void save(){
+
+  Future<File> save() async {
+    print("Saving Habits...");
+    final file = await _localFile;
     String output = json.encode(_habits);
-    print("pre:" + output);
-    print("post:" + json.encode(getHabitsFromJson(output)));
+    return file.writeAsString(output);
   }
 
-  void load(){}
+  void load() async {
+    try {
+      print("Loading Habits...");
+      final file = await _localFile;
+
+      // Read the file
+      String contents = await file.readAsString();
+      final habits = getHabitsFromJson(contents);
+      this._habits = habits;
+
+    } catch (e) {
+      // If we encounter an error, return 0
+
+    }
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/$saveFileName');
+  }
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
 }
