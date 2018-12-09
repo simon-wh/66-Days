@@ -1,6 +1,9 @@
-import 'Notification.dart';
+import 'HabitNotification.dart';
 import 'dart:collection';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:quiver/core.dart';
+import 'package:collection/collection.dart';
+
 
 part 'CoreHabit.g.dart';
 
@@ -27,4 +30,11 @@ class CoreHabit {
 
   Map<String, dynamic> toJson() => _$CoreHabitToJson(this);
 
+  bool operator ==(o) => o is CoreHabit
+      && o.title == this.title
+      && o.experimentTitle == this.experimentTitle
+      && ListEquality().equals(o.reminders, this.reminders)
+      && SetEquality().equals(o.markedOff, this.markedOff);// o.markedOff.containsAll(this.markedOff) && o.markedOff.length == this.markedOff.length;
+
+  int get hashCode => hash4(title, experimentTitle, reminders, markedOff);
 }

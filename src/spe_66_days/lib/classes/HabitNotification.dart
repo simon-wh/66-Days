@@ -3,8 +3,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'type_converters/DayConverter.dart';
 import 'type_converters/TimeConverter.dart';
+import 'package:quiver/core.dart';
+import 'package:collection/collection.dart';
 
-part 'Notification.g.dart';
+part 'HabitNotification.g.dart';
 
 @JsonSerializable()
 @TimeConverter()
@@ -36,4 +38,12 @@ class HabitNotification {
   }
 
   Map<String, dynamic> toJson() => _$HabitNotificationToJson(this);
+
+  bool operator ==(o) => o is HabitNotification
+      && o.enabled == this.enabled
+      && MapEquality().equals(o.time.toMap(), this.time.toMap())
+      && SetEquality().equals(o.repeatDays, this.repeatDays)
+      && o.message == this.message;
+
+  int get hashCode => hash4(enabled, time, repeatDays, message);
 }

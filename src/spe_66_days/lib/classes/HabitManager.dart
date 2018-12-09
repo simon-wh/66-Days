@@ -1,5 +1,5 @@
 import 'CoreHabit.dart';
-import 'Notification.dart';
+import 'HabitNotification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'dart:convert';

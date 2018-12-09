@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
-import 'package:spe_66_days/classes/Notification.dart';
+import 'package:spe_66_days/classes/HabitNotification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 

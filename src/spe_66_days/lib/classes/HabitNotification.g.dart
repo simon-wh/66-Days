@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Notification.dart';
+part of 'HabitNotification.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
