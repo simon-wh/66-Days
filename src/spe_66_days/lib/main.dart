@@ -23,9 +23,9 @@ class StartApp extends StatelessWidget{
       title: '66 Days',
       theme: ThemeData(
           brightness: Brightness.light,
-          primaryColor: Colors.white,
+          primaryColor: Colors.red,
           canvasColor: Colors.white,
-          accentColor: Colors.white,
+          accentColor: Colors.redAccent,
           fontFamily: 'Rubik',
           textTheme: TextTheme(
           headline: TextStyle(fontSize: 26.0),

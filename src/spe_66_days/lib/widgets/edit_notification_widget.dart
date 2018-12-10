@@ -53,8 +53,8 @@ class EditNotificationState extends State<EditNotificationWidget> {
               }
             }),
         Switch(
-          activeTrackColor: Colors.lightGreenAccent,
-          inactiveTrackColor: Colors.grey,
+          activeTrackColor: Theme.of(context).accentColor.withOpacity(0.75),
+          inactiveTrackColor: Theme.of(context).disabledColor,
           value: notification.enabled,
           onChanged: (checked) {
             notification.enabled = checked;
