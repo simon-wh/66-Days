@@ -16,11 +16,20 @@ class EditNotificationWidget extends StatefulWidget {
 
 class EditNotificationState extends State<EditNotificationWidget> {
   bool expanded = false;
+  bool expandLock = false;
   final HabitNotification notification;
 
   EditNotificationState(this.notification);
 
+  void lockExpansion(bool lock){
+    setState(() {
+      expandLock = lock;
+    });
+  }
+
   void setExpansion(bool expanded) {
+    if (expandLock)
+      return;
     setState(() {
       this.expanded = expanded;
     });
@@ -41,6 +50,9 @@ class EditNotificationState extends State<EditNotificationWidget> {
                 style: style.copyWith(fontSize: 24.0),
             ),
             onPressed: () async {
+              if (!notification.enabled)
+                return;
+
               TimeOfDay initial = TimeOfDay(
                   hour: notification.time.hour,
                   minute: notification.time.minute);
@@ -58,7 +70,9 @@ class EditNotificationState extends State<EditNotificationWidget> {
           value: notification.enabled,
           onChanged: (checked) {
             notification.enabled = checked;
-            setState(() {});
+            if (!checked)
+              setExpansion(false);
+            lockExpansion(!checked);
           },
         )
       ]),
