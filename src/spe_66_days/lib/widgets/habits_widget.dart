@@ -59,8 +59,15 @@ class _HabitsState extends State<HabitsWidget> {
                                 activeColor: Colors.black,
                                 value: _habit.markedOff.contains(_currentDate),
                                 onChanged: (bool checked) {
-                                  if (checked) { _habit.markedOff.add(_currentDate); }
-                                  else { _habit.markedOff.remove(_currentDate); }
+                                  if (checked) {
+                                    if (_habit.markedOff.add(_currentDate))
+                                      HabitManager.instance.save();
+                                  }
+                                  else {
+                                    if (_habit.markedOff.remove(_currentDate))
+                                      HabitManager.instance.save();
+                                  }
+
                                   setState(() {});
                                 },
                               ),

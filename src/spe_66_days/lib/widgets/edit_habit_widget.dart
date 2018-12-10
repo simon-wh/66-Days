@@ -34,17 +34,23 @@ class EditHabitWidget extends StatefulWidget {
 }
 
 class EditHabitState extends State<EditHabitWidget> {
-  final CoreHabit habit;
+  CoreHabit og_habit;
 
-  EditHabitState(this.habit);
+  CoreHabit habit;
+
+  EditHabitState(this.og_habit){
+    this.habit = this.og_habit.clone();
+  }
 
   final TextEditingController titleController = TextEditingController();
+  final TextEditingController experimentTitleController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     titleController.text = this.habit.title;
+    experimentTitleController.text = this.habit.experimentTitle;
     /*titleController.addListener(() async {
       if (this.habit.title != titleController.text){
         print("diff");
@@ -60,16 +66,6 @@ class EditHabitState extends State<EditHabitWidget> {
     super.dispose();
   }
 
-  Future<File> saveTitle(String title) async {
-    setState(() {
-      this.habit.title = title;
-    });
-
-    // write the variable as a string to the file
-    return HabitManager.instance.save();
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -80,6 +76,7 @@ class EditHabitState extends State<EditHabitWidget> {
         actions: <Widget>[
 
           IconButton(icon: Icon(Icons.check), onPressed: () {
+            this.og_habit.updateFrom(this.habit);
             HabitManager.instance.save();
             Navigator.pop(context);
           })
@@ -106,12 +103,14 @@ class EditHabitState extends State<EditHabitWidget> {
               //autocorrect: true,
               decoration: InputDecoration(labelText: "Title"),
               controller: titleController,
-              onSubmitted: saveTitle,
+              onChanged: (val) {
+                habit.title = val;
+              },
             ),
             new TextField(
               //autocorrect: true,
               decoration: InputDecoration(labelText: "Experiment"),
-              controller: TextEditingController(text: habit.experimentTitle),
+              controller: experimentTitleController,
               onChanged: (val) {
                 habit.experimentTitle = val;
                 //HabitManager.instance.save();

@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:quiver/core.dart';
 import 'package:collection/collection.dart';
+import 'dart:convert';
 
 
 part 'CoreHabit.g.dart';
@@ -37,4 +38,15 @@ class CoreHabit {
       && SetEquality().equals(o.markedOff, this.markedOff);// o.markedOff.containsAll(this.markedOff) && o.markedOff.length == this.markedOff.length;
 
   int get hashCode => hash4(title, experimentTitle, reminders, markedOff);
+
+  CoreHabit clone(){
+    return CoreHabit.fromJson(json.decode(json.encode(this)));
+  }
+
+  void updateFrom(CoreHabit habit){
+    this.title = habit.title;
+    this.experimentTitle = habit.experimentTitle;
+    this.reminders = habit.reminders;
+    this.markedOff = habit.markedOff;
+  }
 }
