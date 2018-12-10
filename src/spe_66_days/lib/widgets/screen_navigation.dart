@@ -30,7 +30,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   final List<BottomNavigationBarItem> _children = [
     PlaceholderWidget(Icon(Icons.home), Text('Home'), Colors.white),
     HabitsWidget(Icon(Icons.assignment), Text("Habits")),
-    ProgressWidget.withSampleData(Icon(Icons.timeline), Text('Progress')),
+    ProgressWidget(Icon(Icons.timeline), Text('Progress')),
     PlaceholderWidget(Icon(Icons.person), Text('Profile'), Colors.blue)
   ];
 
