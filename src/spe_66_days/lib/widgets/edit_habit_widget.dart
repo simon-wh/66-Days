@@ -3,105 +3,9 @@ import 'package:spe_66_days/classes/CoreHabit.dart';
 import 'package:spe_66_days/classes/HabitNotification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
-
-class EditNotificationWidget extends StatefulWidget {
-  final HabitNotification notification;
-
-  EditNotificationWidget(this.notification);
-
-  @override
-  State<StatefulWidget> createState() => EditNotificationState(notification);
-}
-
-class EditNotificationState extends State<EditNotificationWidget> {
-  bool expanded = false;
-  final HabitNotification notification;
-
-  EditNotificationState(this.notification);
-
-  void setExpansion(bool expanded) {
-    setState(() {
-      this.expanded = expanded;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          FlatButton(
-              child: Text(
-                  notification.time.hour.toString().padLeft(2, "0") +
-                      ":" +
-                      notification.time.minute.toString().padLeft(2, "0"),
-                  style: Theme.of(context).textTheme.body1
-              ),
-              onPressed: () async {
-                TimeOfDay initial = TimeOfDay(
-                    hour: notification.time.hour,
-                    minute: notification.time.minute);
-                final TimeOfDay picked = await showTimePicker(
-                    context: context, initialTime: initial);
-                if (picked != null && picked != initial) {
-                  setState(() {
-                    notification.time = Time(picked.hour, picked.minute);
-                    });
-                }
-              }
-          ),
-          Switch(activeTrackColor: Colors.lightGreenAccent,
-            inactiveTrackColor: Colors.grey,
-            value: notification.enabled,
-            onChanged: (checked) {
-            notification.enabled = checked;
-            setState(() {});
-            },
-          )
-        ]),
-        expanded ? Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List<Day>.generate(7, (int index) => Day.values[index],
-          growable: false).map((day) => Column(children: <Widget>[
-            Text(HabitNotification.DayStringMap[day][0]),
-            Checkbox(
-              activeColor: Colors.black,
-              value: notification.repeatDays.contains(day),
-              onChanged: (checked) {
-                if (checked) { notification.repeatDays.add(day);}
-                else { notification.repeatDays.remove(day); }
-                setState(() {});})
-          ])).toList()): Container(),
-        expanded ? Container(
-          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-          child: TextField(
-            autocorrect: true,
-            decoration: InputDecoration(labelText: "Message"),
-            controller: TextEditingController(text: notification.message),
-                        maxLines: 1,
-                        onChanged: (val) { notification.message = val;})
-          ): Container(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Flexible(
-                child: Text(
-                  !expanded ? notification.message +
-                    " : " +
-                  notification.getDayString(): "",
-                  style: Theme.of(context).textTheme.body2,
-                  overflow: TextOverflow.ellipsis)
-              ),
-              IconButton( icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
-                onPressed: () {setExpansion(!expanded);}),
-            ]
-        ),
-      ]
-    );
-  }
-}
+import 'edit_notification_widget.dart';
+import 'dart:io';
+import 'package:spe_66_days/classes/HabitManager.dart';
 
 class EditHabitWidget extends StatefulWidget {
   final CoreHabit habit;
@@ -134,10 +38,52 @@ class EditHabitState extends State<EditHabitWidget> {
 
   EditHabitState(this.habit);
 
+  final TextEditingController titleController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    titleController.text = this.habit.title;
+    /*titleController.addListener(() async {
+      if (this.habit.title != titleController.text){
+        print("diff");
+        this.habit.title = titleController.text;
+        //await HabitManager.instance.save();
+      }
+    });*/
+  }
+
+  @override
+  void dispose() {
+    //HabitManager.instance.save();
+    super.dispose();
+  }
+
+  Future<File> saveTitle(String title) async {
+    setState(() {
+      this.habit.title = title;
+    });
+
+    // write the variable as a string to the file
+    return HabitManager.instance.save();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(title: Text("Edit Habit")),
+        appBar: AppBar(title: Text("Edit Habit"),
+        leading: IconButton(icon: Icon(Icons.clear), onPressed: () {
+          Navigator.pop(context);
+        }),
+        actions: <Widget>[
+
+          IconButton(icon: Icon(Icons.check), onPressed: () {
+            HabitManager.instance.save();
+            Navigator.pop(context);
+          })
+        ]),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               DateTime current = DateTime.now();
@@ -146,7 +92,9 @@ class EditHabitState extends State<EditHabitWidget> {
                   Time(current.hour, current.minute),
                   HashSet.from(Day.values),
                   true));
-              setState(() {});
+              setState(() {
+                //HabitManager.instance.save();
+              });
             },
             icon: Icon(Icons.add),
             label: const Text('Add Notification')),
@@ -155,16 +103,19 @@ class EditHabitState extends State<EditHabitWidget> {
           //shrinkWrap: true,
           children: <Widget>[
             new TextField(
-              autocorrect: true,
+              //autocorrect: true,
               decoration: InputDecoration(labelText: "Title"),
-              controller: TextEditingController(text: habit.title),
-              onSubmitted: (val) {habit.title = val;},
+              controller: titleController,
+              onSubmitted: saveTitle,
             ),
             new TextField(
-              autocorrect: true,
+              //autocorrect: true,
               decoration: InputDecoration(labelText: "Experiment"),
               controller: TextEditingController(text: habit.experimentTitle),
-              onSubmitted: (val) { habit.experimentTitle = val;},
+              onChanged: (val) {
+                habit.experimentTitle = val;
+                //HabitManager.instance.save();
+              },
             ),
             new ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -188,6 +139,7 @@ class EditHabitState extends State<EditHabitWidget> {
                         // Remove the item from our data source.
                         setState(() {
                           habit.reminders.removeAt(index);
+                          //HabitManager.instance.save();
                         });
 
                         // Show a snackbar! This snackbar could also contain "Undo" actions.

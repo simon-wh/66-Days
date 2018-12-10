@@ -39,8 +39,8 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   */
   void onTabTapped(int index) {
     setState(() {
-      if (_currentIndex == _children.indexWhere((b) => b is HabitsWidget))
-        HabitManager.instance.save();
+      //if (_currentIndex == _children.indexWhere((b) => b is HabitsWidget))
+      //  HabitManager.instance.save();
 
       _currentIndex = index;
     });
