@@ -19,7 +19,9 @@ class EditNotificationState extends State<EditNotificationWidget> {
   bool expandLock = false;
   final HabitNotification notification;
 
-  EditNotificationState(this.notification);
+  EditNotificationState(this.notification){
+    expandLock = !notification.enabled;
+  }
 
   void lockExpansion(bool lock){
     setState(() {
