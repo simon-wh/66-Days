@@ -99,7 +99,6 @@ class EditNotificationState extends State<EditNotificationWidget> {
             ]
         ),
       ]
-    )
     );
   }
 }
