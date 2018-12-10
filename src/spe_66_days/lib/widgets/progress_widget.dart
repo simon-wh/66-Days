@@ -1,66 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:spe_66_days/classes/HabitManager.dart';
 /*This class will display some sample lineGraph
 */
-class ProgressWidget extends StatelessWidget implements BottomNavigationBarItem {
-  final List<charts.Series> seriesList;
-  final bool animate;
+class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
   final Text title;
   final Icon activeIcon;
   final Color backgroundColor;
 
-  ProgressWidget(this.icon, this.title, this.seriesList, {this.activeIcon, this.backgroundColor, this.animate});
-
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory ProgressWidget.withSampleData(Icon icon, Text title) {
-    return new ProgressWidget(
-      icon,
-      title,
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
+  ProgressWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
 
   @override
-  Widget build(BuildContext context) {
-    return new charts.TimeSeriesChart(
-      seriesList,
-      animate: animate,
-      // Optionally pass in a [DateTimeFactory] used by the chart. The factory
-      // should create the same type of [DateTime] as the data provided. If none
-      // specified, the default creates local date time.
-      dateTimeFactory: const charts.LocalDateTimeFactory(),
-    );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final data = [
-      new TimeSeriesSales(new DateTime(2017, 9, 26), 25),
-      new TimeSeriesSales(new DateTime(2017, 10, 3), 100),
-      new TimeSeriesSales(new DateTime(2017, 10, 10), 75),
-      new TimeSeriesSales(new DateTime(2017, 10, 18), 50),
-    ];
-
-    return [
-      new charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
+  State<StatefulWidget> createState(){
+    return _ProgressState();
   }
 }
 
-/// Sample time series data type.
-class TimeSeriesSales {
-  final DateTime time;
-  final int sales;
 
-  TimeSeriesSales(this.time, this.sales);
+class _ProgressState extends State<ProgressWidget>{
+
+  List<charts.Series<MapEntry<DateTime, int>, DateTime>> _habitsGraph(){
+    Map<DateTime, int> record = <DateTime, int>{
+      //Record will contain the start date the user began the course initially
+      DateTime(2018, 12, 1): 0,
+    };
+    HabitManager.instance.getHabits().forEach((_, val) {
+      val.markedOff.forEach((date) {
+        if (record.containsKey(date))
+          record.update(date, (val) => val++);
+        else
+          record.putIfAbsent(date, () => 1);
+      });
+    });
+
+    return [
+      new charts.Series<MapEntry<DateTime, int>, DateTime>(
+        id: 'Habits',
+        colorFn: (_, __) => charts.MaterialPalette.black,
+        domainFn: (MapEntry<DateTime, int> val, _) => val.key,
+        measureFn: (MapEntry<DateTime, int> val, _) => val.value,
+        data: List.from(record.entries),
+      )
+    ];
+  }
+
+  Widget build(context){
+    return Column(
+        children: <Widget>[
+          Container(
+              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height/2),
+              child: charts.TimeSeriesChart(
+                  _habitsGraph(),
+                  domainAxis: new charts.EndPointsTimeAxisSpec()
+              )
+          ),
+        ],
+
+    );
+  }
 }
