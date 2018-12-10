@@ -42,7 +42,7 @@ class _HabitsState extends State<HabitsWidget> {
                             SizedBox(width: (MediaQuery.of(context).size.width/8)),
                              new Text(
                                   _habit.title,
-                                  style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
+                                  style: Theme.of(context).textTheme.title,
                               ),
                             new IconButton(
                               icon: new Icon(Icons.edit),
@@ -64,7 +64,7 @@ class _HabitsState extends State<HabitsWidget> {
                                   setState(() {});
                                 },
                               ),
-                              new Text(_habit.experimentTitle, style: new TextStyle(color: Colors.black)),
+                              new Text(_habit.experimentTitle, style: Theme.of(context).textTheme.body2),
                             ]
                         ),
                       ],

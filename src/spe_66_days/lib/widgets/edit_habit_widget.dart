@@ -31,7 +31,6 @@ class EditNotificationState extends State<EditNotificationWidget> {
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             FlatButton(
                 onPressed: () async {
@@ -51,7 +50,9 @@ class EditNotificationState extends State<EditNotificationWidget> {
                     notification.time.hour.toString().padLeft(2, "0") +
                         ":" +
                         notification.time.minute.toString().padLeft(2, "0"),
-                    style: TextStyle(fontSize: 24.0))),
+                    style: Theme.of(context).textTheme.body1
+                )
+            ),
             Checkbox(
               activeColor: Colors.black,
               value: notification.enabled,
@@ -109,6 +110,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
                               " : " +
                               notification.getDayString()
                           : "",
+                      style: Theme.of(context).textTheme.body2,
                       overflow: TextOverflow.ellipsis)),
               IconButton(
                   icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),

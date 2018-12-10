@@ -28,9 +28,9 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   */
   int _currentIndex = 0;
   final List<BottomNavigationBarItem> _children = [
-    PlaceholderWidget(new Icon(Icons.home), new Text('Home'), Colors.white),
-    HabitsWidget(new Icon(Icons.assignment), new Text("Habits")),
-    ProgressWidget.withSampleData(new Icon(Icons.timeline), new Text('Progress')),
+    PlaceholderWidget(Icon(Icons.home), Text('Home'), Colors.white),
+    HabitsWidget(Icon(Icons.assignment), Text("Habits")),
+    ProgressWidget.withSampleData(Icon(Icons.timeline), Text('Progress')),
     PlaceholderWidget(Icon(Icons.person), Text('Profile'), Colors.blue)
   ];
 
@@ -55,9 +55,8 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('6 6 DAYS',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: Theme.of(context).textTheme.headline,
         ),
-        backgroundColor: Colors.white,
       ),
       /*This states that the body of the scaffold (the bit between the app and navigation bar)
         will be which ever widget belongs to the currentIndex

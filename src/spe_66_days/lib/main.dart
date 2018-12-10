@@ -21,7 +21,19 @@ class StartApp extends StatelessWidget{
       builder: (context, child) =>
           MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child),
       title: '66 Days',
-      theme: ThemeData(fontFamily: 'Rubik'),
+      theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.white,
+          canvasColor: Colors.white,
+          accentColor: Colors.white,
+          fontFamily: 'Rubik',
+          textTheme: TextTheme(
+          headline: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
+          title: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          body1: TextStyle(fontSize: 24.0),
+          body2: TextStyle(fontSize: 14.0)
+        )
+      ),
       home: ScreenNavigation(),
     );
   }
