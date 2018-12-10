@@ -34,7 +34,6 @@ class _HabitsState extends State<HabitsWidget> {
                   itemBuilder: (BuildContext context, int index) {
                     CoreHabit _habit = HabitManager.instance.getHabits().values.toList()[index];
                     return new Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +45,6 @@ class _HabitsState extends State<HabitsWidget> {
                               ),
                             new IconButton(
                               icon: new Icon(Icons.edit),
-                              padding: EdgeInsets.all(2.0),
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
                               }

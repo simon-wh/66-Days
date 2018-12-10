@@ -28,6 +28,9 @@ class EditNotificationState extends State<EditNotificationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle style = Theme.of(context).textTheme.body1.copyWith(
+        color : Theme.of(context).textTheme.body1.color.withOpacity(notification.enabled ? 1.0 : 0.5)
+    );
     return Column(children: <Widget>[
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
         FlatButton(
@@ -35,7 +38,8 @@ class EditNotificationState extends State<EditNotificationWidget> {
                 notification.time.hour.toString().padLeft(2, "0") +
                     ":" +
                     notification.time.minute.toString().padLeft(2, "0"),
-                style: Theme.of(context).textTheme.body1),
+                style: style.copyWith(fontSize: 24.0),
+            ),
             onPressed: () async {
               TimeOfDay initial = TimeOfDay(
                   hour: notification.time.hour,
@@ -106,14 +110,10 @@ class EditNotificationState extends State<EditNotificationWidget> {
                                 " : " +
                                 notification.getDayString()
                             : "",
-                        style: Theme.of(context).textTheme.body2,
-                        overflow: TextOverflow.ellipsis)),
-                IconButton(
-                  icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
-                  //onPressed: () {
-                  //  setExpansion(!expanded);
-                  //}
+                        style: style,
+                        overflow: TextOverflow.ellipsis)
                 ),
+                Icon(expanded ? Icons.expand_less : Icons.expand_more),
               ])),
     ]);
   }

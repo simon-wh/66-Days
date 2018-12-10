@@ -34,12 +34,12 @@ class EditHabitWidget extends StatefulWidget {
 }
 
 class EditHabitState extends State<EditHabitWidget> {
-  CoreHabit og_habit;
+  CoreHabit ogHabit;
 
   CoreHabit habit;
 
-  EditHabitState(this.og_habit){
-    this.habit = this.og_habit.clone();
+  EditHabitState(this.ogHabit){
+    this.habit = this.ogHabit.clone();
   }
 
   final TextEditingController titleController = TextEditingController();
@@ -76,7 +76,7 @@ class EditHabitState extends State<EditHabitWidget> {
         actions: <Widget>[
 
           IconButton(icon: Icon(Icons.check), onPressed: () {
-            this.og_habit.updateFrom(this.habit);
+            this.ogHabit.updateFrom(this.habit);
             HabitManager.instance.save();
             Navigator.pop(context);
           })

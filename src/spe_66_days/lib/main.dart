@@ -28,10 +28,9 @@ class StartApp extends StatelessWidget{
           accentColor: Colors.white,
           fontFamily: 'Rubik',
           textTheme: TextTheme(
-          headline: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
-          title: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          body1: TextStyle(fontSize: 24.0),
-          body2: TextStyle(fontSize: 14.0)
+          headline: TextStyle(fontSize: 26.0),
+          title: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          body1: TextStyle(fontSize: 14.0)
         )
       ),
       home: ScreenNavigation(),
