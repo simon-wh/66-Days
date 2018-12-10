@@ -30,95 +30,76 @@ class EditNotificationState extends State<EditNotificationWidget> {
     return Column(
       children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            FlatButton(
-                onPressed: () async {
-                  TimeOfDay initial = TimeOfDay(
-                      hour: notification.time.hour,
-                      minute: notification.time.minute);
-                  final TimeOfDay picked = await showTimePicker(
-                      context: context, initialTime: initial);
-
-                  if (picked != null && picked != initial) {
-                    setState(() {
-                      notification.time = Time(picked.hour, picked.minute);
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          FlatButton(
+              child: Text(
+                  notification.time.hour.toString().padLeft(2, "0") +
+                      ":" +
+                      notification.time.minute.toString().padLeft(2, "0"),
+                  style: Theme.of(context).textTheme.body1
+              ),
+              onPressed: () async {
+                TimeOfDay initial = TimeOfDay(
+                    hour: notification.time.hour,
+                    minute: notification.time.minute);
+                final TimeOfDay picked = await showTimePicker(
+                    context: context, initialTime: initial);
+                if (picked != null && picked != initial) {
+                  setState(() {
+                    notification.time = Time(picked.hour, picked.minute);
                     });
-                  }
-                },
-                child: Text(
-                    notification.time.hour.toString().padLeft(2, "0") +
-                        ":" +
-                        notification.time.minute.toString().padLeft(2, "0"),
-                    style: Theme.of(context).textTheme.body1
-                )
-            ),
+                }
+              }
+          ),
+          Switch(activeTrackColor: Colors.lightGreenAccent,
+            inactiveTrackColor: Colors.grey,
+            value: notification.enabled,
+            onChanged: (checked) {
+            notification.enabled = checked;
+            setState(() {});
+            },
+          )
+        ]),
+        expanded ? Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List<Day>.generate(7, (int index) => Day.values[index],
+          growable: false).map((day) => Column(children: <Widget>[
+            Text(HabitNotification.DayStringMap[day][0]),
             Checkbox(
               activeColor: Colors.black,
-              value: notification.enabled,
+              value: notification.repeatDays.contains(day),
               onChanged: (checked) {
-                notification.enabled = checked;
-                setState(() {});
-              },
-            )
-          ],
-        ),
-        expanded
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List<Day>.generate(
-                        7, (int index) => Day.values[index],
-                        growable: false)
-                    .map((day) => Column(children: <Widget>[
-                          Text(HabitNotification.DayStringMap[day][0]),
-                          Checkbox(
-                              activeColor: Colors.blue,
-                              value: notification.repeatDays.contains(day),
-                              onChanged: (checked) {
-                                if (checked) {
-                                  notification.repeatDays.add(day);
-                                } else {
-                                  notification.repeatDays.remove(day);
-                                }
-                                setState(() {});
-                              })
-                        ]))
-                    .toList(),
-              )
-            : new Container(),
-        expanded
-            ? new Container(
-                padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                //width: 100,
-                child: TextField(
-                  autocorrect: true,
-                  decoration: InputDecoration(labelText: "Message"),
-                  controller: TextEditingController(text: notification.message),
-                  maxLines: 1,
-                  onChanged: (val) {
-                    notification.message = val;
-                  },
-                ))
-            : new Container(),
+                if (checked) { notification.repeatDays.add(day);}
+                else { notification.repeatDays.remove(day); }
+                setState(() {});})
+          ])).toList()): Container(),
+        expanded ? Container(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0),
+          child: TextField(
+            autocorrect: true,
+            decoration: InputDecoration(labelText: "Message"),
+            controller: TextEditingController(text: notification.message),
+                        maxLines: 1,
+                        onChanged: (val) { notification.message = val;})
+          ): Container(),
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Flexible(
-                  child: Text(
-                      !expanded
-                          ? notification.message +
-                              " : " +
-                              notification.getDayString()
-                          : "",
-                      style: Theme.of(context).textTheme.body2,
-                      overflow: TextOverflow.ellipsis)),
-              IconButton(
-                  icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
-                  onPressed: () {
-                    setExpansion(!expanded);
-                  })
-            ])
-      ],
+                child: Text(
+                  !expanded ? notification.message +
+                    " : " +
+                  notification.getDayString(): "",
+                  style: Theme.of(context).textTheme.body2,
+                  overflow: TextOverflow.ellipsis)
+              ),
+              IconButton( icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
+                onPressed: () {setExpansion(!expanded);}),
+            ]
+        ),
+      ]
+    )
     );
   }
 }
@@ -169,26 +150,22 @@ class EditHabitState extends State<EditHabitWidget> {
               setState(() {});
             },
             icon: Icon(Icons.add),
-            label: const Text('Add')),
+            label: const Text('Add Notification')),
         body: new ListView(
-          padding: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0, bottom: 50.0),
+          padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
           //shrinkWrap: true,
           children: <Widget>[
             new TextField(
               autocorrect: true,
               decoration: InputDecoration(labelText: "Title"),
               controller: TextEditingController(text: habit.title),
-              onSubmitted: (val) {
-                habit.title = val;
-              },
+              onSubmitted: (val) {habit.title = val;},
             ),
             new TextField(
               autocorrect: true,
               decoration: InputDecoration(labelText: "Experiment"),
               controller: TextEditingController(text: habit.experimentTitle),
-              onSubmitted: (val) {
-                habit.experimentTitle = val;
-              },
+              onSubmitted: (val) { habit.experimentTitle = val;},
             ),
             new ListView.builder(
                 physics: NeverScrollableScrollPhysics(),

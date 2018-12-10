@@ -54,7 +54,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
       //We put an Appbar in the scaffold
       appBar: AppBar(
         centerTitle: true,
-        title: Text('6 6 DAYS',
+        title: Text('6 6  DAYS',
           style: Theme.of(context).textTheme.headline,
         ),
       ),
