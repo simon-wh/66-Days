@@ -34,7 +34,6 @@ class HabitManager {
 
   static const String customHabitPrefix = "custom-";
   void newCustomHabit(){
-    _habits.entries.toList()
     int id = 0;
     List<int> customIds = _habits.keys.where((id) => id.startsWith(customHabitPrefix)).map((id) => int.parse(id.split('-').last)).toList()
         ..sort((a, b) => a.compareTo(b));
