@@ -71,13 +71,6 @@ class HabitManager {
               platformChannelSpecifics);
             i++;
         });
-
-        /*notificationsPlugin.showDailyAtTime(
-            0,
-            value.title,
-            notif.message,
-            notif.time,
-            platformChannelSpecifics);*/
       });
     });
 
@@ -87,10 +80,6 @@ class HabitManager {
     if (payload != null) {
       print('notification payload: ' + payload);
     }
-    /*await Navigator.push(
-      context,
-      new MaterialPageRoute(builder: (context) => new SecondScreen(payload)),
-    );*/
   }
 
   CoreHabit getHabit (String core){
@@ -122,14 +111,18 @@ class HabitManager {
   Future<File> load() async {
     try {
       print("Loading Habits...");
-      return _localFile.then((file) => file.readAsString().then((contents) {
+      File localFile = await _localFile;
+
+      if (!(await localFile.exists()))
+        throw("file doesn't exist fam");
+
+      return localFile.readAsString().then((contents) {
         final habits = getHabitsFromJson(contents);
         this._habits = habits;
-      })
-      );
+      });
     } catch (e) {
       // If we encounter an error, return 0
-
+      return save();
     }
   }
 
