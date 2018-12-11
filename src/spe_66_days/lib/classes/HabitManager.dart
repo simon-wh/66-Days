@@ -32,6 +32,22 @@ class HabitManager {
     });
   }
 
+  static const String customHabitPrefix = "custom-";
+  void newCustomHabit(){
+    _habits.entries.toList()
+    int id = 0;
+    List<int> customIds = _habits.keys.where((id) => id.startsWith(customHabitPrefix)).map((id) => int.parse(id.split('-').last)).toList()
+        ..sort((a, b) => a.compareTo(b));
+    if (customIds.length > 0)
+      id = customIds.last + 1;
+    _habits.putIfAbsent(customHabitPrefix + id.toString(), () => CoreHabit("New Custom Habit Title", "New Custom Habit Experiment"));
+  }
+
+  void removeHabit(String id){
+    if (id.startsWith(customHabitPrefix))
+      _habits.remove(id);
+  }
+
   void scheduleNotifications() async {
     notificationsPlugin.cancelAll();
 

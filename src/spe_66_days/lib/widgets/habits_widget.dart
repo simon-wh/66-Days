@@ -22,7 +22,17 @@ class _HabitsState extends State<HabitsWidget> {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   Widget build(BuildContext context) {
-    return new Container(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            HabitManager.instance.newCustomHabit();
+            setState(() {
+              //HabitManager.instance.save();
+            });
+          },
+          icon: Icon(Icons.add),
+          label: const Text('Add Habit')),
+      body:  Container(
       padding: const EdgeInsets.only(top: 10.0),
       child: new Column(
         mainAxisSize: MainAxisSize.min,
@@ -32,28 +42,29 @@ class _HabitsState extends State<HabitsWidget> {
                   shrinkWrap: true,
                   itemCount: HabitManager.instance.getHabits().length,
                   itemBuilder: (BuildContext context, int index) {
-                    CoreHabit _habit = HabitManager.instance.getHabits().values.toList()[index];
-                    return new Column(
+                    MapEntry<String, CoreHabit> entry = HabitManager.instance.getHabits().entries.toList()[index];
+                    CoreHabit _habit = entry.value;
+                    var content = Column(
                       children: <Widget>[
-                        new Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget> [
                             SizedBox(width: (MediaQuery.of(context).size.width/8)),
-                             new Text(
+                             Text(
                                   _habit.title,
                                   style: Theme.of(context).textTheme.title,
                               ),
-                            new IconButton(
-                              icon: new Icon(Icons.edit),
+                            IconButton(
+                              icon: Icon(Icons.edit),
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
                               }
                             ),
                           ]
                         ),
-                        new Row(
+                        Row(
                             children: <Widget>[
-                              new Checkbox(
+                              Checkbox(
                                 activeColor: Colors.black,
                                 value: _habit.markedOff.contains(_currentDate),
                                 onChanged: (bool checked) {
@@ -69,16 +80,44 @@ class _HabitsState extends State<HabitsWidget> {
                                   setState(() {});
                                 },
                               ),
-                              new Text(_habit.experimentTitle, style: Theme.of(context).textTheme.body2),
+                              Text(_habit.experimentTitle, style: Theme.of(context).textTheme.body2),
                             ]
                         ),
                       ],
                     );
+
+                    return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
+                        direction: DismissDirection.startToEnd,
+                        // Each Dismissible must contain a Key. Keys allow Flutter to
+                        // uniquely identify Widgets.
+                        key: Key(entry.key),
+                        // We also need to provide a function that will tell our app
+                        // what to do after an item has been swiped away.
+                        background: Container(
+                          color: Colors.red,
+                          child: Icon(Icons.delete),
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.all(5.0),
+                        ),
+                        onDismissed: (direction) {
+                          // Remove the item from our data source.
+                          setState(() {
+                            HabitManager.instance.removeHabit(entry.key);
+                            HabitManager.instance.save();
+                            //HabitManager.instance.save();
+                          });
+
+                          // Show a snackbar! This snackbar could also contain "Undo" actions.
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text("Custom Habit \"${_habit.title}\" removed")));
+                        },
+                        child: content
+                    ) : content;
                   } // Item Builder
               )
           ),
         ],
       ),
-    );
+    ));
   } // Build
 } // _HabitsState
