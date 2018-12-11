@@ -35,11 +35,11 @@ class _ProgressState extends State<ProgressWidget>{
 
   List<MapEntry<DateTime, double>> _getDates(){
     Map<DateTime, double> dates = <DateTime, double>{
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day) : 0.1
+    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day) : 0.0001
     };
     HabitManager.instance.getHabits().forEach((key, value){
       value.markedOff.forEach((date) {
-        dates.update(date, (val) => val +=1.0, ifAbsent: ()=>1.0);
+        dates.update(date, (val) => (val != 0.0001) ? val *= 2.0 : val = 2.0, ifAbsent: () => 1.0);
       });
     });
     var entries = dates.entries.toList();
@@ -55,7 +55,7 @@ class _ProgressState extends State<ProgressWidget>{
     _chartData.dataRowsLegends = [""];
     _chartData.dataRows = [data.map((ent) => ent.value).toList()];
     _chartData.xLabels = data.map((ent) => "${ent.key.day}/${ent.key.month}/${ent.key.year}").toList();
-    _chartData.dataRowsColors = [Colors.black]; // use the labels below on Y axis
+    _chartData.dataRowsColors = [Colors.black];
   }
 
   Widget build(context){
