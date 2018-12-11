@@ -18,9 +18,11 @@ class EditNotificationState extends State<EditNotificationWidget> {
   bool expanded = false;
   bool expandLock = false;
   final HabitNotification notification;
+  final TextEditingController messageController = TextEditingController();
 
   EditNotificationState(this.notification){
     expandLock = !notification.enabled;
+    messageController.text = notification.message;
   }
 
   void lockExpansion(bool lock){
@@ -105,7 +107,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
               child: TextField(
                   autocorrect: true,
                   decoration: InputDecoration(labelText: "Message"),
-                  controller: TextEditingController(text: notification.message),
+                  controller: messageController,
                   maxLines: 1,
                   onChanged: (val) {
                     notification.message = val;

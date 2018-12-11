@@ -11,7 +11,8 @@ class StartApp extends StatelessWidget{
     //All StatelessWidgets need a build method to create the user interface.
   @override
   Widget build(BuildContext context){
-    HabitManager.instance.load();
+    //trigger constructor
+    HabitManager.instance.hashCode;
 
     /*The startApp widget simply creates a new Material App and sets the
       home property to the first page or widget that is to be displayed. In this

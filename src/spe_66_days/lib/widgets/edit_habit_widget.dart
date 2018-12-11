@@ -78,6 +78,7 @@ class EditHabitState extends State<EditHabitWidget> {
           IconButton(icon: Icon(Icons.check), onPressed: () {
             this.ogHabit.updateFrom(this.habit);
             HabitManager.instance.save();
+            HabitManager.instance.scheduleNotifications();
             Navigator.pop(context);
           })
         ]),
