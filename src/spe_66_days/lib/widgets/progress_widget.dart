@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter_charts/flutter_charts.dart' as charts;
 import 'package:spe_66_days/classes/HabitManager.dart';
 
 class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
@@ -11,50 +11,19 @@ class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   ProgressWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
 
   @override
-  State<StatefulWidget> createState(){
-    return _ProgressState();
-  }
+  State<StatefulWidget> createState(){return _ProgressState();}
 }
 
 
 class _ProgressState extends State<ProgressWidget>{
-  DateTime _currentDate =
-  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  charts.LineChartOptions _lineChartOptions;
+  charts.LabelLayoutStrategy _xContainerLabelLayoutStrategy;
+  charts.ChartData _chartData;
 
-  List<charts.Series<MapEntry<DateTime, int>, DateTime>> _habitsGraph(){
-    Map<DateTime, int> record = <DateTime, int>{
-      //Record will contain the start date the user began the course
-      DateTime(2018, 12, 1): 0,
-      DateTime(2018, 12, 2): 1,
-      DateTime(2018, 12, 3): 2,
-      DateTime(2018, 12, 4): 3,
-      DateTime(2018, 12, 5): 4,
-      DateTime(2018, 12, 6): 5,
-      DateTime(2018, 12, 7): 6,
-      DateTime(2018, 12, 8): 7,
-      DateTime(2018, 12, 9): 8,
-    };
-    HabitManager.instance.getHabits().forEach((_, val) {
-      val.markedOff.forEach((date) {
-        if (record.containsKey(date))
-          record.update(date, (val) => val *= 2);
-        else
-          record.putIfAbsent(date, () => 1);
-      });
-    });
-
-    return [
-      new charts.Series<MapEntry<DateTime, int>, DateTime>(
-        id: 'Habits',
-        colorFn: (_, __) => charts.MaterialPalette.black,
-        domainFn: (MapEntry<DateTime, int> val, _) => val.key,
-        measureFn: (MapEntry<DateTime, int> val, _) => val.value,
-        data: List.from(record.entries),
-      )
-    ];
-  }
+  _ProgressState();
 
   int _habitsChecked(){
+    DateTime _currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     int checked = 0;
     HabitManager.instance.getHabits().forEach((_, val) {
       if (val.markedOff.contains(_currentDate)){
@@ -64,22 +33,48 @@ class _ProgressState extends State<ProgressWidget>{
     return checked;
   }
 
+  List<MapEntry<DateTime, double>> _getDates(){
+    Map<DateTime, double> dates = <DateTime, double>{
+    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day) : 0.1
+    };
+    HabitManager.instance.getHabits().forEach((key, value){
+      value.markedOff.forEach((date) {
+        dates.update(date, (val) => val +=1.0, ifAbsent: ()=>1.0);
+      });
+    });
+    var entries = dates.entries.toList();
+    entries.sort((a,b) => a.key.compareTo(b.key));
+
+    return entries;
+  }
+
+  void defineOptionsAndData() {
+    _lineChartOptions = charts.LineChartOptions();
+    _chartData = charts.ChartData();
+    var data = _getDates();
+    _chartData.dataRowsLegends = [""];
+    _chartData.dataRows = [data.map((ent) => ent.value).toList()];
+    _chartData.xLabels = data.map((ent) => "${ent.key.day}/${ent.key.month}/${ent.key.year}").toList();
+    _chartData.dataRowsColors = [Colors.black]; // use the labels below on Y axis
+  }
+
   Widget build(context){
-    return Column(
+    defineOptionsAndData();
+    charts.LineChart lineChart = charts.LineChart(
+      painter: charts.LineChartPainter(),
+      container: charts.LineChartContainer(
+        chartData: _chartData, // @required
+        chartOptions: _lineChartOptions, // @required
+        xContainerLabelLayoutStrategy: _xContainerLabelLayoutStrategy, // @optional
+      ),
+    );
+    return Container( padding: EdgeInsets.all(5.0), child: Column(
         children: <Widget>[
-          Container(
-              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height/2),
-              child: charts.TimeSeriesChart(
-                  _habitsGraph(),
-                  defaultRenderer: charts.LineRendererConfig(includePoints: true),
-                  domainAxis: charts.DateTimeAxisSpec(
-                    tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-                      day: charts.TimeFormatterSpec(
-                        format: 'd/MM', transitionFormat: 'dd/MM/yyyy'
-                      )
-                    ),
-                  )
-              )
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [Expanded(child: lineChart)]
+            )
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +84,7 @@ class _ProgressState extends State<ProgressWidget>{
                   style: Theme.of(context).textTheme.title)
             ],
           )
-        ],
-    );
+        ]
+    ));
   }
 }

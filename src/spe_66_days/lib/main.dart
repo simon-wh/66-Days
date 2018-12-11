@@ -30,7 +30,7 @@ class StartApp extends StatelessWidget{
           fontFamily: 'Rubik',
           textTheme: TextTheme(
           headline: TextStyle(fontSize: 26.0),
-          title: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          title: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           body1: TextStyle(fontSize: 14.0)
         )
       ),

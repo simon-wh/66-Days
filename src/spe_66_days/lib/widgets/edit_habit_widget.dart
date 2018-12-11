@@ -74,7 +74,6 @@ class EditHabitState extends State<EditHabitWidget> {
           Navigator.pop(context);
         }),
         actions: <Widget>[
-
           IconButton(icon: Icon(Icons.check), onPressed: () {
             this.ogHabit.updateFrom(this.habit);
             HabitManager.instance.save();
@@ -96,11 +95,11 @@ class EditHabitState extends State<EditHabitWidget> {
             },
             icon: Icon(Icons.add),
             label: const Text('Add Notification')),
-        body: new ListView(
+        body: ListView(
           padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
           //shrinkWrap: true,
           children: <Widget>[
-            new TextField(
+            TextField(
               //autocorrect: true,
               decoration: InputDecoration(labelText: "Title"),
               controller: titleController,
@@ -108,7 +107,7 @@ class EditHabitState extends State<EditHabitWidget> {
                 habit.title = val;
               },
             ),
-            new TextField(
+            TextField(
               //autocorrect: true,
               decoration: InputDecoration(labelText: "Experiment"),
               controller: experimentTitleController,
@@ -117,7 +116,7 @@ class EditHabitState extends State<EditHabitWidget> {
                 //HabitManager.instance.save();
               },
             ),
-            new ListView.builder(
+            ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: habit.reminders.length,
@@ -148,7 +147,7 @@ class EditHabitState extends State<EditHabitWidget> {
                       },
                       child: EditNotificationWidget(habit.reminders[index]));
                 } // Item Builder
-                )
+                ),
           ],
         ));
   }

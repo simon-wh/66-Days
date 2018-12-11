@@ -104,10 +104,9 @@ class _HabitsState extends State<HabitsWidget> {
                           setState(() {
                             HabitManager.instance.removeHabit(entry.key);
                             HabitManager.instance.save();
-                            //HabitManager.instance.save();
                           });
 
-                          // Show a snackbar! This snackbar could also contain "Undo" actions.
+                          // Show a snack bar! This snack bar could also contain "Undo" actions.
                           Scaffold.of(context).showSnackBar(
                               SnackBar(content: Text("Custom Habit \"${_habit.title}\" removed")));
                         },
