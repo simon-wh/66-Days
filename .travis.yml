@@ -1,42 +1,50 @@
 os:
-  - linux
+- linux
 language: android
 licenses:
-  - 'android-sdk-preview-license-.+'
-  - 'android-sdk-license-.+'
-  - 'google-gdk-license-.+'
+- android-sdk-preview-license-.+
+- android-sdk-license-.+
+- google-gdk-license-.+
 android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-27.0.3
-    - android-28
-    - android-27
-    - sys-img-armeabi-v7a-google_apis-25
-    - extra-android-m2repository
-    - extra-google-m2repository
-    - extra-google-android-support
+  - tools
+  - platform-tools
+  - build-tools-27.0.3
+  - android-28
+  - android-27
+  - sys-img-armeabi-v7a-google_apis-25
+  - extra-android-m2repository
+  - extra-google-m2repository
+  - extra-google-android-support
 jdk: oraclejdk8
 sudo: false
 addons:
   apt:
-    # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
     sources:
-      - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+    - ubuntu-toolchain-r-test
     packages:
-      - libstdc++6
-      - fonts-droid
+    - libstdc++6
+    - fonts-droid
 before_script:
-  - cd src/spe_66_days
-  - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
-  - unzip -qq gradle-3.5-bin.zip
-  - export GRADLE_HOME=$PWD/gradle-3.5
-  - export PATH=$GRADLE_HOME/bin:$PATH
-  - git clone https://github.com/flutter/flutter.git -b beta
-  - ./flutter/bin/flutter doctor
+- cd src/spe_66_days
+- wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
+- unzip -qq gradle-3.5-bin.zip
+- export GRADLE_HOME=$PWD/gradle-3.5
+- export PATH=$GRADLE_HOME/bin:$PATH
+- git clone https://github.com/flutter/flutter.git -b beta
+- "./flutter/bin/flutter doctor"
 script:
-  - ./flutter/bin/flutter test
-  - ./flutter/bin/flutter -v build apk
+- "./flutter/bin/flutter test"
+- "./flutter/bin/flutter -v build apk"
 cache:
   directories:
-    - $HOME/.pub-cache
+  - "$HOME/.pub-cache"
+deploy:
+  provider: releases
+  api_key:
+    secure: A4nQQaOb0je0dHEyQGyOiTy4fpcdR7FvSYumn35OYADQTC5ClteduzChMmpBebTpdKioVOcOOjjU0+wwSuLfuiaMX6B4hcNjBbdgOiFVxmFs2vVqkE21OgEkv3aXqeK+ttunW7jOCBO2oihQfjaDoJ93yTCnuFMw6nPXJRMnb+jP9gdQ9B9IosuR2yis9GVx434uJ4BpF5YUuZIhj19G34VN0X7pBMIkPImwIOUMTQ/HpVS24w3lSi03B0GD5OaX+jJ0rles1BIsXYPsxwg7vCbz14EKAWw1Sxq5fPRB2T31ooeE21/CFUH5d4N85T8+UkTVJ6QewswFAToz5EfSWp004Kouu8P8s5FSBqgVrmICg8FOifS14W7eVYIFe0nx8Ms5l8X4rDeLOh2/beSTY+KT+K/K++UkLt5POOBuy+DmfxmY7R4zCKVAhoJhjMIO36bOnfCt1f+fEsT4D+rCThsy2yOi+eec6DPtAxT4vkdEioUBGjf8womGcREv0o1bX8ifwuOQtUURSoiwK7wEOgFBSXDZv7H9WknION4yhU/WGntAU6zfQOF56skLELDgLg5qu1lCzlckNKLOnLyQWiMUuH6rd7Wig9854jKkLE70o+S8JEs0bVJPVcdNMGnkyufVl8NHaUBLBlQAIsb8tFuPLto6GHbvBg6MzeWqDfI=
+  file: build/app/outputs/apk/release/app-release.apk
+  skip_cleanup: true
+  on:
+    repo: simon-wh/66-Days
+    tags: true
