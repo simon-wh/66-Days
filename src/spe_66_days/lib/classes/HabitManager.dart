@@ -17,6 +17,12 @@ class HabitManager {
   };
 
   HabitManager() {
+
+
+   //this.scheduleNotifications();
+  }
+
+  void init(){
     var initializationSettingsAndroid = new AndroidInitializationSettings('mipmap/launcher_icon');
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
@@ -24,9 +30,6 @@ class HabitManager {
     load().whenComplete(() {
       this.scheduleNotifications();
     });
-
-
-   //this.scheduleNotifications();
   }
 
   void scheduleNotifications() async {
