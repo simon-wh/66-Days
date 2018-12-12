@@ -39,7 +39,7 @@ class _ProgressState extends State<ProgressWidget>{
     };
     HabitManager.instance.getHabits().forEach((key, value){
       value.markedOff.forEach((date) {
-        dates.update(date, (val) => (val != 0.0001) ? val *= 2.0 : val = 2.0, ifAbsent: () => 1.0);
+        dates.update(date, (val) => (val != 0.0001) ? val *= 2.0 : val = 2.0, ifAbsent: () => 2.0);
       });
     });
     var entries = dates.entries.toList();

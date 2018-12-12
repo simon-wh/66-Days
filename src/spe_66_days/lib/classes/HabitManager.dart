@@ -16,18 +16,17 @@ class HabitManager {
     "eat_slowly": CoreHabit("Eat Slowly", "Put down your cutlery after each mouthful ")
   };
 
-  HabitManager() {
+  bool initialised = false;
 
-
-   //this.scheduleNotifications();
-  }
-
-  void init(){
+  Future<File> init() async{
+    if (initialised)
+      return Future(() {});
+    initialised = true;
     var initializationSettingsAndroid = new AndroidInitializationSettings('mipmap/launcher_icon');
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
     notificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
-    load().whenComplete(() {
+    return load().whenComplete(() {
       this.scheduleNotifications();
     });
   }

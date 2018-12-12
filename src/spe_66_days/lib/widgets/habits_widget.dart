@@ -21,6 +21,16 @@ class _HabitsState extends State<HabitsWidget> {
   DateTime _currentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
+  @override
+  void initState(){
+    super.initState();
+    HabitManager.instance.init().then((f) {
+      setState(() {
+
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(

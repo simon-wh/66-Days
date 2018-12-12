@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/screen_navigation.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
+import 'dart:async';
 
 void main() => runApp(StartApp());
 
@@ -11,9 +12,6 @@ class StartApp extends StatelessWidget{
     //All StatelessWidgets need a build method to create the user interface.
   @override
   Widget build(BuildContext context){
-    //trigger constructor
-    HabitManager.instance.init();
-
     /*The startApp widget simply creates a new Material App and sets the
       home property to the first page or widget that is to be displayed. In this
       case, the home page.
