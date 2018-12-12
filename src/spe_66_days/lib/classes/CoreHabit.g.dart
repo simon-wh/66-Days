@@ -18,10 +18,13 @@ CoreHabit _$CoreHabitFromJson(Map<String, dynamic> json) {
           //?.toSet());
 }
 
-Map<String, dynamic> _$CoreHabitToJson(CoreHabit instance) => <String, dynamic>{
+Map<String, dynamic> _$CoreHabitToJson(CoreHabit instance) {
+    var markedOff = instance.markedOff?.map((e) => e?.toIso8601String())?.toList();
+    markedOff.sort((a,b) => a.compareTo(b));
+    return <String, dynamic>{
       'title': instance.title,
       'experimentTitle': instance.experimentTitle,
       'reminders': instance.reminders,
-      'markedOff':
-          instance.markedOff?.map((e) => e?.toIso8601String())?.toList()
+      'markedOff': markedOff
     };
+}

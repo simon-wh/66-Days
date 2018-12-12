@@ -19,14 +19,17 @@ HabitNotification _$HabitNotificationFromJson(Map<String, dynamic> json) {
       json['enabled'] as bool);
 }
 
-Map<String, dynamic> _$HabitNotificationToJson(HabitNotification instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$HabitNotificationToJson(HabitNotification instance) {
+    var days = instance.repeatDays.toList();
+    days.sort((a,b) => a.value.compareTo(b.value));
+    return <String, dynamic>{
       'enabled': instance.enabled,
       'time': instance.time == null
           ? null
           : const TimeConverter().toJson(instance.time),
-      'repeatDays': instance.repeatDays
+      'repeatDays': days
           ?.map((e) => e == null ? null : const DayConverter().toJson(e))
           ?.toList(),
       'message': instance.message
     };
+}
