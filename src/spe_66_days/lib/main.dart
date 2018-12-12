@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/screen_navigation.dart';
-import 'package:spe_66_days/classes/HabitManager.dart';
-import 'dart:async';
 
 void main() => runApp(StartApp());
 
