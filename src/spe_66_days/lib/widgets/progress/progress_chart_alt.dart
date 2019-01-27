@@ -80,7 +80,8 @@ class AltProgressChart extends StatelessWidget {
           // set by providing a [dashPattern] or it can be turned off by passing in
           // an empty list. An empty list is necessary because passing in a null
           // value will be treated the same as not passing in a value at all.
-          /*new charts.LinePointHighlighter(
+          new charts.LinePointHighlighter(
+              selectionModelType: charts.SelectionModelType.info,
               showHorizontalFollowLine:
               charts.LinePointHighlighterFollowLineType.none,
               showVerticalFollowLine:
@@ -90,13 +91,13 @@ class AltProgressChart extends StatelessWidget {
           // highlighter. Changing the trigger to tap and drag allows the
           // highlighter to follow the dragging gesture but it is not
           // recommended to be used when pan/zoom behavior is enabled.
-          new charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag),*/
+          //new charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag),
 
           new charts.PanAndZoomBehavior(),
           new charts.SlidingViewport(),
         ],
         domainAxis: new charts.DateTimeAxisSpec(
-            tickProviderSpec: charts.DayTickProviderSpec(increments: [1,2,3,4,5]),
+            tickProviderSpec: charts.DayTickProviderSpec(increments: [1,2,4]),
             tickFormatterSpec: new charts.AutoDateTimeTickFormatterSpec(
                 day: new charts.TimeFormatterSpec(
                     format: 'd', transitionFormat: 'dd/MM')))
