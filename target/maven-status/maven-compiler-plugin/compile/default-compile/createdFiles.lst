@@ -1,0 +1,10 @@
+initialPackages\MvcConfig.class
+initialPackages\RestApiController.class
+initialPackages\WebSecurityConfig.class
+initialPackages\Greeting.class
+initialPackages\greetingController.class
+initialPackages\User.class
+initialPackages\Application.class
+initialPackages\UserService.class
+initialPackages\indexController.class
+initialPackages\UserServiceImpl.class
