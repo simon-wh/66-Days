@@ -47,7 +47,7 @@ class _ProgressState extends State<ProgressWidget>{
           Expanded(
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [Expanded(child: AltProgressChart())]
+                  children: [Expanded(child: AltProgressChart.allHabitsCombined())]
               )
           ),
           Row(

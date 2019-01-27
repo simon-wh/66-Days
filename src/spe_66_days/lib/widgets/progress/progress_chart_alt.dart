@@ -4,18 +4,86 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
 
 class AltProgressChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
+  List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
   final bool animate;
 
-  AltProgressChart({this.seriesList, this.animate});
+  AltProgressChart(this.seriesList, {this.animate});
+
+  AltProgressChart.allHabits({this.animate}){
+    this.seriesList = [];
+    int i = 0;
+    var habits = HabitManager.instance.getHabits();
+    habits.forEach((s, v) {
+      var clr = charts.MaterialPalette.getOrderedPalettes(habits.length)[i].shadeDefault;
+      this.seriesList.add(charts.Series<MapEntry<DateTime,int>, DateTime>(
+      id: 'Habits',
+      colorFn: (_, __) => clr,
+      domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
+      measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
+      data: _getHabitData(s),
+      ));
+      i++;
+    });
+  }
+
+  AltProgressChart.allHabitsCombined({this.animate}){
+    this.seriesList = [charts.Series<MapEntry<DateTime,int>, DateTime>(
+      id: 'Habits',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
+      measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
+      data: _getData(),
+    )];
+  }
+
+  AltProgressChart.habit(String habit, {this.animate}){
+    this.seriesList = [charts.Series<MapEntry<DateTime,int>, DateTime>(
+      id: 'Habits',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
+      measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
+      data: _getHabitData(habit),
+    )];
+  }
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory AltProgressChart.withSampleData() {
     return new AltProgressChart(
-      seriesList: _createSampleData(),
+      _createSampleData(),
       // Disable animations for image tests.
       animate: false,
     );
+  }
+
+  List<MapEntry<DateTime, int>> _getHabitData(String habit) {
+    DateTime _currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    Map<DateTime, int> dates = <DateTime, int>{
+      _currentDate : 0
+    };
+    DateTime earliest = _currentDate;
+    HabitManager.instance.getHabit(habit).markedOff.forEach((date) {
+        //Keep track of the earliest marked off date
+        if (earliest.isAfter(date))
+          earliest = date;
+        dates.update(date, (val) => (val != 0) ? val *= 2 : val = 1, ifAbsent: () => 1);
+      });
+
+    //Start a day after the earliest as we know that earliest is already present
+    DateTime addDate = earliest.add(Duration(days: 1));
+    //Add entries for every day between the current date and the earliest
+    while (_currentDate.isAfter(addDate)){
+      dates.update(addDate, (val) => val, ifAbsent: () => 0);
+      addDate = addDate.add(Duration(days: 1));
+    }
+
+    var entries = dates.entries.toList();
+    if (entries.length == 1) {
+      for (int i = 1; i < 7; i++)
+        entries.add(MapEntry(_currentDate.add(Duration(days:i)), 0));
+    }
+    entries.sort((a,b) => a.key.compareTo(b.key));
+
+    return entries;
   }
 
   List<MapEntry<DateTime, int>> _getData() {
@@ -53,18 +121,9 @@ class AltProgressChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final series = [
-      new charts.Series<MapEntry<DateTime,int>, DateTime>(
-        id: 'Habits',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
-        measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
-        data: _getData(),
-      )
-    ];
 
     return new charts.TimeSeriesChart(
-      series,
+      seriesList,
       animate: animate,
       // Optionally pass in a [DateTimeFactory] used by the chart. The factory
       // should create the same type of [DateTime] as the data provided. If none
