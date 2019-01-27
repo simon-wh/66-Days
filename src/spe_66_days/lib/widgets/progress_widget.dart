@@ -5,6 +5,7 @@ import 'dart:ui' as ui show Paint;
 import 'package:flutter/material.dart' as material show Colors;
 import 'dart:math';
 import 'progress/progress_chart.dart';
+import 'progress/progress_chart_alt.dart';
 
 class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -37,11 +38,17 @@ class _ProgressState extends State<ProgressWidget>{
   Widget build(context){
     return Container( padding: EdgeInsets.all(5.0), child: Column(
         children: <Widget>[
-          Expanded(
+          /*Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [Expanded(child: ProgressChartWidget())]
             )
+          ),*/
+          Expanded(
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [Expanded(child: AltProgressChart())]
+              )
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
