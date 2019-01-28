@@ -21,6 +21,13 @@ void main() {
     });
   });
 
+  group("HabitManager habits", () {
+    test('Contains habits', () {
+      expect(HabitManager.instance.getHabits(), isNotNull);
+    });
+  });
+
+
   group("CoreHabits", () {
     group("Equality", () {
       group('Required parameters', () {
