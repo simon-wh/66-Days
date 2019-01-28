@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_charts/flutter_charts.dart' as charts;
+import 'package:spe_66_days/widgets/progress/progress_chart_alt.dart';
 
 import 'package:spe_66_days/main.dart';
 
@@ -28,6 +29,6 @@ void main() {
     await tester.tap(find.byIcon(Icons.timeline));
     await tester.pump();
 
-    expect(find.byType(charts.LineChart), findsOneWidget);
+    expect(find.byType(AltProgressChart), findsOneWidget);
   });
 }
