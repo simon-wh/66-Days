@@ -55,7 +55,7 @@ class _HabitsState extends State<HabitsWidget> {
                   itemBuilder: (BuildContext context, int index) {
                     MapEntry<String, CoreHabit> entry = HabitManager.instance.getHabits().entries.toList()[index];
                     CoreHabit _habit = entry.value;
-                    var content = HabitListWidget(_habit);
+                    var content = HabitListWidget(_habit, editable: true, displayMode: mode.Minimal);
 
                     return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
                         direction: DismissDirection.startToEnd,
