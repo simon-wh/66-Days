@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'home_card.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
+import 'package:spe_66_days/classes/HabitManager.dart';
 
 class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -18,19 +19,32 @@ class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
 }
 
 class _HomeState extends State<HomeWidget> {
-  List<HomeCard> cards = [
-    HomeCard(Key("progress"), "Progress", ProgressChart.allHabitsCombined()),
-    HomeCard(Key("habit"), "Habits", HabitsWidget(compact: true))
-  ];
 
 
   @override
   void initState(){
     super.initState();
+    HabitManager.instance.init().then((f) {
+      setState(() {
+
+      });
+    });
   }
 
   Widget build(BuildContext context) {
+    List<HomeCard> cards = [
+      HomeCard(Key("progress"), "Progress", () => ProgressChart.allHabitsCombined()),
+      HomeCard(Key("habit"), "Habits", () => HabitsWidget(compact: true))
+    ];
     return Scaffold(
+        /*floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              setState(() {
+                //HabitManager.instance.save();
+              });
+            },
+            icon: Icon(Icons.add),
+            label: const Text('Add Habit')),*/
       body:  ListView(
         padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
         //shrinkWrap: true,
@@ -48,6 +62,7 @@ class _HomeState extends State<HomeWidget> {
                     // We also need to provide a function that will tell our app
                     // what to do after an item has been swiped away.
                     onDismissed: (direction) {
+
                       // Remove the item from our data source.
                       setState(() {
                         cards.removeAt(index);
@@ -57,7 +72,7 @@ class _HomeState extends State<HomeWidget> {
                       Scaffold.of(context).showSnackBar(
                           SnackBar(content: Text("Card dismissed")));
                     },
-                    child: c);
+                    child: c.getCard());
               }) // Item Builder
         ],
       ));

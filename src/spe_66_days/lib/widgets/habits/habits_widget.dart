@@ -10,7 +10,7 @@ class HabitsWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _HabitsState(this.compact);
+    return _HabitsState();
   }
 }
 
@@ -28,23 +28,13 @@ class _HabitsState extends State<HabitsWidget> {
   DateTime _currentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  final bool compact;
+  _HabitsState();
 
-  _HabitsState(this.compact);
 
-  @override
-  void initState(){
-    super.initState();
-    HabitManager.instance.init().then((f) {
-      setState(() {
-
-      });
-    });
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: !compact? FloatingActionButton.extended(
+      floatingActionButton: !this.widget.compact? FloatingActionButton.extended(
           onPressed: () {
             HabitManager.instance.newCustomHabit();
             setState(() {
@@ -65,7 +55,7 @@ class _HabitsState extends State<HabitsWidget> {
                   itemBuilder: (BuildContext context, int index) {
                     MapEntry<String, CoreHabit> entry = HabitManager.instance.getHabits().entries.toList()[index];
                     CoreHabit _habit = entry.value;
-                    var content = HabitListWidget(_habit, editable: !compact, displayMode: compact ? mode.Minimal : mode.Standard);
+                    var content = HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard);
 
                     return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
                         direction: DismissDirection.startToEnd,
