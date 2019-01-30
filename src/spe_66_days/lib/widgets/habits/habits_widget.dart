@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
-import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
+import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 
 class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -54,47 +54,7 @@ class _HabitsState extends State<HabitsWidget> {
                   itemBuilder: (BuildContext context, int index) {
                     MapEntry<String, CoreHabit> entry = HabitManager.instance.getHabits().entries.toList()[index];
                     CoreHabit _habit = entry.value;
-                    var content = Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget> [
-                            SizedBox(width: (MediaQuery.of(context).size.width/8)),
-                             Text(
-                                  _habit.title,
-                                  style: Theme.of(context).textTheme.title,
-                              ),
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
-                              }
-                            ),
-                          ]
-                        ),
-                        Row(
-                            children: <Widget>[
-                              Checkbox(
-                                activeColor: Colors.black,
-                                value: _habit.markedOff.contains(_currentDate),
-                                onChanged: (bool checked) {
-                                  if (checked) {
-                                    if (_habit.markedOff.add(_currentDate))
-                                      HabitManager.instance.save();
-                                  }
-                                  else {
-                                    if (_habit.markedOff.remove(_currentDate))
-                                      HabitManager.instance.save();
-                                  }
-
-                                  setState(() {});
-                                },
-                              ),
-                              Text(_habit.experimentTitle, style: Theme.of(context).textTheme.body2),
-                            ]
-                        ),
-                      ],
-                    );
+                    var content = HabitListWidget(_habit);
 
                     return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
                         direction: DismissDirection.startToEnd,
