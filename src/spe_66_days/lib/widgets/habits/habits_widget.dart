@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
-import 'package:spe_66_days/widgets/edit_habit_widget.dart';
+import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
 
 class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;

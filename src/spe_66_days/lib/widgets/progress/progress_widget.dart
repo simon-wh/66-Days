@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_charts/flutter_charts.dart' as charts;
 import 'package:spe_66_days/classes/HabitManager.dart';
-import 'dart:ui' as ui show Paint;
-import 'package:flutter/material.dart' as material show Colors;
-import 'dart:math';
-import 'progress/progress_chart.dart';
-import 'progress/progress_chart_alt.dart';
+import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 
 class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -47,7 +42,7 @@ class _ProgressState extends State<ProgressWidget>{
           Expanded(
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [Expanded(child: AltProgressChart.allHabitsCombined())]
+                  children: [Expanded(child: ProgressChart.allHabitsCombined())]
               )
           ),
           Row(

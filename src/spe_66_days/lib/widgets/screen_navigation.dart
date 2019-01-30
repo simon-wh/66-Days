@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'progress_widget.dart';
-import 'package:spe_66_days/widgets/habits_widget.dart';
+import 'package:spe_66_days/widgets/progress/progress_widget.dart';
+import 'package:spe_66_days/widgets/habits/habits_widget.dart';
 
 class ScreenNavigation extends StatefulWidget {
   @override
