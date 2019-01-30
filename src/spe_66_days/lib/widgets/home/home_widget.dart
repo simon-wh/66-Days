@@ -20,7 +20,7 @@ class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
 class _HomeState extends State<HomeWidget> {
   List<HomeCard> cards = [
     HomeCard(Key("progress"), "Progress", ProgressChart.allHabitsCombined()),
-    HomeCard(Key("habit"), "Habits", HabitsWidget.compact())
+    HomeCard(Key("habit"), "Habits", HabitsWidget(compact: true))
   ];
 
 

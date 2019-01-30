@@ -14,7 +14,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   int _currentIndex = 0;
   final List<BottomNavigationBarItem> _children = [
     HomeWidget(Icon(Icons.home), Text("Home")),
-    HabitsWidget(Icon(Icons.assignment), Text("Habits")),
+    HabitsScreen(Icon(Icons.assignment), Text("Habits")),
     ProgressWidget(Icon(Icons.timeline), Text('Progress')),
   ];
 

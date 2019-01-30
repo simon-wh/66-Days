@@ -3,24 +3,34 @@ import 'package:spe_66_days/classes/HabitManager.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
 import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 
-class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem {
+class HabitsWidget extends StatefulWidget {
+  final bool compact;
+
+  HabitsWidget({this.compact = false});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _HabitsState(this.compact);
+  }
+}
+
+class HabitsScreen extends HabitsWidget implements BottomNavigationBarItem {
   final Icon icon;
   final Text title;
   final Icon activeIcon;
   final Color backgroundColor;
 
-  HabitsWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
-  HabitsWidget.compact({this.icon, this.title, this.activeIcon, this.backgroundColor});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _HabitsState();
-  }
+  HabitsScreen(this.icon, this.title, {this.activeIcon, this.backgroundColor, bool compact = false}) : super(compact: compact);
 }
+
 
 class _HabitsState extends State<HabitsWidget> {
   DateTime _currentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+  final bool compact;
+
+  _HabitsState(this.compact);
 
   @override
   void initState(){
@@ -34,7 +44,7 @@ class _HabitsState extends State<HabitsWidget> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: !compact? FloatingActionButton.extended(
           onPressed: () {
             HabitManager.instance.newCustomHabit();
             setState(() {
@@ -42,7 +52,7 @@ class _HabitsState extends State<HabitsWidget> {
             });
           },
           icon: Icon(Icons.add),
-          label: const Text('Add Habit')),
+          label: const Text('Add Habit')) : null,
       body:  Container(
       padding: const EdgeInsets.only(top: 10.0),
       child: new Column(
@@ -55,7 +65,7 @@ class _HabitsState extends State<HabitsWidget> {
                   itemBuilder: (BuildContext context, int index) {
                     MapEntry<String, CoreHabit> entry = HabitManager.instance.getHabits().entries.toList()[index];
                     CoreHabit _habit = entry.value;
-                    var content = HabitListWidget(_habit);
+                    var content = HabitListWidget(_habit, editable: !compact, displayMode: compact ? mode.Minimal : mode.Standard);
 
                     return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
                         direction: DismissDirection.startToEnd,
