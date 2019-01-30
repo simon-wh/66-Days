@@ -10,6 +10,7 @@ class HabitsWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Color backgroundColor;
 
   HabitsWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
+  HabitsWidget.compact({this.icon, this.title, this.activeIcon, this.backgroundColor});
 
   @override
   State<StatefulWidget> createState() {

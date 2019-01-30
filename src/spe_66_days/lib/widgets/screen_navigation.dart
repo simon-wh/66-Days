@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/progress_widget.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
+import 'package:spe_66_days/widgets/home/home_widget.dart';
 
 class ScreenNavigation extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class ScreenNavigation extends StatefulWidget {
 class _ScreenNavigationState extends State<ScreenNavigation> {
   int _currentIndex = 0;
   final List<BottomNavigationBarItem> _children = [
+    HomeWidget(Icon(Icons.home), Text("Home")),
     HabitsWidget(Icon(Icons.assignment), Text("Habits")),
     ProgressWidget(Icon(Icons.timeline), Text('Progress')),
   ];
