@@ -19,7 +19,10 @@ class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
 }
 
 class _HomeState extends State<HomeWidget> {
-
+  static List<HomeCard> cards = [
+    HomeCard(Key("progress"), "Progress", () => ProgressChart.allHabitsCombined()),
+    HomeCard(Key("habit"), "Habits", () => HabitsWidget(compact: true))
+  ];
 
   @override
   void initState(){
@@ -29,13 +32,11 @@ class _HomeState extends State<HomeWidget> {
 
       });
     });
+
   }
 
   Widget build(BuildContext context) {
-    List<HomeCard> cards = [
-      HomeCard(Key("progress"), "Progress", () => ProgressChart.allHabitsCombined()),
-      HomeCard(Key("habit"), "Habits", () => HabitsWidget(compact: true))
-    ];
+
     return Scaffold(
         /*floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
@@ -54,6 +55,8 @@ class _HomeState extends State<HomeWidget> {
               itemCount: cards.length,
               itemBuilder: (BuildContext context, int index) {
                 HomeCard c = cards[index];
+                if (c.hidden)
+                  return Container();
                 return Dismissible(
                     direction: DismissDirection.startToEnd,
                     // Each Dismissible must contain a Key. Keys allow Flutter to
@@ -65,12 +68,16 @@ class _HomeState extends State<HomeWidget> {
 
                       // Remove the item from our data source.
                       setState(() {
-                        cards.removeAt(index);
+                        cards[index].hidden = true;
                       });
 
                       // Show a snackbar! This snackbar could also contain "Undo" actions.
                       Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text("Card dismissed")));
+                          SnackBar(content: Text("Card dismissed"), action: SnackBarAction(label: "Undo", onPressed: () {
+                            setState(() {
+                              cards[index].hidden = false;
+                            });
+                          }),));
                     },
                     child: c.getCard());
               }) // Item Builder

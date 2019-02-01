@@ -10,6 +10,8 @@ part 'CoreHabit.g.dart';
 
 @JsonSerializable()
 class CoreHabit {
+  String key;
+
   //Maybe move this to be associated with the enum values
   String title;
   //String description;
@@ -19,7 +21,7 @@ class CoreHabit {
   List<HabitNotification> reminders;
   HashSet<DateTime> markedOff;
 
-  CoreHabit(this.title, this.experimentTitle, {this.reminders, this.markedOff}){
+  CoreHabit(this.title, this.experimentTitle, {this.reminders, this.markedOff, this.key}){
     assert(this.title.isNotEmpty);
     assert(this.experimentTitle.isNotEmpty);
     //assert(this.checkDescription.isNotEmpty);
@@ -32,6 +34,7 @@ class CoreHabit {
   Map<String, dynamic> toJson() => _$CoreHabitToJson(this);
 
   bool operator ==(o) => o is CoreHabit
+      && o.key == this.key
       && o.title == this.title
       && o.experimentTitle == this.experimentTitle
       && ListEquality().equals(o.reminders, this.reminders)

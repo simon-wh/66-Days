@@ -4,6 +4,7 @@ class HomeCard {
   final Key key;
   final String title;
   final Widget Function() child;
+  bool hidden = false;
 
   HomeCard(this.key, this.title, this.child) {}
 

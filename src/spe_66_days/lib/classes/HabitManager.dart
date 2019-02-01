@@ -38,7 +38,9 @@ class HabitManager {
         ..sort((a, b) => a.compareTo(b));
     if (customIds.length > 0)
       id = customIds.last + 1;
-    _habits.putIfAbsent(customHabitPrefix + id.toString(), () => CoreHabit("New Custom Habit Title", "New Custom Habit Experiment"));
+    String key = customHabitPrefix + id.toString();
+
+    _habits.putIfAbsent(key, () => CoreHabit("New Custom Habit Title", "New Custom Habit Experiment", key: key));
   }
 
   void removeHabit(String id){
@@ -118,6 +120,7 @@ class HabitManager {
       return localFile.readAsString().then((contents) {
         final habits = getHabitsFromJson(contents);
         this._habits = habits;
+        this._habits.forEach((s, c) {c.key = s;});
       });
     } catch (e) {
       // If we encounter an error, return 0

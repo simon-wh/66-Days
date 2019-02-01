@@ -73,6 +73,42 @@ class EditHabitState extends State<EditHabitWidget> {
           Navigator.pop(context);
         }),
         actions: <Widget>[
+          this.ogHabit.key.startsWith(HabitManager.customHabitPrefix) ? IconButton(icon: Icon(Icons.delete_forever), onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                // return object of type Dialog
+                return AlertDialog(
+                  title: new Text("Delete Confirmation"),
+                  content: new Text("Are you sure you want to delete this habit forever?"),
+                  actions: <Widget>[
+                    new FlatButton(
+                      child: new Text("Cancel"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    // usually buttons at the bottom of the dialog
+                    new FlatButton(
+                      child: new Text("Delete"),
+                      onPressed: () {
+                        HabitManager.instance.removeHabit(this.ogHabit.key);
+                        HabitManager.instance.save();
+                        HabitManager.instance.scheduleNotifications();
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+
+
+
+
+          }) : Container(),
+
           IconButton(icon: Icon(Icons.check), onPressed: () {
             this.ogHabit.updateFrom(this.habit);
             HabitManager.instance.save();

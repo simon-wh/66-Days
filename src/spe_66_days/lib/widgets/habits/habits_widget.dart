@@ -42,9 +42,9 @@ class _HabitsState extends State<HabitsWidget> {
             itemBuilder: (BuildContext context, int index) {
               MapEntry<String, CoreHabit> entry = HabitManager.instance.getHabits().entries.toList()[index];
               CoreHabit _habit = entry.value;
-              var content = HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard);
+              return HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard);
 
-              return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
+              /*return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
                   direction: DismissDirection.startToEnd,
                   // Each Dismissible must contain a Key. Keys allow Flutter to
                   // uniquely identify Widgets.
@@ -69,7 +69,7 @@ class _HabitsState extends State<HabitsWidget> {
                         SnackBar(content: Text("Custom Habit \"${_habit.title}\" removed")));
                   },
                   child: content
-              ) : content;
+              ) : content;*/
             } // Item Builder
         )
       ],
