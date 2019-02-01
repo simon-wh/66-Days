@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
 import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
+import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
 
 class HabitsWidget extends StatefulWidget {
   final bool compact;
@@ -81,7 +82,8 @@ class _HabitsState extends State<HabitsWidget> {
     return Scaffold(
       floatingActionButton: !this.widget.compact? FloatingActionButton.extended(
           onPressed: () {
-            HabitManager.instance.newCustomHabit();
+            CoreHabit _habit = HabitManager.instance.newCustomHabit();
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
             setState(() {
               //HabitManager.instance.save();
             });
