@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService(){
-        //Temporary Sign-On for testing and development.
+        //Administration sign-on service.
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("ben@66days.co")
                 .password("password")

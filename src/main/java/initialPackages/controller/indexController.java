@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class indexController {
     
     @GetMapping("/")
-    public String hello(Model model){
+    public String index(Model model){
         //A useful example of how the model can return a Java object for display by thymeleaf
         model.addAttribute("time", new Date());
         return "index";
@@ -21,14 +21,6 @@ public class indexController {
     public String hello(){
         //model.addAttribute("time", new Date());
         return "hello";
-    }
-    
-    //The following method should handle the "/getProjectName" url.
-    //This code was following the example JSON lecture given by Simon.
-    //We will use code like this for REST api requests.
-    @RequestMapping("/getProjectName")
-    public String getProjectName(@RequestParam("id") String projectID, Model model){
-        return "index";
     }
 }
 
