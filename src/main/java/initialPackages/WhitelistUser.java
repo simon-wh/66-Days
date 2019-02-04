@@ -8,24 +8,24 @@ import javax.persistence.Id;
 @Entity //This tells Hibernate to make a table out of this class**
 public class WhitelistUser {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	//@GeneratedValue(strategy=GenerationType.AUTO)
+	private String id;
 
-	private String email;
+	//private String email;
 
 
-	public Integer getID() {
+	public String getID() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+//	public String getEmail() {
+//		return email;
+//	}
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
 
 
 

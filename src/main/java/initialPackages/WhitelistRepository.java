@@ -5,7 +5,7 @@ import initialPackages.WhitelistUser;
 
 
 
-public interface WhitlistRepository extends CrudRepository< WhitelistUser, Integer> {
+public interface WhitelistRepository extends CrudRepository< WhitelistUser, String> {
 
 
 }
