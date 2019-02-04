@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/screen_navigation.dart';
+import 'dart:async';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
 
-void main() => runApp(StartApp());
+ void main() async {
+  await HabitManager.instance.init();
+  runApp(StartApp());
+}
 
 /*Creates a stateless widget called startApp. It is stateless as nothing within
   the build method depends on any state update from the app.

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/classes/CoreHabit.dart';
-import 'package:spe_66_days/classes/HabitNotification.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
+import 'package:spe_66_days/classes/NotificationConfig.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
-import 'package:spe_66_days/classes/HabitManager.dart';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
 
 class EditHabitWidget extends StatefulWidget {
   final CoreHabit habit;
@@ -119,7 +119,7 @@ class EditHabitState extends State<EditHabitWidget> {
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               DateTime current = DateTime.now();
-              habit.reminders.add(HabitNotification(
+              habit.reminders.add(NotificationConfig(
                   "New Notification",
                   Time(current.hour, current.minute),
                   HashSet.from(Day.values),

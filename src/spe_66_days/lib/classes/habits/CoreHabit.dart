@@ -1,5 +1,5 @@
-import 'HabitNotification.dart';
-import 'HabitManager.dart';
+import 'package:spe_66_days/classes/NotificationConfig.dart';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'dart:collection';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:quiver/core.dart';
@@ -7,7 +7,7 @@ import 'package:collection/collection.dart';
 import 'dart:convert';
 
 
-part 'CoreHabit.g.dart';
+part 'package:spe_66_days/classes/habits/CoreHabit.g.dart';
 
 @JsonSerializable()
 class CoreHabit {
@@ -19,14 +19,14 @@ class CoreHabit {
   //bool unlocked;
   String experimentTitle;
   //String checkDescription;
-  List<HabitNotification> reminders;
+  List<NotificationConfig> reminders;
   HashSet<DateTime> markedOff;
 
   CoreHabit(this.title, this.experimentTitle, {this.reminders, this.markedOff, this.key}){
     assert(this.title.isNotEmpty);
     assert(this.experimentTitle.isNotEmpty);
     //assert(this.checkDescription.isNotEmpty);
-    reminders ??= List<HabitNotification>();
+    reminders ??= List<NotificationConfig>();
     markedOff ??= HashSet<DateTime>();
   }
 

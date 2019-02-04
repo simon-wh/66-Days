@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/classes/HabitManager.dart';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 
 class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
@@ -11,7 +11,7 @@ class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   ProgressWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
 
   @override
-  State<StatefulWidget> createState(){return _ProgressState();}
+  State<StatefulWidget> createState() => _ProgressState();
 }
 
 

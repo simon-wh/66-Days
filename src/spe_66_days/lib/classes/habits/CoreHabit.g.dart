@@ -11,7 +11,7 @@ CoreHabit _$CoreHabitFromJson(Map<String, dynamic> json) {
       reminders: (json['reminders'] as List)
           ?.map((e) => e == null
               ? null
-              : HabitNotification.fromJson(e as Map<String, dynamic>))
+              : NotificationConfig.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       markedOff: HashSet.from((json['markedOff'] as List)
           ?.map((e) => e == null ? null : DateTime.parse(e as String))));

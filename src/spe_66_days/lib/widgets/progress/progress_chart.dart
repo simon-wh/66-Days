@@ -1,8 +1,8 @@
 /// Timeseries chart example
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/classes/HabitManager.dart';
-import 'package:spe_66_days/classes/CoreHabit.dart';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:collection';
 import 'package:spe_66_days/main.dart';
 

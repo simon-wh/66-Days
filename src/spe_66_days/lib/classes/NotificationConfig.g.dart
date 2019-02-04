@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'HabitNotification.dart';
+part of 'NotificationConfig.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-HabitNotification _$HabitNotificationFromJson(Map<String, dynamic> json) {
-  return HabitNotification(
+NotificationConfig _$NotificationFromJson(Map<String, dynamic> json) {
+  return NotificationConfig(
       json['message'] as String,
       json['time'] == null
           ? null
@@ -19,7 +19,7 @@ HabitNotification _$HabitNotificationFromJson(Map<String, dynamic> json) {
       json['enabled'] as bool);
 }
 
-Map<String, dynamic> _$HabitNotificationToJson(HabitNotification instance) {
+Map<String, dynamic> _$NotificationToJson(NotificationConfig instance) {
     var days = instance.repeatDays.toList();
     days.sort((a,b) => a.value.compareTo(b.value));
     return <String, dynamic>{

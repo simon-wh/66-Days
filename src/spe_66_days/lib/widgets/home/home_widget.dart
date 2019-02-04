@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'home_card.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
-import 'package:spe_66_days/classes/HabitManager.dart';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
 
 class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -27,16 +27,15 @@ class _HomeState extends State<HomeWidget> {
   @override
   void initState(){
     super.initState();
-    HabitManager.instance.init().then((f) {
+    /*HabitManager.instance.init().then((f) {
       setState(() {
 
       });
-    });
+    });*/
 
   }
 
   Widget build(BuildContext context) {
-
     return Scaffold(
         /*floatingActionButton: FloatingActionButton.extended(
             onPressed: () {

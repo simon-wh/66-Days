@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/classes/HabitNotification.dart';
+import 'package:spe_66_days/classes/NotificationConfig.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class EditNotificationWidget extends StatefulWidget {
-  final HabitNotification notification;
+  final NotificationConfig notification;
 
   EditNotificationWidget(this.notification);
 
   @override
-  State<StatefulWidget> createState() => EditNotificationState(notification);
+  State<StatefulWidget> createState() => EditNotificationState();
 }
 
 class EditNotificationState extends State<EditNotificationWidget> {
   bool expanded = false;
   bool expandLock = false;
-  final HabitNotification notification;
   final TextEditingController messageController = TextEditingController();
 
-  EditNotificationState(this.notification){
-    expandLock = !notification.enabled;
-    messageController.text = notification.message;
+  EditNotificationState(){
+
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    expandLock = !this.widget.notification.enabled;
+    messageController.text = this.widget.notification.message;
   }
 
   void lockExpansion(bool lock){
@@ -38,6 +43,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    NotificationConfig notification = this.widget.notification;
     TextStyle style = Theme.of(context).textTheme.body1.copyWith(
         color : Theme.of(context).textTheme.body1.color.withOpacity(notification.enabled ? 1.0 : 0.5)
     );
@@ -83,7 +89,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
               children: List<Day>.generate(7, (int index) => Day.values[index],
                       growable: false)
                   .map((day) => Column(children: <Widget>[
-                        Text(HabitNotification.DayStringMap[day][0]),
+                        Text(NotificationConfig.DayStringMap[day][0]),
                         Checkbox(
                             activeColor: Colors.black,
                             value: notification.repeatDays.contains(day),

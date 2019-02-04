@@ -6,20 +6,20 @@ import 'type_converters/TimeConverter.dart';
 import 'package:quiver/core.dart';
 import 'package:collection/collection.dart';
 
-part 'HabitNotification.g.dart';
+part 'NotificationConfig.g.dart';
 
 @JsonSerializable()
 @TimeConverter()
 @DayConverter()
-class HabitNotification {
+class NotificationConfig {
   bool enabled;
   Time time;
   HashSet<Day> repeatDays;
   String message;
 
-  HabitNotification(this.message, this.time, this.repeatDays, this.enabled);
+  NotificationConfig(this.message, this.time, this.repeatDays, this.enabled);
 
-  factory HabitNotification.fromJson(Map<String, dynamic> json) => _$HabitNotificationFromJson(json);
+  factory NotificationConfig.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
 
   static const Map<Day, String> DayStringMap = <Day, String>{
     Day.Monday: "Monday",
@@ -37,9 +37,9 @@ class HabitNotification {
     return repeatDays.length >= 7 ? "Every day" : days.map((i) => DayStringMap[i]).join(", ");
   }
 
-  Map<String, dynamic> toJson() => _$HabitNotificationToJson(this);
+  Map<String, dynamic> toJson() => _$NotificationToJson(this);
 
-  bool operator ==(o) => o is HabitNotification
+  bool operator ==(o) => o is NotificationConfig
       && o.enabled == this.enabled
       && MapEquality().equals(o.time.toMap(), this.time.toMap())
       && SetEquality().equals(o.repeatDays, this.repeatDays)
