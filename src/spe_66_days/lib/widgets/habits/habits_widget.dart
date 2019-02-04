@@ -3,6 +3,7 @@ import 'package:spe_66_days/classes/HabitManager.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
 import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
+import 'package:spe_66_days/main.dart';
 
 class HabitsWidget extends StatefulWidget {
   final bool compact;
@@ -26,12 +27,7 @@ class HabitsScreen extends HabitsWidget implements BottomNavigationBarItem {
 
 
 class _HabitsState extends State<HabitsWidget> {
-  DateTime _currentDate =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
   _HabitsState();
-
-
 
   Widget build(BuildContext context) {
     Widget view =

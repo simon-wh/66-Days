@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
 import 'package:spe_66_days/classes/CoreHabit.dart';
 import 'dart:collection';
+import 'package:spe_66_days/main.dart';
 
 class ProgressChart extends StatelessWidget {
   List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
@@ -70,7 +71,7 @@ class ProgressChart extends StatelessWidget {
   }
 
   List<MapEntry<DateTime, int>> _getHabitData(HashSet<DateTime> markedOff) {
-    DateTime _currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    DateTime _currentDate = Global.currentDate;
     Map<DateTime, int> dates = <DateTime, int>{
       _currentDate : 0
     };
@@ -101,7 +102,7 @@ class ProgressChart extends StatelessWidget {
   }
 
   List<MapEntry<DateTime, int>> _getData() {
-    DateTime _currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    DateTime _currentDate = Global.currentDate;
     Map<DateTime, int> dates = <DateTime, int>{
       _currentDate : 0
     };
