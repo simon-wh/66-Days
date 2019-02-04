@@ -46,7 +46,14 @@ class _HomeState extends State<HomeWidget> {
             },
             icon: Icon(Icons.add),
             label: const Text('Add Habit')),*/
-      body:  ListView(
+      body: RefreshIndicator(
+          onRefresh: () {
+            return Future(() {setState(() {
+
+            });});
+          },
+          child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
         //shrinkWrap: true,
         children: <Widget>[
@@ -82,6 +89,6 @@ class _HomeState extends State<HomeWidget> {
                     child: c.getCard());
               }) // Item Builder
         ],
-      ));
+      )));
   } // Build
 } // _HabitsState

@@ -34,9 +34,7 @@ class _HabitsState extends State<HabitsWidget> {
 
 
   Widget build(BuildContext context) {
-    Column view = new Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
+    Widget view =
         new ListView.builder(
             shrinkWrap: true,
             itemCount: HabitManager.instance.getHabits().length,
@@ -73,8 +71,8 @@ class _HabitsState extends State<HabitsWidget> {
               ) : content;*/
             } // Item Builder
         )
-      ],
-    );
+
+    ;
 
     if (this.widget.compact)
       return view;

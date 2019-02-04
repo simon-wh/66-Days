@@ -2,6 +2,8 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/HabitManager.dart';
+import 'package:spe_66_days/classes/CoreHabit.dart';
+import 'dart:collection';
 
 class ProgressChart extends StatelessWidget {
   List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
@@ -20,7 +22,7 @@ class ProgressChart extends StatelessWidget {
       colorFn: (_, __) => clr,
       domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
       measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
-      data: _getHabitData(s),
+      data: _getHabitDataFromHabit(v),
       ));
       i++;
     });
@@ -36,15 +38,19 @@ class ProgressChart extends StatelessWidget {
     )];
   }
 
-  ProgressChart.habit(String habit, {this.animate}){
+  ProgressChart.dates(HashSet<DateTime> data, {this.animate}){
     this.seriesList = [charts.Series<MapEntry<DateTime,int>, DateTime>(
       id: 'Habits',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
       domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
       measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
-      data: _getHabitData(habit),
+      data: _getHabitData(data),
     )];
   }
+
+  ProgressChart.habit(CoreHabit habit, {bool animate}) : this.dates(habit.markedOff, animate: animate);
+
+  ProgressChart.habitFromString(String habit, {bool animate}) : this.habit(HabitManager.instance.getHabit(habit), animate: animate);
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory ProgressChart.withSampleData() {
@@ -55,13 +61,21 @@ class ProgressChart extends StatelessWidget {
     );
   }
 
-  List<MapEntry<DateTime, int>> _getHabitData(String habit) {
+  List<MapEntry<DateTime, int>> _getHabitDataFromString(String habit) {
+    return _getHabitDataFromHabit(HabitManager.instance.getHabit(habit));
+  }
+
+  List<MapEntry<DateTime, int>> _getHabitDataFromHabit(CoreHabit habit) {
+    return _getHabitData(habit.markedOff);
+  }
+
+  List<MapEntry<DateTime, int>> _getHabitData(HashSet<DateTime> markedOff) {
     DateTime _currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     Map<DateTime, int> dates = <DateTime, int>{
       _currentDate : 0
     };
     DateTime earliest = _currentDate;
-    HabitManager.instance.getHabit(habit).markedOff.forEach((date) {
+    markedOff.forEach((date) {
         //Keep track of the earliest marked off date
         if (earliest.isAfter(date))
           earliest = date;

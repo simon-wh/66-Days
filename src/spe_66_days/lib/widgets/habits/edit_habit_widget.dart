@@ -73,7 +73,7 @@ class EditHabitState extends State<EditHabitWidget> {
           Navigator.pop(context);
         }),
         actions: <Widget>[
-          this.ogHabit.key.startsWith(HabitManager.customHabitPrefix) ? IconButton(icon: Icon(Icons.delete_forever), onPressed: () {
+          this.ogHabit.isCustom() ? IconButton(icon: Icon(Icons.delete_forever), onPressed: () {
             showDialog(
               context: context,
               builder: (BuildContext context) {

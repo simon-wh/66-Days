@@ -1,4 +1,5 @@
 import 'HabitNotification.dart';
+import 'HabitManager.dart';
 import 'dart:collection';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:quiver/core.dart';
@@ -51,5 +52,9 @@ class CoreHabit {
     this.experimentTitle = habit.experimentTitle;
     this.reminders = habit.reminders;
     this.markedOff = habit.markedOff;
+  }
+
+  bool isCustom(){
+    return this.key.startsWith(HabitManager.customHabitPrefix);
   }
 }
