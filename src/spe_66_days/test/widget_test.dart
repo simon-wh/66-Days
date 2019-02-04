@@ -17,8 +17,8 @@ void main() {
 
     // Verify that navigation screen is correctly set up
     expect(find.text('6 6  DAYS'), findsOneWidget);
-    expect(find.text('Habits'), findsOneWidget);
-    expect(find.text('Progress'), findsOneWidget);
+    expect(find.byType(Card), findsNWidgets(2));
+    expect(find.byIcon(Icons.home), findsOneWidget);
     expect(find.byIcon(Icons.assignment), findsOneWidget);
     expect(find.byIcon(Icons.timeline), findsOneWidget);
   });
@@ -26,8 +26,8 @@ void main() {
   testWidgets('Test Navigation is correct', (WidgetTester tester) async{
     await tester.pumpWidget(new StartApp());
     await tester.tap(find.byIcon(Icons.timeline));
-    await tester.pump();
-
+    await tester.pump(new Duration(seconds: 1));
     expect(find.byType(ProgressChart), findsOneWidget);
+
   });
 }
