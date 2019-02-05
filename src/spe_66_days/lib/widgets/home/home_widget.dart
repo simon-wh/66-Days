@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'home_card.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
-import 'package:spe_66_days/classes/habits/HabitManager.dart';
+import 'package:spe_66_days/widgets/progress/stats_widget.dart';
 
 class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -20,8 +20,9 @@ class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
 
 class _HomeState extends State<HomeWidget> {
   static List<HomeCard> cards = [
-    HomeCard(Key("progress"), "Progress", () => ProgressChart.allHabitsCombined()),
-    HomeCard(Key("habit"), "Habits", () => HabitsWidget(compact: true))
+    HomeCard(Key("progress"), "Progress", () => Container(child: ProgressChart.allHabitsCombined(), constraints: BoxConstraints(maxHeight: 275.0))),
+    HomeCard(Key("habit"), "Habits", () => HabitsWidget(compact: true)),
+    HomeCard(Key("stats"), "Statistics", () => StatsWidget())
   ];
 
   @override
@@ -51,12 +52,13 @@ class _HomeState extends State<HomeWidget> {
 
             });});
           },
-          child: ListView(
+          child: PageView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
+        //padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
         //shrinkWrap: true,
         children: <Widget>[
           ListView.builder(
+              primary: true,
               shrinkWrap: true,
               itemCount: cards.length,
               itemBuilder: (BuildContext context, int index) {

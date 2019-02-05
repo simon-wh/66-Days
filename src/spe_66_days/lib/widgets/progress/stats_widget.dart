@@ -3,7 +3,6 @@
 // finals
 // this.stuff
 
-
 //IN WIDGET:
 //List Stats = [
 // stats (perfect days, icon, calcperf)
@@ -25,35 +24,35 @@ class StatsWidget extends StatelessWidget {
     Stat("Current Streak", Icon(Icons.whatshot), calcStreak),
     Stat("Best Streak", Icon(Icons.star), bestStreak),
     Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvg),
-    Stat("Habits checked today", Icon(Icons.calendar_today, color: Colors.red), habitsToday)
+    Stat("Habits checked today", Icon(Icons.calendar_today, color: Colors.red),
+        habitsToday)
   ];
 
   StatsWidget();
 
-  static HashSet<DateTime> intersection(List<HashSet<DateTime>> habits){
+  static HashSet<DateTime> intersection(List<HashSet<DateTime>> habits) {
     return habits.reduce((u, v) => u.intersection(v));
   }
 
-  static HashSet<DateTime> union(List<HashSet<DateTime>> habits){
+  static HashSet<DateTime> union(List<HashSet<DateTime>> habits) {
     return habits.reduce((u, v) => u.union(v));
   }
 
-  static int perfectDaysCount(List<HashSet<DateTime>> habits){
+  static int perfectDaysCount(List<HashSet<DateTime>> habits) {
     return intersection(habits).length;
   }
 
-  static List<List<DateTime>> streaks(HashSet<DateTime> set){
+  static List<List<DateTime>> streaks(HashSet<DateTime> set) {
     SplayTreeSet<DateTime> sorted = SplayTreeSet.from(set);
     List<List<DateTime>> streaks = List<List<DateTime>>();
     List<DateTime> currentStreak = List<DateTime>();
     DateTime lastDate;
-    for (DateTime date in sorted){
+    for (DateTime date in sorted) {
       if (lastDate == null)
         currentStreak.add(date);
       else if (date.difference(lastDate).inDays == 1)
         currentStreak.add(date);
-      else
-      {
+      else {
         streaks.add(currentStreak);
         currentStreak = List<DateTime>();
       }
@@ -64,43 +63,61 @@ class StatsWidget extends StatelessWidget {
     return streaks;
   }
 
-  static int calcStreak(List<HashSet<DateTime>> habits){
+  static int calcStreak(List<HashSet<DateTime>> habits) {
     var s = streaks(intersection(habits));
-    if (s.length ==0)
-      return 0;
+    if (s.length == 0) return 0;
     var streak = s.last;
-    return streak.contains(Global.currentDate) || streak.contains(Global.currentDate.add(Duration(days: -1))) ? streak.length : 0;
+    return streak.contains(Global.currentDate) ||
+            streak.contains(Global.currentDate.add(Duration(days: -1)))
+        ? streak.length
+        : 0;
   }
 
-  static int bestStreak(List<HashSet<DateTime>> habits){
+  static int bestStreak(List<HashSet<DateTime>> habits) {
     var s = streaks(intersection(habits));
-    if (s.length ==0)
-      return 0;
+    if (s.length == 0) return 0;
 
     return s.map((v) => v.length).reduce(max);
   }
 
-  static int habitsDone(List<HashSet<DateTime>> habits){
+  static int habitsDone(List<HashSet<DateTime>> habits) {
     return habits.fold(0, (n, s) => n + s.length);
   }
 
-  static int habitsToday(List<HashSet<DateTime>> habits){
-    return habits.fold(0, (n, s) => n + (s.contains(Global.currentDate) ? 1 : 0));
+  static int habitsToday(List<HashSet<DateTime>> habits) {
+    return habits.fold(
+        0, (n, s) => n + (s.contains(Global.currentDate) ? 1 : 0));
   }
 
-  static double habitAvg(List<HashSet<DateTime>> habits){
-    var s = union(habits).toList()
-      ..sort();
-    if (s.length == 0)
-      return 0;
+  static double habitAvg(List<HashSet<DateTime>> habits) {
+    var s = union(habits).toList()..sort();
+    if (s.length == 0) return 0.0;
     DateTime first = s.first;
-    return (habitsDone(habits) / (Global.currentDate.difference(first).inDays + 1));
+    return (habitsDone(habits) /
+        (Global.currentDate.difference(first).inDays + 1));
   }
 
   @override
-  Widget build(BuildContext context){
-    List<HashSet<DateTime>> habits = Global.habitManager.getHabits().values.map((s) => s.markedOff).toList();
-    return ListView(
+  Widget build(BuildContext context) {
+    List<HashSet<DateTime>> habits =
+        Global.habitManager.getHabits().values.map((s) => s.markedOff).toList();
+    return Container(
+        padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 5.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: stats.map((stat) {
+            num val = stat.habitFunc(habits);
+            String str =
+                val is double ? val.toStringAsFixed(1) : val.toString();
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[stat.icon, Text("${stat.title}"), Text(str)],
+            );
+          }).toList(),
+        ));
+
+    /*return ListView(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
       children: <Widget>[
@@ -109,7 +126,8 @@ class StatsWidget extends StatelessWidget {
             itemCount: stats.length,
             itemBuilder: (BuildContext context, int index) {
               num val = stats[index].habitFunc(habits);
-              String str = val is double ? (val as double).toStringAsFixed(1) : val.toString();
+              String str =
+                  val is double ? val.toStringAsFixed(1) : val.toString();
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -120,6 +138,6 @@ class StatsWidget extends StatelessWidget {
               );
             }) // Item Builder
       ],
-    );
+    );*/
   }
 }

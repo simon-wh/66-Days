@@ -31,48 +31,13 @@ class _HabitsState extends State<HabitsWidget> {
   _HabitsState();
 
   Widget build(BuildContext context) {
-    Widget view =
-        new ListView.builder(
-            shrinkWrap: true,
-            itemCount: Global.habitManager.getHabits().length,
-            itemBuilder: (BuildContext context, int index) {
-              MapEntry<String, CoreHabit> entry = Global.habitManager.getHabits().entries.toList()[index];
-              CoreHabit _habit = entry.value;
-              return HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard);
-
-              /*return entry.key.startsWith(HabitManager.customHabitPrefix) ? Dismissible(
-                  direction: DismissDirection.startToEnd,
-                  // Each Dismissible must contain a Key. Keys allow Flutter to
-                  // uniquely identify Widgets.
-                  key: Key(entry.key),
-                  // We also need to provide a function that will tell our app
-                  // what to do after an item has been swiped away.
-                  background: Container(
-                    color: Colors.red,
-                    child: Icon(Icons.delete),
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.all(5.0),
-                  ),
-                  onDismissed: (direction) {
-                    // Remove the item from our data source.
-                    setState(() {
-                      Global.habitManager.removeHabit(entry.key);
-                      Global.habitManager.save();
-                    });
-
-                    // Show a snack bar! This snack bar could also contain "Undo" actions.
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("Custom Habit \"${_habit.title}\" removed")));
-                  },
-                  child: content
-              ) : content;*/
-            } // Item Builder
-        )
-
-    ;
+    List<Widget> habits = Global.habitManager.getHabits().entries.map((entry) {
+      CoreHabit _habit = entry.value;
+      return HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard);
+    }).toList();
 
     if (this.widget.compact)
-      return view;
+      return Column(mainAxisSize: MainAxisSize.min, children: habits);
     else {
     return Scaffold(
       floatingActionButton: !this.widget.compact? FloatingActionButton.extended(
@@ -80,14 +45,14 @@ class _HabitsState extends State<HabitsWidget> {
             CoreHabit _habit = Global.habitManager.newCustomHabit();
             Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
             setState(() {
-              //Global.habitManager.save();
+              Global.habitManager.save();
             });
           },
           icon: Icon(Icons.add),
           label: const Text('Add Habit')) : null,
       body:  Container(
       padding: const EdgeInsets.only(top: 10.0),
-      child: view,
+      child: ListView(children: habits, shrinkWrap: true),
     ));
   }
   } // Build

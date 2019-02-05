@@ -24,7 +24,7 @@ class HomeCard {
                               fontSize: 20.0, fontWeight: FontWeight.bold))
                     ]),
                 Container(
-                    child: child(), constraints: BoxConstraints(maxHeight: 275.0))
+                    child: child())
               ],
             )));
   }
