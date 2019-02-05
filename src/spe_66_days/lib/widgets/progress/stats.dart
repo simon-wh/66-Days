@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:collection';
 
 class Stat {

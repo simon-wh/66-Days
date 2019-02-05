@@ -24,7 +24,8 @@ class StatsWidget extends StatelessWidget {
     Stat("Total Habits Done", Icon(Icons.check_circle_outline), habitsDone),
     Stat("Current Streak", Icon(Icons.whatshot), calcStreak),
     Stat("Best Streak", Icon(Icons.star), bestStreak),
-    Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvg)
+    Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvg),
+    Stat("Habits checked today", Icon(Icons.calendar_today, color: Colors.red), habitsToday)
   ];
 
   StatsWidget();
@@ -83,6 +84,10 @@ class StatsWidget extends StatelessWidget {
     return habits.fold(0, (n, s) => n + s.length);
   }
 
+  static int habitsToday(List<HashSet<DateTime>> habits){
+    return habits.fold(0, (n, s) => n + (s.contains(Global.currentDate) ? 1 : 0));
+  }
+
   static double habitAvg(List<HashSet<DateTime>> habits){
     var s = union(habits).toList()
       ..sort();
@@ -95,9 +100,7 @@ class StatsWidget extends StatelessWidget {
     List<HashSet<DateTime>> habits = HabitManager.instance.getHabits().values.map((s) => s.markedOff).toList();
     return ListView(
       shrinkWrap: true,
-      //physics: const AlwaysScrollableScrollPhysics(),
       padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
-      //shrinkWrap: true,
       children: <Widget>[
         ListView.builder(
             shrinkWrap: true,
