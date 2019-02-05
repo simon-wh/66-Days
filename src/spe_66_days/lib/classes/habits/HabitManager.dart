@@ -9,12 +9,9 @@ import 'HabitSettings.dart';
 
 
 class HabitManager extends SettingsBase<HabitSettings> {
-  static final HabitManager instance = HabitManager();
   final FlutterLocalNotificationsPlugin notificationsPlugin = new FlutterLocalNotificationsPlugin();
 
-  HabitManager() : super("habit_manager.json", HabitSettings()){
-
-  }
+  HabitManager() : super("habit_manager.json", HabitSettings());
 
   bool initialised = false;
 

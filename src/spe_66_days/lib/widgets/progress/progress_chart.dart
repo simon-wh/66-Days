@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:collection';
-import 'package:spe_66_days/main.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
 class ProgressChart extends StatelessWidget {
   List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
@@ -15,7 +15,7 @@ class ProgressChart extends StatelessWidget {
   ProgressChart.allHabits({this.animate}){
     this.seriesList = [];
     int i = 0;
-    var habits = HabitManager.instance.getHabits();
+    var habits = Global.habitManager.getHabits();
     habits.forEach((s, v) {
       var clr = charts.MaterialPalette.getOrderedPalettes(habits.length)[i].shadeDefault;
       this.seriesList.add(charts.Series<MapEntry<DateTime,int>, DateTime>(
@@ -51,7 +51,7 @@ class ProgressChart extends StatelessWidget {
 
   ProgressChart.habit(CoreHabit habit, {bool animate}) : this.dates(habit.markedOff, animate: animate);
 
-  ProgressChart.habitFromString(String habit, {bool animate}) : this.habit(HabitManager.instance.getHabit(habit), animate: animate);
+  ProgressChart.habitFromString(String habit, {bool animate}) : this.habit(Global.habitManager.getHabit(habit), animate: animate);
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory ProgressChart.withSampleData() {
@@ -63,7 +63,7 @@ class ProgressChart extends StatelessWidget {
   }
 
   List<MapEntry<DateTime, int>> _getHabitDataFromString(String habit) {
-    return _getHabitDataFromHabit(HabitManager.instance.getHabit(habit));
+    return _getHabitDataFromHabit(Global.habitManager.getHabit(habit));
   }
 
   List<MapEntry<DateTime, int>> _getHabitDataFromHabit(CoreHabit habit) {
@@ -107,7 +107,7 @@ class ProgressChart extends StatelessWidget {
       _currentDate : 0
     };
     DateTime earliest = _currentDate;
-    HabitManager.instance.getHabits().forEach((key, value){
+    Global.habitManager.getHabits().forEach((key, value){
       value.markedOff.forEach((date) {
         //Keep track of the earliest marked off date
         if (earliest.isAfter(date))

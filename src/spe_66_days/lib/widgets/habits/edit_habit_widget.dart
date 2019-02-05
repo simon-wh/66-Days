@@ -5,6 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
 class EditHabitWidget extends StatefulWidget {
   final CoreHabit habit;
@@ -54,14 +55,14 @@ class EditHabitState extends State<EditHabitWidget> {
       if (this.habit.title != titleController.text){
         print("diff");
         this.habit.title = titleController.text;
-        //await HabitManager.instance.save();
+        //await Global.habitManager.save();
       }
     });*/
   }
 
   @override
   void dispose() {
-    //HabitManager.instance.save();
+    //Global.habitManager.save();
     super.dispose();
   }
 
@@ -92,9 +93,9 @@ class EditHabitState extends State<EditHabitWidget> {
                     new FlatButton(
                       child: new Text("Delete"),
                       onPressed: () {
-                        HabitManager.instance.removeHabit(this.ogHabit.key);
-                        HabitManager.instance.save();
-                        HabitManager.instance.scheduleNotifications();
+                        Global.habitManager.removeHabit(this.ogHabit.key);
+                        Global.habitManager.save();
+                        Global.habitManager.scheduleNotifications();
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
@@ -111,8 +112,8 @@ class EditHabitState extends State<EditHabitWidget> {
 
           IconButton(icon: Icon(Icons.check), onPressed: () {
             this.ogHabit.updateFrom(this.habit);
-            HabitManager.instance.save();
-            HabitManager.instance.scheduleNotifications();
+            Global.habitManager.save();
+            Global.habitManager.scheduleNotifications();
             Navigator.pop(context);
           })
         ]),
@@ -125,7 +126,7 @@ class EditHabitState extends State<EditHabitWidget> {
                   HashSet.from(Day.values),
                   true));
               setState(() {
-                //HabitManager.instance.save();
+                //Global.habitManager.save();
               });
             },
             icon: Icon(Icons.add),
@@ -148,7 +149,7 @@ class EditHabitState extends State<EditHabitWidget> {
               controller: experimentTitleController,
               onChanged: (val) {
                 habit.experimentTitle = val;
-                //HabitManager.instance.save();
+                //Global.habitManager.save();
               },
             ),
             ListView.builder(
@@ -173,7 +174,7 @@ class EditHabitState extends State<EditHabitWidget> {
                         // Remove the item from our data source.
                         setState(() {
                           habit.reminders.removeAt(index);
-                          //HabitManager.instance.save();
+                          //Global.habitManager.save();
                         });
 
                         // Show a snackbar! This snackbar could also contain "Undo" actions.

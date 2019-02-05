@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
-import 'package:spe_66_days/main.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
 enum mode{Compact, Minimal, Standard}
 
@@ -60,11 +60,11 @@ class HabitListState extends State<HabitListWidget> {
                     onChanged: (bool checked) {
                       if (checked) {
                         if (this.widget.habit.markedOff.add(_currentDate))
-                          HabitManager.instance.save();
+                          Global.habitManager.save();
                       }
                       else {
                         if (this.widget.habit.markedOff.remove(_currentDate))
-                          HabitManager.instance.save();
+                          Global.habitManager.save();
                       }
 
                       setState(() {});

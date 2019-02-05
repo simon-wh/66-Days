@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/screen_navigation.dart';
-import 'dart:async';
-import 'package:spe_66_days/classes/habits/HabitManager.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
- void main() async {
-  await HabitManager.instance.init();
+
+void main() async {
+  await Global.instance.init();
   runApp(StartApp());
 }
 
 /*Creates a stateless widget called startApp. It is stateless as nothing within
   the build method depends on any state update from the app.
 */
-class StartApp extends StatelessWidget{
+class StartApp extends StatelessWidget {
     //All StatelessWidgets need a build method to create the user interface.
   @override
   Widget build(BuildContext context){
@@ -39,8 +39,4 @@ class StartApp extends StatelessWidget{
       home: ScreenNavigation(),
     );
   }
-}
-
-class Global {
-  static DateTime currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 }

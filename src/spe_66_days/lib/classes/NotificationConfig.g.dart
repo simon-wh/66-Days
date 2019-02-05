@@ -6,7 +6,7 @@ part of 'NotificationConfig.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NotificationConfig _$NotificationFromJson(Map<String, dynamic> json) {
+NotificationConfig _$NotificationConfigFromJson(Map<String, dynamic> json) {
   return NotificationConfig(
       json['message'] as String,
       json['time'] == null
@@ -19,7 +19,7 @@ NotificationConfig _$NotificationFromJson(Map<String, dynamic> json) {
       json['enabled'] as bool);
 }
 
-Map<String, dynamic> _$NotificationToJson(NotificationConfig instance) {
+Map<String, dynamic> _$NotificationConfigToJson(NotificationConfig instance) {
     var days = instance.repeatDays.toList();
     days.sort((a,b) => a.value.compareTo(b.value));
     return <String, dynamic>{

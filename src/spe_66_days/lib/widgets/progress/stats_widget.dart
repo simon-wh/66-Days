@@ -16,7 +16,7 @@ import 'package:spe_66_days/widgets/progress/stats.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'dart:collection';
 import 'dart:math';
-import 'package:spe_66_days/main.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
 class StatsWidget extends StatelessWidget {
   List<Stat> stats = [
@@ -99,7 +99,7 @@ class StatsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    List<HashSet<DateTime>> habits = HabitManager.instance.getHabits().values.map((s) => s.markedOff).toList();
+    List<HashSet<DateTime>> habits = Global.habitManager.getHabits().values.map((s) => s.markedOff).toList();
     return ListView(
       shrinkWrap: true,
       padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),

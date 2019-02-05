@@ -10,7 +10,6 @@ class SettingsBase<T> {
 
   SettingsBase(this.saveFileName, this.settings);
 
-
   String getJson(){
     return json.encode(settings);
   }

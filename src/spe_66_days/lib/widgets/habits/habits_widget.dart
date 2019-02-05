@@ -4,6 +4,7 @@ import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
 import 'package:spe_66_days/main.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
 class HabitsWidget extends StatefulWidget {
   final bool compact;
@@ -33,9 +34,9 @@ class _HabitsState extends State<HabitsWidget> {
     Widget view =
         new ListView.builder(
             shrinkWrap: true,
-            itemCount: HabitManager.instance.getHabits().length,
+            itemCount: Global.habitManager.getHabits().length,
             itemBuilder: (BuildContext context, int index) {
-              MapEntry<String, CoreHabit> entry = HabitManager.instance.getHabits().entries.toList()[index];
+              MapEntry<String, CoreHabit> entry = Global.habitManager.getHabits().entries.toList()[index];
               CoreHabit _habit = entry.value;
               return HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard);
 
@@ -55,8 +56,8 @@ class _HabitsState extends State<HabitsWidget> {
                   onDismissed: (direction) {
                     // Remove the item from our data source.
                     setState(() {
-                      HabitManager.instance.removeHabit(entry.key);
-                      HabitManager.instance.save();
+                      Global.habitManager.removeHabit(entry.key);
+                      Global.habitManager.save();
                     });
 
                     // Show a snack bar! This snack bar could also contain "Undo" actions.
@@ -76,10 +77,10 @@ class _HabitsState extends State<HabitsWidget> {
     return Scaffold(
       floatingActionButton: !this.widget.compact? FloatingActionButton.extended(
           onPressed: () {
-            CoreHabit _habit = HabitManager.instance.newCustomHabit();
+            CoreHabit _habit = Global.habitManager.newCustomHabit();
             Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
             setState(() {
-              //HabitManager.instance.save();
+              //Global.habitManager.save();
             });
           },
           icon: Icon(Icons.add),

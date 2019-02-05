@@ -6,27 +6,28 @@ import 'package:spe_66_days/classes/habits/HabitSettings.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'dart:convert';
+import 'package:spe_66_days/classes/Global.dart';
 
 void main() {
   group("HabitManager JSON", () {
     test('Encode/Decode 1', () {
-      HabitSettings settings1 = HabitManager.instance.settings;
-      HabitSettings settings2 = HabitManager.instance.getSettingsFromJson(
-          json.decode(HabitManager.instance.getJson()));
+      HabitSettings settings1 = Global.habitManager.settings;
+      HabitSettings settings2 = Global.habitManager.getSettingsFromJson(
+          json.decode(Global.habitManager.getJson()));
       expect(settings1.habits, equals(
           settings2.habits));
     });
 
     test('Encode/Decode 2', () {
-      expect(HabitManager.instance.getJson(), equals(json.encode(
-          HabitManager.instance.getSettingsFromJson(
-              json.decode(HabitManager.instance.getJson())))));
+      expect(Global.habitManager.getJson(), equals(json.encode(
+          Global.habitManager.getSettingsFromJson(
+              json.decode(Global.habitManager.getJson())))));
     });
   });
 
   group("HabitManager habits", () {
     test('Contains habits', () {
-      expect(HabitManager.instance.getHabits(), isNotNull);
+      expect(Global.habitManager.getHabits(), isNotNull);
     });
   });
 

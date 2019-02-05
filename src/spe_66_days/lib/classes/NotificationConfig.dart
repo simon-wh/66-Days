@@ -19,7 +19,7 @@ class NotificationConfig {
 
   NotificationConfig(this.message, this.time, this.repeatDays, this.enabled);
 
-  factory NotificationConfig.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
+  factory NotificationConfig.fromJson(Map<String, dynamic> json) => _$NotificationConfigFromJson(json);
 
   static const Map<Day, String> DayStringMap = <Day, String>{
     Day.Monday: "Monday",
@@ -37,7 +37,7 @@ class NotificationConfig {
     return repeatDays.length >= 7 ? "Every day" : days.map((i) => DayStringMap[i]).join(", ");
   }
 
-  Map<String, dynamic> toJson() => _$NotificationToJson(this);
+  Map<String, dynamic> toJson() => _$NotificationConfigToJson(this);
 
   bool operator ==(o) => o is NotificationConfig
       && o.enabled == this.enabled
