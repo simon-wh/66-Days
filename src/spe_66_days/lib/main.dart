@@ -28,6 +28,7 @@ class StartApp extends StatelessWidget{
           primaryColor: Colors.red,
           canvasColor: Colors.white,
           accentColor: Colors.redAccent,
+          cardColor: Colors.white,
           fontFamily: 'Rubik',
           textTheme: TextTheme(
           headline: TextStyle(fontSize: 26.0),

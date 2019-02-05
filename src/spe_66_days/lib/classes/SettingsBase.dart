@@ -8,9 +8,7 @@ class SettingsBase<T> {
 
   T settings;
 
-  SettingsBase(this.saveFileName, this.settings){
-
-  }
+  SettingsBase(this.saveFileName, this.settings);
 
 
   String getJson(){

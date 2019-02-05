@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
+import 'package:spe_66_days/widgets/progress/stats_widget.dart';
 
 class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -31,29 +32,15 @@ class _ProgressState extends State<ProgressWidget>{
   }
 
   Widget build(context){
-    return Container( padding: EdgeInsets.all(5.0), child: Column(
+    return ListView( padding: EdgeInsets.all(5.0),
+        shrinkWrap: true,
         children: <Widget>[
-          /*Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [Expanded(child: ProgressChartWidget())]
-            )
-          ),*/
-          Expanded(
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [Expanded(child: ProgressChart.allHabitsCombined())]
-              )
+          Container(
+              constraints: BoxConstraints(maxHeight: 300.0),
+              child: ProgressChart.allHabitsCombined()
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Habits tracked today: ${_habitsChecked()}/"
-                  "${HabitManager.instance.getHabits().length}",
-                  style: Theme.of(context).textTheme.title)
-            ],
-          )
+          StatsWidget()
         ]
-    ));
+    );
   }
 }
