@@ -38,6 +38,7 @@ class SettingsBase<T> {
       });
     } catch (e) {
       // If we encounter an error, return 0
+      print("Error loading $saveFileName, saving default");
       return save();
     }
   }
