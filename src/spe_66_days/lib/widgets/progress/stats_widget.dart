@@ -91,6 +91,8 @@ class StatsWidget extends StatelessWidget {
   static double habitAvg(List<HashSet<DateTime>> habits){
     var s = union(habits).toList()
       ..sort();
+    if (s.length == 0)
+      return 0;
     DateTime first = s.first;
     return (habitsDone(habits) / (Global.currentDate.difference(first).inDays + 1));
   }
