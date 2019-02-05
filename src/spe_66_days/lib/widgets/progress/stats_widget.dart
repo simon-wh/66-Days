@@ -50,7 +50,7 @@ class StatsWidget extends StatelessWidget {
     for (DateTime date in sorted){
       if (lastDate == null)
         currentStreak.add(date);
-      else if (lastDate.difference(date).inDays == 1)
+      else if (date.difference(lastDate).inDays == 1)
         currentStreak.add(date);
       else
       {
@@ -92,7 +92,7 @@ class StatsWidget extends StatelessWidget {
     var s = union(habits).toList()
       ..sort();
     DateTime first = s.first;
-    return habitsDone(habits) / (Global.currentDate.difference(first).inDays + 1);
+    return (habitsDone(habits) / (Global.currentDate.difference(first).inDays + 1));
   }
 
   @override
@@ -106,12 +106,14 @@ class StatsWidget extends StatelessWidget {
             shrinkWrap: true,
             itemCount: stats.length,
             itemBuilder: (BuildContext context, int index) {
+              num val = stats[index].habitFunc(habits);
+              String str = val is double ? (val as double).toStringAsFixed(1) : val.toString();
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   stats[index].icon,
                   Text("${stats[index].title}"),
-                  Text("${stats[index].habitFunc(habits).toString()}")
+                  Text(str)
                 ],
               );
             }) // Item Builder
