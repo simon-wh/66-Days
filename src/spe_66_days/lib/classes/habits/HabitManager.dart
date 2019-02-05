@@ -94,9 +94,5 @@ class HabitManager extends SettingsBase<HabitSettings> {
   Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(this.settings.habits);}
 
   @override
-  HabitSettings getSettingsFromJson(Map<String, dynamic> json){
-    HabitSettings settings = HabitSettings.fromJson(json);
-    settings.habits.forEach((s, v) => v.key = s);
-    return settings;
-  }
+  HabitSettings getSettingsFromJson(Map<String, dynamic> json) => HabitSettings.fromJson(json);
 }

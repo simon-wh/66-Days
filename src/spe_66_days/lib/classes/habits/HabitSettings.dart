@@ -12,13 +12,11 @@ part 'package:spe_66_days/classes/habits/HabitSettings.g.dart';
 
 @JsonSerializable()
 class HabitSettings{
-  Map<String, CoreHabit> habits = <String, CoreHabit> {
-    "observation": CoreHabit("Eating Observation", "Taken a photo of my meal", reminders: <NotificationConfig>[ NotificationConfig("Take a photo of your meal!", Time(14, 0), HashSet.from(<Day>[Day.Monday, Day.Tuesday, Day.Friday]), true) ]),
-    "eat_slowly": CoreHabit("Eat Slowly", "Put down your cutlery after each mouthful ")
-  };
+  Map<String, CoreHabit> habits;
 
-  HabitSettings(){
-    habits.forEach((s, v) => v.key = s);
+  HabitSettings({bool setDefaults = true}){
+    if (setDefaults)
+      this.setDefaults();
   }
 
   bool operator ==(o) => o is HabitSettings
@@ -32,4 +30,11 @@ class HabitSettings{
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
   Map<String, dynamic> toJson() => _$HabitSettingsToJson(this);
+  
+  void setDefaults(){
+    habits = habits ?? <String, CoreHabit> {
+      "observation": CoreHabit("Eating Observation", "Taken a photo of my meal", reminders: <NotificationConfig>[ NotificationConfig("Take a photo of your meal!", Time(14, 0), HashSet.from(<Day>[Day.Monday, Day.Tuesday, Day.Friday]), true) ]),
+      "eat_slowly": CoreHabit("Eat Slowly", "Put down your cutlery after each mouthful ")
+    }..forEach((s, v) => v.key = s);
+  }
 }

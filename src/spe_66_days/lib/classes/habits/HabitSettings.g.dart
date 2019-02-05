@@ -7,9 +7,10 @@ part of 'HabitSettings.dart';
 // **************************************************************************
 
 HabitSettings _$HabitSettingsFromJson(Map<String, dynamic> json) {
-  return HabitSettings()
+  return HabitSettings(setDefaults: false)
     ..habits = (json['habits'] as Map<String, dynamic>)?.map((k, e) => MapEntry(
-        k, e == null ? null : CoreHabit.fromJson(e as Map<String, dynamic>)));
+        k, e == null ? null : CoreHabit.fromJson(e as Map<String, dynamic>)))
+      ..setDefaults();
 }
 
 Map<String, dynamic> _$HabitSettingsToJson(HabitSettings instance) =>
