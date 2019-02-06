@@ -57,6 +57,21 @@ void main() {
   group("Test functions", (){
     //Move tests over edge cases to streak function
     group ("Current streak", (){
+      test('Empty list', (){
+        List<HashSet<DateTime>> dates = <HashSet<DateTime>> [];
+        expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5)), equals(0));
+      });
+
+      test('Empty Hashset', (){
+        List<HashSet<DateTime>> dates = <HashSet<DateTime>> [HashSet<DateTime>()];
+        expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5)), equals(0));
+      });
+
+      test('Multiple Empty Hashsets', (){
+        List<HashSet<DateTime>> dates = <HashSet<DateTime>> [HashSet<DateTime>(), HashSet<DateTime>()];
+        expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5)), equals(0));
+      });
+
       test('Correct streak', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
         expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5)), equals(5));

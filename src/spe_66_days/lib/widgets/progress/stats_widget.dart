@@ -59,7 +59,8 @@ class StatsWidget extends StatelessWidget {
 
       lastDate = date;
     }
-    streaks.add(currentStreak);
+    if (currentStreak.length != 0)
+      streaks.add(currentStreak);
     return streaks;
   }
   static int calcStreak(List<HashSet<DateTime>> habits) {
@@ -67,6 +68,9 @@ class StatsWidget extends StatelessWidget {
   }
 
   static int calcStreakWithDate(List<HashSet<DateTime>> habits, DateTime currentDate) {
+    if (habits.length == 0)
+      return 0;
+
     var s = streaks(intersection(habits));
     if (s.length == 0) return 0;
     if (currentDate.isBefore(s.last.last)){
