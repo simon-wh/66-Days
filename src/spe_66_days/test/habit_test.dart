@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/NotificationConfig.dart';
 import 'package:spe_66_days/classes/habits/HabitSettings.dart';

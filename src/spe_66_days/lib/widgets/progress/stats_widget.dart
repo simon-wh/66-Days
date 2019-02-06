@@ -12,7 +12,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/stats.dart';
-import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'dart:collection';
 import 'dart:math';
 import 'package:spe_66_days/classes/Global.dart';
@@ -55,6 +54,7 @@ class StatsWidget extends StatelessWidget {
       else {
         streaks.add(currentStreak);
         currentStreak = List<DateTime>();
+        currentStreak.add(date);
       }
 
       lastDate = date;
@@ -62,13 +62,19 @@ class StatsWidget extends StatelessWidget {
     streaks.add(currentStreak);
     return streaks;
   }
-
   static int calcStreak(List<HashSet<DateTime>> habits) {
+    return calcStreakWithDate(habits, Global.currentDate);
+  }
+
+  static int calcStreakWithDate(List<HashSet<DateTime>> habits, DateTime currentDate) {
     var s = streaks(intersection(habits));
     if (s.length == 0) return 0;
+    if (currentDate.isBefore(s.last.last)){
+      throw Exception("currentDate out of range!");
+    }
     var streak = s.last;
-    return streak.contains(Global.currentDate) ||
-            streak.contains(Global.currentDate.add(Duration(days: -1)))
+    return streak.contains(currentDate) ||
+            streak.contains(currentDate.add(Duration(days: -1)))
         ? streak.length
         : 0;
   }
@@ -85,8 +91,7 @@ class StatsWidget extends StatelessWidget {
   }
 
   static int habitsToday(List<HashSet<DateTime>> habits) {
-    return habits.fold(
-        0, (n, s) => n + (s.contains(Global.currentDate) ? 1 : 0));
+    return habits.fold(0, (n, s) => n + (s.contains(Global.currentDate) ? 1 : 0));
   }
 
   static double habitAvg(List<HashSet<DateTime>> habits) {
