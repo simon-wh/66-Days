@@ -88,6 +88,10 @@ class HabitManager extends SettingsBase<HabitSettings> {
     return this.settings.habits[core];
   }
 
+  bool hasHabit(String core){
+    return this.settings.habits.containsKey(core);
+  }
+
   Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(this.settings.habits);}
 
   @override

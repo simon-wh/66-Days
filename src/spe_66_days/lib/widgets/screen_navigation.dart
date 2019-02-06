@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/progress_widget.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
 import 'package:spe_66_days/widgets/home/home_widget.dart';
+import 'package:spe_66_days/widgets/course/course_screen.dart';
 
 class ScreenNavigation extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
     HomeWidget(Icon(Icons.home), Text("Home")),
     HabitsScreen(Icon(Icons.assignment), Text("Habits")),
     ProgressWidget(Icon(Icons.timeline), Text('Progress')),
+    CourseScreen(Icon(Icons.library_books), Text('Course')),
   ];
 
   void onTabTapped(int index) {
