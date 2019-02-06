@@ -17,7 +17,7 @@ void main() {
 
     // Verify that navigation screen is correctly set up
     expect(find.text('6 6  DAYS'), findsOneWidget);
-    expect(find.byType(Card), findsNWidgets(2));
+    expect(find.byType(Card), findsNWidgets(3));
     expect(find.byIcon(Icons.home), findsOneWidget);
     expect(find.byIcon(Icons.assignment), findsOneWidget);
     expect(find.byIcon(Icons.timeline), findsOneWidget);

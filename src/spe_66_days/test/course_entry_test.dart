@@ -6,7 +6,7 @@ import 'dart:io';
 void main() {
   group("CourseEntry Decode JSON", () {
     test('Decode', () {
-      String text = new File('test_resources/CourseEntryDecode1.json').readAsStringSync();
+      String text = new File('../test_resources/CourseEntryDecode1.json').readAsStringSync();
       expect(CourseEntry.fromJson(json.decode(text)), equals(
         CourseEntry("Week Two - Eat Slowly and Savour Your Food", <CourseEntryItem>[
           CourseEntryChange("Experiments", "eat_slowly", "experimentTitle", <String>[
