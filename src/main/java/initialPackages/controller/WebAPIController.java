@@ -1,6 +1,7 @@
 package initialPackages.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,8 @@ import initialPackages.WhitelistRepository;
 
 
 @Controller    // This means that this class is a Controller
-@RequestMapping(path="/mobile-api") // This means URL's start with /demo (after Application path)
+@RequestMapping(path="/web-api") // This means URL's start with /demo (after Application path)
+@Secured("ADMIN")
 public class WebAPIController {
 
 	@Autowired // This means to get the bean called userRepository
