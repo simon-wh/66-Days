@@ -16,11 +16,5 @@ public class indexController {
         model.addAttribute("time", new Date());
         return "index";
     }
-    
-    @GetMapping("/hello")
-    public String hello(){
-        //model.addAttribute("time", new Date());
-        return "hello";
-    }
 }
 
