@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlnz:th="http://www/thymeleaf.org">
-<head th:include="fragments/header :: head (title='Home Page')"></head>
+<head th:include="fragments/anonymousHeader :: head (title='Home Page')"></head>
 
 <body>
-    <div th:replace="fragments/header :: header">&nbsp;</div>
-    
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-3">Welcome to the 66 Days Portal.</h1>
-            <p class="lead">This website is under development. Current features implemented include a login screening system, including logout, as well as some experiments with JSON and REST API</p>
-        </div>
-            <div class="card-columns">
-                <div class="card">
-                    <div class="card-body">
-                    <h5 class="card-title">Using Thymeleaf Models.</h5>
-                    <p class="card-text">Here is an example of an insert: <b>The current time is <span th:text="${time}"/>.</b></p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                    <h5 class="card-title">Receiving Data From a REST API.</h5>
-                    <p class="card-text">Use the query <a href="/greeting">/greeting</a> to receive a generic greeting. Pass a parameter <a href="/greeting?name=Ben">/greeting?name=Ben</a> to receive a custom response.</p>
-                    </div>
-                </div>
+    <div sec:authorize="isAnonymous()" th:replace="fragments/anonymousHeader :: header">&nbsp;</div>
+    <div sec:authorize="isAuthenticated()" th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
+
+    <div sec:authorize="isAnonymous()">
+        <div class="container">
+            <div class="jumbotron text-center">
+                <h1 class="display-3">Welcome to the 66 Days Portal.</h1>
+                <p class="lead">Please log in to your account to continue.</p>
+                
+                <a class="btn btn-lg btn-success" href="/login">Login</a>
+                
             </div>
         </div>
+    </div>
     
+    
+    <div sec:authorize="isAuthenticated()">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-3" th:inline="text">Welcome back, [[${#httpServletRequest.remoteUser}]]</h1>
+                <p class="lead">You can now access other areas of the website.</p>
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-danger" type="submit" value="Log Out"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

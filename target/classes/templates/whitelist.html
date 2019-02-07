@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head th:include="fragments/authorisedHeader :: head (title='Whitelist')">
+        <title>66 Days</title>
+    </head>
+
+<body>
+    <div th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
+    <div class="container">
+        <h1 class="display-4">Email Whitelist Service</h1>
+        <p style="padding-top:1em;">These are the email addresses of users who can access the mobile app.</p>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <b>exampleEmail@gmail.com</b>
+                <button class="btn btn-small btn-danger float-right">Delete</button>
+            </li>
+            <li class="list-group-item">
+                <b>reallyLongExampleEmailAddress@gmail.com</b>
+                <button class="btn btn-small btn-danger float-right">Delete</button>
+            </li>
+            <li class="list-group-item">
+                <b>jh43yhf8@gmail.com</b>
+                <button class="btn btn-small btn-danger float-right">Delete</button>
+            </li>
+        </ul>
+        
+        <button class="btn btn-outline-success" style="margin-top: 1em;">Add an email address.</button>
+    </div>
+    <script type="text/javascript" src="js/whitelist.js"></script>
+</body>
+</html>

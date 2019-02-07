@@ -3,3 +3,8 @@ const userAction = async () => {
     const emailWhitelist = await response.json();//extract JSON from http response
     console.log(emailWhitelist);
 }
+
+window.onload = function(){
+    console.log("HELLO WORLD.");
+    userAction();
+}
