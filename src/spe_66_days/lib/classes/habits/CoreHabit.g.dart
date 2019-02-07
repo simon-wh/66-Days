@@ -8,6 +8,7 @@ part of 'CoreHabit.dart';
 
 CoreHabit _$CoreHabitFromJson(Map<String, dynamic> json) {
   return CoreHabit(json['title'] as String, json['experimentTitle'] as String,
+      environmentDesign: json['environmentDesign'] as String,
       reminders: (json['reminders'] as List)
           ?.map((e) => e == null
               ? null
@@ -24,6 +25,7 @@ Map<String, dynamic> _$CoreHabitToJson(CoreHabit instance) {
     return <String, dynamic>{
       'title': instance.title,
       'experimentTitle': instance.experimentTitle,
+      'environmentDesign': instance.environmentDesign,
       'reminders': instance.reminders,
       'markedOff': markedOff
     };

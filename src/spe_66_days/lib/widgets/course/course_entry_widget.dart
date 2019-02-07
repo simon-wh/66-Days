@@ -15,12 +15,16 @@ class CourseEntryWidget extends StatefulWidget {
 class CourseEntryState extends State<CourseEntryWidget> {
   CourseEntryState();
 
+  final TextEditingController controller = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Column(
       children: <Widget>[
-        Center(child: Text(this.widget.entry.title, style: Theme.of(context).textTheme.headline)),
+        Center(child: Center(child: Text(this.widget.entry.title, textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline))),
         Column(
             children: this.widget.entry.items.map((item) {
           if (item is CourseEntryText) {
@@ -32,43 +36,93 @@ class CourseEntryState extends State<CourseEntryWidget> {
             //TODO: make it add habit with default params when it is fresh with default params
 
             return Column(
-                children: <Widget>[Text(item.title, style: Theme.of(context).textTheme.title)]
+                children: <Widget>[
+                  Text(item.title, style: Theme.of(context).textTheme.subtitle)
+                ]
                     .followedBy(item.items.map((s) => FlatButton(
                         onPressed: () {
+                          /*showModalBottomSheet(context: context, builder: (context){
+                            String text = s;
+                            controller.text = text;
+                            return Column( mainAxisSize: MainAxisSize.min, children: <Widget>[
+                              Text("Confirm", style: Theme.of(context).textTheme.title),
+                              TextField(
+                                //autocorrect: true,
+                                decoration: InputDecoration(
+                                    labelText: item.habitVar),
+                                controller: controller,
+
+                                onChanged: (t) {
+                                  text = t;
+                                },
+                              ),
+                              FlatButton(
+                                  child: Text("Set"),
+                                  onPressed: () {
+                                    CoreHabit habit = Global
+                                        .habitManager
+                                        .getHabit(item.habitKey);
+                                    switch (item.habitVar) {
+                                      case "experimentTitle":
+                                        habit.experimentTitle = text;
+                                        break;
+                                      default:
+                                        throw Exception(
+                                            "habitVar ${item.habitVar} not found!");
+                                        break;
+                                    }
+                                    Global.habitManager.save();
+                                    Navigator.pop(context);
+                                  })
+                                ]);
+                          });*/
+
+
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 String text = s;
                                 var controller = TextEditingController(text: s);
                                 return AlertDialog(
-                                    title: Text("Confirm"),
+                                    title: Text("Confirm", style: Theme.of(context).textTheme.body2),
                                     content: TextField(
-                                        //autocorrect: true,
-                                        decoration: InputDecoration(
-                                            labelText: item.habitVar),
-                                        controller: controller,
+                                      //autocorrect: true,
+                                      decoration: InputDecoration(
+                                          labelText: item.title),
+                                      controller: controller,
 
-                                        onChanged: (t) {
-                                          text = t;
-                                        },
-                                      ),
-                                      actions: <Widget>[FlatButton(child: Text("Set"), onPressed: (){
-                                        CoreHabit habit = Global.habitManager.getHabit(item.habitKey);
-                                        switch(item.habitVar){
-                                          case "experimentTitle":
-                                            habit.experimentTitle = text;
-                                            break;
-                                          default:
-                                            throw Exception("habitVar ${item.habitVar} not found!");
-                                            break;
-                                        }
-                                        Navigator.pop(context);
-                                      })]
-                                    );
+                                      onChanged: (t) {
+                                        text = t;
+                                      },
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                          child: Text("Set"),
+                                          onPressed: () {
+                                            CoreHabit habit = Global
+                                                .habitManager
+                                                .getHabit(item.habitKey);
+                                            switch (item.habitVar) {
+                                              case "experimentTitle":
+                                                habit.experimentTitle = text;
+                                                break;
+
+                                              case "environmentDesign":
+                                                habit.environmentDesign = text;
+                                                break;
+                                              default:
+                                                throw Exception(
+                                                    "habitVar ${item.habitVar} not found!");
+                                                break;
+                                            }
+                                            Global.habitManager.save();
+                                            Navigator.pop(context);
+                                          })
+                                    ]);
                               });
                         },
-                        child: Text(s))))
-                    .toList());
+                        child: Text(s, style: Theme.of(context).textTheme.body1))))
+                    .toList()..insert(0, Divider(indent:4.0, height: 20.0, color: Theme.of(context).accentColor)));
           } else {
             throw Exception("CourseEntryItem type unknown!");
           }

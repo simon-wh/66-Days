@@ -33,7 +33,7 @@ class CourseState extends State<CourseWidget> {
 
         body:  Container(
           padding: const EdgeInsets.only(top: 10.0),
-          child: CourseEntryWidget(CourseEntry("Week Two - Eat Slowly and Savour Your Food", <CourseEntryItem>[
+          child: CourseEntryWidget(CourseEntry("Week Two\nEat Slowly and Savour Your Food", <CourseEntryItem>[
             CourseEntryText("Select an Experiment to Apply."),
             CourseEntryChange("Experiments", "eat_slowly", "experimentTitle", <String>[
               "put down your cutlery after each mouthful",

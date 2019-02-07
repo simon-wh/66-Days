@@ -18,11 +18,11 @@ class CoreHabit {
   //String description;
   //bool unlocked;
   String experimentTitle;
-  //String checkDescription;
+  String environmentDesign;
   List<NotificationConfig> reminders;
   HashSet<DateTime> markedOff;
 
-  CoreHabit(this.title, this.experimentTitle, {this.reminders, this.markedOff, this.key}){
+  CoreHabit(this.title, this.experimentTitle, {this.environmentDesign:"", this.reminders, this.markedOff, this.key}){
     assert(this.title.isNotEmpty);
     assert(this.experimentTitle.isNotEmpty);
     //assert(this.checkDescription.isNotEmpty);
@@ -38,6 +38,7 @@ class CoreHabit {
       && o.key == this.key
       && o.title == this.title
       && o.experimentTitle == this.experimentTitle
+      && o.environmentDesign == this.environmentDesign
       && ListEquality().equals(o.reminders, this.reminders)
       && SetEquality().equals(o.markedOff, this.markedOff);// o.markedOff.containsAll(this.markedOff) && o.markedOff.length == this.markedOff.length;
 

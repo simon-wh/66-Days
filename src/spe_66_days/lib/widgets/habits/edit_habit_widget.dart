@@ -44,6 +44,7 @@ class EditHabitState extends State<EditHabitWidget> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController experimentTitleController = TextEditingController();
+  final TextEditingController environmentDesignController = TextEditingController();
 
   @override
   void initState() {
@@ -51,6 +52,7 @@ class EditHabitState extends State<EditHabitWidget> {
     super.initState();
     titleController.text = this.habit.title;
     experimentTitleController.text = this.habit.experimentTitle;
+    environmentDesignController.text = this.habit.environmentDesign;
     /*titleController.addListener(() async {
       if (this.habit.title != titleController.text){
         print("diff");
@@ -147,6 +149,15 @@ class EditHabitState extends State<EditHabitWidget> {
               //autocorrect: true,
               decoration: InputDecoration(labelText: "Experiment"),
               controller: experimentTitleController,
+              onChanged: (val) {
+                habit.experimentTitle = val;
+                //Global.habitManager.save();
+              },
+            ),
+            TextField(
+              //autocorrect: true,
+              decoration: InputDecoration(labelText: "Environment Design"),
+              controller: environmentDesignController,
               onChanged: (val) {
                 habit.experimentTitle = val;
                 //Global.habitManager.save();

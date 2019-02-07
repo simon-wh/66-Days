@@ -118,9 +118,8 @@ class StatsWidget extends StatelessWidget {
             num val = stat.habitFunc(habits);
             String str =
                 val is double ? val.toStringAsFixed(1) : val.toString();
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[stat.icon, Text("${stat.title}"), Text(str)],
+            return Stack(
+              children: <Widget>[Align(child: stat.icon, alignment: Alignment.centerLeft), Center(child: Text("${stat.title}")), Align(child: Text(str), alignment: Alignment.centerRight)],
             );
           }).toList(),
         ));
