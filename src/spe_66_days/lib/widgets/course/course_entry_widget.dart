@@ -3,6 +3,43 @@ import 'package:spe_66_days/classes/course/CourseEntry.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/Global.dart';
 
+class CourseEntryScreen extends StatefulWidget {
+  final CourseEntry entry;
+
+  CourseEntryScreen(this.entry);
+
+  @override
+  State<StatefulWidget> createState() => CourseEntryScreenState();
+}
+
+class CourseEntryScreenState extends State<CourseEntryScreen> {
+  CourseEntryScreenState();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    //Global.habitManager.save();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+        appBar: AppBar(title: Center(child: Text(this.widget.entry.title)),
+            leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+              Navigator.pop(context);
+            })),
+        body: Container(padding: EdgeInsets.all(5.0), child: CourseEntryWidget(this.widget.entry))
+
+        );
+  }
+}
+
 class CourseEntryWidget extends StatefulWidget {
   final CourseEntry entry;
 
@@ -23,8 +60,8 @@ class CourseEntryState extends State<CourseEntryWidget> {
     return SingleChildScrollView(
         child: Column(
       children: <Widget>[
-        Center(child: Center(child: Text(this.widget.entry.title, textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline))),
+        /*Center(child: Center(child: Text(this.widget.entry.title, textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline))),*/
         Column(
             children: this.widget.entry.items.map((item) {
           if (item is CourseEntryText) {

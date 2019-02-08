@@ -4,6 +4,9 @@ import 'package:collection/collection.dart';
 
 part 'CourseEntry.g.dart';
 
+
+
+
 abstract class CourseEntryItem{
 
 }
@@ -28,6 +31,8 @@ class CourseEntryChange extends CourseEntryItem{
 
   Map<String, dynamic> toJson() => _$CourseEntryChangeToJson(this);
 }
+
+//TODO: CourseEntryText with hyperlink and title
 
 @JsonSerializable()
 class CourseEntryText extends CourseEntryItem {
