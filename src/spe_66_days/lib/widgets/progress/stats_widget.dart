@@ -22,7 +22,7 @@ class StatsWidget extends StatelessWidget {
     Stat("Total Habits Done", Icon(Icons.check_circle_outline), habitsDone),
     Stat("Current Streak", Icon(Icons.whatshot), calcStreak),
     Stat("Best Streak", Icon(Icons.star), bestStreak),
-    Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvg),
+    Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvgToday),
     Stat("Habits checked today", Icon(Icons.calendar_today, color: Colors.red),
         habitsToday)
   ];
@@ -84,6 +84,7 @@ class StatsWidget extends StatelessWidget {
   }
 
   static int bestStreak(List<HashSet<DateTime>> habits) {
+    if (habits.isEmpty) return 0;
     var s = streaks(intersection(habits));
     if (s.length == 0) return 0;
 
@@ -94,16 +95,26 @@ class StatsWidget extends StatelessWidget {
     return habits.fold(0, (n, s) => n + s.length);
   }
 
-  static int habitsToday(List<HashSet<DateTime>> habits) {
-    return habits.fold(0, (n, s) => n + (s.contains(Global.currentDate) ? 1 : 0));
+  static int habitsOnDate(List<HashSet<DateTime>> habits, DateTime onDate) {
+    return habits.fold(0, (n, s) => n + (s.contains(onDate) ? 1 : 0));
   }
 
-  static double habitAvg(List<HashSet<DateTime>> habits) {
+  static int habitsToday(List<HashSet<DateTime>> habits) {
+    return habitsOnDate(habits, Global.currentDate);
+  }
+
+  static double habitAvgOnDate(List<HashSet<DateTime>> habits, DateTime endDate) {
+    if (habits.isEmpty) return 0.0;
     var s = union(habits).toList()..sort();
     if (s.length == 0) return 0.0;
     DateTime first = s.first;
-    return (habitsDone(habits) /
-        (Global.currentDate.difference(first).inDays + 1));
+    DateTime last = s.last;
+    if (last.isAfter(endDate)) return 0.0;
+    return (habitsDone(habits) / (endDate.difference(first).inDays + 1));
+  }
+
+  static double habitAvgToday(List<HashSet<DateTime>> habits){
+    return habitAvgOnDate(habits, Global.currentDate);
   }
 
   @override

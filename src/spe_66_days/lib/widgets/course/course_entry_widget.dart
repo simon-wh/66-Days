@@ -28,7 +28,7 @@ class CourseEntryState extends State<CourseEntryWidget> {
         Column(
             children: this.widget.entry.items.map((item) {
           if (item is CourseEntryText) {
-            CourseEntryText text = item as CourseEntryText;
+            CourseEntryText text = item;
             return Center(child: Text(text.text));
           } else if (item is CourseEntryChange) {
             if (!Global.habitManager.hasHabit(item.habitKey))
