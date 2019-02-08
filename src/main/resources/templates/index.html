@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlnz:th="http://www/thymeleaf.org">
-<head th:include="fragments/anonymousHeader :: head (title='Home Page')"></head>
+<head th:include="fragments/anonymousHeader :: head (title='66 Days')"></head>
 
 <body>
     <div sec:authorize="isAnonymous()" th:replace="fragments/anonymousHeader :: header">&nbsp;</div>
@@ -11,7 +11,8 @@
         <div class="container">
             <div class="jumbotron text-center">
                 <h1 class="display-3">Welcome to the 66 Days Portal.</h1>
-                <p class="lead">Please log in to your account to continue.</p>
+                
+                <p class="lead" style="padding: 1em 0;">Please log in to your account to continue.</p>
                 
                 <a class="btn btn-lg btn-success" href="/login">Login</a>
                 
@@ -23,13 +24,12 @@
     <div sec:authorize="isAuthenticated()">
         <div class="container">
             <div class="jumbotron">
-                <h1 class="display-3" th:inline="text">Welcome back, [[${#httpServletRequest.remoteUser}]]</h1>
-                <p class="lead">You can now access other areas of the website.</p>
-                <form th:action="@{/logout}" method="post">
-                    <input class="btn btn-danger" type="submit" value="Log Out"/>
-                </form>
+                <h1 class="display-4" th:inline="text">Welcome back, [[${#httpServletRequest.remoteUser}]]</h1>
+                <p class="lead" style="padding-top: 1em;">You can now access private areas of the website using navigation menu above.</p>
             </div>
         </div>
     </div>
+    
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
 </html>

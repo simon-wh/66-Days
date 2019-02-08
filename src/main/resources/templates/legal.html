@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlnz:th="http://www/thymeleaf.org">
+    <head th:include="fragments/anonymousHeader :: head (title='Legal')"></head>
+    <body>
+        <div sec:authorize="isAnonymous()" th:replace="fragments/anonymousHeader :: header">&nbsp;</div>
+        <div sec:authorize="isAuthenticated()" th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
+
+        <div class="container">
+            <div class="jumbotron text-center">
+                <h1 class="display-4">Legal Information</h1>
+
+                <p class="lead" style="padding: 1em 0;">To be completed.</p>
+                
+                <button class="btn btn-secondary" onClick="javascript:history.go(-1)">Go back.</button>
+            </div>
+        </div>
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    </body>
+</html>

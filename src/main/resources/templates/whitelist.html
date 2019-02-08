@@ -8,25 +8,57 @@
 <body>
     <div th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
     <div class="container">
-        <h1 class="display-4">Email Whitelist Service</h1>
-        <p style="padding-top:1em;">These are the email addresses of users who can access the mobile app.</p>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <b>exampleEmail@gmail.com</b>
-                <button class="btn btn-small btn-danger float-right">Delete</button>
-            </li>
-            <li class="list-group-item">
-                <b>reallyLongExampleEmailAddress@gmail.com</b>
-                <button class="btn btn-small btn-danger float-right">Delete</button>
-            </li>
-            <li class="list-group-item">
-                <b>jh43yhf8@gmail.com</b>
-                <button class="btn btn-small btn-danger float-right">Delete</button>
-            </li>
-        </ul>
         
-        <button class="btn btn-outline-success" style="margin-top: 1em;">Add an email address.</button>
+        <div style="padding-top: 1em;"></div>
+        
+        <h1 class="display-4">Email Whitelist Service</h1>
+        <p style="padding-top:1em;" class="lead">These are the email addresses of users who can access the mobile app.</p>
+        
+        <div style="padding-top: 2em;"></div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    
+                    
+                    <div class="form-group">
+                        <label for="emailInput"><b>Add an email address to the whitelist.</b></label>
+                        <input class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-outline-success" onclick="addEmailAddressToHTML()">Submit</button>
+                    </div>
+                    
+        
+                    <div style="padding-top:2em;"></div>
+                    
+                    <ul class="list-group" id="emailAddressList">
+                        <li class="list-group-item" id="joeblogson1987@gmail.comElement">
+                            joeblogson1987@gmail.com
+                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('joeblogson1987@gmail.comElement')">Delete</button>
+                        </li>
+                        <li class="list-group-item" id="JohnAppleseed@gmail.comElement">
+                            JohnAppleseed@gmail.com
+                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('JohnAppleseed@gmail.comElement')">Delete</button>
+                        </li>
+                        <li class="list-group-item" id="davy12312@gmail.comElement">
+                            davy12312@gmail.com
+                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('davy12312@gmail.comElement')">Delete</button>
+                        </li>
+                        <li class="list-group-item" id="averymcallister@gmail.comElement">
+                            averymcallister@gmail.com
+                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('averymcallister@gmail.comElement')">Delete</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
     </div>
+    
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    
     <script type="text/javascript" src="js/whitelist.js"></script>
 </body>
 </html>

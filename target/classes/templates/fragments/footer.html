@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:fragment="foot (title)">
+        
+        <title th:text="${title}">66 Days Demo</title>
+    </head>
+    <body>
+        <div th:fragment="footer">
+            <div class="container text-center text-secondary" style="padding-top: 2em; padding-bottom: 2em;">
+                <p>© 66 Days 2019 - <a href="/legal" class="text-secondary">Legal Information</a></p>
+            </div>
+        </div>
+    </body>
+</html>

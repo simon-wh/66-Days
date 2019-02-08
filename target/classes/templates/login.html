@@ -10,34 +10,46 @@
             <div sec:authorize="isAnonymous()" th:replace="fragments/anonymousHeader :: header">&nbsp;</div>
             <div sec:authorize="isAuthenticated()" th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
             
-            <h1 class="display-4">Portal Login</h1>
+            <h1 class="display-4 text-center">Portal Login</h1>
             
-            <div th:if="${param.error}">
-                <div style="margin-top: 2em;" class="alert alert-danger" role="alert">
-                    <p class="text-center">Invalid username and password.</p>
-                </div>
-            </div>
-            <div th:if="${param.logout}">
-                <div style="margin-top: 2em;" class="alert alert-success" role="alert">
-                    <p class="text-center">You have been logged out.</p>
-                </div>
-            </div>
-            
-            <form th:action="@{/login}" method="post" style="margin-top: 2em;">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input class="form-control" type="text" name="username" id="username"/> 
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input class="form-control" type="password" name="password" id="password"/> 
-                </div>
-                
-                <div><input class="btn btn-success" type="submit" value="Submit"/></div>
-            </form>
-            
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <div th:if="${param.error}">
+                            <div class="card border-danger" style="margin-top: 1em;">
+                                <div class="card-body text-center text-danger">
+                                    <b>Invalid username or password.</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${param.logout}">
+                            <div class="card border-success" style="margin-top: 1em;">
+                                <div class="card-body text-center text-success">
+                                    <b>You have been successfully logged out.</b>
+                                </div>
+                            </div>
+                        </div>
 
-        </div>
+                        <form th:action="@{/login}" method="post" style="margin-top: 1.5em;">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input class="form-control" type="text" name="username" id="username"/> 
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input class="form-control" type="password" name="password" id="password"/> 
+                            </div>
+
+                            <div class="text-center" style="padding-top:1em;"><input class="btn btn-success" type="submit" value="Submit"/></div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
+        </div> <!-- container -->
+        
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
     </body>
 </html>

@@ -25,17 +25,17 @@
                     <a class="nav-link active text-dark" href="/">66 Days</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active text-success" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link text-success" href="/whitelist">Whitelist</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-success" href="/dashboard">Dashboard</a>
                 </li>
+                <li class="nav-item disabled">
+                  <a class="nav-link text-secondary">Course Editor</a>
+                </li>
                 <li class="nav-item">
                     <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="btn btn-success">Logout</button>
+                        <button type="submit" class="btn btn-success">Log Out</button>
                     </form>
                 </li>
             </ul>

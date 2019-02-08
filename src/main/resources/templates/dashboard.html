@@ -9,14 +9,23 @@
     <body>
         <div th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
         <div class="container">
+            
+            <div style="padding-top: 1em;"></div>
+            
             <h1 class="display-4">Dashboard</h1>
-            <p style="padding-top: 1em; padding-bottom: 1em;">The Dashboard contains overview charts of users progress through the 66 Days course and beyond. Data is anonymised.</p>
+            <p style="padding-top: 1em; padding-bottom: 1em;" class="lead">The Dashboard contains overview charts of users progress through the 66 Days course and beyond. Data is anonymised.</p>
+            
             <div class="container">
                 <div class="row">
-                    <canvas id="overallChart" height="100px"></canvas>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <canvas id="overallChart" height="100px"></canvas>
+                    </div>
+                    <div class="col-sm-2"></div>
                 </div>
             </div>
         </div>
+        <div th:replace="fragments/footer :: footer">&nbsp;</div>
         <script type="text/javascript" src="js/dashboard.js"></script>
     </body>
 </html>
