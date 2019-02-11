@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'package:spe_66_days/widgets/progress/stats_widget.dart';
+import 'streaks_chart.dart';
 
 class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -26,6 +27,10 @@ class _ProgressState extends State<ProgressWidget>{
           Container(
               constraints: BoxConstraints(maxHeight: 300.0),
               child: ProgressChart.allHabitsCombined()
+          ),
+          Container(
+              constraints: BoxConstraints(maxHeight: 300.0),
+              child: StreaksChart.allHabits()
           ),
           StatsWidget()
         ]
