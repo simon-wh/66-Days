@@ -23,7 +23,7 @@ class StatsWidget extends StatelessWidget {
     Stat("Current Streak", Icon(Icons.whatshot), calcStreak),
     Stat("Best Streak", Icon(Icons.star), bestStreak),
     Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvgToday),
-    Stat("Habits checked today", Icon(Icons.calendar_today, color: Colors.red),
+    Stat("Habits Checked Today", Icon(Icons.calendar_today, color: Colors.red),
         habitsToday)
   ];
 
