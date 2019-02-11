@@ -7,6 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
+import 'package:spe_66_days/widgets/progress/streaks_chart.dart';
+import 'package:spe_66_days/widgets/progress/stats_widget.dart';
 
 import 'package:spe_66_days/main.dart';
 
@@ -30,12 +32,13 @@ void main() {
     await tester.pump(new Duration(seconds: 1));
 
     expect(find.byType(ProgressChart), findsOneWidget);
-    expect(find.text("Perfect Days"), findsOneWidget);
-    expect(find.text("Total Habits Done"), findsOneWidget);
-    expect(find.text("Current Streak"), findsOneWidget);
-    expect(find.text("Best Streak"), findsOneWidget);
-    expect(find.text("Habit Daily Average"), findsOneWidget);
-    expect(find.text("Habits Checked Today"), findsOneWidget);
+    expect(find.byType(StreaksChart), findsOneWidget);
+    expect(find.text("Perfect Days", skipOffstage: false), findsOneWidget);
+    expect(find.text("Total Habits Done", skipOffstage: false), findsOneWidget);
+    expect(find.text("Current Streak", skipOffstage: false), findsOneWidget);
+    expect(find.text("Best Streak", skipOffstage: false), findsOneWidget);
+    expect(find.text("Habit Daily Average", skipOffstage: false), findsOneWidget);
+    expect(find.text("Habits Checked Today", skipOffstage: false), findsOneWidget);
   });
 
   testWidgets('Test Navigation to habits is  correct', (WidgetTester tester) async{
