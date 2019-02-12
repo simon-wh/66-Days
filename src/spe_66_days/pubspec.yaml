@@ -52,7 +52,16 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
-
+  assets:
+    - assets/course/1.json
+    - assets/course/2.json
+    - assets/course/3.json
+    - assets/course/4.json
+    - assets/course/5.json
+    - assets/course/6.json
+    - assets/course/7.json
+    - assets/course/8.json
+    - assets/course/9.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

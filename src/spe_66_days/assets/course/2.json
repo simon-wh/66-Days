@@ -2,9 +2,6 @@
   "title": "Week Two - Eat Slowly and Savour Your Food",
   "items": [
     {
-      "text": "Test Text"
-    },
-    {
       "title": "Experiments",
       "habitKey": "eat_slowly",
       "defaultHabit":{
@@ -25,6 +22,11 @@
     {
       "title": "Environment Design",
       "habitKey": "eat_slowly",
+      "defaultHabit":{
+        "title": "Eat Slowly",
+        "experimentTitle": "",
+        "environmentDesign": ""
+      },
       "habitVar": "environmentDesign",
       "items": [
         "Eat your meals at a table. Never eat at your desk",

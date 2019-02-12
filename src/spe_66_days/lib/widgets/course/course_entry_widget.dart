@@ -66,10 +66,10 @@ class CourseEntryState extends State<CourseEntryWidget> {
             children: this.widget.entry.items.map((item) {
           if (item is CourseEntryText) {
             CourseEntryText text = item;
-            return Center(child: Text(text.text));
+            return Center(child: Text(text.text, textAlign: TextAlign.justify));
           } else if (item is CourseEntryChange) {
-            if (!Global.habitManager.hasHabit(item.habitKey))
-              throw new Exception("Habit doesn't exist!");
+            //if (!Global.habitManager.hasHabit(item.habitKey))
+            //  throw new Exception("Habit doesn't exist!");
             //TODO: make it add habit with default params when it is fresh with default params
 
             return Column(
@@ -136,6 +136,14 @@ class CourseEntryState extends State<CourseEntryWidget> {
                                       FlatButton(
                                           child: Text("Set"),
                                           onPressed: () {
+                                            if (!Global.habitManager.hasHabit(item.habitKey)){
+                                              if (item.defaultHabit != null){
+                                                Global.habitManager.addHabit(item.habitKey, item.defaultHabit);
+                                              }
+                                              else
+                                                throw("Trying to set the ${item.habitVar} on ${item.habitKey} that doesn't exist and no default has been specified!");
+                                            }
+
                                             CoreHabit habit = Global
                                                 .habitManager
                                                 .getHabit(item.habitKey);

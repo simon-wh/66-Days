@@ -41,6 +41,13 @@ class HabitManager extends SettingsBase<HabitSettings> {
     return this.settings.habits[key];
   }
 
+  void addHabit(String id, CoreHabit habit){
+    if (this.settings.habits.containsKey(id))
+      throw("Habit with key $id already exists!");
+
+    this.settings.habits.putIfAbsent(id, ()=>habit.clone()..key = id);
+  }
+
   void removeHabit(String id){
     if (id.startsWith(customHabitPrefix))
       this.settings.habits.remove(id);

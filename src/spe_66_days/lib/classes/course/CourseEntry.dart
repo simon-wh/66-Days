@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:quiver/core.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:collection/collection.dart';
 
 part 'CourseEntry.g.dart';
@@ -18,13 +19,15 @@ class CourseEntryChange extends CourseEntryItem{
   final String habitKey;
   final String habitVar;
   final List<String> items;
+  final CoreHabit defaultHabit;
 
-  CourseEntryChange(this.title, this.habitKey, this.habitVar, this.items);
+  CourseEntryChange(this.title, this.habitKey, this.habitVar, this.items, {this.defaultHabit});
 
   bool operator ==(o) => o is CourseEntryChange
       && o.title == this.title
       && o.habitKey == this.habitKey
       && o.habitVar == this.habitVar
+      && o.defaultHabit == this.defaultHabit
       && ListEquality().equals(o.items, this.items);
 
   factory CourseEntryChange.fromJson(Map<String, dynamic> json) => _$CourseEntryChangeFromJson(json);

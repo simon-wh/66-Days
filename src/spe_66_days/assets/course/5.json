@@ -1,0 +1,28 @@
+{
+  "title": "Week 5 - Drink More Water and Reduce Liquid Calories",
+  "items": [
+    {
+      "text": "Continue with your experiment from the previous week. If it’s been going well then increase the difficulty slightly eg raise your ‘water goal’.\nIf you’ve found it difficult then scale it back slightly. Remember the goal is to get regular practice.\nIf you’d like to change Experiment then you can."
+    },
+    {
+      "title": "Experiments",
+      "habitKey": "drink_water",
+      "defaultHabit":{
+        "title": "Drink Water and Reduce Liquid Calories",
+        "experimentTitle": "",
+        "environmentDesign": ""
+      },
+      "habitVar": "experimentTitle",
+      "items": [
+        "Set a water goal for the day - mark it on your bottle",
+        "Attach water to another habit",
+        "Have water first thing in the morning",
+        "Drink water at time intervals",
+        "Drink a glass of water before eating",
+        "Have water instead of other liquids",
+        "Dilute your soft drinks/juice",
+        "Have hot drinks instead of juice/soft drinks"
+      ]
+    }
+  ]
+}

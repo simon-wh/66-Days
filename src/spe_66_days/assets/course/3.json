@@ -1,0 +1,26 @@
+{
+  "title": "Week Three - Eat Slowly and Savour Your Food",
+  "items": [
+    {
+      "text": "Continue with your experiment from the previous week. If it’s been going well then increase the difficulty slightly eg raise your ‘chew goal’.\nIf you’ve found it difficult then scale it back slightly. Remember the goal is to get regular practice.\n\nIf you’d like to change Experiment then you can."
+    },
+    {
+      "title": "Experiments",
+      "habitKey": "eat_slowly",
+      "defaultHabit":{
+        "title": "Eat Slowly",
+        "experimentTitle": "",
+        "environmentDesign": ""
+      },
+      "habitVar": "experimentTitle",
+      "items": [
+        "Put down your cutlery after each mouthful",
+        "Eat with your non-dominant hand",
+        "Set a chew goal per mouthful",
+        "Halve every mouthful before you eat it",
+        "Drink water between every mouthful",
+        "Use chopsticks"
+      ]
+    }
+  ]
+}

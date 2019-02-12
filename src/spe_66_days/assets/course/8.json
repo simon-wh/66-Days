@@ -1,0 +1,39 @@
+{
+  "title": "Week Eight - Eat 3 Meals a Day and Reduce Snacking",
+  "items": [
+    {
+      "title": "Experiments",
+      "habitKey": "eat_3meals",
+      "defaultHabit":{
+        "title": "Eat 3 Meals a Day and Reduce Snacking",
+        "experimentTitle": "",
+        "environmentDesign": ""
+      },
+      "habitVar": "experimentTitle",
+      "items": [
+        "reduce snack portions",
+        "swap in healthy snacks",
+        "use a smaller plate",
+        "double your greens portion",
+        "drink water rather than snack",
+        "replace snack with a non food treat - walk, social media or similar",
+        "share desserts"
+      ]
+    },
+    {
+      "title": "Environment Design",
+      "habitKey": "eat_3meals",
+      "defaultHabit":{
+        "title": "Eat 3 Meals a Day and Reduce Snacking",
+        "experimentTitle": "",
+        "environmentDesign": ""
+      },
+      "habitVar": "environmentDesign",
+      "items": [
+        "Move snack foods out of sight",
+        "Bring healthy snacks to work",
+        "Wrap up leftovers before eating"
+      ]
+    }
+  ]
+}

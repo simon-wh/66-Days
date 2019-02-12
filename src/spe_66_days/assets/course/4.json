@@ -1,0 +1,42 @@
+{
+  "title": "Week 4 - Drink More Water and Reduce Liquid Calories",
+  "items": [
+    {
+      "title": "Experiments",
+      "habitKey": "drink_water",
+      "defaultHabit":{
+        "title": "Drink Water and Reduce Liquid Calories",
+        "experimentTitle": "",
+        "environmentDesign": ""
+      },
+      "habitVar": "experimentTitle",
+      "items": [
+        "Set a water goal for the day - mark it on your bottle",
+        "Attach water to another habit",
+        "Have water first thing in the morning",
+        "Drink water at time intervals",
+        "Drink a glass of water before eating",
+        "Have water instead of other liquids",
+        "Dilute your soft drinks/juice",
+        "Have hot drinks instead of juice/soft drinks"
+      ]
+    },
+    {
+      "title": "Environment Design",
+      "habitKey": "drink_water",
+      "defaultHabit":{
+        "title": "Drink Water and Reduce Liquid Calories",
+        "experimentTitle": "",
+        "environmentDesign": ""
+      },
+      "habitVar": "environmentDesign",
+      "items": [
+        "Buy a new water bottle",
+        "Don’t keep juice/soft drinks at home",
+        "Keep infused water in the fridge",
+        "Buy or make your own tea"
+        
+      ]
+    }
+  ]
+}

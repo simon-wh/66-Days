@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'dart:convert';
 import 'package:spe_66_days/classes/course/CourseEntry.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:io';
 
 void main() {
@@ -9,6 +10,7 @@ void main() {
       String text = new File('../test_resources/CourseEntryDecode1.json').readAsStringSync();
       expect(CourseEntry.fromJson(json.decode(text)), equals(
         CourseEntry("Week Two - Eat Slowly and Savour Your Food", <CourseEntryItem>[
+          CourseEntryText("Test Text"),
           CourseEntryChange("Experiments", "eat_slowly", "experimentTitle", <String>[
             "Put down your cutlery after each mouthful",
             "Eat with your non-dominant hand",
@@ -16,7 +18,7 @@ void main() {
             "Halve every mouthful before you eat it",
             "Drink water between every mouthful",
             "Use chopsticks"
-          ]),
+          ], defaultHabit: CoreHabit("Eat Slowly", "")),
           CourseEntryChange("Environment Design", "eat_slowly", "environmentDesign", <String>[
             "Eat your meals at a table. Never eat at your desk",
             "Eat in a calm environment",

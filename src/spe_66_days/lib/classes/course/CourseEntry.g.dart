@@ -11,7 +11,10 @@ CourseEntryChange _$CourseEntryChangeFromJson(Map<String, dynamic> json) {
       json['title'] as String,
       json['habitKey'] as String,
       json['habitVar'] as String,
-      (json['items'] as List)?.map((e) => e as String)?.toList());
+      (json['items'] as List)?.map((e) => e as String)?.toList(),
+      defaultHabit: json['defaultHabit'] == null
+          ? null
+          : CoreHabit.fromJson(json['defaultHabit'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$CourseEntryChangeToJson(CourseEntryChange instance) =>
@@ -19,7 +22,8 @@ Map<String, dynamic> _$CourseEntryChangeToJson(CourseEntryChange instance) =>
       'title': instance.title,
       'habitKey': instance.habitKey,
       'habitVar': instance.habitVar,
-      'items': instance.items
+      'items': instance.items,
+      'defaultHabit': instance.defaultHabit
     };
 
 CourseEntryText _$CourseEntryTextFromJson(Map<String, dynamic> json) {

@@ -15,7 +15,6 @@ class CoreHabit {
 
   //Maybe move this to be associated with the enum values
   String title;
-  //String description;
   //bool unlocked;
   String experimentTitle;
   String environmentDesign;
@@ -24,8 +23,8 @@ class CoreHabit {
 
   CoreHabit(this.title, this.experimentTitle, {this.environmentDesign:"", this.reminders, this.markedOff, this.key}){
     assert(this.title.isNotEmpty);
-    assert(this.experimentTitle.isNotEmpty);
-    //assert(this.checkDescription.isNotEmpty);
+    //assert(this.experimentTitle.isNotEmpty);
+    //assert(this.environmentDesign.isNotEmpty);
     reminders ??= List<NotificationConfig>();
     markedOff ??= HashSet<DateTime>();
   }
