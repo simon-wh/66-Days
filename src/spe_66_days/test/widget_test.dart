@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'package:spe_66_days/widgets/progress/streaks_chart.dart';
-import 'package:spe_66_days/widgets/progress/stats_widget.dart';
+import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
 import 'package:spe_66_days/main.dart';
 
@@ -66,5 +68,17 @@ void main() {
     await tester.pump(new Duration(seconds: 1));
 
     expect(find.byType(Card), findsNWidgets(3));
+  });
+
+  testWidgets('Test habit checked updates', (WidgetTester tester) async{
+    await tester.pumpWidget(new StartApp());
+    await tester.tap(find.byIcon(Icons.assignment));
+    Finder habitFind = find.byType(HabitListWidget);
+    Finder ck = find.byType(Checkbox);
+    HabitListWidget habitWidget = tester.firstElement(habitFind).widget;
+    CoreHabit habit = habitWidget.habit;
+    expect(habit.markedOff, isNot(contains(Global.currentDate)));
+    await tester.tap(find.descendant(of: habitFind, matching: ck).first);
+    expect(habit.markedOff, contains(Global.currentDate));
   });
 }
