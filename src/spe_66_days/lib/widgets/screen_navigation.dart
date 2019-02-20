@@ -3,6 +3,7 @@ import 'package:spe_66_days/widgets/progress/progress_widget.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
 import 'package:spe_66_days/widgets/home/home_widget.dart';
 import 'package:spe_66_days/widgets/course/course_screen.dart';
+import 'package:spe_66_days/widgets/settings/settings_screen.dart';
 
 class ScreenNavigation extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
     HabitsScreen(Icon(Icons.assignment), Text("Habits")),
     ProgressWidget(Icon(Icons.timeline), Text('Progress')),
     CourseScreen(Icon(Icons.library_books), Text('Course')),
+    SettingsScreen(Icon(Icons.settings), Text('Settings'))
   ];
 
   void onTabTapped(int index) {

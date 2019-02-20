@@ -27,7 +27,6 @@ class HabitsScreen extends HabitsWidget implements BottomNavigationBarItem {
 
 
 class _HabitsState extends State<HabitsWidget> {
-  _HabitsState();
 
   Widget build(BuildContext context) {
     List<Widget> habits = Global.habitManager.getHabits().entries.map((entry) {
