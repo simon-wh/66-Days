@@ -17,10 +17,10 @@ import 'package:spe_66_days/main.dart';
 void main() {
   testWidgets('Initialisation is correct', (WidgetTester tester) async {
     //Build app
-    await tester.pumpWidget(new StartApp());
+    await tester.pumpWidget(new StartApp(signIn: false));
 
     // Verify that navigation screen is correctly set up
-    expect(find.text('6 6  DAYS'), findsOneWidget);
+    expect(find.text('66  DAYS'), findsOneWidget);
     expect(find.byType(Card), findsNWidgets(3));
     expect(find.byIcon(Icons.home), findsOneWidget);
     expect(find.byIcon(Icons.assignment), findsOneWidget);
@@ -29,7 +29,8 @@ void main() {
   });
 
   testWidgets('Test Navigation to progress is  correct', (WidgetTester tester) async{
-    await tester.pumpWidget(new StartApp());
+    Global.auth.signInAnonymously();
+    await tester.pumpWidget(new StartApp(signIn: false));
     await tester.tap(find.byIcon(Icons.timeline));
     await tester.pump(new Duration(seconds: 1));
 
@@ -44,7 +45,7 @@ void main() {
   });
 
   testWidgets('Test Navigation to habits is  correct', (WidgetTester tester) async{
-    await tester.pumpWidget(new StartApp());
+    await tester.pumpWidget(new StartApp(signIn: false));
     await tester.tap(find.byIcon(Icons.assignment));
     await tester.pump(new Duration(seconds: 1));
 
@@ -53,7 +54,7 @@ void main() {
   });
 
   testWidgets('Test Navigation to course is  correct', (WidgetTester tester) async{
-    await tester.pumpWidget(new StartApp());
+    await tester.pumpWidget(new StartApp(signIn: false));
     await tester.tap(find.byIcon(Icons.library_books));
     await tester.pump(new Duration(seconds: 1));
 
@@ -61,7 +62,7 @@ void main() {
   });
 
   testWidgets('Test return to home is  correct', (WidgetTester tester) async{
-    await tester.pumpWidget(new StartApp());
+    await tester.pumpWidget(new StartApp(signIn: false));
     await tester.tap(find.byIcon(Icons.library_books));
     await tester.pump(new Duration(seconds: 1));
     await tester.tap(find.byIcon(Icons.home));
@@ -71,7 +72,7 @@ void main() {
   });
 
   testWidgets('Test habit checked updates', (WidgetTester tester) async{
-    await tester.pumpWidget(new StartApp());
+    await tester.pumpWidget(new StartApp(signIn: false));
     await tester.tap(find.byIcon(Icons.assignment));
     Finder habitFind = find.byType(HabitListWidget);
     Finder ck = find.byType(Checkbox);

@@ -13,6 +13,9 @@ void main() async {
   the build method depends on any state update from the app.
 */
 class StartApp extends StatelessWidget {
+  final bool signIn;
+
+  StartApp({this.signIn = true});
     //All StatelessWidgets need a build method to create the user interface.
   @override
   Widget build(BuildContext context){
@@ -42,7 +45,7 @@ class StartApp extends StatelessWidget {
         "home": (context) => ScreenNavigation(),
         "sign_in": (context) => SignInWidget()
       },
-      initialRoute: "sign_in",
+      initialRoute: this.signIn ? "sign_in" : "home",
     );
   }
 }
