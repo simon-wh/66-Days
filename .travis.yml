@@ -27,7 +27,7 @@ addons:
     - fonts-droid
 before_script:
 - cd src/spe_66_days
-- openssl aes-256-cbc -K $encrypted_caf863253653_key -iv $encrypted_caf863253653_iv -in google-services.json.enc -out src/spe_66_days/android/app/google-services.json -d
+- openssl aes-256-cbc -K $encrypted_82466cab9446_key -iv $encrypted_82466cab9446_iv -in google-services.json.enc -out android/app/google-services.json -d
 - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
 - unzip -qq gradle-3.5-bin.zip
 - export GRADLE_HOME=$PWD/gradle-3.5
