@@ -29,24 +29,10 @@ class _HomeState extends State<HomeWidget> {
       HomeCard(Key("habit"), "Habits", () => HabitsWidget(compact: true, onHabitChanged: () => setState((){})  )),
       HomeCard(Key("stats"), "Statistics", () => StatsWidget())
     ];
-    /*HabitManager.instance.init().then((f) {
-      setState(() {
-
-      });
-    });*/
-
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-        /*floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              setState(() {
-                //HabitManager.instance.save();
-              });
-            },
-            icon: Icon(Icons.add),
-            label: const Text('Add Habit')),*/
       body: RefreshIndicator(
           onRefresh: () {
             return Future(() {setState(() {
@@ -55,8 +41,6 @@ class _HomeState extends State<HomeWidget> {
           },
           child: PageView(
         physics: const AlwaysScrollableScrollPhysics(),
-        //padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
-        //shrinkWrap: true,
         children: <Widget>[
           ListView.builder(
               primary: true,
@@ -68,14 +52,9 @@ class _HomeState extends State<HomeWidget> {
                   return Container();
                 return Dismissible(
                     direction: DismissDirection.startToEnd,
-                    // Each Dismissible must contain a Key. Keys allow Flutter to
-                    // uniquely identify Widgets.
                     key: c.key,
-                    // We also need to provide a function that will tell our app
-                    // what to do after an item has been swiped away.
                     onDismissed: (direction) {
 
-                      // Remove the item from our data source.
                       setState(() {
                         cards[index].hidden = true;
                       });

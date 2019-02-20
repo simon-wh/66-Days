@@ -1,15 +1,3 @@
-//STATS CLASS:
-//Stats (title, icon, calc: double Function(CoreHabit[] habits)
-// finals
-// this.stuff
-
-//IN WIDGET:
-//List Stats = [
-// stats (perfect days, icon, calcperf)
-// stats (current streak, icon, count streak)
-// ]
-// double calcperf{}
-
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/stats.dart';
 import 'dart:collection';
@@ -134,29 +122,5 @@ class StatsWidget extends StatelessWidget {
             );
           }).toList(),
         ));
-
-    /*return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
-      children: <Widget>[
-        ListView.builder(
-            shrinkWrap: true,
-            itemCount: stats.length,
-            itemBuilder: (BuildContext context, int index) {
-              num val = stats[index].habitFunc(habits);
-              String str =
-                  val is double ? val.toStringAsFixed(1) : val.toString();
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  stats[index].icon,
-                  Text("${stats[index].title}"),
-                  Text(str)
-                ],
-              );
-            }) // Item Builder
-      ],
-    );*/
   }
 }

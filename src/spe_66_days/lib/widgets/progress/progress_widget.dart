@@ -8,7 +8,7 @@ class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Text title;
   final Icon activeIcon;
   final Color backgroundColor;
-
+  
   ProgressWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
 
   @override

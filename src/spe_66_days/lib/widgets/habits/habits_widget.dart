@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';

@@ -1,4 +1,3 @@
-/// Horizontal bar chart with bar label renderer example and hidden domain axis.
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'stats_widget.dart';

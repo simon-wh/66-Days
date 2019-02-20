@@ -1,7 +1,5 @@
-/// Timeseries chart example
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:collection';
 import 'package:spe_66_days/classes/Global.dart';
@@ -140,33 +138,14 @@ class ProgressChart extends StatelessWidget {
     return new charts.TimeSeriesChart(
       seriesList,
       animate: animate,
-      // Optionally pass in a [DateTimeFactory] used by the chart. The factory
-      // should create the same type of [DateTime] as the data provided. If none
-      // specified, the default creates local date time.
       dateTimeFactory: const charts.LocalDateTimeFactory(),
-
         behaviors: [
-          // Optional - Configures a [LinePointHighlighter] behavior with a
-          // vertical follow line. A vertical follow line is included by
-          // default, but is shown here as an example configuration.
-          //
-          // By default, the line has default dash pattern of [1,3]. This can be
-          // set by providing a [dashPattern] or it can be turned off by passing in
-          // an empty list. An empty list is necessary because passing in a null
-          // value will be treated the same as not passing in a value at all.
           new charts.LinePointHighlighter(
               selectionModelType: charts.SelectionModelType.info,
               showHorizontalFollowLine:
               charts.LinePointHighlighterFollowLineType.none,
               showVerticalFollowLine:
               charts.LinePointHighlighterFollowLineType.nearest),
-          // Optional - By default, select nearest is configured to trigger
-          // with tap so that a user can have pan/zoom behavior and line point
-          // highlighter. Changing the trigger to tap and drag allows the
-          // highlighter to follow the dragging gesture but it is not
-          // recommended to be used when pan/zoom behavior is enabled.
-          //new charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag),
-
           new charts.PanAndZoomBehavior(),
           new charts.SlidingViewport(),
         ],

@@ -16,9 +16,7 @@ class EditNotificationState extends State<EditNotificationWidget> {
   bool expandLock = false;
   final TextEditingController messageController = TextEditingController();
 
-  EditNotificationState(){
-
-  }
+  EditNotificationState();
 
   @override
   void initState(){

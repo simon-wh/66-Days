@@ -4,7 +4,6 @@ import 'package:spe_66_days/classes/NotificationConfig.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
-import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/classes/Global.dart';
 
 class EditHabitWidget extends StatefulWidget {
@@ -48,18 +47,10 @@ class EditHabitState extends State<EditHabitWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     titleController.text = this.habit.title;
     experimentTitleController.text = this.habit.experimentTitle;
     environmentDesignController.text = this.habit.environmentDesign;
-    /*titleController.addListener(() async {
-      if (this.habit.title != titleController.text){
-        print("diff");
-        this.habit.title = titleController.text;
-        //await Global.habitManager.save();
-      }
-    });*/
   }
 
   @override
@@ -91,7 +82,7 @@ class EditHabitState extends State<EditHabitWidget> {
                         Navigator.pop(context);
                       },
                     ),
-                    // usually buttons at the bottom of the dialog
+                    //Usually buttons at the bottom of the dialog
                     new FlatButton(
                       child: new Text("Delete"),
                       onPressed: () {
