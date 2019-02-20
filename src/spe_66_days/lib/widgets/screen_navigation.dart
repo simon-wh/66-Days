@@ -33,7 +33,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('6 6  DAYS',
+        title: Text('66  DAYS',
           style: Theme.of(context).textTheme.headline,
         ),
       ),

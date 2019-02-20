@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/screen_navigation.dart';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:spe_66_days/widgets/SignIn.dart';
 
 
 void main() async {
@@ -37,6 +38,11 @@ class StartApp extends StatelessWidget {
         )
       ),
       home: ScreenNavigation(),
+      routes: {
+        "home": (context) => ScreenNavigation(),
+        "sign_in": (context) => SignInWidget()
+      },
+      initialRoute: "sign_in",
     );
   }
 }

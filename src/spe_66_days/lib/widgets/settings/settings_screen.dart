@@ -33,7 +33,11 @@ class SettingsState extends State<SettingsWidget> {
         body:  Container(
             padding: const EdgeInsets.only(top: 10.0),
             child: Column(children: <Widget>[
-             EditNotificationWidget(Global.instance.settings.dailyNotification)
+             EditNotificationWidget(Global.instance.settings.dailyNotification),
+              FlatButton(child: Text("Sign out"), onPressed: (){
+                Global.auth.signOut();
+                Navigator.pushReplacementNamed(context, "sign_in");
+              })
             ])
         ));
   } // Build
