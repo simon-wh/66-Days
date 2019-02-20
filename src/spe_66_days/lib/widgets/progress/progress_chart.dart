@@ -126,8 +126,8 @@ class ProgressChart extends StatelessWidget {
 
     var entries = dates.entries.toList();
     if (entries.length == 1) {
-      for (int i = 1; i < 7; i++)
-        entries.add(MapEntry(_currentDate.add(Duration(days:i)), 0));
+      //for (int i = 1; i < 2; i++)
+        entries.add(MapEntry(_currentDate.add(Duration(days:-1)), 0));
     }
     entries.sort((a,b) => a.key.compareTo(b.key));
 

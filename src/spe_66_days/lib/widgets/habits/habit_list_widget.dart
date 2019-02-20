@@ -10,9 +10,10 @@ class HabitListWidget extends StatefulWidget {
   final CoreHabit habit;
   final bool editable;
   final mode displayMode;
+  final Function onHabitChanged;
 
   HabitListWidget(this.habit,
-      {this.editable = true, this.displayMode = mode.Standard});
+      {this.editable = true, this.displayMode = mode.Standard, this.onHabitChanged});
 
   @override
   State<StatefulWidget> createState() => HabitListState();
@@ -68,8 +69,11 @@ class HabitListState extends State<HabitListWidget> {
                   if (this.widget.habit.markedOff.remove(_currentDate))
                     Global.habitManager.save();
                 }
+                //this.widget?.onStateChanged();
 
-                setState(() {});
+                setState(() {
+                  this.widget?.onHabitChanged();
+                });
               },
             ),
             Text(this.widget.habit.experimentTitle,

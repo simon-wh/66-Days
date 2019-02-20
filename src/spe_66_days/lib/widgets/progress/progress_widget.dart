@@ -26,7 +26,7 @@ class _ProgressState extends State<ProgressWidget>{
         children: <Widget>[
           Container(
               constraints: BoxConstraints(maxHeight: 300.0),
-              child: ProgressChart.allHabitsCombined()
+              child: ProgressChart.allHabitsCombined(animate: true)
           ),
           Container(
               constraints: BoxConstraints(maxHeight: 300.0),

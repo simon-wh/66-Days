@@ -7,8 +7,9 @@ import 'package:spe_66_days/classes/Global.dart';
 
 class HabitsWidget extends StatefulWidget {
   final bool compact;
+  final Function onHabitChanged;
 
-  HabitsWidget({this.compact = false});
+  HabitsWidget({this.compact = false, this.onHabitChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -31,7 +32,7 @@ class _HabitsState extends State<HabitsWidget> {
   Widget build(BuildContext context) {
     List<Widget> habits = Global.habitManager.getHabits().entries.map((entry) {
       CoreHabit _habit = entry.value;
-      return HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard);
+      return HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard, onHabitChanged: this.widget.onHabitChanged);
     }).toList();
 
     if (this.widget.compact)
