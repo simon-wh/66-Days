@@ -11,11 +11,11 @@ public class WhitelistUser {
 	private String email;
 
 	public String getEmail() {
-		return email;
+            return email;
 	}
         
 	public void setEmail(String id) {
-		this.email = id;
+            this.email = id;
 	}
         
         //Todo: include testing so that the email set is never longer than 128 characters.

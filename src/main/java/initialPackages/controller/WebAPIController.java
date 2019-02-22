@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import initialPackages.WhitelistUser;
-import initialPackages.WhitelistRepository;
+import repositories.WhitelistRepository;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/web-api") // This means URL's start with /web-api (after Application path)
@@ -21,8 +21,7 @@ public class WebAPIController {
 	private WhitelistRepository whitelistRepository;
 
 	@GetMapping(path="/add-email") // Map only GET Requests
-	public @ResponseBody String addNewUser (
-			@RequestParam String email) {
+	public @ResponseBody String addNewUser (@RequestParam String email) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
