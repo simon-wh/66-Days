@@ -3,3 +3,4 @@ target/test-classes/.netbeans_automatic_build
 
 #Firebase API Keys
 firebase-admin.json
+target/classes/firebase-admin.json
