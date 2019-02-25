@@ -28,19 +28,20 @@ class CourseState extends State<CourseWidget> {
   CourseState();
 
   Widget build(BuildContext context) {
-
     return Scaffold(
-
         body:  Container(
           padding: const EdgeInsets.only(top: 10.0),
           child: ListView.builder(
               itemCount: Global.courseManager.CourseWeeks.length,
-
               itemBuilder: (context, index) {
                 CourseEntry entry = Global.courseManager.CourseWeeks[index];
-                return FlatButton(child: Text(entry.title), onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
-                });
+                return Container(
+                    margin: EdgeInsets.all(5.0),
+                    decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(8.0)),
+                    child: FlatButton(child: Text(entry.title),onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
+                    })
+                );
               })
         ));
   } // Build
