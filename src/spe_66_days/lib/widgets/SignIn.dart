@@ -4,6 +4,8 @@ import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'screen_navigation.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+
 
 class SignInWidget extends StatefulWidget {
 
@@ -36,10 +38,13 @@ class SignInState extends State<SignInWidget> {
             style: Theme.of(context).textTheme.headline,
           ),
         ),
-        body:  Container(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Column(children: <Widget>[
-              FlatButton(child: Text("Sign in with Google"), onPressed: () async {
+        body:  Center(
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+              SignInButton(
+                  Buttons.Google, onPressed: () async {
                 final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
                 final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
@@ -52,14 +57,20 @@ class SignInState extends State<SignInWidget> {
                 print(user);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ScreenNavigation()));
               }),
-              FlatButton(child: Text("test"), onPressed: () async {
-                FirebaseUser existing_user = await Global.auth.currentUser();
-                print(existing_user);
-                FirebaseUser user = await Global.auth.signInAnonymously();
-                print(user);
-                Navigator.pushReplacementNamed(context, "home");
+              SignInButtonBuilder(
+                title: 'Anonymously',
+                signInText: "Sign in",
+                icon: Icons.person,
+                onPressed: () async {
+                  FirebaseUser existing_user = await Global.auth.currentUser();
+                  print(existing_user);
+                  FirebaseUser user = await Global.auth.signInAnonymously();
+                  print(user);
+                  Navigator.pushReplacementNamed(context, "home");
 
-              })
+                },
+                backgroundColor: Colors.blueGrey[700],
+              )
             ]),
         ));
   } // Build
