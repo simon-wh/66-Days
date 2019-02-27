@@ -27,6 +27,7 @@ addons:
     - fonts-droid
 before_script:
 - cd src/spe_66_days
+- openssl aes-256-cbc -K $encrypted_82466cab9446_key -iv $encrypted_82466cab9446_iv -in key.jks.enc -out key.jks -d
 - openssl aes-256-cbc -K $encrypted_82466cab9446_key -iv $encrypted_82466cab9446_iv -in google-services.json.enc -out android/app/google-services.json -d
 - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
 - unzip -qq gradle-3.5-bin.zip
@@ -36,7 +37,7 @@ before_script:
 - "./flutter/bin/flutter doctor"
 script:
 - "./flutter/bin/flutter test"
-- "./flutter/bin/flutter build apk"
+- "./flutter/bin/flutter build apk --release"
 cache:
   directories:
   - "$HOME/.pub-cache"
