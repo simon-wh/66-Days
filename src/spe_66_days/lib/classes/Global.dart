@@ -28,6 +28,7 @@ class Global extends SettingsBase<GlobalSettings> {
       return Future(() {});
 
     initialised = true;
+
     await habitManager.init();
     await courseManager.init();
     /*_handleSignIn()
