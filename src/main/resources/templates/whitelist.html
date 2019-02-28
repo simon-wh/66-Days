@@ -21,36 +21,28 @@
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
                     
+                    <form method="POST" enctype="multipart/form-data" th:action="${'/whitelist/add-email'}">
+                        <div class="form-group">
+                            <label for="emailInput"><b>Add an email address to the whitelist.</b></label>
+                            <input class="form-control" name="email" th:value="${email}" id="emailInput" placeholder="Enter email here.">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-outline-success" type="submit">Submit</button>
+                        </div>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="emailInput"><b>Add an email address to the whitelist.</b></label>
-                        <input class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-outline-success" onclick="addEmailAddressToHTML()">Submit</button>
-                    </div>
-                    
-        
                     <div style="padding-top:2em;"></div>
                     
                     <ul class="list-group" id="emailAddressList">
-                        <li class="list-group-item" id="joeblogson1987@gmail.comElement">
-                            joeblogson1987@gmail.com
-                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('joeblogson1987@gmail.comElement')">Delete</button>
-                        </li>
-                        <li class="list-group-item" id="JohnAppleseed@gmail.comElement">
-                            JohnAppleseed@gmail.com
-                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('JohnAppleseed@gmail.comElement')">Delete</button>
-                        </li>
-                        <li class="list-group-item" id="davy12312@gmail.comElement">
-                            davy12312@gmail.com
-                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('davy12312@gmail.comElement')">Delete</button>
-                        </li>
-                        <li class="list-group-item" id="averymcallister@gmail.comElement">
-                            averymcallister@gmail.com
-                            <button class="btn btn-small btn-danger float-right" onclick="deleteListElement('averymcallister@gmail.comElement')">Delete</button>
+                        <li class="list-group-item" th:each="whitelistMember: ${whitelistMembers}">
+                            <form method="POST" enctype="multipart/form-data" th:action="${'/whitelist/delete-email?email=' + whitelistMember.getEmail()}">
+                                <p th:text="${whitelistMember.getEmail()}" style="display: inline">defaultEmailAddress@gmail.com</p>
+                                <button class="btn btn-small btn-danger float-right" type="submit">Delete</button>
+                            </form>
                         </li>
                     </ul>
+                    
+                    
                 </div>
                 <div class="col-sm-2"></div>
             </div>
@@ -58,7 +50,5 @@
     </div>
     
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
-    
-    <script type="text/javascript" src="js/whitelist.js"></script>
 </body>
 </html>

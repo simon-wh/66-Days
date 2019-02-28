@@ -1,5 +1,5 @@
-C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\controllers\indexController.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\repositories\WhitelistRepository.java
+C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\controllers\courseEditorController.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\controllers\WebAPIController.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\tables\CourseContent.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\tables\UserStatistics.java
@@ -10,4 +10,5 @@ C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\configuration\Thy
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\repositories\UserStatisticsRepository.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\repositories\CourseContentRepository.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\configuration\SecurityConfig.java
+C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\controllers\whitelistController.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\tables\WhitelistMember.java

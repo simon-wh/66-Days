@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head th:include="fragments/authorisedHeader :: head (title='Course Editor')">
+        <title>66 Days</title>
+    </head>
+
+    <body>
+        <div th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
+        <div class="container">
+        
+            <!-- TITLE -->
+            <div style="padding-top: 1em;"></div>
+            
+            <h1 class="display-4">Course Editor</h1>
+            <p style="padding-top:1em;" class="lead">Here you can edit the contents of the course week by week. Please click save to update your changes after editing a week.</p>
+            
+            <div style="padding-top: 1em;"></div>
+            
+            <!-- CONTENT -->
+            <div class="container">
+                
+                <!-- THE TAB NAVIGATION BAR -->
+                <div class = "container">
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <ul class="nav justify-content-center">
+                                <li class="nav-item" th:each="courseWeek: ${courseWeeks}">
+                                    <a class="nav-link text-success"
+                                       th:text="${'Week '+courseWeek.getWeekNumberAsString()}" 
+                                       th:id="${'#week-'+courseWeek.getWeekNumberAsString() + '-tab'}"
+                                       th:attr="onclick=|displayWeek('${'#week-'+courseWeek.getWeekNumberAsString()}')|" >
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+                
+                <div style="padding-top: 1em;"></div>
+                
+                <!-- THE COURSE EDITOR FORM -->
+                <div class="container">
+                    <th:block th:each="courseWeek: ${courseWeeks}">
+                    <div class="week" th:id="'week-' + ${courseWeek.getWeekNumberAsString()}">
+
+                        <form th:action="@{'/course-editor/update-week/' + ${courseWeek.getId()}}" th:object="${updatedWeek}" th:method="PUT" enctype="multipart/form-data">
+
+                            <!-- The title of the week. -->
+                            <div class="form-group row">
+                                <label for="title" class="col-sm-2 col-form-label"><b>Week Title</b></label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" 
+                                           name="title"
+                                           id="title"
+                                           th:value="${courseWeek.getTitle()}" 
+                                           th:placeholder="${courseWeek.getTitle()}">
+                                </div>
+                            </div>
+                            
+                            <!-- Why am I using name and id attributes instead of the th:field?
+                                It doesn't let me set th:value if I set th:field, making for a much worse user experience.
+                            https://stackoverflow.com/questions/31542032/how-to-add-default-values-to-input-fields-in-thymeleaf
+                            -->
+
+                            <!-- The description of the week of the course. -->
+                            <div class="form-group row">
+                                <label for="description" class="col-sm-2 col-form-label"><b>Description</b></label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" 
+                                           name="description" 
+                                           id="description"
+                                           th:value="${courseWeek.getDescription()}" 
+                                           th:placeholder="${courseWeek.getDescription()}">
+                                </div>
+                            </div>
+
+                            <!-- The week's habit options, separated by newlines. -->
+                            <div class="form-group row">
+                                <label for="habitChoices" class="col-sm-2 col-form-label"><b>Habit Choices</b></label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="5" 
+                                              name="habitChoices"
+                                              id="habitChoices" 
+                                              th:text="${courseWeek.getHabitChoices()}" 
+                                              th:placeholder="${courseWeek.getHabitChoices()}">
+                                    </textarea>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-outline-success" type="submit">Save your changes.</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    </th:block>
+                    
+                </div>
+                <!-- End of course editor form. -->
+                
+            </div>
+            <!-- End of course content sub-container. -->
+            
+        </div>
+        <!-- End of webpage container. -->
+        
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+        
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/course-editor.js"></script>
+    
+    </body>
+</html>
