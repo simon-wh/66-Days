@@ -50,6 +50,7 @@ class CoreHabit {
   void updateFrom(CoreHabit habit){
     this.title = habit.title;
     this.experimentTitle = habit.experimentTitle;
+    this.environmentDesign = habit.environmentDesign;
     this.reminders = habit.reminders;
     this.markedOff = habit.markedOff;
   }

@@ -4,39 +4,24 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class EditNotificationWidget extends StatefulWidget {
   final NotificationConfig notification;
+  final editable;
 
-  EditNotificationWidget(this.notification);
+  EditNotificationWidget(this.notification, {this.editable = true});
 
   @override
-  State<StatefulWidget> createState() => EditNotificationState();
+  State<StatefulWidget> createState() => EditNotificationState(editable);
 }
 
 class EditNotificationState extends State<EditNotificationWidget> {
-  bool expanded = false;
-  bool expandLock = false;
+  bool editDays;
   final TextEditingController messageController = TextEditingController();
 
-  EditNotificationState();
+  EditNotificationState(this.editDays);
 
   @override
   void initState(){
     super.initState();
-    expandLock = !this.widget.notification.enabled;
     messageController.text = this.widget.notification.message;
-  }
-
-  void lockExpansion(bool lock){
-    setState(() {
-      expandLock = lock;
-    });
-  }
-
-  void setExpansion(bool expanded) {
-    if (expandLock)
-      return;
-    setState(() {
-      this.expanded = expanded;
-    });
   }
 
   @override
@@ -75,35 +60,32 @@ class EditNotificationState extends State<EditNotificationWidget> {
           value: notification.enabled,
           onChanged: (checked) {
             notification.enabled = checked;
-            if (!checked)
-              setExpansion(false);
-            lockExpansion(!checked);
-          },
+            setState(() {});
+          }
         )
       ]),
-      expanded
-          ? Row(
+      editDays ? ExpansionTile(
+        title: Text(notification.message + " : " + notification.getDayString(), overflow: TextOverflow.ellipsis, style: style),
+        children: <Widget>[
+          Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List<Day>.generate(7, (int index) => Day.values[index],
-                      growable: false)
+                  growable: false)
                   .map((day) => Column(children: <Widget>[
-                        Text(NotificationConfig.DayStringMap[day][0]),
-                        Checkbox(
-                            activeColor: Colors.black,
-                            value: notification.repeatDays.contains(day),
-                            onChanged: (checked) {
-                              if (checked) {
-                                notification.repeatDays.add(day);
-                              } else {
-                                notification.repeatDays.remove(day);
-                              }
-                              setState(() {});
-                            })
-                      ]))
-                  .toList())
-          : Container(),
-      expanded
-          ? Container(
+                Text(NotificationConfig.DayStringMap[day][0]),
+                Checkbox(
+                    activeColor: Colors.black,
+                    value: notification.repeatDays.contains(day),
+                    onChanged: (checked) {
+                      if (checked) {
+                        notification.repeatDays.add(day);
+                      } else {
+                        notification.repeatDays.remove(day);
+                      }
+                      setState(() {});
+                    })
+              ])).toList()),
+          Container(
               padding: EdgeInsets.only(left: 10.0, right: 10.0),
               child: TextField(
                   autocorrect: true,
@@ -113,27 +95,17 @@ class EditNotificationState extends State<EditNotificationWidget> {
                   onChanged: (val) {
                     notification.message = val;
                   }))
-          : Container(),
-      GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            setExpansion(!expanded);
-          },
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                    child: Text(
-                        !expanded
-                            ? notification.message +
-                                " : " +
-                                notification.getDayString()
-                            : "",
-                        style: style,
-                        overflow: TextOverflow.ellipsis)
-                ),
-                Icon(expanded ? Icons.expand_less : Icons.expand_more),
-              ])),
+        ],
+      ) : Container(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0),
+          child: TextField(
+              autocorrect: true,
+              decoration: InputDecoration(labelText: "Message"),
+              controller: messageController,
+              maxLines: 1,
+              onChanged: (val) {
+                notification.message = val;
+              }))
     ]);
   }
 }

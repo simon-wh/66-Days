@@ -37,12 +37,12 @@ class SettingsState extends State<SettingsWidget> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
+        resizeToAvoidBottomPadding: false,
         body:  Container(
             padding: const EdgeInsets.all(10.0),
-            child: Column(children: <Widget>[
+            child: ListView(children: <Widget>[
               FutureBuilder<FirebaseUser>(
-                future: _user, // a previously-obtained Future<String> or null
+                future: _user,
                 builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -69,7 +69,7 @@ class SettingsState extends State<SettingsWidget> {
                 },
               ),
               Divider(indent: 5.0, color: Colors.black),
-              ExpansionTile(title: Text("End of day Notification"), children: <Widget>[EditNotificationWidget(Global.instance.settings.dailyNotification)]),
+              ExpansionTile(title: Text("End of day habit checking"), children: <Widget>[EditNotificationWidget(Global.instance.settings.dailyNotification, editable: false)]),
             ])
         ));
   } // Build

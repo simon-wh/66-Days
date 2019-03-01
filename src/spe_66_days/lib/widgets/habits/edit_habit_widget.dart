@@ -97,10 +97,6 @@ class EditHabitState extends State<EditHabitWidget> {
                 );
               },
             );
-
-
-
-
           }) : Container(),
 
           IconButton(icon: Icon(Icons.check), onPressed: () {
@@ -150,7 +146,7 @@ class EditHabitState extends State<EditHabitWidget> {
               decoration: InputDecoration(labelText: "Environment Design"),
               controller: environmentDesignController,
               onChanged: (val) {
-                habit.experimentTitle = val;
+                habit.environmentDesign = val;
                 //Global.habitManager.save();
               },
             ),
