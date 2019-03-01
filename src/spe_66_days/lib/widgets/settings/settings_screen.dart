@@ -54,8 +54,11 @@ class SettingsState extends State<SettingsWidget> {
                       if (snapshot.hasError)
                         return Text('Error: ${snapshot.error}');
                       print(snapshot.data.toString());
+
                       return Stack(children: <Widget>[
-                        Align(child: Row( children: <Widget>[ Image.network(snapshot.data.photoUrl, height: 50), Container(child: Text('${snapshot.data.displayName}'), padding: EdgeInsets.only(left:5.0))]), alignment: Alignment.centerLeft),
+                        Align(child: Row( children: <Widget>[
+                          snapshot.data.isAnonymous ? Icon(Icons.person, size: 50) : Image.network(snapshot.data.photoUrl, height: 50),
+                          Container(child: Text('${snapshot.data.isAnonymous ? "Anonymous" : snapshot.data.displayName}'), padding: EdgeInsets.only(left:5.0))]), alignment: Alignment.centerLeft),
                         Align(child: FlatButton(child: Text("Sign out"), onPressed: (){
                           Global.auth.signOut();
                           Navigator.pushReplacementNamed(context, "sign_in");
