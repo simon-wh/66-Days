@@ -71,7 +71,8 @@ class HabitListState extends State<HabitListWidget> {
                 //this.widget?.onStateChanged();
 
                 setState(() {
-                  this.widget?.onHabitChanged();
+                  if (this.widget?.onHabitChanged != null)
+                    this.widget?.onHabitChanged();
                 });
               },
             ),
