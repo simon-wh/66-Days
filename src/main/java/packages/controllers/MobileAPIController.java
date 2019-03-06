@@ -1,10 +1,8 @@
-/*
+
 package initialPackages.controller;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserRecord;
-import initialPackages.CourseContent;
-import initialPackages.UserStatistics;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +15,23 @@ import java.util.concurrent.ExecutionException;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import repositories.WhitelistRepository;
-import repositories.CourseContentRepository;
-import repositories.UserStatisticsRepository;
+import packages.repositories.CourseContentRepository;
+import packages.repositories.UserStatisticsRepository;
+import packages.repositories.WhitelistRepository;
+
+import packages.tables.CourseWeek;
+
 
 @Controller
-@RequestMapping(path="/mobile-api") // This means request URL's start with /mobile-api (after the source domain path)
+@RequestMapping(path="/mobile-api") 
 public class MobileAPIController {
 
-	@Autowired
+    
+        // ### VERIFY THE USERS EMAIL ### //
+    
+    
+    	@Autowired
 	private WhitelistRepository whitelistRepository;
-        
-        @Autowired
-        private CourseContentRepository courseContentRepository;
-        
-        @Autowired
-        private UserStatisticsRepository userStatisticsRepository;
-        
-        //// VERIFY THE USERS EMAIL USING THE WHITELIST REPOSITORY. ////
         
         @RequestMapping(method = RequestMethod.POST, value = "/verify-email", consumes = "application/json")
 	public String verifyEmail(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
@@ -60,8 +57,61 @@ public class MobileAPIController {
             return Boolean.toString(isValidEmail);
 	}
         
-        //// CREATE A NEW ACCOUNT FOR GENERAL USER STATISTICS STORAGE ////
+        //Code sourced from... https://thepro.io/post/firebase-authentication-for-spring-boot-rest-api/
+        public String getUserIdFromIdToken(String idToken) throws Exception {
+            String userID = null;
+            
+            try {
+                userID = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get().getUid();
+            } catch (InterruptedException | ExecutionException e) {
+                //Let the userID remain null.
+                //Potential future implementation of logging what the exception was, so we can identify secuirity issues.
+            }
+            
+            return userID;
+        }
+        
+        
+        // ### GET THE COURSE CONTENT AS JSON ### //
+        
+        
+        @Autowired
+        private CourseContentRepository courseContentRepository;
+        
+        @RequestMapping(value = "/get-course-content", method = RequestMethod.POST)
+        public String getCourseContent(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
+            //1 - Get the user id from the request.
+            String userID = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
+            
+            //2 - If the user id is null, decline the request.
+            if (userID == null){
+                return "unauthorized";
+            }
+            
+            //3 - Get all the weeks of the course from the database.
+            Iterable<CourseWeek> weeksOfCourse = courseContentRepository.findAll();
+            
+            //4 - Construct a JSON string with all the weeks of the course.
+            String completeJSON = "[";
+            for (CourseWeek week: weeksOfCourse){
+                //System.out.println(week.getJson());
+                completeJSON = completeJSON.concat(week.getJSON());
+                completeJSON = completeJSON.concat(",");
+            }
+            completeJSON = completeJSON.concat("{}]");
+            
+            //5 - Return the resulting JSON content.
+            return completeJSON;
+        }
+        
+        
+        // ### CREATE AND UPDATE USER STATISTICS ### //
 
+        /*
+        @Autowired
+        private UserStatisticsRepository userStatisticsRepository;
+        
+        //// CREATE A NEW ACCOUNT FOR GENERAL USER STATISTICS STORAGE ////
         @RequestMapping(value = "/new-account", method = RequestMethod.POST, consumes = "application/json")
         public String createNewAccount(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             
@@ -121,51 +171,5 @@ public class MobileAPIController {
             
             //7 - Respond with confirmation.
             return "success";
-        }
-        
-        //// GET THE COURSE CONTENT AS JSON ////
-        
-        @RequestMapping(value = "/get-course-content", method = RequestMethod.POST)
-        public String getCourseContent(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
-            //1 - Get the user id from the request.
-            String userID = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
-            
-            //2 - If the user id is null, decline the request.
-            if (userID == null){
-                return "unauthorized";
-            }
-            
-            //3 - Get all the weeks of the course from the database.
-            Iterable<CourseContent> weeksOfCourse = courseContentRepository.findAll();
-            
-            //4 - Construct a JSON string with all the weeks of the course.
-            String completeJSON = "[";
-            for (CourseContent week: weeksOfCourse){
-                //System.out.println(week.getJson());
-                completeJSON.concat(week.getJson());
-                completeJSON.concat(",");
-            }
-            completeJSON.concat("{}]");
-            
-            //5 - Return the resulting JSON content.
-            return completeJSON;
-        }
-        
-        //// GET THE USER ID FROM THE ID TOKEN ////
-        
-        //Code sourced from... https://thepro.io/post/firebase-authentication-for-spring-boot-rest-api/
-        public String getUserIdFromIdToken(String idToken) throws Exception {
-            String userID = null;
-            
-            try {
-                userID = FirebaseAuth.getInstance().verifyIdTokenAsync(idToken).get().getUid();
-            } catch (InterruptedException | ExecutionException e) {
-                //Let the userID remain null.
-                //Potential future implementation of logging what the exception was, so we can identify secuirity issues.
-            }
-            
-            return userID;
-        }
-
+        }*/     
 }
-*/

@@ -1,12 +1,12 @@
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\repositories\WhitelistRepository.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\controllers\courseEditorController.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\controllers\WebAPIController.java
-C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\tables\CourseContent.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\tables\UserStatistics.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\Application.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\configuration\MvcConfig.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\controllers\MobileAPIController.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\configuration\ThymeleafConfig.java
+C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\tables\CourseWeek.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\repositories\UserStatisticsRepository.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\repositories\CourseContentRepository.java
 C:\Users\jhanc\Documents\GitHub\66-Days\src\main\java\packages\configuration\SecurityConfig.java

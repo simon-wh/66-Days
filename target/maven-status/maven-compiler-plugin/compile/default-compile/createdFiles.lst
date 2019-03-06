@@ -1,7 +1,8 @@
 packages\repositories\UserStatisticsRepository.class
 packages\controllers\whitelistController.class
+packages\tables\CourseWeek.class
+initialPackages\controller\MobileAPIController.class
 packages\repositories\WhitelistRepository.class
-packages\tables\CourseContent.class
 packages\configuration\ThymeleafConfig.class
 packages\tables\WhitelistMember.class
 packages\configuration\MvcConfig.class

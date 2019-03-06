@@ -3,11 +3,10 @@ package packages.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,92 +24,44 @@ public class courseEditorController {
     @Autowired
     private CourseContentRepository courseContentRepo;
     
-    /*
-    @GetMapping("")
-    public String courseEditor(Model model){
-        model.addAttribute("courseWeeks", getCourseContent());
-        return "course-editor";
-    }*/
-    
-    //List<CourseContent>
-    
     @RequestMapping("")
     public ModelAndView courseEditor() {
         ModelAndView mav = new ModelAndView("course-editor");
-        mav.addObject("courseWeeks", getCourseContent());
+        mav.addObject("courseWeeks", getCourseWeeks());
         mav.addObject("updatedWeek", new CourseWeek(0));
         return mav;
     }
     
     @RequestMapping(value = "/update-week/{id}", method = RequestMethod.PUT)
-    public String saveUpdate(@PathVariable Integer id, 
-                             @ModelAttribute("updatedWeek") CourseWeek updatedWeek,
-                             HttpServletRequest request) {
+    public String saveUpdate(@PathVariable Integer id, @ModelAttribute("updatedWeek") CourseWeek updatedWeek) {
         
         Optional<CourseWeek> originalWeekOptional = courseContentRepo.findById(id);
         
         if (originalWeekOptional.isPresent()){
             CourseWeek originalWeek = originalWeekOptional.get();
             
-            String newTitle = updatedWeek.getTitle();
-            String newDescription = updatedWeek.getDescription();
-            String newHabitChoices = updatedWeek.getHabitChoices();
-            
-            if (newTitle != null)
-                originalWeek.setTitle(newTitle);
-            
-            if (newDescription != null)
-                originalWeek.setDescription(newDescription);
-
-            if (newHabitChoices != null)
-                originalWeek.setHabitChoices(newHabitChoices);
-            
-            //System.out.println(updatedWeek.getHabitChoices());
+            originalWeek = updateCourseWeekAttributes(originalWeek, updatedWeek);
             
             courseContentRepo.save(originalWeek);
         }
         
-        return "redirect:" + request.getHeader("referer");
+        return "redirect:/course-editor";
     }
     
-    /*
-    @RequestMapping(path="/update-week")
-    public String updateWeek(@RequestParam("id") Integer id,
-                             @RequestParam("title") String title,
-                             @RequestParam("description") String description,
-                             @RequestParam("habitChoices") String habitChoices,
-                             Model model, HttpServletRequest request) {
-
-        Optional<CourseContent> weekOptional = courseContentRepo.findById(id);
-        
-        if (weekOptional.isPresent()){
-            CourseWeek week = weekOptional.get();
-            
-            week.setTitle(title);
-            week.setDescription(description);
-            week.setHabitChoices(habitChoices);
-            
-            courseContentRepo.save(week);
-        }
-        
-        return "redirect:" + request.getHeader("referer");
-    }
-    */
-    
+    //At the moment we have to add weeks manually every time we reset the database.
+    //Can we get a script to do this for us?
     @RequestMapping(path="/add-week")
-    public String addWeek(@RequestParam("title") String title,
-                          @RequestParam("description") String description,
-                          @RequestParam("habitChoices") String habitChoices,
-                          HttpServletRequest request, Model model) {
+    public String addWeek(@RequestParam("title") String title) {
         
-        CourseWeek week = new CourseWeek(title, description, habitChoices);
+        CourseWeek week = new CourseWeek(title);
+        //All the rest of the data attributes for CourseWeek are assigned default values.
         courseContentRepo.save(week);
         
         return "redirect:/course-editor";
     }
     
     @RequestMapping(path="/delete-week")
-    public String deleteWeek(@RequestParam("id") Integer id, HttpServletRequest request, Model model) {
+    public String deleteWeek(@RequestParam("id") Integer id) {
         
         if (courseContentRepo.existsById(id)){
             courseContentRepo.deleteById(id);
@@ -119,10 +70,40 @@ public class courseEditorController {
         return "redirect:/course-editor";
     }
     
-    private List<CourseWeek> getCourseContent(){
+    @RequestMapping(path="/week-json")
+    public String weekJSON(){
+        //3 - Get all the weeks of the course from the database.
+        Iterable<CourseWeek> weeksOfCourse = courseContentRepo.findAll();
+
+        //4 - Construct a JSON string with all the weeks of the course.
+        String completeJSON = "[";
+        for (CourseWeek week: weeksOfCourse){
+            //System.out.println(week.getJson());
+            completeJSON = completeJSON.concat(week.getJSON());
+            completeJSON = completeJSON.concat(",");
+        }
+        completeJSON = completeJSON.concat("]");
+
+        //5 - Return the resulting JSON content.
+        return completeJSON;
+    }
+    
+    private List<CourseWeek> getCourseWeeks(){
         List<CourseWeek> weeksList = new ArrayList<>();
         courseContentRepo.findAll().forEach(weeksList::add);
         return weeksList;
+    }
+    
+    private CourseWeek updateCourseWeekAttributes(CourseWeek originalWeek, CourseWeek updatedWeek){
+
+        originalWeek.setWeekTitle(updatedWeek.getWeekTitle());
+        originalWeek.setWeekType(updatedWeek.getWeekType());
+        originalWeek.setWeekDescription(updatedWeek.getWeekDescription());
+        originalWeek.setHabitTitle(updatedWeek.getHabitTitle());
+        originalWeek.setHabitExperiments(updatedWeek.getHabitExperiements());
+        originalWeek.setHabitEnvironmentDesign(updatedWeek.getHabitEnviromentDesign());
+
+        return originalWeek;
     }
     
 }
