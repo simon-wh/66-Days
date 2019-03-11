@@ -100,8 +100,8 @@ public class courseEditorController {
         originalWeek.setWeekType(updatedWeek.getWeekType());
         originalWeek.setWeekDescription(updatedWeek.getWeekDescription());
         originalWeek.setHabitTitle(updatedWeek.getHabitTitle());
-        originalWeek.setHabitExperiments(updatedWeek.getHabitExperiements());
-        originalWeek.setHabitEnvironmentDesign(updatedWeek.getHabitEnviromentDesign());
+        originalWeek.setHabitExperiments(updatedWeek.getHabitExperiments());
+        originalWeek.setEnvironmentDesign(updatedWeek.getEnvironmentDesign());
 
         return originalWeek;
     }

@@ -31,12 +31,12 @@ public class CourseWeek {
         private String habitTitle;
         
         @Lob 
-        @Column(name="habit-experiments", length=1024)
+        @Column(name="experiments", length=1024)
         private String habitExperiments; //A list of experiements seperated by newline characters.
         
         @Lob
-        @Column(name="habit-environment-design", length=1024)
-        private String habitEnvironmentDesign; //A list of environment design options, seperated by newline characters.
+        @Column(name="environmentDesign", length=1024)
+        private String environmentDesign; //A list of environment design options, seperated by newline characters.
         
         // CONSTRUCTORS
         public CourseWeek(){}
@@ -51,7 +51,7 @@ public class CourseWeek {
             this.weekDescription = "Week description.";
             this.habitTitle = "Habit title.";
             this.habitExperiments = "List of experiments.";
-            this.habitEnvironmentDesign = "List of environment design choices.";
+            this.environmentDesign = "List of environment design choices.";
         }
         
         // FUNCTIONS 
@@ -83,7 +83,7 @@ public class CourseWeek {
             JSON = addKeyValueToJSON(JSON, "habit-key", getHabitKey());
             JSON = addKeyValueToJSON(JSON, "habit-title", habitTitle);
             JSON = addKeyListToJSON(JSON, "habit-experiments", habitExperiments);
-            JSON = addKeyListToJSON(JSON, "environment-design", habitEnvironmentDesign);
+            JSON = addKeyListToJSON(JSON, "environment-design", environmentDesign);
             
             JSON = JSON.concat("}");
             return JSON;
@@ -136,12 +136,12 @@ public class CourseWeek {
             return habitTitle;
         }
         
-        public String getHabitExperiements(){
+        public String getHabitExperiments(){
             return habitExperiments;
         }
         
-        public String getHabitEnviromentDesign(){
-            return habitEnvironmentDesign;
+        public String getEnvironmentDesign(){
+            return environmentDesign;
         }
         
         // SETTERS  
@@ -169,7 +169,7 @@ public class CourseWeek {
             this.habitExperiments = habitExperiments;
         }
         
-        public void setHabitEnvironmentDesign(String habitEnvironmentDesign){
-            this.habitEnvironmentDesign = habitEnvironmentDesign;
+        public void setEnvironmentDesign(String environmentDesign){
+            this.environmentDesign = environmentDesign;
         }
 }
