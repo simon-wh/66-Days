@@ -1,0 +1,10 @@
+[Unit]
+Description=A Spring Boot application
+After=syslog.target
+
+[Service]
+User=springuser
+ExecStart=/home/ubuntu/66-Days/target/66days-0.0.1-SNAPSHOT.jar SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
