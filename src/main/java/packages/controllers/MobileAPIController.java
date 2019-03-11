@@ -1,5 +1,5 @@
 
-package initialPackages.controller;
+package packages.controllers;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserRecord;
