@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'package:spe_66_days/widgets/progress/streaks_chart.dart';
+import 'package:spe_66_days/widgets/course/course_screen.dart';
 import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/Global.dart';
@@ -58,7 +59,7 @@ void main() {
     await tester.tap(find.byIcon(Icons.library_books));
     await tester.pump(new Duration(seconds: 1));
 
-    expect(find.byType(ListView), findsWidgets);
+    expect(find.byType(CourseScreen), findsWidgets);
   });
 
   testWidgets('Test return to home is  correct', (WidgetTester tester) async{
