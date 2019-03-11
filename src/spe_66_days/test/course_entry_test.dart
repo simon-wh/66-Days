@@ -51,7 +51,7 @@ void main() {
               "Eat in a calm environment",
               "..."
             ], defaultHabit: CoreHabit("Eat Slowly", ""))
-          ])
+          ], weekNo:2)
       ));
     });
   });

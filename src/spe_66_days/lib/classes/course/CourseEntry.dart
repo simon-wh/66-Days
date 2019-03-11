@@ -68,11 +68,13 @@ class CourseEntryUpdate extends CourseEntryItem {
 //@JsonSerializable()
 class CourseEntry
 {
+  final int weekNo;
+
   final String title;
 
   final List<CourseEntryItem> items;
 
-  CourseEntry(this.title, this.items);
+  CourseEntry(this.title, this.items, {this.weekNo});
 
   bool operator ==(o) => o is CourseEntry
       && o.title == this.title
@@ -100,7 +102,8 @@ class CourseEntry
         CourseEntryText(json['week-description'] as String),
         CourseEntryChange("Experiments", json['habit-key'] as String, "experimentTitle", (json['habit-experiments'] as List)?.map((e) => e as String)?.toList(), defaultHabit: CoreHabit(json['habit-title'] as String, "")),
         CourseEntryChange("Environment Design", json['habit-key'] as String, "environmentDesign", (json['environment-design'] as List)?.map((e) => e as String)?.toList(), defaultHabit: CoreHabit(json['habit-title'] as String, "")),
-      ]);
+      ],
+      weekNo: json['week-id'] as int);
 
   //Map<String, dynamic> toJson() => _$CourseEntryToJson(this);
 }
