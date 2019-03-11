@@ -3,21 +3,13 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head th:include="fragments/authorisedHeader :: head (title='Course Editor')">
         <title>66 Days</title>
+        
     </head>
 
     <body>
-        <div th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
-        
-        <style type="text/css">
-            .showElement {
-                display: flex;
-                flex-wrap: wrap;
-            }
+        <link rel="stylesheet" type="text/css" href="/css/course-editor.css"></link>
             
-            .hideElement {
-                display: none;
-            }
-        </style>
+        <div th:replace="fragments/authorisedHeader :: header">&nbsp;</div>
         
         <div class="container">
         
@@ -35,33 +27,30 @@
                 
                 <!-- THE TAB NAVIGATION BAR -->
                 
-                <div class = "container">
+                <section>
                     <div class="row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8">
                             <ul class="nav justify-content-center">
-                                <li class="nav-item" th:each="courseWeek: ${courseWeeks}">
+                                <li class="nav-item" th:each="week: ${courseWeekList}">
                                     <a class="nav-link text-success"
-                                       th:text="${'Week '+courseWeek.getWeekNumberAsString()}" 
-                                       th:id="${'#week-'+courseWeek.getWeekNumberAsString() + '-tab'}"
-                                       th:attr="onclick=|displayWeek('${'#week-'+courseWeek.getWeekNumberAsString()}',${courseWeek.getId()})|" >
+                                       th:text="${'Week '+week.getWeekNumberAsString()}" 
+                                       th:href="${'/course-editor/' + week.getId()}">
                                     </a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-sm-2"></div>
                     </div>
-                </div>
+                </section>
                 
                 <div style="padding-top: 1em;"></div>
                 
-                <!-- THE COURSE EDITOR FORM -->
-                
-                <div class="container">
-                    <th:block th:each="courseWeek: ${courseWeeks}">
-                    <div class="week" th:id="'week-' + ${courseWeek.getWeekNumberAsString()}">
+                <!-- THE COURSE WEEK EDITOR FORM -->
+                <section>
+                    <div th:if="${courseWeek != null}">
 
-                        <form th:action="@{'/course-editor/update-week/' + ${courseWeek.getId()}}" th:object="${updatedWeek}" th:method="PUT" enctype="multipart/form-data">
+                        <form th:action="@{'/course-editor/update-week/' + ${courseWeek.getId()}}" th:object="${courseWeek}" th:method="PUT" enctype="multipart/form-data">
 
                             <!-- Why am I using name and id attributes instead of the th:field?
                             It doesn't let me set th:value if I set th:field, making for a much worse user experience.
@@ -72,7 +61,7 @@
                             <div class="form-group row">
                                 <label for="weekTitle" class="col-sm-2 col-form-label"><b>Week Title</b></label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" 
+                                    <input class="form-control" required 
                                            name="weekTitle"
                                            id="weekTitle"
                                            th:value="${courseWeek.getWeekTitle()}">
@@ -87,12 +76,13 @@
                             <div class="form-group row">
                                 <label for="weekType" class="col-sm-2 col-form-label"><b>Week Type</b></label>
                                 <div class="col-sm-10">
-                                    <select class="form-control weekTypeClass" id="weekType" name="weekType">
+                                    <select class="form-control" id="weekType" name="weekType" required>
                                         <option value="CREATE_NEW_HABIT" 
                                                 th:selected="${courseWeek.getWeekType()} == 'CREATE_NEW_HABIT' ? true : false">
                                             Create New Habit
                                         </option>
                                         <option value="UPDATE_OLD_HABIT"
+                                                th:if="${courseWeek.getId() > 1}"
                                                 th:selected="${courseWeek.getWeekType()} == 'UPDATE_OLD_HABIT' ? true : false">
                                             Update Old Habit
                                         </option>
@@ -120,11 +110,10 @@
                             <!-- Title of Habit. -->
                             <div class="form-group row" 
                                  id="enterTitleOfHabit"
-                                 th:id="${'enterTitleOfHabit'+courseWeek.getId()}"
                                  th:classappend="${courseWeek.getWeekType()} == 'CREATE_NEW_HABIT' ? showElement : hideElement">
                                 <label for="habitTitle" class="col-sm-2 col-form-label"><b>Habit Name</b></label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" 
+                                    <input class="form-control" required
                                            name="habitTitle"
                                            id="habitTitle"
                                            th:value="${courseWeek.getHabitTitle()}">
@@ -136,31 +125,30 @@
                              - If courseWeek.getWeekType() is UPDATE_OLD_HABIT, then display this section, and hide the previous.
                              - Any edits to this selection system must update the habit title input in the previous section.
                             -->
+                            
                             <div class="form-group row" 
                                  id="linkToPreviousHabit"
-                                 th:id="${'linkToPreviousHabit'+courseWeek.getId()}"
                                  th:classappend="${courseWeek.getWeekType()} == 'UPDATE_OLD_HABIT' ? showElement : hideElement">
                                 <label for="habitLinkList" class="col-sm-2 col-form-label"><b>Link to Previous Habit</b></label>
                                 <div class="col-sm-10">
                                     <select class="form-control habitLinkListClass" id="habitLinkList" name="habitLinkList">
+                                        <th:block th:each="otherWeek: ${courseWeekList}">
+                                            <option th:value="${otherWeek.getHabitTitle()}"
+                                                    th:text="${otherWeek.getHabitTitle()}"
+                                                    th:if="${otherWeek.getWeekType() == 'CREATE_NEW_HABIT' and otherWeek.getId() < courseWeek.getId()}"
+                                                    th:selected="${courseWeek.getHabitTitle() == otherWeek.getHabitTitle()} ? true : false">
+                                                    Options
+                                            </option>                                        
+                                        </th:block>
 
-                                        <option 
-                                            th:each="courseWeekTwo: ${courseWeeks}"
-                                            th:if="${courseWeekTwo.getWeekType() == 'CREATE_NEW_HABIT'}"
-                                            th:value="${courseWeekTwo.getHabitTitle()}"
-                                            th:text="${courseWeekTwo.getHabitTitle()}"
-                                            th:selected="${courseWeek.getHabitTitle() == courseWeekTwo.getHabitTitle()} ? true : false">
-                                            Options
-                                        </option>
-                                        
                                     </select>
                                 </div>
                             </div>
                             
+                            
                             <!-- List of Experiments -->
                             <div class="form-group row" 
                                  id="listOfExperimentsSection"
-                                 th:id="${'listOfExperimentsSection'+courseWeek.getId()}"
                                  th:classappend="${courseWeek.getWeekType()} != 'JUST_DESCRIPTION' ? showElement : hideElement">
                                 <label for="habitExperiments" class="col-sm-2 col-form-label"><b>Experiments</b></label>
                                 <div class="col-sm-10">
@@ -192,8 +180,7 @@
                     </div>
                     </th:block>
                     
-                </div>
-                <!-- End of course editor form. -->
+                </section>
                 
             </div>
             <!-- End of course content sub-container. -->
@@ -206,7 +193,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/course-editor.js"></script>
+    <script type="text/javascript" src="/js/course-editor.js"></script>
     
     </body>
 </html>

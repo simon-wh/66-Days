@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import packages.repositories.CourseContentRepository;
@@ -27,8 +28,23 @@ public class courseEditorController {
     @RequestMapping("")
     public ModelAndView courseEditor() {
         ModelAndView mav = new ModelAndView("course-editor");
-        mav.addObject("courseWeeks", getCourseWeeks());
-        mav.addObject("updatedWeek", new CourseWeek(0));
+        mav.addObject("courseWeekList", getCourseWeeks());
+        return mav;
+    }
+    
+    @RequestMapping("/{id}")
+    public ModelAndView editWeek(@PathVariable Integer id) {
+        
+        Optional<CourseWeek> weekToEditOptional = courseContentRepo.findById(id);
+        CourseWeek weekToEdit = new CourseWeek(0);
+        
+        if (weekToEditOptional.isPresent()){
+            weekToEdit = weekToEditOptional.get();
+        }
+        
+        ModelAndView mav = new ModelAndView("course-editor");
+        mav.addObject("courseWeekList", getCourseWeeks());
+        mav.addObject("courseWeek", weekToEdit);
         return mav;
     }
     
@@ -71,21 +87,11 @@ public class courseEditorController {
     }
     
     @RequestMapping(path="/week-json")
-    public String weekJSON(){
-        //3 - Get all the weeks of the course from the database.
+    @ResponseBody
+    public Iterable<CourseWeek> weekJSON(){
         Iterable<CourseWeek> weeksOfCourse = courseContentRepo.findAll();
-
-        //4 - Construct a JSON string with all the weeks of the course.
-        String completeJSON = "[";
-        for (CourseWeek week: weeksOfCourse){
-            //System.out.println(week.getJson());
-            completeJSON = completeJSON.concat(week.getJSON());
-            completeJSON = completeJSON.concat(",");
-        }
-        completeJSON = completeJSON.concat("]");
-
-        //5 - Return the resulting JSON content.
-        return completeJSON;
+        
+        return weeksOfCourse;
     }
     
     private List<CourseWeek> getCourseWeeks(){
@@ -96,13 +102,52 @@ public class courseEditorController {
     
     private CourseWeek updateCourseWeekAttributes(CourseWeek originalWeek, CourseWeek updatedWeek){
 
+        //We update the following attributes directly as they don't effect other weeks.
         originalWeek.setWeekTitle(updatedWeek.getWeekTitle());
-        originalWeek.setWeekType(updatedWeek.getWeekType());
         originalWeek.setWeekDescription(updatedWeek.getWeekDescription());
-        originalWeek.setHabitTitle(updatedWeek.getHabitTitle());
         originalWeek.setHabitExperiments(updatedWeek.getHabitExperiments());
         originalWeek.setEnvironmentDesign(updatedWeek.getEnvironmentDesign());
+        
+        // The Week Type and Habit Title might potentially have knock on effects, so they are handled with more care.
+        String newWeekType = updatedWeek.getWeekType();
+        String oldWeekType = originalWeek.getWeekType();
+        String newHabitTitle = updatedWeek.getHabitTitle();
+        String oldHabitTitle = originalWeek.getHabitTitle();
+        
+        if (!newHabitTitle.equals(oldHabitTitle) && "CREATE_NEW_HABIT".equals(newWeekType)){ 
+            //If the title has been changed...
+            //And the week is creating a new habit...
+            //Then iterate through all the weeks, checking to see if they require updating.
+            Iterable<CourseWeek> weeksOfCourse = courseContentRepo.findAll();
 
+            for (CourseWeek week: weeksOfCourse){
+                if (week.getHabitTitle().equals(oldHabitTitle)){
+                    week.setHabitTitle(newHabitTitle);
+                    courseContentRepo.save(week);
+                }
+            }
+        }
+        
+        if (oldWeekType.equals("CREATE_NEW_HABIT") && !newWeekType.equals("CREATE_NEW_HABIT")){
+            //If the old week was creating a new habit, but the new week isn't...
+            //Then we'll need to update all the future weeks that depend on updating this habit!
+            
+            //To start off, we'll see if we can find if any other weeks are creating a habit we can default to.
+            Iterable<CourseWeek> weeksOfCourse = courseContentRepo.findAll();
+            String replacmentLinkedHabitTitle = "- No Habit To Update - ";
+
+            for (CourseWeek week: weeksOfCourse){
+                if (week.getWeekType().equals("CREATE_NEW_HABIT") && !week.getId().equals(updatedWeek.getId())){
+                    replacmentLinkedHabitTitle = week.getHabitTitle();
+                }
+            }
+            
+            newHabitTitle = replacmentLinkedHabitTitle;
+        }
+        
+        originalWeek.setWeekType(newWeekType); 
+        originalWeek.setHabitTitle(newHabitTitle);
+        
         return originalWeek;
     }
     

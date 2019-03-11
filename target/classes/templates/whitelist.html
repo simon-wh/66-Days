@@ -24,7 +24,7 @@
                     <form method="POST" enctype="multipart/form-data" th:action="${'/whitelist/add-email'}">
                         <div class="form-group">
                             <label for="emailInput"><b>Add an email address to the whitelist.</b></label>
-                            <input class="form-control" name="email" th:value="${email}" id="emailInput" placeholder="Enter email here.">
+                            <input class="form-control" name="email" th:value="${email}" id="emailInput" placeholder="Enter email here." required>
                         </div>
                         <div class="text-center">
                             <button class="btn btn-outline-success" type="submit">Submit</button>

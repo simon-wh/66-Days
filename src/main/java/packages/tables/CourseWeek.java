@@ -71,48 +71,10 @@ public class CourseWeek {
                 case 12: return "Twelve";
                 default: return "Greater than Twelve";
             }
-        }
+        }        
         
-        public String getJSON(){
-            String JSON = "{";
-            
-            JSON = addKeyValueToJSON(JSON, "week-id", id.toString());
-            JSON = addKeyValueToJSON(JSON, "week-title", weekTitle);
-            JSON = addKeyValueToJSON(JSON, "week-description", weekDescription);
-            
-            JSON = addKeyValueToJSON(JSON, "habit-key", getHabitKey());
-            JSON = addKeyValueToJSON(JSON, "habit-title", habitTitle);
-            JSON = addKeyListToJSON(JSON, "habit-experiments", habitExperiments);
-            JSON = addKeyListToJSON(JSON, "environment-design", environmentDesign);
-            
-            JSON = JSON.concat("}");
-            return JSON;
-        }
-        
-        private String addKeyValueToJSON(String JSON, String key, String value){
-            JSON = JSON.concat(key);
-            JSON = JSON.concat(":");
-            JSON = JSON.concat(value);
-            JSON = JSON.concat(",\n");
-            return JSON;
-        }
-        
-        private String addKeyListToJSON(String JSON, String key, String newlineSeperatedList){
-            JSON = JSON.concat(key);
-            JSON = JSON.concat(": [");
-            
-            List<String> listItems = new ArrayList<>(Arrays.asList(newlineSeperatedList.split("\n")));
-            for (String item : listItems){
-                JSON = JSON.concat(item);
-                JSON = JSON.concat(",\n");
-            }
-            
-            JSON = JSON.concat("],\n");
-            return JSON;
-        }
-        
-        private String getHabitKey(){
-            return habitTitle;
+        public String getHabitKey(){
+            return this.habitTitle + "_key";
         }
 
         // GETTERS
@@ -140,8 +102,16 @@ public class CourseWeek {
             return habitExperiments;
         }
         
+        public List<String> getHabitExperimentsList(){
+            return Arrays.asList(habitExperiments.split("\r\n"));
+        }
+        
         public String getEnvironmentDesign(){
             return environmentDesign;
+        }
+        
+        public List<String> getEnvironmentDesignList(){
+            return Arrays.asList(environmentDesign.split("\r\n"));
         }
         
         // SETTERS  

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.concurrent.ExecutionException;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import packages.repositories.CourseContentRepository;
 import packages.repositories.UserStatisticsRepository;
@@ -79,29 +80,20 @@ public class MobileAPIController {
         private CourseContentRepository courseContentRepository;
         
         @RequestMapping(value = "/get-course-content", method = RequestMethod.POST)
-        public String getCourseContent(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
+        @ResponseBody
+        public Iterable<CourseWeek> getCourseContent(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             //1 - Get the user id from the request.
             String userID = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
             
             //2 - If the user id is null, decline the request.
             if (userID == null){
-                return "unauthorized";
+                return null;
             }
             
             //3 - Get all the weeks of the course from the database.
             Iterable<CourseWeek> weeksOfCourse = courseContentRepository.findAll();
             
-            //4 - Construct a JSON string with all the weeks of the course.
-            String completeJSON = "[";
-            for (CourseWeek week: weeksOfCourse){
-                //System.out.println(week.getJson());
-                completeJSON = completeJSON.concat(week.getJSON());
-                completeJSON = completeJSON.concat(",");
-            }
-            completeJSON = completeJSON.concat("{}]");
-            
-            //5 - Return the resulting JSON content.
-            return completeJSON;
+            return weeksOfCourse;
         }
         
         
