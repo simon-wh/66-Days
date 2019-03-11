@@ -64,48 +64,54 @@ class EditNotificationState extends State<EditNotificationWidget> {
           }
         )
       ]),
-      editDays ? ExpansionTile(
-        title: Text(notification.message + " : " + notification.getDayString(), overflow: TextOverflow.ellipsis, style: style),
-        children: <Widget>[
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List<Day>.generate(7, (int index) => Day.values[index],
-                  growable: false)
-                  .map((day) => Column(children: <Widget>[
-                Text(NotificationConfig.DayStringMap[day][0]),
-                Checkbox(
-                    activeColor: Colors.black,
-                    value: notification.repeatDays.contains(day),
-                    onChanged: (checked) {
-                      if (checked) {
-                        notification.repeatDays.add(day);
-                      } else {
-                        notification.repeatDays.remove(day);
-                      }
-                      setState(() {});
-                    })
-              ])).toList()),
-          Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: TextField(
-                  autocorrect: true,
-                  decoration: InputDecoration(labelText: "Message"),
-                  controller: messageController,
-                  maxLines: 1,
-                  onChanged: (val) {
-                    notification.message = val;
-                  }))
-        ],
-      ) : Container(
-          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-          child: TextField(
-              autocorrect: true,
-              decoration: InputDecoration(labelText: "Message"),
-              controller: messageController,
-              maxLines: 1,
-              onChanged: (val) {
-                notification.message = val;
-              }))
+      IgnorePointer(
+        ignoring: !notification.enabled,
+        child: editDays ? ExpansionTile(
+          title: Text(notification.message + " : " + notification.getDayString(), overflow: TextOverflow.ellipsis, style: style),
+          children: <Widget>[
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List<Day>.generate(7, (int index) => Day.values[index],
+                    growable: false)
+                    .map((day) => Column(children: <Widget>[
+                  Text(NotificationConfig.DayStringMap[day][0]),
+                  Checkbox(
+                      activeColor: Colors.black,
+                      value: notification.repeatDays.contains(day),
+                      onChanged: (checked) {
+                        if (checked) {
+                          notification.repeatDays.add(day);
+                        } else {
+                          notification.repeatDays.remove(day);
+                        }
+                        setState(() {});
+                      })
+                ])).toList()),
+            Container(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                child: TextField(
+                    autocorrect: true,
+                    decoration: InputDecoration(labelText: "Message"),
+                    controller: messageController,
+                    maxLines: 1,
+                    onChanged: (val) {
+                      notification.message = val;
+                    }))
+          ],
+        ) :
+        Container(
+            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+            child: TextField(
+                autocorrect: true,
+                decoration: InputDecoration(labelText: "Message"),
+                controller: messageController,
+                maxLines: 1,
+                onChanged: (val) {
+                  notification.message = val;
+                }))
+      )
     ]);
   }
+
+
 }
