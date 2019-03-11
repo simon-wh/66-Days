@@ -1,0 +1,23 @@
+{
+  "week-id":2,
+
+  "week-title":"Week Two - Eat Slowly and Savour Your Food",
+
+  "week-description":"This is a description",
+
+  "habit-key":"eat_slowly",
+
+  "habit-title":"Eat Slowly",
+
+  "habit-experiments":[
+    "Put down your cutlery after each mouthful",
+    "Eat with your non-dominant hand",
+    "..."
+  ],
+
+  "environment-design":[
+    "Eat your meals at a table. Never eat at your desk",
+    "Eat in a calm environment",
+    "..."
+  ]
+}

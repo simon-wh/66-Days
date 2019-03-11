@@ -94,5 +94,13 @@ class CourseEntry
 
         })?.toList());
 
+  factory CourseEntry.fromJsonSimplified(Map<String, dynamic> json) => CourseEntry(
+      json['week-title'] as String,
+      <CourseEntryItem>[
+        CourseEntryText(json['week-description'] as String),
+        CourseEntryChange("Experiments", json['habit-key'] as String, "experimentTitle", (json['habit-experiments'] as List)?.map((e) => e as String)?.toList(), defaultHabit: CoreHabit(json['habit-title'] as String, "")),
+        CourseEntryChange("Environment Design", json['habit-key'] as String, "environmentDesign", (json['environment-design'] as List)?.map((e) => e as String)?.toList(), defaultHabit: CoreHabit(json['habit-title'] as String, "")),
+      ]);
+
   //Map<String, dynamic> toJson() => _$CourseEntryToJson(this);
 }
