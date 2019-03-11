@@ -29,20 +29,47 @@ class CourseState extends State<CourseWidget> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body:  Container(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: ListView.builder(
-              itemCount: Global.courseManager.CourseWeeks.length,
-              itemBuilder: (context, index) {
-                CourseEntry entry = Global.courseManager.CourseWeeks[index];
-                return Container(
-                    margin: EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(8.0)),
-                    child: FlatButton(child: Text(entry.title),onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
-                    })
-                );
-              })
-        ));
+        body: RefreshIndicator(
+            onRefresh: () {
+              return Future(() async {
+                await Global.courseManager.fetchCourseEntries(force: true);
+                setState(() {
+
+              });});
+            },
+            child: Container(padding: EdgeInsets.all(5.0),  child:
+          /*FutureBuilder<List<CourseEntry>>(
+            future: Global.courseManager.fetchCourseEntries(),
+            builder: (BuildContext context, AsyncSnapshot<List<CourseEntry>> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return Text('Error: Unstarted');
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                  return Align(alignment: Alignment.topCenter,  child:CircularProgressIndicator());
+                case ConnectionState.done:
+                  if (snapshot.hasError)
+                    return Center(child:Text('Error: ${snapshot.error}'));
+                  List<CourseEntry> entries = snapshot.data;
+                  return */
+                Global.courseManager.courseWeeks == null ? PageView( physics: AlwaysScrollableScrollPhysics(), scrollDirection: Axis.vertical,  children: <Widget>[Center(child:Text("Error: ${Global.courseManager.courseWeeksError}"))]) :
+                ListView.builder(
+                  itemCount: Global.courseManager.courseWeeks.length,
+                  itemBuilder: (context, index) {
+                    CourseEntry entry = Global.courseManager.courseWeeks[index];
+                    return Container(
+                        margin: EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(8.0)),
+                        child: FlatButton(child: Text(entry.title),onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
+                        })
+                    );
+                  })
+              /*;
+              }
+              return null; // unreachable
+            },
+          )*/
+        )));
   } // Build
 } // _HabitsState

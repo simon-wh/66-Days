@@ -23,19 +23,19 @@ class Global extends SettingsBase<GlobalSettings> {
 
   bool initialised = false;
 
-  Future<File> init() async{
+  Future<void> init() async{
     if (initialised)
-      return Future(() {});
+      return;
 
     initialised = true;
 
     await habitManager.init();
     await courseManager.init();
+    await load();
     /*_handleSignIn()
         .then((FirebaseUser user) => print(user))
         .catchError((e) => print(e));*/
 
-    return load();
   }
 
   /*Future<FirebaseUser> _handleSignIn() async {

@@ -15,17 +15,16 @@ class HabitManager extends SettingsBase<HabitSettings> {
 
   bool initialised = false;
 
-  Future<File> init() async{
+  Future<void> init() async{
     if (initialised)
-      return Future(() {});
+      return;
     initialised = true;
     var initializationSettingsAndroid = new AndroidInitializationSettings('mipmap/launcher_icon');
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
     notificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
-    return load().whenComplete(() {
-      this.scheduleNotifications();
-    });
+    await load();
+    this.scheduleNotifications();
   }
 
   static const String customHabitPrefix = "custom-";
