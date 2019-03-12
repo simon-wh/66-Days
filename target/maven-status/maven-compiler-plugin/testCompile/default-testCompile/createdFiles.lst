@@ -1,1 +1,3 @@
-com\days\daysdemo\ApplicationTests.class
+tests\ApplicationTests.class
+tests\CourseContentTests.class
+tests\MvcTests.class

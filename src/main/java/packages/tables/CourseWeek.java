@@ -41,10 +41,6 @@ public class CourseWeek {
         // CONSTRUCTORS
         public CourseWeek(){}
         
-        public CourseWeek(Integer id){
-            this.id = id;
-        }
-        
         public CourseWeek(String title){
             this.weekTitle = title;
             this.weekType = "JUST_DESCRIPTION";
@@ -69,7 +65,7 @@ public class CourseWeek {
                 case 10: return "Ten";
                 case 11: return "Eleven";
                 case 12: return "Twelve";
-                default: return "Greater than Twelve";
+                default: return "Other";
             }
         }        
         

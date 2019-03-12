@@ -36,7 +36,7 @@ public class courseEditorController {
     public ModelAndView editWeek(@PathVariable Integer id) {
         
         Optional<CourseWeek> weekToEditOptional = courseContentRepo.findById(id);
-        CourseWeek weekToEdit = new CourseWeek(0);
+        CourseWeek weekToEdit = new CourseWeek("New Week");
         
         if (weekToEditOptional.isPresent()){
             weekToEdit = weekToEditOptional.get();
