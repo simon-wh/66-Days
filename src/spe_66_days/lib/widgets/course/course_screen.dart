@@ -56,11 +56,11 @@ class CourseState extends State<CourseWidget> {
                     return Center(child:Text('Error: ${snapshot.error}'));
                   List<CourseEntry> entries = snapshot.data;
                   return
-                Global.courseManager.courseWeeks == null ? PageView( physics: AlwaysScrollableScrollPhysics(), scrollDirection: Axis.vertical,  children: <Widget>[Center(child:Text("Unable to load course"))]) :
+                //Global.courseManager.courseWeeks == null ? PageView( physics: AlwaysScrollableScrollPhysics(), scrollDirection: Axis.vertical,  children: <Widget>[Center(child:Text("Unable to load course"))]) :
                 ListView.builder(
-                  itemCount: Global.courseManager.courseWeeks.length,
+                  itemCount: entries.length,
                   itemBuilder: (context, index) {
-                    CourseEntry entry = Global.courseManager.courseWeeks[index];
+                    CourseEntry entry = entries[index];
                     return Container(
                         margin: EdgeInsets.all(5.0),
                         decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(8.0)),

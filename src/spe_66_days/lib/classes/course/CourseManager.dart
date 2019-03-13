@@ -29,8 +29,8 @@ class CourseManager extends SettingsBase<CourseSettings> {
   }
 
   Future<List<CourseEntry>> getCourseEntries({bool force = false}) async {
-    if (courseWeeks != null && !force)
-      return courseWeeks;
+    //if (courseWeeks != null && !force)
+    //  return courseWeeks;
     //Use this if we want to always use fresh data when loading, if we have this uncommented it means that if no new data is able to be found (i.e. if no internet connection is avaialble, it can still use the existing loaded data)
     //courseWeeks = null;
 
@@ -38,6 +38,6 @@ class CourseManager extends SettingsBase<CourseSettings> {
     if (result != null)
       return courseWeeks = result;
     else
-      return courseWeeks;
+      throw new Exception("Unable to load Course");
   }
 }
