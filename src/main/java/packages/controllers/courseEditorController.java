@@ -2,7 +2,6 @@ package packages.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,14 +31,17 @@ public class courseEditorController {
         return mav;
     }
     
-    @RequestMapping("/{id}")
-    public ModelAndView editWeek(@PathVariable Integer id) {
+    @RequestMapping("/{weekNumber}")
+    public ModelAndView editWeek(@PathVariable Integer weekNumber) {
         
-        Optional<CourseWeek> weekToEditOptional = courseContentRepo.findById(id);
-        CourseWeek weekToEdit = new CourseWeek("New Week");
+        Iterable<CourseWeek> courseWeeks = courseContentRepo.findAll();
         
-        if (weekToEditOptional.isPresent()){
-            weekToEdit = weekToEditOptional.get();
+        CourseWeek weekToEdit = new CourseWeek("New Week", getNextWeekNumber());
+
+        for (CourseWeek week : courseWeeks){
+            if (week.getWeekNumber().equals(weekNumber)){
+                weekToEdit = week;
+            }
         }
         
         ModelAndView mav = new ModelAndView("course-editor");
@@ -48,28 +50,26 @@ public class courseEditorController {
         return mav;
     }
     
-    @RequestMapping(value = "/update-week/{id}", method = RequestMethod.PUT)
-    public String saveUpdate(@PathVariable Integer id, @ModelAttribute("updatedWeek") CourseWeek updatedWeek) {
+    @RequestMapping(value = "/update-week/{weekNumber}", method = RequestMethod.PUT)
+    public String saveUpdate(@PathVariable Integer weekNumber, @ModelAttribute("updatedWeek") CourseWeek updatedWeek) {
         
-        Optional<CourseWeek> originalWeekOptional = courseContentRepo.findById(id);
-        
-        if (originalWeekOptional.isPresent()){
-            CourseWeek originalWeek = originalWeekOptional.get();
-            
-            originalWeek = updateCourseWeekAttributes(originalWeek, updatedWeek);
-            
-            courseContentRepo.save(originalWeek);
+        Iterable<CourseWeek> courseWeeks = courseContentRepo.findAll();
+
+        for (CourseWeek week : courseWeeks){
+            if (week.getWeekNumber().equals(weekNumber)){
+                week = updateCourseWeekAttributes(week, updatedWeek);
+                courseContentRepo.save(week);
+            }
         }
         
         return "redirect:/course-editor";
     }
     
     //At the moment we have to add weeks manually every time we reset the database.
-    //Can we get a script to do this for us?
     @RequestMapping(path="/add-week")
-    public String addWeek(@RequestParam("title") String title) {
+    public String addWeek(@RequestParam("title") String title, @RequestParam("number") Integer number) {
         
-        CourseWeek week = new CourseWeek(title);
+        CourseWeek week = new CourseWeek(title, number);
         //All the rest of the data attributes for CourseWeek are assigned default values.
         courseContentRepo.save(week);
         
@@ -86,11 +86,11 @@ public class courseEditorController {
         return "redirect:/course-editor";
     }
     
+    //Used for testing JSON response.
     @RequestMapping(path="/week-json")
     @ResponseBody
     public Iterable<CourseWeek> weekJSON(){
         Iterable<CourseWeek> weeksOfCourse = courseContentRepo.findAll();
-        
         return weeksOfCourse;
     }
     
@@ -151,5 +151,16 @@ public class courseEditorController {
         return originalWeek;
     }
     
+    private Integer getNextWeekNumber(){
+        Integer largestWeekNumber = 0;
+        
+        for (CourseWeek week: courseContentRepo.findAll()){
+            if (week.getWeekNumber() > largestWeekNumber){
+                largestWeekNumber = week.getWeekNumber();
+            }
+        }
+        
+        return largestWeekNumber + 1;
+    }
 }
 

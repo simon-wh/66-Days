@@ -17,7 +17,6 @@ import packages.Application;
 
 // See https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html#boot-features-testing-spring-boot-applications-testing-with-mock-environment
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=Application.class)
 @AutoConfigureMockMvc

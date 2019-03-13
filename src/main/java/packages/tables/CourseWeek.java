@@ -1,6 +1,5 @@
 package packages.tables;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.persistence.Column;
@@ -13,9 +12,11 @@ import javax.persistence.Lob;
 @Entity
 public class CourseWeek {
         //// WEEK ATTRIBUTES ////
-	@Id //This is the week number. It controls what order the weeks are displayed.
+	@Id
         @GeneratedValue(strategy=GenerationType.AUTO)
         private Integer id;
+        
+        private Integer weekNumber;
         
         private String weekTitle; //For example, "Week One - Observation".
         
@@ -41,8 +42,9 @@ public class CourseWeek {
         // CONSTRUCTORS
         public CourseWeek(){}
         
-        public CourseWeek(String title){
+        public CourseWeek(String title, Integer weekNumber){
             this.weekTitle = title;
+            this.weekNumber = weekNumber;
             this.weekType = "JUST_DESCRIPTION";
             this.weekDescription = "Week description.";
             this.habitTitle = "Habit title.";
@@ -52,7 +54,7 @@ public class CourseWeek {
         
         // FUNCTIONS 
         public String getWeekNumberAsString(){
-            switch(this.id){
+            switch(this.weekNumber){
                 case 1: return "One";
                 case 2: return "Two";
                 case 3: return "Three";
@@ -76,6 +78,10 @@ public class CourseWeek {
         // GETTERS
         public Integer getId(){
             return id;
+        }
+        
+        public Integer getWeekNumber(){
+            return weekNumber;
         }
                 
         public String getWeekTitle() {
@@ -113,6 +119,10 @@ public class CourseWeek {
         // SETTERS  
         public void setId(Integer id){
             this.id = id;
+        }
+        
+        public void setWeekNumber(Integer number){
+            this.weekNumber = number;
         }
         
 	public void setWeekTitle(String title) {
