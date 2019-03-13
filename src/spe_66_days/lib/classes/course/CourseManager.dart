@@ -9,11 +9,12 @@ import 'CourseSettings.dart';
 import 'CourseEntry.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:spe_66_days/classes/API.dart';
 
 class CourseManager extends SettingsBase<CourseSettings> {
 
   List<CourseEntry> courseWeeks;
-  String courseWeeksError;
 
   CourseManager() : super("course_manager.json", CourseSettings());
 
@@ -27,30 +28,16 @@ class CourseManager extends SettingsBase<CourseSettings> {
     //await fetchCourseEntries();
   }
 
-  Future<List<CourseEntry>> fetchCourseEntries({bool force = false}) async {
-    courseWeeksError = null;
+  Future<List<CourseEntry>> getCourseEntries({bool force = false}) async {
     if (courseWeeks != null && !force)
       return courseWeeks;
     //Use this if we want to always use fresh data when loading, if we have this uncommented it means that if no new data is able to be found (i.e. if no internet connection is avaialble, it can still use the existing loaded data)
     //courseWeeks = null;
-    final response =
-    await get('https://wt-a2f50f91fada7f05131c207a29276c24-0.sandbox.auth0-extend.com/spe-all-course-weeks');
 
-    if (response.statusCode == 200) {
-      // If server returns an OK response, parse the JSON
-      return courseWeeks = (json.decode(response.body) as List)?.map((f) => CourseEntry.fromJsonSimplified(f)).toList();
-    } else {
-      // If that response was not OK, throw an error.
-      courseWeeksError = 'Failed to load post: ${response.statusCode}';
-      //return null;
-    }
+    final result = await API.fetchCourseEntries(force: force);
+    if (result != null)
+      return courseWeeks = result;
+    else
+      return courseWeeks;
   }
-
-  /*void getCourseEntries() async {
-    for(int i = 1; i <= 9; i++){
-      String week = await rootBundle.loadString("assets/course/$i.json");
-      CourseWeeks.add(CourseEntry.fromJson(json.decode(week)));
-    }
-  }*/
-
 }

@@ -32,14 +32,18 @@ class CourseState extends State<CourseWidget> {
         body: RefreshIndicator(
             onRefresh: () {
               return Future(() async {
-                await Global.courseManager.fetchCourseEntries(force: true);
+                await Global.courseManager.getCourseEntries(force: true).catchError((e){
+                  Scaffold.of(context).showSnackBar(
+                      SnackBar(content: Text("Could not refresh the Course.\nCheck your internet connection?")));
+                  return null;
+                });
                 setState(() {
 
               });});
             },
-            child: Container(padding: EdgeInsets.all(5.0),  child:
-          /*FutureBuilder<List<CourseEntry>>(
-            future: Global.courseManager.fetchCourseEntries(),
+            child: Container(padding: EdgeInsets.all(0.0),  child:
+          FutureBuilder<List<CourseEntry>>(
+            future: Global.courseManager.getCourseEntries(),
             builder: (BuildContext context, AsyncSnapshot<List<CourseEntry>> snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
@@ -51,8 +55,8 @@ class CourseState extends State<CourseWidget> {
                   if (snapshot.hasError)
                     return Center(child:Text('Error: ${snapshot.error}'));
                   List<CourseEntry> entries = snapshot.data;
-                  return */
-                Global.courseManager.courseWeeks == null ? PageView( physics: AlwaysScrollableScrollPhysics(), scrollDirection: Axis.vertical,  children: <Widget>[Center(child:Text("Error: ${Global.courseManager.courseWeeksError}"))]) :
+                  return
+                Global.courseManager.courseWeeks == null ? PageView( physics: AlwaysScrollableScrollPhysics(), scrollDirection: Axis.vertical,  children: <Widget>[Center(child:Text("Unable to load course"))]) :
                 ListView.builder(
                   itemCount: Global.courseManager.courseWeeks.length,
                   itemBuilder: (context, index) {
@@ -65,11 +69,11 @@ class CourseState extends State<CourseWidget> {
                         })
                     );
                   })
-              /*;
+              ;
               }
               return null; // unreachable
             },
-          )*/
+          )
         )));
   } // Build
 } // _HabitsState
