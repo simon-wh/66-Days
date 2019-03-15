@@ -53,15 +53,18 @@ class SettingsState extends State<SettingsWidget> {
                     case ConnectionState.done:
                       if (snapshot.hasError)
                         return Text('Error: ${snapshot.error}');
-                      print(snapshot.data.toString());
-
+                      var user = snapshot.data;
                       return Stack(children: <Widget>[
                         Align(child: Row( children: <Widget>[
-                          snapshot.data.isAnonymous ? Icon(Icons.person, size: 50) : Image.network(snapshot.data.photoUrl, height: 50),
-                          Container(child: Text('${snapshot.data.isAnonymous ? "Anonymous" : snapshot.data.displayName}'), padding: EdgeInsets.only(left:5.0))]), alignment: Alignment.centerLeft),
+                          user.isAnonymous ? CircleAvatar(child: Icon(Icons.person, size: 50.0), radius: 25.0) : CircleAvatar(
+                            backgroundImage: NetworkImage(user.photoUrl),
+                            radius: 25.0,
+                            //child: user.isAnonymous ? Icon(Icons.person) : Image.network(user.photoUrl),
+                          ),
+                          Container(child: Text('${user.isAnonymous ? "Anonymous" : user.displayName}'), padding: EdgeInsets.only(left:5.0))]), alignment: Alignment.centerLeft),
                         Align(child: FlatButton(child: Text("Sign out"), onPressed: (){
                           Global.auth.signOut();
-                          Navigator.pushReplacementNamed(context, "sign_in");
+                          Navigator.pushNamedAndRemoveUntil(context, "sign_in", (Route<dynamic> route) => false);
                         }), alignment: Alignment.centerRight)
                       ]);
                   }

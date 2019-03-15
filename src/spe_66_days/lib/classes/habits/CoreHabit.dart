@@ -20,8 +20,9 @@ class CoreHabit {
   String environmentDesign;
   List<NotificationConfig> reminders;
   HashSet<DateTime> markedOff;
+  DateTime startDate;
 
-  CoreHabit(this.title, this.experimentTitle, {this.environmentDesign:"", this.reminders, this.markedOff, this.key}){
+  CoreHabit(this.title, this.experimentTitle, {this.environmentDesign:"", this.reminders, this.markedOff, this.key, this.startDate}){
     assert(this.title.isNotEmpty);
     //assert(this.experimentTitle.isNotEmpty);
     //assert(this.environmentDesign.isNotEmpty);

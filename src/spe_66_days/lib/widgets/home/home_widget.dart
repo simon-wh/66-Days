@@ -67,7 +67,7 @@ class _HomeState extends State<HomeWidget> {
                             });
                           }),));
                     },
-                    child: c.getCard());
+                    child: c.getCard(context));
               }) // Item Builder
         ],
       )));

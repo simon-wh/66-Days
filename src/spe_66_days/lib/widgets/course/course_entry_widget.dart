@@ -30,12 +30,9 @@ class CourseEntryScreenState extends State<CourseEntryScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(title: Center(child: Text(this.widget.entry.title)),
-            leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-              Navigator.pop(context);
-            })),
-        body: Container(padding: EdgeInsets.all(5.0), child: CourseEntryWidget(this.widget.entry))
-
+        appBar: AppBar(title: Text(this.widget.entry.title.replaceFirst('- ', '\n'))),
+        body: Container(padding: EdgeInsets.all(5.0),
+            child: CourseEntryWidget(this.widget.entry))
         );
   }
 }
@@ -57,16 +54,11 @@ class CourseEntryState extends State<CourseEntryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      children: <Widget>[
-        /*Center(child: Center(child: Text(this.widget.entry.title, textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline))),*/
-        Column(
+    return ListView(
             children: this.widget.entry.items.map((item) {
           if (item is CourseEntryText) {
             CourseEntryText text = item;
-            return Center(child: Text(text.text, textAlign: TextAlign.justify));
+            return Center(child: Container(padding: EdgeInsets.all(5.0), child: Text(text.text, textAlign: TextAlign.justify)));
           } else if (item is CourseEntryChange) {
             //if (!Global.habitManager.hasHabit(item.habitKey))
             //  throw new Exception("Habit doesn't exist!");
@@ -74,47 +66,13 @@ class CourseEntryState extends State<CourseEntryWidget> {
 
             return Column(
                 children: <Widget>[
-                  Text(item.title, style: Theme.of(context).textTheme.subtitle)
+                  ListTile(
+                    title: Text(item.title),
+                    subtitle: Text('Select one to update for ${Global.habitManager.hasHabit(item.habitKey) ? Global.habitManager.getHabit(item.habitKey).title : item.defaultHabit.title}'),
+                  )
                 ]
-                    .followedBy(item.items.map((s) => FlatButton(
+                    .followedBy(item.items.map((s) => Align(alignment: Alignment.center, child: FlatButton(
                         onPressed: () {
-                          /*showModalBottomSheet(context: context, builder: (context){
-                            String text = s;
-                            controller.text = text;
-                            return Column( mainAxisSize: MainAxisSize.min, children: <Widget>[
-                              Text("Confirm", style: Theme.of(context).textTheme.title),
-                              TextField(
-                                //autocorrect: true,
-                                decoration: InputDecoration(
-                                    labelText: item.habitVar),
-                                controller: controller,
-
-                                onChanged: (t) {
-                                  text = t;
-                                },
-                              ),
-                              FlatButton(
-                                  child: Text("Set"),
-                                  onPressed: () {
-                                    CoreHabit habit = Global
-                                        .habitManager
-                                        .getHabit(item.habitKey);
-                                    switch (item.habitVar) {
-                                      case "experimentTitle":
-                                        habit.experimentTitle = text;
-                                        break;
-                                      default:
-                                        throw Exception(
-                                            "habitVar ${item.habitVar} not found!");
-                                        break;
-                                    }
-                                    Global.habitManager.save();
-                                    Navigator.pop(context);
-                                  })
-                                ]);
-                          });*/
-
-
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -166,14 +124,12 @@ class CourseEntryState extends State<CourseEntryWidget> {
                                     ]);
                               });
                         },
-                        child: Text(s, style: Theme.of(context).textTheme.body1))))
-                    .toList()..insert(0, Divider(indent:4.0, height: 20.0, color: Theme.of(context).accentColor)));
+                        child: Text(s, style: Theme.of(context).textTheme.body1)))))
+                    .toList());
           } else {
             throw Exception("CourseEntryItem type unknown!");
           }
-        }).toList() // Item Builder
-            )
-      ],
-    ));
+        }).map((s) => Card(child: s)).toList() // Item Builder
+            );
   }
 }

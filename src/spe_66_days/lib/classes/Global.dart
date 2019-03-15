@@ -11,7 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 
 class Global extends SettingsBase<GlobalSettings> {
-  static DateTime currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  static DateTime get currentDate => DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   static final Global instance = Global._internal();
 
   static final HabitManager habitManager = HabitManager();

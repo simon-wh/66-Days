@@ -61,10 +61,10 @@ class CourseState extends State<CourseWidget> {
                   itemCount: entries.length,
                   itemBuilder: (context, index) {
                     CourseEntry entry = entries[index];
-                    return Container(
+                    return Card(
+                      elevation: 2.0,
                         margin: EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(8.0)),
-                        child: FlatButton(child: Text(entry.title),onPressed: (){
+                        child: ListTile( leading: CircleAvatar(backgroundColor: Theme.of(context).canvasColor, foregroundColor: Theme.of(context).accentColor, child:Icon(Icons.book)), title: Text(entry.title.split("-").first), subtitle: Text(entry.title.split("- ")[1]),onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
                         })
                     );

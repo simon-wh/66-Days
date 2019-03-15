@@ -25,7 +25,7 @@ class HabitListState extends State<HabitListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double iconSize = (this.widget.displayMode != mode.Standard) ? 15.0 : 24.0;
+    double iconSize = (this.widget.displayMode != mode.Standard) ? 15.0 : 15.0;
     GestureDetector icon = GestureDetector(
         onTap: () {
           Navigator.push(
@@ -48,7 +48,7 @@ class HabitListState extends State<HabitListWidget> {
                           style: (this.widget.displayMode == mode.Compact)
                               ? TextStyle(
                                   fontSize: 15.0, fontWeight: FontWeight.bold)
-                              : Theme.of(context).textTheme.title)),
+                              : Theme.of(context).textTheme.subhead)),
                   this.widget.editable
                       ? Align(child: icon, alignment: Alignment.centerRight)
                       : Container()

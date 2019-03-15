@@ -31,7 +31,7 @@ class _HabitsState extends State<HabitsWidget> {
   Widget build(BuildContext context) {
     List<Widget> habits = Global.habitManager.getHabits().entries.map((entry) {
       CoreHabit _habit = entry.value;
-      return HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard, onHabitChanged: this.widget.onHabitChanged);
+      return Container(child: HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard, onHabitChanged: this.widget.onHabitChanged));
     }).toList();
 
     if (this.widget.compact)
@@ -50,7 +50,7 @@ class _HabitsState extends State<HabitsWidget> {
           label: const Text('Add Habit')) : null,
       body:  Container(
       padding: const EdgeInsets.only(top: 10.0),
-      child: ListView(children: habits, shrinkWrap: true),
+      child: ListView.builder(itemCount: habits.length, itemBuilder: (context, i)=>Card(child:habits[i], elevation: 2.0), shrinkWrap: true),
     ));
   }
   } // Build

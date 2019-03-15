@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:spe_66_days/classes/SettingsBase.dart';
 import 'HabitSettings.dart';
+import '../Global.dart';
 
 
 class HabitManager extends SettingsBase<HabitSettings> {
@@ -44,7 +45,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
     if (this.settings.habits.containsKey(id))
       throw("Habit with key $id already exists!");
 
-    this.settings.habits.putIfAbsent(id, ()=>habit.clone()..key = id);
+    this.settings.habits.putIfAbsent(id, ()=>habit.clone()..key = id..startDate=Global.currentDate);
   }
 
   void removeHabit(String id){
