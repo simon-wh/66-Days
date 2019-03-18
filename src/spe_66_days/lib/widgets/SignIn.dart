@@ -60,8 +60,7 @@ class SignInState extends State<SignInWidget> {
                           builder: (context) => ScreenNavigation()));
                 }),
                 SignInButtonBuilder(
-                  title: 'Anonymously',
-                  signInText: "Sign in",
+                  text: 'Sign in Anonymously',
                   icon: Icons.person,
                   onPressed: () async {
                     FirebaseUser user = await Global.auth.signInAnonymously();
