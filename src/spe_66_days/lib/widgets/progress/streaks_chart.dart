@@ -31,6 +31,24 @@ class StreaksChart extends StatelessWidget {
     ];
   }
 
+  StreaksChart.habitFromString(String habitKey, {this.animate}){
+    var streaks = StatsWidget.streaks(Global.habitManager.getHabit(habitKey).markedOff);
+    this.seriesList= [
+      new charts.Series<List<DateTime>, String>(
+        id: 'Sales',
+        domainFn: (List<DateTime> streak, _) => streak.first.toString(),
+        measureFn: (List<DateTime> streak, _) => streak.length,
+        data: streaks,
+        // Set a label accessor to control the text of the bar label.
+        labelAccessorFn: (List<DateTime> streak, _) {
+          var formatter = new DateFormat('dd-MM-yyyy');
+          return '${formatter.format(streak.first)} - ${formatter.format(streak.last)}';
+        },
+
+      )
+    ];
+  }
+
   /// Creates a [BarChart] with sample data and no transition.
   factory StreaksChart.withSampleData() {
     return new StreaksChart(

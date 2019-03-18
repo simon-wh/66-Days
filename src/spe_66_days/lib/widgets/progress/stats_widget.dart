@@ -15,7 +15,9 @@ class StatsWidget extends StatelessWidget {
         habitsToday)
   ];
 
-  StatsWidget();
+  final String habitKey;
+
+  StatsWidget({this.habitKey});
 
   static HashSet<DateTime> intersection(List<HashSet<DateTime>> habits) {
     return habits.reduce((u, v) => u.intersection(v));
@@ -107,8 +109,8 @@ class StatsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<HashSet<DateTime>> habits =
-        Global.habitManager.getHabits().values.map((s) => s.markedOff).toList();
+    List<HashSet<DateTime>> habits = this.habitKey == null ?
+        Global.habitManager.getHabits().values.map((s) => s.markedOff).toList() : <HashSet<DateTime>>[Global.habitManager.getHabit(this.habitKey).markedOff];
     return Container(
         padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 5.0),
         child: Column(

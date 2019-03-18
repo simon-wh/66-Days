@@ -3,17 +3,25 @@ import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'package:spe_66_days/widgets/progress/stats_widget.dart';
 import 'streaks_chart.dart';
 
-class ProgressWidget extends StatefulWidget implements BottomNavigationBarItem {
-  final Icon icon;
-  final Text title;
-  final Icon activeIcon;
-  final Color backgroundColor;
+class ProgressWidget extends StatefulWidget {
+  final String habitKey;
   
-  ProgressWidget(this.icon, this.title, {this.activeIcon, this.backgroundColor});
+  ProgressWidget({this.habitKey});
 
   @override
   State<StatefulWidget> createState() => _ProgressState();
 }
+
+
+class ProgressTab extends ProgressWidget implements BottomNavigationBarItem {
+  final Icon icon;
+  final Text title;
+  final Icon activeIcon;
+  final Color backgroundColor;
+
+  ProgressTab(this.icon, this.title, {this.activeIcon, this.backgroundColor, String habitKey}) : super(habitKey: habitKey);
+}
+
 
 
 class _ProgressState extends State<ProgressWidget>{
@@ -26,14 +34,17 @@ class _ProgressState extends State<ProgressWidget>{
         children: <Widget>[
           Container(
               constraints: BoxConstraints(maxHeight: 300.0),
-              child: ProgressChart.allHabitsCombined(animate: true)
+              child: this.widget.habitKey == null ? ProgressChart.allHabitsCombined(animate: true) : ProgressChart.habitFromString(this.widget.habitKey)
           ),
           Container(
               constraints: BoxConstraints(maxHeight: 300.0),
-              child: StreaksChart.allHabits()
+              child: this.widget.habitKey == null ? StreaksChart.allHabits() : StreaksChart.habitFromString(this.widget.habitKey)
           ),
-          StatsWidget()
+          StatsWidget(habitKey: this.widget.habitKey)
         ]
     );
   }
 }
+
+
+

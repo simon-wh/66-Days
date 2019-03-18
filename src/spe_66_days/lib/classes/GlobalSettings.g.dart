@@ -11,8 +11,12 @@ GlobalSettings _$GlobalSettingsFromJson(Map<String, dynamic> json) {
     ..dailyNotification = json['dailyNotification'] == null
         ? null
         : NotificationConfig.fromJson(
-            json['dailyNotification'] as Map<String, dynamic>);
+            json['dailyNotification'] as Map<String, dynamic>)
+    ..darkMode = json['darkMode'] as bool ?? false;
 }
 
 Map<String, dynamic> _$GlobalSettingsToJson(GlobalSettings instance) =>
-    <String, dynamic>{'dailyNotification': instance.dailyNotification};
+    <String, dynamic>{
+      'dailyNotification': instance.dailyNotification,
+      'darkMode': instance.darkMode
+    };

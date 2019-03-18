@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:spe_66_days/widgets/habits/habit_overview.dart';
 
 enum mode { Compact, Minimal, Standard }
 
@@ -31,10 +32,10 @@ class HabitListState extends State<HabitListWidget> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => EditHabitWidget(this.widget.habit)));
+                  builder: (context) => HabitOverview(this.widget.habit.key)));
         },
         child: Container(
-          child: Icon(Icons.edit, size: iconSize),
+          child: Icon(Icons.more_vert, size: iconSize),
         ));
     return Column(
       children: <Widget>[

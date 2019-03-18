@@ -39,6 +39,7 @@ class CoreHabit {
       && o.title == this.title
       && o.experimentTitle == this.experimentTitle
       && o.environmentDesign == this.environmentDesign
+      && o.startDate == this.startDate
       && ListEquality().equals(o.reminders, this.reminders)
       && SetEquality().equals(o.markedOff, this.markedOff);// o.markedOff.containsAll(this.markedOff) && o.markedOff.length == this.markedOff.length;
 
@@ -54,6 +55,7 @@ class CoreHabit {
     this.environmentDesign = habit.environmentDesign;
     this.reminders = habit.reminders;
     this.markedOff = habit.markedOff;
+    this.startDate = habit.startDate;
   }
 
   bool isCustom(){

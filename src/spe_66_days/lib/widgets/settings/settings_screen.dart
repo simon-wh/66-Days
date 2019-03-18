@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
+
 
 class SettingsWidget extends StatefulWidget {
   final bool compact;
@@ -73,6 +75,12 @@ class SettingsState extends State<SettingsWidget> {
               ),
               Divider(indent: 5.0, color: Colors.black),
               ExpansionTile(title: Text("End of day habit checking"), children: <Widget>[EditNotificationWidget(Global.instance.settings.dailyNotification, editable: false)]),
+              CheckboxListTile(value: Global.instance.settings.darkMode, title: Text("Use Dark Mode"), onChanged: (state){
+                setState((){
+                  Global.instance.settings.darkMode = state;
+                  DynamicTheme.of(context).setBrightness(state ? Brightness.dark: Brightness.light);
+                });
+              })
             ])
         ));
   } // Build

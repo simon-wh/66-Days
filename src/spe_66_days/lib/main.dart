@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/screen_navigation.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/widgets/SignIn.dart';
-
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 void main() async {
   await Global.instance.init();
@@ -16,36 +16,48 @@ class StartApp extends StatelessWidget {
   final bool signIn;
 
   StartApp({this.signIn = true});
-    //All StatelessWidgets need a build method to create the user interface.
+
+  //All StatelessWidgets need a build method to create the user interface.
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     /*The startApp widget simply creates a new Material App and sets the
       home property to the first page or widget that is to be displayed. In this
       case, the home page.
     */
-    return MaterialApp(
-      builder: (context, child) =>
-          MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child),
-      title: '66 Days',
-      theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: Colors.red,
-          canvasColor: Colors.white,
-          accentColor: Colors.redAccent,
-          cardColor: Colors.white,
+    /*ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.green,
+          canvasColor: Colors.black,
+          accentColor: Colors.green,
+          cardColor: Colors.grey,
           fontFamily: 'Rubik',
           textTheme: TextTheme(
           headline: TextStyle(fontSize: 26.0),
           title: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           body1: TextStyle(fontSize: 14.0)
         )
-      ),
-      home: ScreenNavigation(),
-      routes: {
-        "home": (context) => ScreenNavigation(),
-        "sign_in": (context) => SignInWidget()
-      },
-      initialRoute: this.signIn ? "sign_in" : "home",
-    );
+      )*/
+
+    return DynamicTheme(
+        defaultBrightness: Brightness.light,
+        data: (brightness) => new ThemeData(
+              primarySwatch: Colors.red,
+              primaryColor: brightness == Brightness.dark ? Colors.teal : Colors.red,
+              brightness: brightness,
+            ),
+        themedWidgetBuilder: (context, theme) => MaterialApp(
+              builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(context)
+                      .copyWith(alwaysUse24HourFormat: true),
+                  child: child),
+              title: '66 Days',
+              theme: theme,
+              home: ScreenNavigation(),
+              routes: {
+                "home": (context) => ScreenNavigation(),
+                "sign_in": (context) => SignInWidget()
+              },
+              initialRoute: this.signIn ? "sign_in" : "home",
+            ));
   }
 }

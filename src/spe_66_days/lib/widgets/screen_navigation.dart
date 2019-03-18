@@ -27,7 +27,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   final List<Widget> _sideNav = [
     //HomeWidget(Icon(Icons.home), Text("Home")),
     HabitsScreen(Icon(Icons.assignment), Text("Habit Manager")),
-    ProgressWidget(Icon(Icons.timeline), Text('Stats')),
+    ProgressTab(Icon(Icons.timeline), Text('Stats')),
     //CourseScreen(Icon(Icons.library_books), Text('Course')),
     SettingsScreen(Icon(Icons.settings), Text('Settings'))
   ];
