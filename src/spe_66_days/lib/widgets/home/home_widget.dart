@@ -4,6 +4,10 @@ import 'home_card.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
 import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 import 'package:spe_66_days/widgets/progress/stats_widget.dart';
+import 'package:spe_66_days/classes/Global.dart';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
+import 'dart:async';
+
 
 class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -21,15 +25,27 @@ class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
 
 class _HomeState extends State<HomeWidget> {
   List<HomeCard> cards;
+  StreamSubscription<HabitCheckedChangedEvent> _event;
 
   @override
   void initState(){
     super.initState();
     cards = [
       HomeCard(Key("progress"), "Progress", () => Container(child: ProgressChart.allHabitsCombined(), constraints: BoxConstraints(maxHeight: 275.0))),
-      HomeCard(Key("habit"), "Habits", () => HabitsWidget(displayMode: mode.Minimal, editable: true, onHabitChanged: () => setState((){})  )),
+      HomeCard(Key("habit"), "Habits", () => HabitsWidget(displayMode: mode.Minimal, editable: true)),
       HomeCard(Key("stats"), "Statistics", () => StatsWidget())
     ];
+    _event = Global.habitManager.eventBus.on<HabitCheckedChangedEvent>().listen((event) {
+      setState(() {
+
+      });
+    });
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    _event.cancel();
   }
 
   Widget build(BuildContext context) {

@@ -7,19 +7,37 @@ import 'dart:io';
 import 'package:spe_66_days/classes/SettingsBase.dart';
 import 'HabitSettings.dart';
 import '../Global.dart';
+import 'package:event_bus/event_bus.dart';
+
+class HabitCheckedChangedEvent {
+  final CoreHabit habit;
+  final DateTime date;
+  final bool state;
+
+  HabitCheckedChangedEvent(this.habit, this.date, this.state);
+}
 
 
 class HabitManager extends SettingsBase<HabitSettings> {
   final FlutterLocalNotificationsPlugin notificationsPlugin = new FlutterLocalNotificationsPlugin();
+
+  EventBus eventBus = new EventBus();
 
   HabitManager() : super("habit_manager.json", HabitSettings());
 
   bool initialised = false;
 
   Future<void> init() async{
+
     if (initialised)
       return;
     initialised = true;
+
+    eventBus.on<HabitCheckedChangedEvent>().listen((event) {
+      // All events are of type UserLoggedInEvent (or subtypes of it).
+      this.save();
+    });
+
     var initializationSettingsAndroid = new AndroidInitializationSettings('mipmap/launcher_icon');
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
@@ -53,6 +71,50 @@ class HabitManager extends SettingsBase<HabitSettings> {
       this.settings.habits.remove(id);
   }
 
+  bool checkHabit(String key, {DateTime date}){
+    return setCheckHabit(key, true, date: date);
+  }
+
+  bool uncheckHabit(String key, {DateTime date}){
+    return setCheckHabit(key, false, date: date);
+  }
+
+  bool setCheckHabit(String key, bool state, {DateTime date}){
+    if (hasHabit(key)){
+      CoreHabit habit = getHabit(key);
+      DateTime useDate = date ?? Global.currentDate;
+      if (state){
+        if (habit.markedOff.add(useDate)){
+          eventBus.fire(HabitCheckedChangedEvent(habit, useDate, state));
+          return true;
+        }
+      }
+      else{
+        if (habit.markedOff.remove(useDate)){
+          eventBus.fire(HabitCheckedChangedEvent(habit, useDate, state));
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+
+
+  CoreHabit getHabit (String core){
+    assert(this.settings.habits.containsKey(core));
+    if (!this.settings.habits.containsKey(core))
+      return null;
+    return this.settings.habits[core];
+  }
+
+  bool hasHabit(String core){
+    return this.settings.habits.containsKey(core);
+  }
+
+  Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(this.settings.habits);}
+
   void scheduleNotifications() async {
     notificationsPlugin.cancelAll();
 
@@ -67,7 +129,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
         if (!notif.enabled)
           return;
         notif.repeatDays.forEach((day) {
-            print("$i Notification scheduled for ${day.value.toString()}, ${notif.time.hour}:${notif.time.minute} ");
+          print("$i Notification scheduled for ${day.value.toString()}, ${notif.time.hour}:${notif.time.minute} ");
           notificationsPlugin.showWeeklyAtDayAndTime(
               i,
               value.title,
@@ -75,7 +137,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
               day,
               notif.time,
               platformChannelSpecifics);
-            i++;
+          i++;
         });
       });
     });
@@ -87,19 +149,6 @@ class HabitManager extends SettingsBase<HabitSettings> {
       print('notification payload: ' + payload);
     }
   }
-
-  CoreHabit getHabit (String core){
-    assert(this.settings.habits.containsKey(core));
-    if (!this.settings.habits.containsKey(core))
-      return null;
-    return this.settings.habits[core];
-  }
-
-  bool hasHabit(String core){
-    return this.settings.habits.containsKey(core);
-  }
-
-  Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(this.settings.habits);}
 
   @override
   HabitSettings getSettingsFromJson(Map<String, dynamic> json) => HabitSettings.fromJson(json);
