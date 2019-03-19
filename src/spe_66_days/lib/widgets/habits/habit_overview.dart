@@ -63,7 +63,7 @@ class HabitOverviewState extends State<HabitOverview> {
               })
           ),
           Container(
-              constraints: BoxConstraints(maxHeight: 300.0),
+              constraints: BoxConstraints(maxHeight: 150.0),
               child: ProgressChart.habitFromString(this.widget.habitKey)
           ),
           Container(

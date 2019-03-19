@@ -6,13 +6,13 @@ import 'package:spe_66_days/classes/Global.dart';
 
 class StatsWidget extends StatelessWidget {
   List<Stat> stats = [
-    Stat("Perfect Days", Icon(Icons.check), perfectDaysCount),
-    Stat("Total Habits Done", Icon(Icons.check_circle_outline), habitsDone),
-    Stat("Current Streak", Icon(Icons.whatshot), calcStreak),
-    Stat("Best Streak", Icon(Icons.star), bestStreak),
-    Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvgToday),
+    Stat("Perfect Days", Icon(Icons.check), perfectDaysCount, false),
+    Stat("Total Habits Done", Icon(Icons.check_circle_outline), habitsDone, true),
+    Stat("Current Streak", Icon(Icons.whatshot), calcStreak, false),
+    Stat("Best Streak", Icon(Icons.star), bestStreak, false),
+    Stat("Habit Daily Average", Icon(Icons.calendar_today), habitAvgToday, false),
     Stat("Habits Checked Today", Icon(Icons.calendar_today, color: Colors.red),
-        habitsToday)
+        habitsToday, true)
   ];
 
   final String habitKey;
@@ -117,6 +117,9 @@ class StatsWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: stats.map((stat) {
+            if (this.habitKey != null && stat.onlyAllHabit)
+              return Container();
+
             num val = stat.habitFunc(habits);
             String str =
                 val is double ? val.toStringAsFixed(1) : val.toString();
