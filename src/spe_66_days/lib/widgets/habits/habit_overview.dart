@@ -54,7 +54,7 @@ class HabitOverviewState extends State<HabitOverview> {
           Container(
               margin: EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
               height: 100,
-              child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: Global.currentDate.difference(startDate).inDays,  itemBuilder: (context, i){
+              child: ListView.builder(reverse:false, scrollDirection: Axis.horizontal,itemCount: Global.currentDate.difference(startDate).inDays,  itemBuilder: (context, i){
                 var date = Global.currentDate.add(Duration(days: -i));
                 return Card(child: Column(children: <Widget>[
                     Container(padding: EdgeInsets.only(top:5.0, left:5.0, right: 5.0), child: Text(formatter.format(date), textAlign: TextAlign.center,)),
@@ -67,7 +67,7 @@ class HabitOverviewState extends State<HabitOverview> {
               child: ProgressChart.habitFromString(this.widget.habitKey)
           ),
           Container(
-              constraints: BoxConstraints(maxHeight: 300.0),
+              constraints: BoxConstraints(maxHeight: 200.0),
               child: StreaksChart.habitFromString(this.widget.habitKey)
           ),
           StatsWidget(habitKey: this.widget.habitKey)

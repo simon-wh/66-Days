@@ -150,10 +150,11 @@ class ProgressChart extends StatelessWidget {
           new charts.SlidingViewport(),
         ],
         domainAxis: new charts.DateTimeAxisSpec(
-            tickProviderSpec: charts.DayTickProviderSpec(increments: [1,2,4]),
+          viewport: charts.DateTimeExtents(start: Global.currentDate.add(Duration(days:-30)), end: Global.currentDate.add(Duration(days: 1))),
+            tickProviderSpec: charts.DayTickProviderSpec(increments: [1,2,3]),
             tickFormatterSpec: new charts.AutoDateTimeTickFormatterSpec(
                 day: new charts.TimeFormatterSpec(
-                    format: 'd', transitionFormat: 'dd/MM')))
+                    format: 'd', transitionFormat: 'MMM d')))
     );
   }
 
