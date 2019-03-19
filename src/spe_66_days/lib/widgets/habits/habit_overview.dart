@@ -21,7 +21,7 @@ class HabitOverviewState extends State<HabitOverview> {
 
   Widget build(context) {
     var habit = Global.habitManager.getHabit(this.widget.habitKey);
-    var formatter = new DateFormat('dd MMM');
+    var formatter = new DateFormat('MMM\ndd');
     var startDate = habit.startDate;
     return new Scaffold(
         appBar:
@@ -53,12 +53,12 @@ class HabitOverviewState extends State<HabitOverview> {
           ),
           Container(
               margin: EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-              height: 75,
+              height: 100,
               child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: Global.currentDate.difference(startDate).inDays,  itemBuilder: (context, i){
                 var date = Global.currentDate.add(Duration(days: -i));
-                return Card(child: Stack(children: <Widget>[
-                  Align(alignment: Alignment.topCenter,  child: Text(formatter.format(date))),
-                    Align(alignment: Alignment.center,  child: Checkbox(value: habit.markedOff.contains(date), onChanged: (checked) => setState(()=>Global.habitManager.setCheckHabit(this.widget.habitKey, checked, date:date))))
+                return Card(child: Column(children: <Widget>[
+                    Container(padding: EdgeInsets.only(top:5.0, left:5.0, right: 5.0), child: Text(formatter.format(date), textAlign: TextAlign.center,)),
+                    Checkbox(  value: habit.markedOff.contains(date), onChanged: (checked) => setState(()=>Global.habitManager.setCheckHabit(this.widget.habitKey, checked, date:date)))
                 ]));
               })
           ),
