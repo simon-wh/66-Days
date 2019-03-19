@@ -12,42 +12,26 @@ class StreaksChart extends StatelessWidget {
 
   StreaksChart(this.seriesList, {this.animate});
 
-  StreaksChart.allHabits({this.animate}){
-    var habits = Global.habitManager.getHabits().values.map((s) => s.markedOff).toList();
-    var streaks = StatsWidget.streaks(StatsWidget.intersection(habits));
-    this.seriesList= [
-      new charts.Series<List<DateTime>, String>(
-          id: 'Sales',
-          domainFn: (List<DateTime> streak, _) => streak.first.toString(),
-          measureFn: (List<DateTime> streak, _) => streak.length,
-          data: streaks,
-          // Set a label accessor to control the text of the bar label.
-          labelAccessorFn: (List<DateTime> streak, _) {
-            var formatter = new DateFormat('dd MMM');
-            return '${formatter.format(streak.first)} - ${formatter.format(streak.last)}';
-          },
-
-          )
-    ];
-  }
-
-  StreaksChart.habitFromString(String habitKey, {this.animate}){
-    var streaks = StatsWidget.streaks(Global.habitManager.getHabit(habitKey).markedOff);
+  StreaksChart.fromDates(List<List<DateTime>> dates, {this.animate}){
     this.seriesList= [
       new charts.Series<List<DateTime>, String>(
         id: 'Sales',
         domainFn: (List<DateTime> streak, _) => streak.first.toString(),
         measureFn: (List<DateTime> streak, _) => streak.length,
-        data: streaks,
+        data: dates,
         // Set a label accessor to control the text of the bar label.
         labelAccessorFn: (List<DateTime> streak, _) {
-          var formatter = new DateFormat('dd-M');
+          var formatter = new DateFormat('dd MMM');
           return '${formatter.format(streak.first)} - ${formatter.format(streak.last)}';
         },
 
       )
     ];
   }
+
+  StreaksChart.allHabits({bool animate}) : this.fromDates(StatsWidget.streaks(StatsWidget.intersection(Global.habitManager.getHabits().values.map((s) => s.markedOff).toList())), animate: animate);
+
+  StreaksChart.habitFromString(String habitKey, {bool animate}) : this.fromDates(StatsWidget.streaks(Global.habitManager.getHabit(habitKey).markedOff), animate: animate);
 
   /// Creates a [BarChart] with sample data and no transition.
   factory StreaksChart.withSampleData() {
