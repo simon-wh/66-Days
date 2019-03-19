@@ -26,7 +26,7 @@ class HabitOverviewState extends State<HabitOverview>{
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EditHabitWidget(habit)));
+                    builder: (context) => EditHabitWidget(this.widget.habitKey)));
           })
         ]),
         body: ProgressWidget(habitKey: this.widget.habitKey));

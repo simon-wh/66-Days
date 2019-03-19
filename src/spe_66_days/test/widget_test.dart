@@ -78,7 +78,7 @@ void main() {
     Finder habitFind = find.byType(HabitListWidget);
     Finder ck = find.byType(Checkbox);
     HabitListWidget habitWidget = tester.firstElement(habitFind).widget;
-    CoreHabit habit = habitWidget.habit;
+    CoreHabit habit = Global.habitManager.getHabit(habitWidget.habitKey);
     expect(habit.markedOff, isNot(contains(Global.currentDate)));
     await tester.tap(find.descendant(of: habitFind, matching: ck).first);
     expect(habit.markedOff, contains(Global.currentDate));

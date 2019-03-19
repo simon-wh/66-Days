@@ -29,9 +29,8 @@ class HabitsScreen extends HabitsWidget implements BottomNavigationBarItem {
 class _HabitsState extends State<HabitsWidget> {
 
   Widget build(BuildContext context) {
-    List<Widget> habits = Global.habitManager.getHabits().entries.map((entry) {
-      CoreHabit _habit = entry.value;
-      return HabitListWidget(_habit, editable: this.widget.editable, displayMode: this.widget.displayMode);
+    List<Widget> habits = Global.habitManager.getHabits().keys.map((key) {
+      return HabitListWidget(key, editable: this.widget.editable, displayMode: this.widget.displayMode);
     }).toList();
 
     if (this.widget.displayMode != mode.Standard)
@@ -41,7 +40,7 @@ class _HabitsState extends State<HabitsWidget> {
       floatingActionButton:  FloatingActionButton.extended(
           onPressed: () {
             CoreHabit _habit = Global.habitManager.newCustomHabit();
-            Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit.key)));
             setState(() {
               Global.habitManager.save();
             });

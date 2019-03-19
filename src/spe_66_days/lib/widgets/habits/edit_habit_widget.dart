@@ -7,12 +7,12 @@ import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 
 class EditHabitWidget extends StatefulWidget {
-  final CoreHabit habit;
+  final String habitKey;
 
-  EditHabitWidget(this.habit);
+  EditHabitWidget(this.habitKey);
 
   @override
-  State<StatefulWidget> createState() => EditHabitState(habit);
+  State<StatefulWidget> createState() => EditHabitState();
 
   //Created with help from: https://stackoverflow.com/questions/49824461/how-to-pass-data-from-child-widget-to-its-parent/49825756
   static EditHabitState of(BuildContext context) {
@@ -37,8 +37,7 @@ class EditHabitState extends State<EditHabitWidget> {
 
   CoreHabit habit;
 
-  EditHabitState(this.ogHabit){
-    this.habit = this.ogHabit.clone();
+  EditHabitState(){
   }
 
   final TextEditingController titleController = TextEditingController();
@@ -48,6 +47,7 @@ class EditHabitState extends State<EditHabitWidget> {
   @override
   void initState() {
     super.initState();
+    this.habit = (this.ogHabit = Global.habitManager.getHabit(this.widget.habitKey)).clone();
     titleController.text = this.habit.title;
     experimentTitleController.text = this.habit.experimentTitle;
     environmentDesignController.text = this.habit.environmentDesign;

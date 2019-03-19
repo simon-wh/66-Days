@@ -7,11 +7,11 @@ import 'package:spe_66_days/widgets/habits/habit_overview.dart';
 enum mode { Compact, Minimal, Standard }
 
 class HabitListWidget extends StatefulWidget {
-  final CoreHabit habit;
+  final String habitKey;
   final bool editable;
   final mode displayMode;
 
-  HabitListWidget(this.habit,
+  HabitListWidget(this.habitKey,
       {this.editable = true, this.displayMode = mode.Standard});
 
   @override
@@ -29,13 +29,14 @@ class HabitListState extends State<HabitListWidget> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => HabitOverview(this.widget.habit.key)));
+                  builder: (context) => HabitOverview(this.widget.habitKey)));
         },
         child: child);
   }
 
   @override
   Widget build(BuildContext context) {
+    CoreHabit habit = Global.habitManager.getHabit(this.widget.habitKey);
     double iconSize = (this.widget.displayMode != mode.Standard) ? 15.0 : 15.0;
     var icon = Icon(Icons.more_vert, size: iconSize);
     return Column(
@@ -43,7 +44,7 @@ class HabitListState extends State<HabitListWidget> {
         (this.widget.displayMode != mode.Minimal)
             ? overviewTap(Stack(children: <Widget>[
                   Center(
-                      child: Text(this.widget.habit.title,
+                      child: Text(habit.title,
                           textAlign: TextAlign.center,
                           style: (this.widget.displayMode == mode.Compact)
                               ? TextStyle(
@@ -61,21 +62,21 @@ class HabitListState extends State<HabitListWidget> {
             Row(children: <Widget>[
             Checkbox(
 
-              value: this.widget.habit.markedOff.contains(_currentDate),
+              value: habit.markedOff.contains(_currentDate),
               onChanged: (bool checked) {
                 setState(() {
-                  Global.habitManager.setCheckHabit(this.widget.habit.key, checked);
+                  Global.habitManager.setCheckHabit(habit.key, checked);
                 });
               },
             ),
-            overviewTap(Text(this.widget.habit.experimentTitle,
+            overviewTap(Text(habit.experimentTitle,
                 style: Theme.of(context).textTheme.body1))]),
             (this.widget.editable && this.widget.displayMode == mode.Minimal) ? Align(alignment: Alignment.centerRight, child: overviewTap(icon)) : Container()
           ],
         ),
-        this.widget.habit.environmentDesign?.isNotEmpty ?? false
+        habit.environmentDesign?.isNotEmpty ?? false
             ? Center(
-                child: Text(this.widget.habit.environmentDesign,
+                child: Text(habit.environmentDesign,
                     style: Theme.of(context).textTheme.caption))
             : Container(),
 
