@@ -33,7 +33,21 @@ class HabitOverviewState extends State<HabitOverview> {
               })
         ]),
         body: ListView(children: <Widget>[
-          ListTile(title: Text(habit.title), subtitle: Text(habit.experimentTitle + (habit.environmentDesign == null ? "" : '\n' + habit.environmentDesign)), isThreeLine: habit.environmentDesign != null),
+          ListTile(
+              leading: Checkbox(
+                value: habit.markedOff.contains(Global.currentDate),
+                  onChanged: (checked)=>setState(()=> Global.habitManager.setCheckHabit(this.widget.habitKey, checked))
+              ),
+              /*trailing: IconButton(icon: Icon(Icons.menu), onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HabitOverview(this.widget.habitKey)));
+              }),*/
+              title: Text(habit.title),
+              subtitle: Text(habit.experimentTitle + (habit.environmentDesign == null ? "" : '\n' + habit.environmentDesign)),
+              isThreeLine: habit.environmentDesign != null
+          ),
           Container(
               constraints: BoxConstraints(maxHeight: 300.0),
               child: ProgressChart.habitFromString(this.widget.habitKey)

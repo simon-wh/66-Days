@@ -36,10 +36,26 @@ class _HomeState extends State<HomeWidget> {
       HomeCard(Key("stats"), "Statistics", () => StatsWidget())
     ];
     _event = Global.habitManager.eventBus.on<HabitCheckedChangedEvent>().listen((event) {
+      if (this.mounted){
       setState(() {
 
-      });
+      });}
     });
+  }
+
+  @override
+  void reassemble() {
+    // TODO: implement reassemble
+    super.reassemble();
+    //_event.resume();
+  }
+
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+    //_event.pause();
+
   }
 
   @override
