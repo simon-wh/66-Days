@@ -23,7 +23,7 @@ class StreaksChart extends StatelessWidget {
           data: streaks,
           // Set a label accessor to control the text of the bar label.
           labelAccessorFn: (List<DateTime> streak, _) {
-            var formatter = new DateFormat('dd-MM-yyyy');
+            var formatter = new DateFormat('dd MMM');
             return '${formatter.format(streak.first)} - ${formatter.format(streak.last)}';
           },
 
@@ -41,7 +41,7 @@ class StreaksChart extends StatelessWidget {
         data: streaks,
         // Set a label accessor to control the text of the bar label.
         labelAccessorFn: (List<DateTime> streak, _) {
-          var formatter = new DateFormat('dd-MM-yyyy');
+          var formatter = new DateFormat('dd-M');
           return '${formatter.format(streak.first)} - ${formatter.format(streak.last)}';
         },
 

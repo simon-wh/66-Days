@@ -86,7 +86,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
             if (n is BottomNavigationBarItem){
               final bm = n as BottomNavigationBarItem;
               return ListTile(leading: CircleAvatar(child: bm.icon, backgroundColor: Theme.of(context).canvasColor, foregroundColor: Theme.of(context).accentColor), title: bm.title, onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(appBar: AppBar(title: bm.title) ,body: n as Widget)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(appBar: AppBar(title: bm.title) ,body: n)));
               });
             }
             else

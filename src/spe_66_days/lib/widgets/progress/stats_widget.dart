@@ -42,14 +42,15 @@ class StatsWidget extends StatelessWidget {
       else if (date.difference(lastDate).inDays == 1)
         currentStreak.add(date);
       else {
-        streaks.add(currentStreak);
+        if (currentStreak.length > 1)
+          streaks.add(currentStreak);
         currentStreak = List<DateTime>();
         currentStreak.add(date);
       }
 
       lastDate = date;
     }
-    if (currentStreak.length != 0)
+    if (currentStreak.length > 1)
       streaks.add(currentStreak);
     return streaks;
   }

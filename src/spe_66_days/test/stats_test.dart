@@ -98,7 +98,8 @@ void main() {
       test('Correct broken streak for perfect days', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [brokenStreak, brokenStreak1];
         HashSet<DateTime> intersect = StatsWidget.intersection(dates);
-        expect(StatsWidget.streaks(intersect), equals(< List<DateTime> > [[DateTime(2019, 1, 26)] ,
+        expect(StatsWidget.streaks(intersect), equals(< List<DateTime> > [
+                                                                          //[DateTime(2019, 1, 26)] ,
                                                                           [DateTime(2019, 1, 29), DateTime(2019, 1, 30)]]));
       });
       test('Correct broken streak over month', (){
@@ -109,7 +110,8 @@ void main() {
       test('Correct broken streak over month for perfect days', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [brokenMonth, brokenMonth1];
         HashSet<DateTime> intersect = StatsWidget.intersection(dates);
-        expect(StatsWidget.streaks(intersect), equals(< List<DateTime> > [[DateTime(2019, 1, 26)] ,
+        expect(StatsWidget.streaks(intersect), equals(< List<DateTime> > [
+                                                                          //[DateTime(2019, 1, 26)] ,
                                                                           [DateTime(2019, 1, 31), DateTime(2019, 2, 1)]]));
       });
       test('Correct broken streak over year', (){
@@ -120,7 +122,8 @@ void main() {
       test('Correct broken streak over year for perfect days', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [brokenYear, brokenYear1];
         HashSet<DateTime> intersect = StatsWidget.intersection(dates);
-        expect(StatsWidget.streaks(intersect), equals(< List<DateTime> > [[DateTime(2018, 12, 26)] ,
+        expect(StatsWidget.streaks(intersect), equals(< List<DateTime> > [
+                                                                          //[DateTime(2018, 12, 26)] ,
                                                                           [DateTime(2018, 12, 31), DateTime(2019, 1, 1)]]));
       });
     });
