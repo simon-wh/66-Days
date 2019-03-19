@@ -66,9 +66,13 @@ class HabitManager extends SettingsBase<HabitSettings> {
     this.settings.habits.putIfAbsent(id, ()=>habit.clone()..key = id..startDate=Global.currentDate);
   }
 
-  void removeHabit(String id){
-    if (id.startsWith(customHabitPrefix))
+  bool removeHabit(String id){
+    if (id.startsWith(customHabitPrefix) && hasHabit(id)){
       this.settings.habits.remove(id);
+      return true;
+    }
+
+    return false;
   }
 
   bool checkHabit(String key, {DateTime date}){
@@ -100,10 +104,8 @@ class HabitManager extends SettingsBase<HabitSettings> {
     return false;
   }
 
-
-
   CoreHabit getHabit (String core){
-    assert(this.settings.habits.containsKey(core));
+    //assert(this.settings.habits.containsKey(core));
     if (!this.settings.habits.containsKey(core))
       return null;
     return this.settings.habits[core];
@@ -113,7 +115,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
     return this.settings.habits.containsKey(core);
   }
 
-  Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(this.settings.habits);}
+  Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(this.settings.habits.map((k, v)=> MapEntry(k, v.clone())));}
 
   void scheduleNotifications() async {
     notificationsPlugin.cancelAll();

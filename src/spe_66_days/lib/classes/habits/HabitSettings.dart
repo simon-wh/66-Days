@@ -24,7 +24,11 @@ class HabitSettings{
 
   int get hashCode => habits.hashCode;
 
-  factory HabitSettings.fromJson(Map<String, dynamic> json) => _$HabitSettingsFromJson(json)..habits.forEach((s,v) => v.key = s);
+  factory HabitSettings.fromJson(Map<String, dynamic> json) => _$HabitSettingsFromJson(json)..habits.forEach((s,v) {
+    v.key = s;
+    var dates = (v.markedOff.toList()..sort());
+    v.startDate = v.startDate ?? (dates.length > 0 ? dates.first : null);
+  });
 
   /// `toJson` is the convention for a class to declare support for serialization
   /// to JSON. The implementation simply calls the private, generated

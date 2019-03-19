@@ -2,6 +2,12 @@
 
 ### Testing each component in the architecture diagram
 
+----- note
+
+using a mix of black & white box testing. i.e. to skip testing methods that just calls another method with some preset parameters. i.e. HabitManager.dart checkHabit & uncheckHabit
+
+-----
+
 #### Back end tests
 
 To test that information stored on the server is correct, we will use black box testing. We would like to ensure that our range of inputs to the server, gets stored and remains unedited on the server, so that when the data is recalled, it is exactly the same as we stored it. This tests all aspects of Ben pushing updates of course content to the server, whilst receiving usage data of all his clients, and also that the course content is replicated correctly to the user.
