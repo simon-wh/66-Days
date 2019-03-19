@@ -24,25 +24,25 @@ class HabitListState extends State<HabitListWidget> {
 
   HabitListState();
 
-  @override
-  Widget build(BuildContext context) {
-    double iconSize = (this.widget.displayMode != mode.Standard) ? 15.0 : 15.0;
-    GestureDetector icon = GestureDetector(
+  Widget overviewTap(Widget child){
+    return GestureDetector(
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => HabitOverview(this.widget.habit.key)));
         },
-        child: Container(
-          child: Icon(Icons.more_vert, size: iconSize),
-        ));
+        child: child);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double iconSize = (this.widget.displayMode != mode.Standard) ? 15.0 : 15.0;
+    var icon = Icon(Icons.more_vert, size: iconSize);
     return Column(
       children: <Widget>[
         (this.widget.displayMode != mode.Minimal)
-            ? Container(
-                padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                child: Stack(children: <Widget>[
+            ? overviewTap(Stack(children: <Widget>[
                   Center(
                       child: Text(this.widget.habit.title,
                           textAlign: TextAlign.center,
@@ -51,35 +51,39 @@ class HabitListState extends State<HabitListWidget> {
                                   fontSize: 15.0, fontWeight: FontWeight.bold)
                               : Theme.of(context).textTheme.subhead)),
                   this.widget.editable
-                      ? Align(child: icon, alignment: Alignment.centerRight)
+                      ? Align(child: icon, alignment: Alignment(0.95, 0.5))
                       : Container()
                 ]))
             : Container(),
         Row(
           mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            Row(children: <Widget>[
             Checkbox(
-              activeColor: Colors.black,
+
               value: this.widget.habit.markedOff.contains(_currentDate),
               onChanged: (bool checked) {
-                if (checked) {
-                  if (this.widget.habit.markedOff.add(_currentDate))
-                    Global.habitManager.save();
-                } else {
-                  if (this.widget.habit.markedOff.remove(_currentDate))
-                    Global.habitManager.save();
-                }
+
                 //this.widget?.onStateChanged();
 
                 setState(() {
+                  if (checked) {
+                    if (this.widget.habit.markedOff.add(_currentDate))
+                      Global.habitManager.save();
+                  } else {
+                    if (this.widget.habit.markedOff.remove(_currentDate))
+                      Global.habitManager.save();
+                  }
+
                   if (this.widget?.onHabitChanged != null)
                     this.widget?.onHabitChanged();
                 });
               },
             ),
-            Text(this.widget.habit.experimentTitle,
-                style: Theme.of(context).textTheme.body1),
-            Container()
+            overviewTap(Text(this.widget.habit.experimentTitle,
+                style: Theme.of(context).textTheme.body1))]),
+            (this.widget.editable && this.widget.displayMode == mode.Minimal) ? Align(alignment: Alignment.centerRight, child: overviewTap(icon)) : Container()
           ],
         ),
         this.widget.habit.environmentDesign?.isNotEmpty ?? false
@@ -87,9 +91,7 @@ class HabitListState extends State<HabitListWidget> {
                 child: Text(this.widget.habit.environmentDesign,
                     style: Theme.of(context).textTheme.caption))
             : Container(),
-        (this.widget.editable && this.widget.displayMode == mode.Minimal)
-            ? icon
-            : Container(),
+
       ],
     );
   }

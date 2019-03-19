@@ -5,10 +5,11 @@ import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 
 class HabitsWidget extends StatefulWidget {
-  final bool compact;
+  final bool editable;
+  final mode displayMode;
   final Function onHabitChanged;
 
-  HabitsWidget({this.compact = false, this.onHabitChanged});
+  HabitsWidget({this.editable = true, this.displayMode = mode.Standard, this.onHabitChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -22,7 +23,7 @@ class HabitsScreen extends HabitsWidget implements BottomNavigationBarItem {
   final Icon activeIcon;
   final Color backgroundColor;
 
-  HabitsScreen(this.icon, this.title, {this.activeIcon, this.backgroundColor, bool compact = false}) : super(compact: compact);
+  HabitsScreen(this.icon, this.title, {this.activeIcon, this.backgroundColor}) : super(displayMode: mode.Standard, editable: true);
 }
 
 
@@ -31,14 +32,14 @@ class _HabitsState extends State<HabitsWidget> {
   Widget build(BuildContext context) {
     List<Widget> habits = Global.habitManager.getHabits().entries.map((entry) {
       CoreHabit _habit = entry.value;
-      return Container(child: HabitListWidget(_habit, editable: !this.widget.compact, displayMode: this.widget.compact ? mode.Minimal : mode.Standard, onHabitChanged: this.widget.onHabitChanged));
+      return HabitListWidget(_habit, editable: this.widget.editable, displayMode: this.widget.displayMode, onHabitChanged: this.widget.onHabitChanged);
     }).toList();
 
-    if (this.widget.compact)
+    if (this.widget.displayMode != mode.Standard)
       return Column(mainAxisSize: MainAxisSize.min, children: habits);
     else {
     return Scaffold(
-      floatingActionButton: !this.widget.compact? FloatingActionButton.extended(
+      floatingActionButton:  FloatingActionButton.extended(
           onPressed: () {
             CoreHabit _habit = Global.habitManager.newCustomHabit();
             Navigator.push(context, MaterialPageRoute(builder: (context) => EditHabitWidget(_habit)));
@@ -47,10 +48,10 @@ class _HabitsState extends State<HabitsWidget> {
             });
           },
           icon: Icon(Icons.add),
-          label: const Text('Add Habit')) : null,
+          label: const Text('Add Habit')),
       body:  Container(
       padding: const EdgeInsets.only(top: 10.0),
-      child: ListView.builder(itemCount: habits.length, itemBuilder: (context, i)=>Card(child:habits[i], elevation: 2.0), shrinkWrap: true),
+      child: ListView.builder(itemCount: habits.length, itemBuilder: (context, i)=>Card(child:Container(padding: EdgeInsets.only(top: 5.0, bottom: 5.0), child: habits[i]), elevation: 2.0), shrinkWrap: true),
     ));
   }
   } // Build

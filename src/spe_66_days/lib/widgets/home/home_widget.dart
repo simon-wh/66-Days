@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/progress_chart.dart';
 import 'home_card.dart';
 import 'package:spe_66_days/widgets/habits/habits_widget.dart';
+import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 import 'package:spe_66_days/widgets/progress/stats_widget.dart';
 
 class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
@@ -26,7 +27,7 @@ class _HomeState extends State<HomeWidget> {
     super.initState();
     cards = [
       HomeCard(Key("progress"), "Progress", () => Container(child: ProgressChart.allHabitsCombined(), constraints: BoxConstraints(maxHeight: 275.0))),
-      HomeCard(Key("habit"), "Habits", () => HabitsWidget(compact: true, onHabitChanged: () => setState((){})  )),
+      HomeCard(Key("habit"), "Habits", () => HabitsWidget(displayMode: mode.Minimal, editable: true, onHabitChanged: () => setState((){})  )),
       HomeCard(Key("stats"), "Statistics", () => StatsWidget())
     ];
   }
