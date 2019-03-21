@@ -125,7 +125,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
         notif.repeatDays.forEach((day) async {
           count = (count  ?? -1)+1;
           int id = i+count;
-          print("${id} Notification scheduled for ${day.value.toString()}, ${notif.time.hour}:${notif.time.minute} ");
+          print("$id Notification scheduled for ${day.value.toString()}, ${notif.time.hour}:${notif.time.minute} ");
 
           await notificationsPlugin.showWeeklyAtDayAndTime(
               id,

@@ -38,13 +38,17 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
     });
   }
 
+  static bool hasDoneNotification = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Global.instance.notificationsPlugin.getNotificationAppLaunchDetails().then((val) {
-      if (val.didNotificationLaunchApp)
+      if (!hasDoneNotification && val.didNotificationLaunchApp) {
         Global.instance.onSelectNotification(val.payload);
+        hasDoneNotification = true;
+      }
     });
   }
 
