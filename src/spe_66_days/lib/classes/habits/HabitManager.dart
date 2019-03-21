@@ -19,7 +19,6 @@ class HabitCheckedChangedEvent {
 
 
 class HabitManager extends SettingsBase<HabitSettings> {
-  final FlutterLocalNotificationsPlugin notificationsPlugin = new FlutterLocalNotificationsPlugin();
 
   EventBus eventBus = new EventBus();
 
@@ -38,12 +37,8 @@ class HabitManager extends SettingsBase<HabitSettings> {
       this.save();
     });
 
-    var initializationSettingsAndroid = new AndroidInitializationSettings('mipmap/launcher_icon');
-    var initializationSettingsIOS = new IOSInitializationSettings();
-    var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
-    notificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
+
     await load();
-    this.scheduleNotifications();
   }
 
   static const String customHabitPrefix = "custom-";
@@ -117,39 +112,34 @@ class HabitManager extends SettingsBase<HabitSettings> {
 
   Map<String, CoreHabit> getHabits (){ return Map.unmodifiable(this.settings.habits.map((k, v)=> MapEntry(k, v.clone())));}
 
-  void scheduleNotifications() async {
-    notificationsPlugin.cancelAll();
 
+  Future<int> scheduleNotifications(FlutterLocalNotificationsPlugin notificationsPlugin, int i) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails('habit_reminder',  'User Habit Reminders', 'Reminders to check in/complete a habit');
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    NotificationDetails platformChannelSpecifics = new NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-
-    int i = 0;
+    NotificationDetails platformChannelSpecifics = new NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    int count;
     this.settings.habits.forEach((key, value) {
       value.reminders.forEach((notif) {
         if (!notif.enabled)
           return;
-        notif.repeatDays.forEach((day) {
-          print("$i Notification scheduled for ${day.value.toString()}, ${notif.time.hour}:${notif.time.minute} ");
-          notificationsPlugin.showWeeklyAtDayAndTime(
-              i,
+        notif.repeatDays.forEach((day) async {
+          count = (count  ?? -1)+1;
+          int id = i+count;
+          print("${id} Notification scheduled for ${day.value.toString()}, ${notif.time.hour}:${notif.time.minute} ");
+
+          await notificationsPlugin.showWeeklyAtDayAndTime(
+              id,
               value.title,
               notif.message,
               day,
               notif.time,
-              platformChannelSpecifics);
-          i++;
+              platformChannelSpecifics, payload: key);
+
         });
       });
     });
 
-  }
-
-  Future onSelectNotification(String payload) async {
-    if (payload != null) {
-      print('notification payload: ' + payload);
-    }
+    return count;
   }
 
   @override

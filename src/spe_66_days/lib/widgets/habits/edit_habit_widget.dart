@@ -88,7 +88,7 @@ class EditHabitState extends State<EditHabitWidget> {
                       onPressed: () {
                         Global.habitManager.removeHabit(this.ogHabit.key);
                         Global.habitManager.save();
-                        Global.habitManager.scheduleNotifications();
+                        Global.instance.scheduleAllNotifications();
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
@@ -102,7 +102,7 @@ class EditHabitState extends State<EditHabitWidget> {
           IconButton(icon: Icon(Icons.check), onPressed: () {
             this.ogHabit.updateFrom(this.habit);
             Global.habitManager.save();
-            Global.habitManager.scheduleNotifications();
+            Global.instance.scheduleAllNotifications();
             Navigator.pop(context);
           })
         ]),

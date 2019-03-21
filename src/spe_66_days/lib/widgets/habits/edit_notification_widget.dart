@@ -5,8 +5,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class EditNotificationWidget extends StatefulWidget {
   final NotificationConfig notification;
   final editable;
+  final Function onChanged;
 
-  EditNotificationWidget(this.notification, {this.editable = true});
+  EditNotificationWidget(this.notification, {this.editable = true, this.onChanged});
 
   @override
   State<StatefulWidget> createState() => EditNotificationState(editable);
@@ -51,6 +52,8 @@ class EditNotificationState extends State<EditNotificationWidget> {
               if (picked != null && picked != initial) {
                 setState(() {
                   notification.time = Time(picked.hour, picked.minute);
+                  if (this.widget.onChanged != null)
+                    this.widget.onChanged();
                 });
               }
             }),
@@ -59,8 +62,11 @@ class EditNotificationState extends State<EditNotificationWidget> {
           inactiveTrackColor: Theme.of(context).disabledColor,
           value: notification.enabled,
           onChanged: (checked) {
-            notification.enabled = checked;
-            setState(() {});
+            setState(() {
+              notification.enabled = checked;
+              if (this.widget.onChanged != null)
+                this.widget.onChanged();
+            });
           }
         )
       ]),
@@ -79,12 +85,16 @@ class EditNotificationState extends State<EditNotificationWidget> {
                       activeColor: Colors.black,
                       value: notification.repeatDays.contains(day),
                       onChanged: (checked) {
-                        if (checked) {
-                          notification.repeatDays.add(day);
-                        } else {
-                          notification.repeatDays.remove(day);
-                        }
-                        setState(() {});
+
+                        setState(() {
+                          if (checked) {
+                            notification.repeatDays.add(day);
+                          } else {
+                            notification.repeatDays.remove(day);
+                          }
+                          if (this.widget.onChanged != null)
+                            this.widget.onChanged();
+                        });
                       })
                 ])).toList()),
             Container(
@@ -96,6 +106,8 @@ class EditNotificationState extends State<EditNotificationWidget> {
                     maxLines: 1,
                     onChanged: (val) {
                       notification.message = val;
+                      if (this.widget.onChanged != null)
+                        this.widget.onChanged();
                     }))
           ],
         ) :
@@ -108,6 +120,8 @@ class EditNotificationState extends State<EditNotificationWidget> {
                 maxLines: 1,
                 onChanged: (val) {
                   notification.message = val;
+                  if (this.widget.onChanged != null)
+                    this.widget.onChanged();
                 }))
       )
     ]);

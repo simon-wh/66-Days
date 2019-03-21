@@ -39,7 +39,19 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Global.instance.notificationsPlugin.getNotificationAppLaunchDetails().then((val) {
+      if (val.didNotificationLaunchApp)
+        Global.instance.onSelectNotification(val.payload);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

@@ -17,6 +17,8 @@ class StartApp extends StatelessWidget {
 
   StartApp({this.signIn = true});
 
+  static final navigatorKey = new GlobalKey<NavigatorState>();
+
   //All StatelessWidgets need a build method to create the user interface.
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class StartApp extends StatelessWidget {
                   data: MediaQuery.of(context)
                       .copyWith(alwaysUse24HourFormat: true),
                   child: child),
+              navigatorKey: navigatorKey,
               title: '66 Days',
               theme: theme,
               home: ScreenNavigation(),

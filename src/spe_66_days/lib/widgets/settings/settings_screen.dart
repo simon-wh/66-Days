@@ -74,7 +74,10 @@ class SettingsState extends State<SettingsWidget> {
                 },
               ),
               Divider(indent: 5.0, color: Colors.black),
-              ExpansionTile(title: Text("End of day habit checking"), children: <Widget>[EditNotificationWidget(Global.instance.settings.dailyNotification, editable: false)]),
+              ExpansionTile(title: Text("End of day habit checking"), children: <Widget>[EditNotificationWidget(Global.instance.settings.dailyNotification, editable: false, onChanged: (){
+                Global.instance.save();
+                Global.instance.scheduleAllNotifications();
+              })]),
               CheckboxListTile(value: DynamicTheme.of(context).brightness == Brightness.dark, title: Text("Use Dark Mode"), onChanged: (state){
                 setState((){
                   DynamicTheme.of(context).setBrightness(DynamicTheme.of(context).brightness == Brightness.light ? Brightness.dark: Brightness.light);
