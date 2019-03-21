@@ -13,7 +13,6 @@ part 'GlobalSettings.g.dart';
 @JsonSerializable()
 class GlobalSettings{
   NotificationConfig dailyNotification;
-  bool darkMode;
 
   GlobalSettings({bool setDefaults = true}){
     if (setDefaults)
@@ -21,10 +20,9 @@ class GlobalSettings{
   }
 
   bool operator ==(o) => o is GlobalSettings
-      && this.dailyNotification == o.dailyNotification
-      && this.darkMode == o.darkMode;
+      && this.dailyNotification == o.dailyNotification;
 
-  int get hashCode => hash2(dailyNotification.hashCode, darkMode);
+  int get hashCode => dailyNotification.hashCode;
 
   factory GlobalSettings.fromJson(Map<String, dynamic> json) => _$GlobalSettingsFromJson(json);
 
@@ -35,6 +33,5 @@ class GlobalSettings{
 
   void setDefaults(){
     dailyNotification = dailyNotification ?? NotificationConfig("Time to check off your habits!", Time(22, 0), HashSet.from(Day.values), true);
-    darkMode = darkMode ?? false;
   }
 }
