@@ -6,6 +6,7 @@ import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
 import 'package:spe_66_days/widgets/progress/stats_widget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
+import 'package:spe_66_days/widgets/card swipes/index.dart';
 import 'dart:async';
 
 
