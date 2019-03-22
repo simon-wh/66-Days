@@ -4,6 +4,7 @@ import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:collection';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:spe_66_days/main.dart';
 
 class ProgressChart extends StatelessWidget {
   List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
@@ -31,7 +32,7 @@ class ProgressChart extends StatelessWidget {
   ProgressChart.allHabitsCombined({this.animate}){
     this.seriesList = [charts.Series<MapEntry<DateTime,int>, DateTime>(
       id: 'Habits',
-      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      colorFn: (_,__) => charts.ColorUtil.fromDartColor(Theme.of(StartApp.navigatorKey.currentContext).accentColor),
       domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
       measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
       data: _getData(),
@@ -41,7 +42,7 @@ class ProgressChart extends StatelessWidget {
   ProgressChart.dates(HashSet<DateTime> data, {this.animate}){
     this.seriesList = [charts.Series<MapEntry<DateTime,int>, DateTime>(
       id: 'Habits',
-      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      colorFn: (_,__) => charts.ColorUtil.fromDartColor(Theme.of(StartApp.navigatorKey.currentContext).accentColor),
       domainFn: (MapEntry<DateTime,int> sales, _) => sales.key,
       measureFn: (MapEntry<DateTime,int> sales, _) => sales.value,
       data: _getHabitData(data),
@@ -135,7 +136,7 @@ class ProgressChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var clr = DynamicTheme.of(context).brightness == Brightness.dark ? charts.MaterialPalette.white : charts.MaterialPalette.black;
+    var clr = charts.ColorUtil.fromDartColor(Theme.of(context).textTheme.title.color);// DynamicTheme.of(context).brightness == Brightness.dark ? charts.MaterialPalette.white : charts.MaterialPalette.black;
     var labelStyle = new charts.TextStyleSpec(
         color: clr);
     return new charts.TimeSeriesChart(

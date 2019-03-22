@@ -5,6 +5,7 @@ import 'package:spe_66_days/classes/Global.dart';
 import 'package:intl/intl.dart';
 import 'dart:collection';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:spe_66_days/main.dart';
 
 
 class StreaksChart extends StatelessWidget {
@@ -17,6 +18,7 @@ class StreaksChart extends StatelessWidget {
     this.seriesList= [
       new charts.Series<List<DateTime>, String>(
         id: 'Sales',
+        colorFn: (_,__) => charts.ColorUtil.fromDartColor(Theme.of(StartApp.navigatorKey.currentContext).accentColor),
         domainFn: (List<DateTime> streak, _) => streak.first.toString(),
         measureFn: (List<DateTime> streak, _) => streak.length,
         data: dates,
@@ -53,7 +55,8 @@ class StreaksChart extends StatelessWidget {
   // [insideLabelStyleSpec] and [outsideLabelStyleSpec].
   @override
   Widget build(BuildContext context) {
-    var clr = DynamicTheme.of(context).brightness == Brightness.dark ? charts.MaterialPalette.white : charts.MaterialPalette.black;
+    var clr = charts.ColorUtil.fromDartColor(Theme.of(context).textTheme.title.color);// DynamicTheme.of(context).brightness == Brightness.dark ? charts.MaterialPalette.white : charts.MaterialPalette.black;
+    var clr2 = charts.ColorUtil.fromDartColor(Theme.of(context).canvasColor);// DynamicTheme.of(context).brightness == Brightness.dark ? charts.MaterialPalette.white : charts.MaterialPalette.black;
     var labelStyle = new charts.TextStyleSpec(
         color: clr);
     return new charts.BarChart(
@@ -65,7 +68,7 @@ class StreaksChart extends StatelessWidget {
       //       barRendererDecorator: new charts.BarLabelDecorator(
       //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
       //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-      barRendererDecorator: new charts.BarLabelDecorator<String>(outsideLabelStyleSpec: labelStyle),
+      barRendererDecorator: new charts.BarLabelDecorator<String>(outsideLabelStyleSpec: labelStyle, insideLabelStyleSpec: charts.TextStyleSpec(color: clr2)),
       // Hide domain axis.
       domainAxis: new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
       primaryMeasureAxis: charts.NumericAxisSpec(showAxisLine: true, renderSpec: charts.SmallTickRendererSpec(labelStyle: labelStyle, axisLineStyle: charts.LineStyleSpec(color: charts.Color(a: 100, r:clr.r, g:clr.g, b:clr.b)))),

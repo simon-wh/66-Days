@@ -42,11 +42,17 @@ class StartApp extends StatelessWidget {
 
     return DynamicTheme(
         defaultBrightness: Brightness.light,
-        data: (brightness) => new ThemeData(
-              primarySwatch: Colors.red,
-              primaryColor: brightness == Brightness.dark ? Colors.teal : Colors.red,
+        data: (brightness) {
+          var clr = brightness == Brightness.dark ? Colors.teal : Colors.red;
+          var clrAccent = brightness == Brightness.dark ? Colors.tealAccent : Colors.redAccent;
+          return ThemeData(
+              primarySwatch: clr,
+              primaryColor: clr,
+              accentColor: clrAccent,
+              toggleableActiveColor: clrAccent,
               brightness: brightness,
-            ),
+            );
+        },
         themedWidgetBuilder: (context, theme) => MaterialApp(
               builder: (context, child) => MediaQuery(
                   data: MediaQuery.of(context)
