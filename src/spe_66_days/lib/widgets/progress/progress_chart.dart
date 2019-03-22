@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:collection';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 class ProgressChart extends StatelessWidget {
   List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
@@ -134,10 +135,13 @@ class ProgressChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    var clr = DynamicTheme.of(context).brightness == Brightness.dark ? charts.MaterialPalette.white : charts.MaterialPalette.black;
+    var labelStyle = new charts.TextStyleSpec(
+        color: clr);
     return new charts.TimeSeriesChart(
       seriesList,
       animate: animate,
+      defaultRenderer: charts.LineRendererConfig(includeArea: true),
       dateTimeFactory: const charts.LocalDateTimeFactory(),
         behaviors: [
           new charts.LinePointHighlighter(
@@ -149,8 +153,11 @@ class ProgressChart extends StatelessWidget {
           new charts.PanAndZoomBehavior(),
           new charts.SlidingViewport(),
         ],
+        primaryMeasureAxis : charts.NumericAxisSpec(showAxisLine: false, renderSpec: charts.GridlineRendererSpec(labelStyle: labelStyle, lineStyle: charts.LineStyleSpec(color: charts.Color(a: 100, r:clr.r, g:clr.g, b:clr.b)))),
         domainAxis: new charts.DateTimeAxisSpec(
+            showAxisLine: false,
           viewport: charts.DateTimeExtents(start: Global.currentDate.add(Duration(days:-30)), end: Global.currentDate.add(Duration(days: 1))),
+            renderSpec: charts.SmallTickRendererSpec(labelStyle: labelStyle, lineStyle: charts.LineStyleSpec(color: clr)),
             tickProviderSpec: charts.DayTickProviderSpec(increments: [1,2,3]),
             tickFormatterSpec: new charts.AutoDateTimeTickFormatterSpec(
                 day: new charts.TimeFormatterSpec(
