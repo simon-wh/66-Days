@@ -5,5 +5,4 @@ target/test-classes/.netbeans_automatic_build
 firebase-admin.json
 target/classes/firebase-admin.json
 
-#ignoring intelliJ files
-.idea/*
+.idea/
