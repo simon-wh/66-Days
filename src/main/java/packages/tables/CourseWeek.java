@@ -11,6 +11,7 @@ import javax.persistence.Lob;
 
 @Entity
 public class CourseWeek {
+      
         //// WEEK ATTRIBUTES ////
 	@Id
         @GeneratedValue(strategy=GenerationType.AUTO)
@@ -41,6 +42,16 @@ public class CourseWeek {
         
         // CONSTRUCTORS
         public CourseWeek(){}
+        
+        public CourseWeek(Integer weekNumber){
+            this.weekTitle = "Week Title";
+            this.weekNumber = weekNumber;
+            this.weekType = "JUST_DESCRIPTION";
+            this.weekDescription = "Week description.";
+            this.habitTitle = "Habit title.";
+            this.habitExperiments = "List of experiments.";
+            this.environmentDesign = "List of environment design choices.";
+        }
         
         public CourseWeek(String title, Integer weekNumber){
             this.weekTitle = title;

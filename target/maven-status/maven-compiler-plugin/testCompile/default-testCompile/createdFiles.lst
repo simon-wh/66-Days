@@ -1,3 +1,5 @@
+tests\DashboardTests.class
+tests\CourseEditorTests.class
 tests\ApplicationTests.class
 tests\MvcTests.class
-tests\CourseEditorTests.class
+tests\WhitelistTests.class

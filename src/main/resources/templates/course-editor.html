@@ -17,9 +17,62 @@
             <div style="padding-top: 1em;"></div>
             
             <h1 class="display-4">Course Editor</h1>
-            <p style="padding-top:1em;" class="lead">Here you can edit the contents of the course week by week. Please click save to update your changes after editing a week.</p>
+            <p style="padding-top:1em;" class="lead">Here you can edit the contents of the course week by week. Please click the "Save your changes" button after editing a week to update it, or alternatively click anywhere else on the site to discard your changes.</p>
             
-            <div style="padding-top: 1em;"></div>
+            <div th:if="${param.weekChangedFromCreateHabit}">
+                
+                <div class ="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="card text-white bg-warning" style="margin-top: 1.1em;">
+                            <div class="card-body text-center">
+                                <b>Careful! You've changed a week from Create Habit to something else. This might have knock on consequences for future weeks which try and update this habit. These weeks will have defaulted to being Just Description.</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                
+                <div style="padding-top: 1.5em;"></div>
+            </div>
+            
+            <div th:if="${param.identicalHabitName}">
+                
+                <div class ="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="card text-white bg-warning" style="margin-top: 1.1em;">
+                            <div class="card-body text-center">
+                                <b>Careful! You've tried to create set a habit title with the same name as an already existing habit. "New" has been added to the start of the habit title so the app can distinguish them.</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                
+                <div style="padding-top: 1.5em;"></div>
+            </div>
+            
+            <div th:if="${param.updateSuccessful}">
+                
+                <div class ="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="card text-white bg-success" style="margin-top: 1.1em;">
+                            <div class="card-body text-center">
+                                <b>You have successfully updated the week.</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                
+                <div style="padding-top: 1.5em;"></div>
+            </div>
+            
+            <span th:unless="${param.updateSuccessful}">
+                <div style="padding-top: 1em;"></div>
+            </span>
             
             <!-- CONTENT -->
             
@@ -35,7 +88,7 @@
                                 <li class="nav-item" th:each="week: ${courseWeekList}">
                                     <a class="nav-link text-success"
                                        th:text="${'Week '+week.getWeekNumberAsString()}" 
-                                       th:href="${'/course-editor/' + week.getId()}">
+                                       th:href="${'/course-editor/' + week.getWeekNumber()}">
                                     </a>
                                 </li>
                             </ul>
@@ -44,13 +97,13 @@
                     </div>
                 </section>
                 
-                <div style="padding-top: 1em;"></div>
+                <div style="padding-top: 2em;"></div>
                 
                 <!-- THE COURSE WEEK EDITOR FORM -->
                 <section>
                     <div th:if="${courseWeek != null}">
 
-                        <form th:action="@{'/course-editor/update-week/' + ${courseWeek.getId()}}" th:object="${courseWeek}" th:method="PUT" enctype="multipart/form-data">
+                        <form th:action="@{'/course-editor/update-week/' + ${courseWeek.getWeekNumber()}}" th:object="${courseWeek}" th:method="PUT" enctype="multipart/form-data">
 
                             <!-- Why am I using name and id attributes instead of the th:field?
                             It doesn't let me set th:value if I set th:field, making for a much worse user experience.
@@ -82,7 +135,7 @@
                                             Create New Habit
                                         </option>
                                         <option value="UPDATE_OLD_HABIT"
-                                                th:if="${courseWeek.getId() > 1}"
+                                                th:if="${courseWeek.getWeekNumber() > 1}"
                                                 th:selected="${courseWeek.getWeekType()} == 'UPDATE_OLD_HABIT' ? true : false">
                                             Update Old Habit
                                         </option>
@@ -135,7 +188,7 @@
                                         <th:block th:each="otherWeek: ${courseWeekList}">
                                             <option th:value="${otherWeek.getHabitTitle()}"
                                                     th:text="${otherWeek.getHabitTitle()}"
-                                                    th:if="${otherWeek.getWeekType() == 'CREATE_NEW_HABIT' and otherWeek.getId() < courseWeek.getId()}"
+                                                    th:if="${otherWeek.getWeekType() == 'CREATE_NEW_HABIT' and otherWeek.getWeekNumber() < courseWeek.getWeekNumber()}"
                                                     th:selected="${courseWeek.getHabitTitle() == otherWeek.getHabitTitle()} ? true : false">
                                                     Options
                                             </option>                                        
@@ -173,7 +226,7 @@
                             </div>
 
                             <div class="text-center">
-                                <button class="btn btn-outline-success" type="submit">Save your changes.</button>
+                                <button class="btn  btn-success btn-lg text-white" type="submit">Save your changes</button>
                             </div>
                         </form>
 

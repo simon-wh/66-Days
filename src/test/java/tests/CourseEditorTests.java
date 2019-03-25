@@ -22,47 +22,19 @@ public class CourseEditorTests {
     
     @Test
     public void testSaveNullWeekToRepository(){
-        //System.out.println("### tests.CourseEditorTests.saveWeekToRepository()");
-        //System.out.println("- Starting the tests.");
-
-        courseContentRepo.deleteAll();
         
-        printRepositoryContents();
-        
-        //System.out.println("- Delete all weeks from the repository.");
-        
-        assert(weekExistsInRepository() == false);
-        
-        //System.out.println("- Repo doesn't contain the week.");
-
         CourseWeek testWeek = new CourseWeek();
-        
-        //System.out.println("- Created the week.");
-        
         courseContentRepo.save(testWeek);
         
-        //System.out.println("- Saved the week.");
-        
         Integer id = testWeek.getId();
-        
         assert(courseContentRepo.findById(id).isPresent());
-        
-        //System.out.println("- The week is present in the repository.");
-        
+       
         courseContentRepo.delete(testWeek);
-        
-        //System.out.println("- The week has been deleted.");
-        
         assert(courseContentRepo.findById(id).isPresent() == false);
-        
-        //System.out.println("- The week is no longer present.");
     }
     
     @Test
     public void testSaveDefaultContructedWeekToRepository(){
-        System.out.println("tests.CourseContentTests.savePopulatedWeekToRepository()");
-        
-        courseContentRepo.deleteAll();
         
         CourseWeek testWeek = new CourseWeek("Week Title", 0);
         courseContentRepo.save(testWeek);
@@ -79,6 +51,9 @@ public class CourseEditorTests {
         assert("Habit title.".equals(returnedWeek.getHabitTitle()));
         assert("List of experiments.".equals(returnedWeek.getHabitExperiments()));
         assert("List of environment design choices.".equals(returnedWeek.getEnvironmentDesign()));
+        
+        courseContentRepo.delete(testWeek);
+        assert(courseContentRepo.findById(id).isPresent() == false);
 
     }
     

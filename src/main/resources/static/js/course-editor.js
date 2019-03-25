@@ -4,31 +4,37 @@ window.onload = function(){
 }
 
 $('#habitLinkList').on('change',function(){
-    let optionValue = $("#habitLinkList option:selected").text();
-    $("#habitTitle").text(optionValue);
-    //console.log("The habit title is now: ", $( "#habitTitle" ).text());
+  let habitSelected = $("#habitLinkList option:selected").text();
+  $("#habitTitle").text(habitSelected);
+  $("#habitTitle").attr("value", habitSelected);
+  console.log("HABIT LINK CHANGE - The habit title value is now", habitSelected);
 });
 
 //Whenever the weekType dropdown input element is updated...
 $('#weekType').on('change',function(){
-  let optionValue = $(this).val();
+  let weekTypeSelected = $(this).val();
   
-  updateGUIAfterWeekTypeChanged(optionValue);
+  updateGUIAfterWeekTypeChanged(weekTypeSelected);
   
-  if (optionValue == "UPDATE_OLD_HABIT") {
-    $("#habitTitle").val($("#habitLinkList option:selected").text());
-    //console.log("The habit title is now: ", $( "#habitTitle" ).val());
+  if (weekTypeSelected == "UPDATE_OLD_HABIT") {
+    let habitSelected = $("#habitLinkList option:selected").text();
+    $("#habitTitle").text(habitSelected);
+    $("#habitTitle").attr("value", habitSelected);
+    console.log("WEEKTYPE CHANGE - The habit title value is now", $("#habitLinkList option:selected").text());
   }
   
-  if (optionValue == "CREATE_NEW_HABIT") {
+  //Clears the habit input value so the user can enter something new.
+  //This would otherwise display "Habit for Week x" - I prefer a blank slate.
+  //Emptying the textbox creates a red outline around it, prompting the user to enter a value.
+  if (weekTypeSelected == "CREATE_NEW_HABIT") {
     $("#habitTitle").val("");
   }
   
 });
 
-function updateGUIAfterWeekTypeChanged(optionValue){
+function updateGUIAfterWeekTypeChanged(weekType){
   
-    if (optionValue == "CREATE_NEW_HABIT"){
+    if (weekType == "CREATE_NEW_HABIT"){
         $( "#enterTitleOfHabit").removeClass("hideElement");
         $( "#listOfExperimentsSection").removeClass("hideElement");
 
@@ -37,7 +43,7 @@ function updateGUIAfterWeekTypeChanged(optionValue){
         $( "#linkToPreviousHabit").hide();
     }
 
-    if (optionValue == "UPDATE_OLD_HABIT"){
+    if (weekType == "UPDATE_OLD_HABIT"){
         $( "#linkToPreviousHabit").removeClass("hideElement")
         $( "#listOfExperimentsSection").removeClass("hideElement")
 
@@ -46,7 +52,7 @@ function updateGUIAfterWeekTypeChanged(optionValue){
         $( "#enterTitleOfHabit").hide();
     }
 
-    if (optionValue == "JUST_DESCRIPTION"){
+    if (weekType == "JUST_DESCRIPTION"){
         $( "#linkToPreviousHabit").hide();
         $( "#enterTitleOfHabit").hide();
         $( "#listOfExperimentsSection").hide();
