@@ -2,27 +2,43 @@ package packages.tables;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity 
 public class UserStatistics {
-	@Id @Column(length = 128) 
-	private String userID;
+        //// COLUMNS ////
+	@Id
+        @GeneratedValue(strategy=GenerationType.AUTO)
+        private Integer id;
         
+        @Lob 
+        @Column(name="description", length=2048)
         private String json;
         
-        public String getUserID(){
-            return userID;
+        //// CONSTRUCTORS ////
+        public UserStatistics(){}
+        
+        public UserStatistics(String json){
+            this.json = json;
         }
         
-        public void setUserID(String userID){
-            this.userID = userID;
+        //// GETTERS ////
+        public int getId(){
+            return id;
         }
-
-	public String getJson() {
+        
+        public String getJson() {
             return json;
 	}
         
+        //// SETTERS ////
+        public void setId(int userId){
+            this.id = userId;
+        }
+
 	public void setJson(String json) {
             this.json = json;
 	}
