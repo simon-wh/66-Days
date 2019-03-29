@@ -7,4 +7,4 @@ target/classes/firebase-admin.json
 
 .idea/
 
-application.properties
+src/main/resources/application.properties
