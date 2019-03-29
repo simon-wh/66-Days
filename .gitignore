@@ -6,3 +6,5 @@ firebase-admin.json
 target/classes/firebase-admin.json
 
 .idea/
+
+application.properties
