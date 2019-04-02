@@ -22,7 +22,8 @@ class HabitOverviewState extends State<HabitOverview> {
   Widget build(context) {
     var habit = Global.habitManager.getHabit(this.widget.habitKey);
     var formatter = new DateFormat('MMM\ndd');
-    var startDate = habit.startDate;
+    var startDate = habit.startDate ?? Global.currentDate;
+    print(habit.startDate?.toString() ?? "StartDate is null");
     return new Scaffold(
         appBar:
             AppBar(title: Text(habit.title + " Overview"), actions: <Widget>[

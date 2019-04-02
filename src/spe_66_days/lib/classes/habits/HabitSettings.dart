@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:collection/collection.dart';
+import 'package:spe_66_days/classes/Global.dart';
 import 'package:quiver/core.dart';
 
 
@@ -39,6 +40,6 @@ class HabitSettings{
     habits = habits ?? <String, CoreHabit> {
       "observation": CoreHabit("Eating Observation", "Taken a photo of my meal", reminders: <NotificationConfig>[ NotificationConfig("Take a photo of your meal!", Time(14, 0), HashSet.from(<Day>[Day.Monday, Day.Tuesday, Day.Friday]), true) ]),
       "eat_slowly": CoreHabit("Eat Slowly", "Put down your cutlery after each mouthful ")
-    }..forEach((s, v) => v.key = s);
+    }..forEach((s, v) => v..key = s..startDate=Global.currentDate);
   }
 }
