@@ -1,3 +1,4 @@
+[![Codemagic build status](https://api.codemagic.io/apps/5ca3787ea5fd620010f91ce6/5ca3787ea5fd620010f91ce5/status_badge.svg)](https://codemagic.io/apps/5ca3787ea5fd620010f91ce6/5ca3787ea5fd620010f91ce5/latest_build)
 # 66-Days
 
 ## Description
