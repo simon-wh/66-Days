@@ -61,12 +61,34 @@ class CourseState extends State<CourseWidget> {
                   itemCount: entries.length,
                   itemBuilder: (context, index) {
                     CourseEntry entry = entries[index];
+                    bool current = index == 2;
+                    bool enabled = index <= 2;
                     return Card(
-                      elevation: 2.0,
+                        elevation: 2.0,
                         margin: EdgeInsets.all(5.0),
-                        child: ListTile( leading: CircleAvatar(backgroundColor: Theme.of(context).canvasColor, foregroundColor: Theme.of(context).accentColor, child:Icon(Icons.book)), title: Text(entry.title.split("-").first), subtitle: Text(entry.title.split("- ")[1]),onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
-                        })
+                        child:
+                        Container(
+                          //constraints: BoxConstraints(maxHeight: 100.0),
+                          child: Container(
+                              child: ListTile(
+                                  leading: CircleAvatar(backgroundColor: Theme.of(context).canvasColor, foregroundColor: Theme.of(context).accentColor, child: Icon(Icons.book)),
+                                  title: Text(entry.title.split("-").first),
+                                  subtitle: Text(entry.title.split("- ")[1]),
+                                  onTap: () {
+                                    if (enabled)Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
+                                  },
+                                  trailing: Icon(enabled ? Icons.arrow_forward_ios : Icons.lock))),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.centerRight,
+                              end: Alignment(0.7, 0.0),
+                              // 10% of the width, so there are ten blinds.
+                              colors: [current ? Colors.green : (enabled ? Colors.red : Colors.grey), Theme.of(context).cardColor],
+                              // whitish to gray
+                              tileMode: TileMode.clamp, // repeats the gradient over the canvas
+                            ),
+                          ),
+                        )
                     );
                   })
               ;
