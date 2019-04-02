@@ -27,6 +27,11 @@ void main() {
   });
 
   group("HabitManager habits", () {
+    test('Test init', () {
+      //habitManager.init();
+      expect(habitManager.getHabits().values.where((s) => s.startDate == Global.currentDate), equals(habitManager.getHabits().values));
+    });
+
     test('Contains habits', () {
       expect(habitManager.getHabits(), isNotNull);
     });
