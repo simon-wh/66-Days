@@ -5,13 +5,17 @@ licenses:
 - android-sdk-preview-license-.+
 - android-sdk-license-.+
 - google-gdk-license-.+
+env:
+  global:
+  - ANDROID_API_LEVEL=28
+  - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+  - ANDROID_ABI=armeabi-v7a
 android:
   components:
   - tools
   - platform-tools
-  - build-tools-28.0.3
-  - android-28
-  - android-27
+  - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+  - android-$ANDROID_API_LEVEL
   - sys-img-armeabi-v7a-google_apis-25
   - extra-android-m2repository
   - extra-google-m2repository
@@ -26,8 +30,6 @@ addons:
     - libstdc++6
     - fonts-droid
 before_script:
-- export ANDROID_SDK_ROOT="/usr/local/android-sdk"
-- export ANDROID_HOME=$ANDROID_SDK_ROOT
 - cd src/spe_66_days
 - openssl aes-256-cbc -K $encrypted_82466cab9446_key -iv $encrypted_82466cab9446_iv -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
