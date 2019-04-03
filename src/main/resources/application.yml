@@ -1,0 +1,15 @@
+
+
+
+logging:
+  path: logs
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+
+spring:
+  #  set env variable SPRING_PROFILES_ACTIVE=dev on dev machine
+  profiles.active: prod
+
+  thymeleaf:
+    cache: false
