@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
-import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
-import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
+import 'package:spe_66_days/widgets/habits/HabitListWidget.dart';
+import 'package:spe_66_days/widgets/habits/EditHabitWidget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 
 class HabitsWidget extends StatefulWidget {

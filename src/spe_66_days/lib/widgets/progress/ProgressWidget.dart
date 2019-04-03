@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/widgets/progress/progress_chart.dart';
-import 'package:spe_66_days/widgets/progress/stats_widget.dart';
-import 'streaks_chart.dart';
+import 'package:spe_66_days/widgets/progress/ProgressChart.dart';
+import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
+import 'StreaksChart.dart';
 
 class ProgressWidget extends StatefulWidget {
   final String habitKey;

@@ -3,7 +3,7 @@ import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/NotificationConfig.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
-import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
+import 'package:spe_66_days/widgets/habits/EditNotificationWidget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 
 class EditHabitWidget extends StatefulWidget {

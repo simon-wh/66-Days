@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/Global.dart';
-import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
+import 'package:spe_66_days/widgets/habits/EditNotificationWidget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'screen_navigation.dart';
+import 'ScreenNavigation.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SignInWidget extends StatefulWidget {

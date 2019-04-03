@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/widgets/progress/progress_chart.dart';
-import 'package:spe_66_days/widgets/progress/stats_widget.dart';
-import '../progress/progress_widget.dart';
+import 'package:spe_66_days/widgets/progress/ProgressChart.dart';
+import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
+import '../progress/ProgressWidget.dart';
 import 'package:spe_66_days/classes/Global.dart';
-import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
-import 'package:spe_66_days/widgets/progress/streaks_chart.dart';
+import 'package:spe_66_days/widgets/habits/EditHabitWidget.dart';
+import 'package:spe_66_days/widgets/progress/StreaksChart.dart';
 import 'package:intl/intl.dart';
 
 class HabitOverview extends StatefulWidget {

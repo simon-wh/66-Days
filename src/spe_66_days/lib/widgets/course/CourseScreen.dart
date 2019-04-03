@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/course/CourseEntry.dart';
 import 'package:spe_66_days/classes/Global.dart';
-import 'course_entry_widget.dart';
+import 'CourseEntryWidget.dart';
 
 class CourseWidget extends StatefulWidget {
   final bool compact;

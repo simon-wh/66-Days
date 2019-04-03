@@ -6,10 +6,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:spe_66_days/widgets/progress/progress_chart.dart';
-import 'package:spe_66_days/widgets/progress/streaks_chart.dart';
-import 'package:spe_66_days/widgets/course/course_screen.dart';
-import 'package:spe_66_days/widgets/habits/habit_list_widget.dart';
+import 'package:spe_66_days/widgets/progress/ProgressChart.dart';
+import 'package:spe_66_days/widgets/progress/StreaksChart.dart';
+import 'package:spe_66_days/widgets/course/CourseScreen.dart';
+import 'package:spe_66_days/widgets/habits/HabitListWidget.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/Global.dart';
 

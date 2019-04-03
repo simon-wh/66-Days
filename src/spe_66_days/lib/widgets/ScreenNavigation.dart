@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/widgets/progress/progress_widget.dart';
-import 'package:spe_66_days/widgets/habits/habits_widget.dart';
-import 'package:spe_66_days/widgets/home/home_widget.dart';
-import 'package:spe_66_days/widgets/course/course_screen.dart';
-import 'package:spe_66_days/widgets/settings/settings_screen.dart';
+import 'package:spe_66_days/widgets/progress/ProgressWidget.dart';
+import 'package:spe_66_days/widgets/habits/HabitWidget.dart';
+import 'package:spe_66_days/widgets/home/HomeWidget.dart';
+import 'package:spe_66_days/widgets/course/CourseScreen.dart';
+import 'package:spe_66_days/widgets/settings/SettingsScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spe_66_days/classes/Global.dart';
 

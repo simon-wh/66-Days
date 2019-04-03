@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/widgets/progress/stats.dart';
+import 'package:spe_66_days/widgets/progress/Stats.dart';
 import 'dart:collection';
 import 'dart:math';
 import 'package:spe_66_days/classes/Global.dart';

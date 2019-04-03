@@ -1,4 +1,4 @@
-import 'package:spe_66_days/widgets/progress/stats_widget.dart';
+import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
 import 'dart:collection';
 import 'package:flutter_test/flutter_test.dart';
 

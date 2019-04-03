@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
-import 'package:spe_66_days/widgets/habits/edit_habit_widget.dart';
+import 'package:spe_66_days/widgets/habits/EditHabitWidget.dart';
 import 'package:spe_66_days/classes/Global.dart';
-import 'package:spe_66_days/widgets/habits/habit_overview.dart';
+import 'package:spe_66_days/widgets/habits/HabitOverview.dart';
 
 enum mode { Compact, Minimal, Standard }
 

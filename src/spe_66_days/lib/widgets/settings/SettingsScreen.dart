@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/Global.dart';
-import 'package:spe_66_days/widgets/habits/edit_notification_widget.dart';
+import 'package:spe_66_days/widgets/habits/EditNotificationWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 

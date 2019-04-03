@@ -7,8 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/main.dart';
-import 'package:spe_66_days/widgets/habits/habits_widget.dart';
-import 'package:spe_66_days/widgets/habits/habit_overview.dart';
+import 'package:spe_66_days/widgets/habits/HabitWidget.dart';
+import 'package:spe_66_days/widgets/habits/HabitOverview.dart';
 
 
 

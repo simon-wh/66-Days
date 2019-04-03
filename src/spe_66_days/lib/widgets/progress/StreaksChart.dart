@@ -1,6 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'stats_widget.dart';
+import 'StatsWidget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:intl/intl.dart';
 import 'dart:collection';

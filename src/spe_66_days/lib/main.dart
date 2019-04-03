@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/widgets/screen_navigation.dart';
+import 'package:spe_66_days/widgets/ScreenNavigation.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/widgets/SignIn.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
