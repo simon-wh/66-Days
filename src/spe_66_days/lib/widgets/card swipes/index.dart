@@ -2,14 +2,15 @@ import 'dart:async';
 import 'package:spe_66_days/widgets/card swipes/habitCard.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:flutter/material.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
-class CardDemo extends StatefulWidget {
+class CardSwipes extends StatefulWidget {
   @override
-  CardDemoState createState() => new CardDemoState();
+  CardSwipesState createState() => new CardSwipesState();
 }
 
-class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
+class CardSwipesState extends State<CardSwipes> with TickerProviderStateMixin {
   AnimationController _buttonController;
   Animation<double> rotate;
   Animation<double> right;
@@ -17,9 +18,13 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   Animation<double> width;
   int flag = 0;
 
-  List data = Global.habitManager.getHabits().values.toList();
+  var date = Global.currentDate;
+  List uncheckedHabits;
+
+
   void initState() {
     super.initState();
+    uncheckedHabits = Global.habitManager.getHabits().values.where((h)=> !h.markedOff.contains(date)).toList();
     _buttonController = new AnimationController(
         duration: new Duration(milliseconds: 1000), vsync: this);
 
@@ -35,8 +40,8 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     rotate.addListener(() {
       setState(() {
         if (rotate.isCompleted) {
-          var i = data.removeLast();
-          data.insert(0, i);
+          var i = uncheckedHabits.removeLast();
+          uncheckedHabits.insert(0, i);
 
           _buttonController.reset();
         }
@@ -84,44 +89,43 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     } on TickerCanceled {}
   }
 
-  swipeRight() {
-    if (flag == 0)
-      setState(() {
-        flag = 1;
-      });
-    _swipeAnimation();
+  dismissHabit(CoreHabit habit) {
+    setState(() {
+      Global.habitManager.uncheckHabit(habit.key, date:date);
+      uncheckedHabits.remove(habit);
+    });
   }
 
-  swipeLeft() {
-    if (flag == 1)
-      setState(() {
-        flag = 0;
-      });
-    _swipeAnimation();
+  completeHabit(CoreHabit habit) {
+    setState(() {
+      Global.habitManager.setCheckHabit(habit.key, true, date:date);
+      uncheckedHabits.remove(habit);
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
     timeDilation = 0.4;
+    var datalength = uncheckedHabits.length;
 
-    var dataLength = data.length;
-
-    return dataLength > 0
-              ? new Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: data.map((item) {
-                      return cardDemo(
-                          item,
-                          bottom.value,
-                          right.value,
-                          0.0,
-                          rotate.value,
-                          rotate.value < -10 ? 0.1 : 0.0,
-                          context,
-                          flag,
-                          swipeRight,
-                          swipeLeft);
-                  }).toList())
-              : new Text("No Habits Left", style: new TextStyle(color: Colors.white, fontSize: 50.0));
+    return datalength > 0 ? Container(
+      color: Color.fromARGB(150, 0, 0, 0),
+      child: new Stack(
+          alignment: AlignmentDirectional.center,
+          children: uncheckedHabits.map((item) {
+            return swipeCard(
+                item,
+                bottom.value - (10 * uncheckedHabits.indexOf(item)),
+                right.value,
+                0.0,
+                rotate.value,
+                rotate.value < -10 ? 0.1 : 0.0,
+                context,
+                flag,
+                dismissHabit,
+                completeHabit);
+          }).toList())
+    ) : Container();
   }
 }

@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 
-Positioned cardDemo(
+Positioned swipeCard(
     CoreHabit habit,
     double bottom,
     double right,
@@ -12,19 +10,23 @@ Positioned cardDemo(
     double skew,
     BuildContext context,
     int flag,
-    Function swipeRight,
-    Function swipeLeft) {
+    Function dismissHabit,
+    Function completeHabit)
+{
   Size screenSize = MediaQuery.of(context).size;
+
   return new Positioned(
     bottom: 100.0 + bottom,
     right: flag == 0 ? right != 0.0 ? right : null : null,
     left: flag == 1 ? right != 0.0 ? right : null : null,
     child: new Dismissible(
-      key: new Key(new Random().toString()),
+      key: Key(habit.experimentTitle),
       crossAxisEndOffset: -0.3,
-      onResize: () {
-      },
       onDismissed: (DismissDirection direction) {
+        if (direction == DismissDirection.endToStart)
+          dismissHabit(habit);
+        else
+          completeHabit(habit);
       },
       child: new Transform(
         alignment: flag == 0 ? Alignment.bottomRight : Alignment.bottomLeft,
@@ -32,77 +34,58 @@ Positioned cardDemo(
         child: new RotationTransition(
           turns: new AlwaysStoppedAnimation(
               flag == 0 ? rotation / 360 : -rotation / 360),
-          child: new Hero(
-            tag: "card",
-            child: new GestureDetector(
-              onTap: () {
-              },
               child: new Card(
                 elevation: 4.0,
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Color.fromARGB(75, 0, 0, 0)),
+                    borderRadius: BorderRadius.circular(10.0),
+                ),
                 child: new Container(
                   alignment: Alignment.center,
                   width: screenSize.width / 1.3,
                   height: screenSize.height / 1.8,
-                  child: new Column(
+                  child: new Stack(
                     children: <Widget>[
-                      new Container(
-                          width: screenSize.width / 1.3,
-                          height: screenSize.height / 2.8,
+                      new Align(
+                        child: Text("${habit.title}", softWrap: true,
+                            style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center),
+                        alignment: Alignment(0, -0.9),
+                      ),
+                      new Align(
                           alignment: Alignment.center,
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text("${habit.experimentTitle}"),
-                            ])),
-                      new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new FlatButton(
-                              padding: new EdgeInsets.all(0.0),
-                              onPressed: () {
-                                swipeLeft();
-                              },
-                              child: new Container(
-                                height: 60.0,
-                                width: 130.0,
-                                alignment: Alignment.center,
-                                decoration: new BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius:
-                                  new BorderRadius.circular(60.0),
-                                ),
-                                child: new Text(
-                                  "NOT DONE",
-                                  style: new TextStyle(color: Colors.white),
-                                ),
-                              )),
-                          new FlatButton(
-                              padding: new EdgeInsets.all(0.0),
-                              onPressed: () {
-                                swipeRight();
-                              },
-                              child: new Container(
-                                height: 60.0,
-                                width: 130.0,
-                                alignment: Alignment.center,
-                                decoration: new BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius:
-                                  new BorderRadius.circular(60.0),
-                                ),
-                                child: new Text(
-                                  "DONE",
-                                  style: new TextStyle(color: Colors.white),
-                                ),
-                              ))
-                        ],
+                          child:
+                          Container(width: screenSize.width /1.5,
+                              child: Text("${habit.experimentTitle}",
+                                  softWrap: true,
+                                  style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center)),
+                      ),
+                      new Align(
+                        alignment: Alignment(0, 0.7),
+                        child: Container(
+                            child: Text("Swipe to", style: TextStyle(fontSize: 15.0))
+                        )
+                      ),
+                      new Align(
+                          alignment: Alignment(0, 0.9),
+                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Column(mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Icon(Icons.arrow_back, color: Colors.grey),
+                                      Text(" DISMISS", style: TextStyle(color: Colors.grey))
+                                    ]),
+                                Column(mainAxisSize: MainAxisSize.min,  children: <Widget>[
+                                  Icon(Icons.arrow_forward, color: Colors.green),
+                                  Text("COMPLETE", style: TextStyle(color: Colors.green))
+                                ])
+                              ])
                       )
                     ],
                   ),
                 ),
               ),
-            ),
-          ),
         ),
       ),
     ),
