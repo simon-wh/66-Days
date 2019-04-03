@@ -6,6 +6,7 @@ packages\repositories\WhitelistRepository.class
 packages\configuration\ThymeleafConfig.class
 packages\tables\WhitelistMember.class
 packages\configuration\MvcConfig.class
+packages\comparators\WeekNumberComparer.class
 packages\controllers\WebAPIController.class
 packages\Application.class
 packages\repositories\CourseContentRepository.class

@@ -14,20 +14,28 @@ public class UserStatistics {
         @GeneratedValue(strategy=GenerationType.AUTO)
         private Integer id;
         
+        @Column
+        private String userId;
+        
         @Lob 
-        @Column(name="description", length=2048)
+        @Column(name="json", length=2048)
         private String json;
         
         //// CONSTRUCTORS ////
         public UserStatistics(){}
         
-        public UserStatistics(String json){
+        public UserStatistics(String userId, String json){
+            this.userId = userId;
             this.json = json;
         }
         
         //// GETTERS ////
-        public int getId(){
+        public Integer getId(){
             return id;
+        }
+        
+        public String getUserId(){
+            return userId;
         }
         
         public String getJson() {
@@ -35,8 +43,12 @@ public class UserStatistics {
 	}
         
         //// SETTERS ////
-        public void setId(int userId){
-            this.id = userId;
+        public void setId(Integer id){
+            this.id = id;
+        }
+        
+        public void setUserId(String userId){
+            this.userId = userId;
         }
 
 	public void setJson(String json) {

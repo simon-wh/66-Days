@@ -76,7 +76,7 @@ public class MobileAPIController {
             return null;
         }
         
-        /*
+        
         
         // ### CREATE A RECORD FOR NEW USER'S STATISTICS ### //
         @RequestMapping(value = "/new-user-statistics-record", method = RequestMethod.POST, consumes = "application/json")
@@ -91,9 +91,7 @@ public class MobileAPIController {
             }
                     
             //3 - Create a new UserStatistics entry for the database.
-            UserStatistics u = new UserStatistics();
-            u.setUserID(userId);
-            u.setJson("{}");
+            UserStatistics u = new UserStatistics(userId, "[]");
             
             //4 - Save the entry into the database.
             userStatisticsRepo.save(u);
@@ -108,37 +106,30 @@ public class MobileAPIController {
         public String updateUserStatistics(@RequestParam String json, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             
             //1 - Get the user id from the request.
-            String userID = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
+            String userId = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
             
             //2 - If the user id is null, decline the request.
-            if (userID == null){
+            if (userId == null){
                 return "unauthorized";
             }
             
-            //3 - Find the userStatistics entry in the database.
-            Optional<UserStatistics> optionalUserStatistics = userStatisticsRepos.findById(userID);
-            UserStatistics userStatistics;
+            boolean userFound = false;
             
-            if(optionalUserStatistics.isPresent()){
-                userStatistics = optionalUserStatistics.get();
-            } else {
-                return "user not found in database";
+            Iterable<UserStatistics> allUsers = userStatisticsRepo.findAll();
+            for (UserStatistics user : allUsers){
+                if (user.getUserId() == userId){
+                    user.setJson(json);
+                    userStatisticsRepo.save(user);
+                    userFound = true;
+                    
+                }
             }
 
-            //4 - Delete the old userStatistics entry that was stored in the database.
-            userStatisticsRepo.delete(userStatistics);
-            
-            //5 - Create a new userStatistics entry, with updated json.
-            UserStatistics u = new UserStatistics();
-            u.setUserID(userID);
-            u.setJson(json);
-            
-            //6 - Save the entry into the database.
-            userStatisticsRepo.save(u);
-            
-            //7 - Respond with confirmation.
-            return "success";
-        }*/ 
+            if (userFound)
+                return "success";
+            else 
+                return "user not found";
+        }
         
         //Code sourced from... https://thepro.io/post/firebase-authentication-for-spring-boot-rest-api/
         private String getUserIdFromIdToken(String idToken) throws Exception {
