@@ -70,13 +70,17 @@ class ProgressChart extends StatelessWidget {
     return _getHabitData(habit.markedOff);
   }
 
+
+
   List<MapEntry<DateTime, int>> _getHabitData(HashSet<DateTime> markedOff) {
     DateTime _currentDate = Global.currentDate;
     Map<DateTime, int> dates = <DateTime, int>{
       _currentDate : 0
     };
     DateTime earliest = _currentDate;
-    markedOff.forEach((date) {
+    markedOff.forEach((ddate) {
+        DateTime date = Global.stripTime(ddate);
+
         //Keep track of the earliest marked off date
         if (earliest.isAfter(date))
           earliest = date;
@@ -84,11 +88,11 @@ class ProgressChart extends StatelessWidget {
       });
 
     //Start a day after the earliest as we know that earliest is already present
-    DateTime addDate = earliest.add(Duration(days: 1));
+    DateTime addDate = Global.stripTime(earliest.add(Duration(days: 1)));
     //Add entries for every day between the current date and the earliest
     while (_currentDate.isAfter(addDate)){
       dates.update(addDate, (val) => val, ifAbsent: () => 0);
-      addDate = addDate.add(Duration(days: 1));
+      addDate = Global.stripTime(addDate.add(Duration(days: 1)));
     }
 
     var entries = dates.entries.toList();
@@ -106,9 +110,10 @@ class ProgressChart extends StatelessWidget {
     Map<DateTime, int> dates = <DateTime, int>{
       _currentDate : 0
     };
-    DateTime earliest = _currentDate;
+    DateTime earliest = (_currentDate);
     Global.habitManager.getHabits().forEach((key, value){
-      value.markedOff.forEach((date) {
+      value.markedOff.forEach((ddate) {
+        DateTime date = (ddate);
         //Keep track of the earliest marked off date
         if (earliest.isAfter(date))
           earliest = date;
@@ -117,11 +122,11 @@ class ProgressChart extends StatelessWidget {
     });
 
     //Start a day after the earliest as we know that earliest is already present
-    DateTime addDate = earliest.add(Duration(days: 1));
+    DateTime addDate = (earliest.add(Duration(days: 1)));
     //Add entries for every day between the current date and the earliest
     while (_currentDate.isAfter(addDate)){
       dates.update(addDate, (val) => val, ifAbsent: () => 0);
-      addDate = addDate.add(Duration(days: 1));
+      addDate = (addDate.add(Duration(days: 1)));
     }
 
     var entries = dates.entries.toList();

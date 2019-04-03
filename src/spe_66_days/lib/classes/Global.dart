@@ -14,7 +14,7 @@ import 'package:spe_66_days/widgets/habits/HabitOverview.dart';
 
 class Global extends SettingsBase<GlobalSettings> {
   final FlutterLocalNotificationsPlugin notificationsPlugin = new FlutterLocalNotificationsPlugin();
-  static DateTime get currentDate => DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  static DateTime get currentDate => DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   static final Global instance = Global._internal();
 
   static final HabitManager habitManager = HabitManager();
@@ -88,6 +88,9 @@ class Global extends SettingsBase<GlobalSettings> {
     print("signed in " + user.displayName);
     return user;
   }*/
+  static DateTime stripTime(DateTime date){
+    return DateTime.utc(date.year, date.month, date.day);
+  }
 
   @override
   GlobalSettings getSettingsFromJson(Map<String, dynamic> json) => GlobalSettings.fromJson(json);

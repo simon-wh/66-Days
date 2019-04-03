@@ -5,6 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:quiver/core.dart';
 import 'package:collection/collection.dart';
 import 'dart:convert';
+import 'package:spe_66_days/classes/Global.dart';
 
 
 part 'package:spe_66_days/classes/habits/CoreHabit.g.dart';

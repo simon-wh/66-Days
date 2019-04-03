@@ -28,7 +28,8 @@ class HabitSettings{
   factory HabitSettings.fromJson(Map<String, dynamic> json) => _$HabitSettingsFromJson(json)..habits.forEach((s,v) {
     v.key = s;
     var dates = (v.markedOff.toList()..sort());
-    v.startDate = v.startDate ?? (dates.length > 0 ? dates.first : null);
+    v.startDate = v.startDate ?? Global.currentDate;
+    v.startDate = dates.length > 0 && dates.first.isBefore(v.startDate) ? dates.first : v.startDate;
   });
 
   /// `toJson` is the convention for a class to declare support for serialization

@@ -55,7 +55,7 @@ class HabitOverviewState extends State<HabitOverview> {
           Container(
               margin: EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
               height: 100,
-              child: ListView.builder(reverse:false, scrollDirection: Axis.horizontal,itemCount: Global.currentDate.difference(startDate).inDays,  itemBuilder: (context, i){
+              child: ListView.builder(reverse:true, scrollDirection: Axis.horizontal,itemCount: Global.currentDate.difference(startDate).inDays+1,  itemBuilder: (context, i){
                 var date = Global.currentDate.add(Duration(days: -i));
                 return Card(child: Column(children: <Widget>[
                     Container(padding: EdgeInsets.only(top:5.0, left:5.0, right: 5.0), child: Text(formatter.format(date), textAlign: TextAlign.center,)),
