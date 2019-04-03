@@ -9,3 +9,4 @@ target/classes/firebase-admin.json
 
 application.properties
 application1.properties
+*.properties
