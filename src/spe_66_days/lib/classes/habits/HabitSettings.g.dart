@@ -15,3 +15,6 @@ HabitSettings _$HabitSettingsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$HabitSettingsToJson(HabitSettings instance) =>
     <String, dynamic>{'habits': instance.habits};
+
+
+

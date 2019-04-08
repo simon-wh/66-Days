@@ -6,6 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'dart:convert';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:collection/collection.dart';
+
 
 void main() {
   var habitManager = Global.habitManager;
@@ -23,6 +25,28 @@ void main() {
       expect(habitManager.getJson(), equals(json.encode(
           habitManager.getSettingsFromJson(
               json.decode(habitManager.getJson())))));
+    });
+  });
+
+  group("HabitManager Stats JSON", () {
+    test('Encode', () {
+      HabitSettings settings = HabitSettings();
+      settings.habits.forEach((s, habit) {
+        habit.startDate = Global.currentDate.add(Duration(days:-10));
+        habit.markedOff.addAll(List.generate(5, (i)=> habit.startDate.add(Duration(days:i*2))));
+      });
+      List<Map<String, dynamic>> data = settings.toStatsJson();
+      expect(data, hasLength(settings.habits.length));
+      expect(data.every((elem) {
+        CoreHabit habit = settings.habits[elem['habitKey']];
+        var check = (elem['daysChecked'] as List<int>);
+        return habit != null
+            && DateTime.parse(elem['dateStarted'] as String).isAtSameMomentAs(habit.startDate)
+            && check.length == 10
+            && check.every((e) => e == 1 || e == 0)
+            && ListEquality().equals(List.generate(10, (i) => i % 2 == 0 ? 1 : 0), check);
+      }), isTrue);
+
     });
   });
 
