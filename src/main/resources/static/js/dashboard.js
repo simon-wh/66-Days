@@ -6,7 +6,7 @@ function requestEngagementChartData(){
   let year = document.getElementById('yearInput').value;
   let month = document.getElementById('monthInput').value;
   
-  let requestURL = "http://localhost:8080/web-api/get-engagement/" + year + "/" + month;
+  let requestURL = location.origin + "/web-api/get-engagement/" + year + "/" + month;
   
   
   //https://www.w3schools.com/xml/tryit.asp?filename=tryajax_get
