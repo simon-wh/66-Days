@@ -15,3 +15,4 @@ src/main/resources/application.yml
 *.yml
 
 *.properties
+logs/spring.log

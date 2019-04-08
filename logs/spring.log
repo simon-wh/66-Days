@@ -1054,3 +1054,110 @@ Caused by: java.sql.SQLException: Access denied for user 'springuser'@'localhost
 	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:43) ~[hibernate-core-5.3.7.Final.jar:5.3.7.Final]
 	... 40 common frames omitted
 
+2019-04-03 13:05:27.155  INFO 11500 --- [restartedMain] packages.Application                     : Starting Application on DESKTOP-TERSA9C with PID 11500 (C:\Users\jhanc\Documents\GitHub\66-Days\target\classes started by jhanc in C:\Users\jhanc\Documents\GitHub\66-Days)
+2019-04-03 13:05:27.170  INFO 11500 --- [restartedMain] packages.Application                     : The following profiles are active: prod
+2019-04-03 13:05:27.233  INFO 11500 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-04-03 13:05:27.233  INFO 11500 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-04-03 13:05:28.545  INFO 11500 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-04-03 13:05:28.654  INFO 11500 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 93ms. Found 3 repository interfaces.
+2019-04-03 13:05:29.248  INFO 11500 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$eb8dd7b5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-03 13:05:31.107  INFO 11500 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-04-03 13:05:31.138  INFO 11500 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-04-03 13:05:31.138  INFO 11500 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-04-03 13:05:31.154  INFO 11500 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_161\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk1.8.0_161\bin;C:\tools\ruby23\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\Git\cmd;;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Brackets\command;C:\Users\jhanc\AppData\Local\Microsoft\WindowsApps;C:\opencv\build\bin\Release;C:\Users\jhanc\Desktop\ffff\bin;C:\Users\jhanc\AppData\Roaming\npm;C:\Users\jhanc\AppData\Local\Programs\Python\Python35-32\;C:\Users\jhanc\AppData\Local\Programs\Python\Python35-32\Scripts\;C:\Python27;C:\Users\jhanc\Documents\chromedriver.exe;C:\Users\jhanc\AppData\Local\GitHubDesktop\bin;.]
+2019-04-03 13:05:31.435  INFO 11500 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-04-03 13:05:31.451 DEBUG 11500 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2019-04-03 13:05:31.451  INFO 11500 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4218 ms
+2019-04-03 13:05:31.497  INFO 11500 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-04-03 13:05:31.497  INFO 11500 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-04-03 13:05:31.497  INFO 11500 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-04-03 13:05:31.497  INFO 11500 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-04-03 13:05:31.497  INFO 11500 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-04-03 13:05:31.497  INFO 11500 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-04-03 13:05:31.716  INFO 11500 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-04-03 13:05:31.732  WARN 11500 --- [restartedMain] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2019-04-03 13:05:32.482  INFO 11500 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-04-03 13:05:32.560  INFO 11500 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-04-03 13:05:32.779  INFO 11500 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-04-03 13:05:32.779  INFO 11500 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-04-03 13:05:33.075  INFO 11500 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-04-03 13:05:33.325  INFO 11500 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-04-03 13:05:34.856  INFO 11500 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-04-03 13:05:34.872  INFO 11500 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-04-03 13:05:35.684  WARN 11500 --- [restartedMain] o.s.security.core.userdetails.User       : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+2019-04-03 13:05:35.981  INFO 11500 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ae5bd6, org.springframework.security.web.context.SecurityContextPersistenceFilter@16d11df7, org.springframework.security.web.header.HeaderWriterFilter@9e6cf01, org.springframework.security.web.csrf.CsrfFilter@37b5082a, org.springframework.security.web.authentication.logout.LogoutFilter@325b097b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1fe2d477, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@26d55bb6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@69216ed8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@44ffe14b, org.springframework.security.web.session.SessionManagementFilter@389f2e13, org.springframework.security.web.access.ExceptionTranslationFilter@2442b46d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1fc683e4]
+2019-04-03 13:05:36.044 DEBUG 11500 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2019-04-03 13:05:36.215  INFO 11500 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-04-03 13:05:36.231 DEBUG 11500 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1, ResponseBodyAdvice
+2019-04-03 13:05:36.262  WARN 11500 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-04-03 13:05:36.309 DEBUG 11500 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 19 mappings in 'requestMappingHandlerMapping'
+2019-04-03 13:05:36.325 DEBUG 11500 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/, /index, /login, /legal, /course-editor, /dashboard, /whitelist] in 'viewControllerHandlerMapping'
+2019-04-03 13:05:36.340 DEBUG 11500 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2019-04-03 13:05:36.340 DEBUG 11500 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2019-04-03 13:05:36.450  INFO 11500 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-04-03 13:05:36.731  INFO 11500 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-04-03 13:05:36.731  INFO 11500 --- [restartedMain] packages.Application                     : Started Application in 10.373 seconds (JVM running for 11.188)
+2019-04-03 13:05:45.029  INFO 11500 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-04-03 13:05:45.029  INFO 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-04-03 13:05:45.045 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2019-04-03 13:05:45.045 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2019-04-03 13:05:45.060  INFO 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
+2019-04-03 13:05:45.091 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/", parameters={}
+2019-04-03 13:05:45.107 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ParameterizableViewController [view="index"]
+2019-04-03 13:05:45.123 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2019-04-03 13:05:45.763 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:46.123 DEBUG 11500 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/login", parameters={}
+2019-04-03 13:05:46.123 DEBUG 11500 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ParameterizableViewController [view="login"]
+2019-04-03 13:05:46.138 DEBUG 11500 --- [http-nio-8080-exec-3] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/webp, */*]
+2019-04-03 13:05:46.221 DEBUG 11500 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:47.206 DEBUG 11500 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/login", parameters={}
+2019-04-03 13:05:47.221 DEBUG 11500 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ParameterizableViewController [view="login"]
+2019-04-03 13:05:47.221 DEBUG 11500 --- [http-nio-8080-exec-4] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2019-04-03 13:05:47.237 DEBUG 11500 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:49.783 DEBUG 11500 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/", parameters={}
+2019-04-03 13:05:49.783 DEBUG 11500 --- [http-nio-8080-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ParameterizableViewController [view="index"]
+2019-04-03 13:05:49.783 DEBUG 11500 --- [http-nio-8080-exec-6] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2019-04-03 13:05:49.799 DEBUG 11500 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:49.924 DEBUG 11500 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/login", parameters={}
+2019-04-03 13:05:49.924 DEBUG 11500 --- [http-nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ParameterizableViewController [view="login"]
+2019-04-03 13:05:49.924 DEBUG 11500 --- [http-nio-8080-exec-7] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/webp, */*]
+2019-04-03 13:05:49.955 DEBUG 11500 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:51.158 DEBUG 11500 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/dashboard", parameters={}
+2019-04-03 13:05:51.173 DEBUG 11500 --- [http-nio-8080-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ParameterizableViewController [view="dashboard"]
+2019-04-03 13:05:51.173 DEBUG 11500 --- [http-nio-8080-exec-8] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2019-04-03 13:05:51.189 DEBUG 11500 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:51.267 DEBUG 11500 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/js/dashboard.js", parameters={}
+2019-04-03 13:05:51.267 DEBUG 11500 --- [http-nio-8080-exec-9] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2019-04-03 13:05:51.314 DEBUG 11500 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:52.517 DEBUG 11500 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/web-api/get-engagement/2019/01", parameters={}
+2019-04-03 13:05:52.517 DEBUG 11500 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to public java.util.ArrayList<java.lang.Float> packages.controllers.WebAPIController.getUserEngagementFromMonth(java.lang.Integer,java.lang.Integer)
+2019-04-03 13:05:52.611  INFO 11500 --- [http-nio-8080-exec-10] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-04-03 13:05:52.892 DEBUG 11500 --- [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2019-04-03 13:05:52.892 DEBUG 11500 --- [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing [[1.0, 1.0, 1.0, 0.6666667, 0.33333334, 0.6666667, 0.33333334, 1.6666666, 1.6666666, 1.6666666, 1.3333334, 1.3333334, 1.6666666, 0.6666667, 3.0, 2.5, 1.5, 2.0, 1.5, 2.5, 1.5, 3.0, 1.0, 2.0, 0.0, 2.0, 3.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]
+2019-04-03 13:05:52.923 DEBUG 11500 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:05:58.423 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/whitelist", parameters={}
+2019-04-03 13:05:58.423 DEBUG 11500 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to public java.lang.String packages.controllers.whitelistController.whitelist(org.springframework.ui.Model)
+2019-04-03 13:05:58.453 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2019-04-03 13:05:58.485 DEBUG 11500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:06:00.328 DEBUG 11500 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/course-editor", parameters={}
+2019-04-03 13:06:00.328 DEBUG 11500 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to public org.springframework.web.servlet.ModelAndView packages.controllers.courseEditorController.courseEditor()
+2019-04-03 13:06:00.344 DEBUG 11500 --- [http-nio-8080-exec-2] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2019-04-03 13:06:00.390 DEBUG 11500 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:06:00.437 DEBUG 11500 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/css/course-editor.css", parameters={}
+2019-04-03 13:06:00.453 DEBUG 11500 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2019-04-03 13:06:00.453 DEBUG 11500 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/js/course-editor.js", parameters={}
+2019-04-03 13:06:00.453 DEBUG 11500 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2019-04-03 13:06:00.484 DEBUG 11500 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:06:00.500 DEBUG 11500 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:06:02.109 DEBUG 11500 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/course-editor/3", parameters={}
+2019-04-03 13:06:02.109 DEBUG 11500 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to public org.springframework.web.servlet.ModelAndView packages.controllers.courseEditorController.editWeek(java.lang.Integer)
+2019-04-03 13:06:02.140 DEBUG 11500 --- [http-nio-8080-exec-5] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8]
+2019-04-03 13:06:02.171 DEBUG 11500 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:06:02.234 DEBUG 11500 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/js/course-editor.js", parameters={}
+2019-04-03 13:06:02.234 DEBUG 11500 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/css/course-editor.css", parameters={}
+2019-04-03 13:06:02.249 DEBUG 11500 --- [http-nio-8080-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2019-04-03 13:06:02.249 DEBUG 11500 --- [http-nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2019-04-03 13:06:02.249 DEBUG 11500 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2019-04-03 13:06:02.249 DEBUG 11500 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
