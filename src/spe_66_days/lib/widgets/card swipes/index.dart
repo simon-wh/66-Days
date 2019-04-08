@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:spe_66_days/widgets/card swipes/HabitCard.dart';
+import 'package:spe_66_days/widgets/card swipes/habitCard.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
