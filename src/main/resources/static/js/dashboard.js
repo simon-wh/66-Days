@@ -22,8 +22,7 @@ function requestEngagementChartData(){
   
 }
 
-function loadEngagementChart(engagementValues, year, month){
-  
+function loadEngagementChart(engagementValues, message){
   let daysInChart = -1;
   //Find the last non-zero element in engagementValues.
   for (let i = 69; i > 0; i--){
@@ -46,7 +45,7 @@ function loadEngagementChart(engagementValues, year, month){
     data: {
       labels: dayNumbers,
       datasets: [{
-        label: "Engagement with 66 Days " + month + "/" + year,
+        label: message,
         backgroundColor: 'rgba(92,184,92, 0.5)',
         borderColor: 'rgba(92,184,92,1)',
         data: dayScores
@@ -78,6 +77,16 @@ function loadEngagementChart(engagementValues, year, month){
       }
     }
   });
+}
+
+function loadWeeklyEngagementChart(engagementValues, year, month, weekOfMonth){
+  let message = "Engagement with 66 Days for week " + weekOfMonth + " of " + month + "/" + year;
+  loadEngagementChart(engagementValues, message);
+}
+
+function loadMonthlyEngagementChart(engagementValues, year, month){
+  let message = "Engagement with 66 Days " + month + "/" + year;
+  loadEngagementChart(engagementValues, message);
 }
 
 function loadDefaultChart(){    

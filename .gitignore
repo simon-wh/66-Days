@@ -16,3 +16,5 @@ src/main/resources/application.yml
 
 *.properties
 logs/spring.log
+*.log
+logs/spring.log.2019-04-08.0.gz
