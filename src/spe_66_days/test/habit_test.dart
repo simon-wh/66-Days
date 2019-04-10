@@ -28,7 +28,23 @@ void main() {
     });
   });
 
+
+
   group("HabitManager Stats JSON", () {
+    var testData = (settings, data){
+
+      expect(data, hasLength(settings.habits.length));
+      expect(data.every((elem) {
+        CoreHabit habit = settings.habits[elem['habitKey']];
+        List<int> check = (elem['daysChecked'] as List<dynamic>).cast();
+        return habit != null
+            && DateTime.parse(elem['dateStarted'] as String).isAtSameMomentAs(habit.startDate)
+            && check.length == 10
+            && check.every((e) => e == 1 || e == 0)
+            && ListEquality().equals(List.generate(10, (i) => i % 2 == 0 ? 1 : 0), check);
+      }), isTrue);
+    };
+
     test('Encode', () {
       HabitSettings settings = HabitSettings();
       settings.habits.forEach((s, habit) {
@@ -36,17 +52,11 @@ void main() {
         habit.markedOff.addAll(List.generate(5, (i)=> habit.startDate.add(Duration(days:i*2))));
       });
       List<Map<String, dynamic>> data = settings.toStatsJson();
-      expect(data, hasLength(settings.habits.length));
-      expect(data.every((elem) {
-        CoreHabit habit = settings.habits[elem['habitKey']];
-        var check = (elem['daysChecked'] as List<int>);
-        return habit != null
-            && DateTime.parse(elem['dateStarted'] as String).isAtSameMomentAs(habit.startDate)
-            && check.length == 10
-            && check.every((e) => e == 1 || e == 0)
-            && ListEquality().equals(List.generate(10, (i) => i % 2 == 0 ? 1 : 0), check);
-      }), isTrue);
+      testData(settings, data);
+      data = (json.decode(json.encode(data))as List<dynamic>).cast();
+      testData(settings, data);
 
+      print(json.encode(data));
     });
   });
 
