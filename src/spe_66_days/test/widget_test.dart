@@ -15,10 +15,13 @@ import 'package:spe_66_days/classes/Global.dart';
 
 import 'package:spe_66_days/main.dart';
 
-void main() {
+void main() async {
+  await Global.instance.init(test: true);
   testWidgets('Initialisation is correct', (WidgetTester tester) async {
     //Build app
     await tester.pumpWidget(new StartApp(signIn: false));
+
+    await tester.pump(Duration(seconds: 3));
 
     // Verify that navigation screen is correctly set up
     expect(find.text('66  DAYS'), findsOneWidget);

@@ -6,10 +6,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:collection';
 import 'dart:convert';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:collection/collection.dart';
 
 
-void main() {
+void main() async {
+  await Global.instance.init(test: true);
   var habitManager = Global.habitManager;
 
   group("HabitManager JSON", () {
@@ -56,7 +58,6 @@ void main() {
       data = (json.decode(json.encode(data))as List<dynamic>).cast();
       testData(settings, data);
 
-      print(json.encode(data));
     });
   });
 

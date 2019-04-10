@@ -22,7 +22,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
 
   EventBus eventBus = new EventBus();
 
-  HabitManager() : super("habit_manager.json", HabitSettings());
+  HabitManager(String subDir) : super(subDir, "habit_manager.json", HabitSettings());
 
   bool initialised = false;
 

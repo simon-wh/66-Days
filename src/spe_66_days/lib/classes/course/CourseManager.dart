@@ -16,7 +16,7 @@ class CourseManager extends SettingsBase<CourseSettings> {
 
   List<CourseEntry> courseWeeks;
 
-  CourseManager() : super("course_manager.json", CourseSettings());
+  CourseManager(String subDir) : super(subDir, "course_manager.json", CourseSettings());
 
   bool initialised = false;
 

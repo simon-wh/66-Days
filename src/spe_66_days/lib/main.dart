@@ -5,7 +5,7 @@ import 'package:spe_66_days/widgets/SignIn.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 
 void main() async {
-  await Global.instance.init();
+  //await Global.instance.init();
   runApp(StartApp());
 }
 

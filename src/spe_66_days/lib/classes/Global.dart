@@ -17,34 +17,62 @@ class Global extends SettingsBase<GlobalSettings> {
   static DateTime get currentDate => DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   static final Global instance = Global._internal();
 
-  static final HabitManager habitManager = HabitManager();
-  static final CourseManager courseManager = CourseManager();
+  static HabitManager habitManager;
+  static CourseManager courseManager;
+  StreamSubscription<FirebaseUser> onAuthChanged = null;
 
   static final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Global._internal() : super("main_settings.json", GlobalSettings());
+  Global._internal() : super("", "main_settings.json", GlobalSettings()){
+    //auth.onAuthStateChanged.listen((v) => this.dispose());
+  }
 
   bool initialised = false;
 
-  Future<void> init() async{
+  Future<bool> init({bool test: false}) async{
     if (initialised)
-      return;
+      return true;
 
-    initialised = true;
+    onAuthChanged?.pause();
+    FirebaseUser user;
+    if (!test && (user = await auth.currentUser()) == null)
+      return false;
 
-    await habitManager.init();
-    await courseManager.init();
-    var initializationSettingsAndroid = new AndroidInitializationSettings('mipmap/launcher_icon');
-    var initializationSettingsIOS = new IOSInitializationSettings();
-    var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
-    notificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
-    await load();
-    this.scheduleAllNotifications();
 
+
+    //await Future.delayed(Duration(milliseconds: 500));
+
+
+
+    var dir = test ? "test" : ( user.isAnonymous ? "local" : user.uid);
+
+    habitManager = HabitManager(dir);
+    courseManager = CourseManager(dir);
+
+    this.prefix = dir;
+    if (!test) {
+
+      await habitManager.init();
+      await courseManager.init();
+
+      var initializationSettingsAndroid = new AndroidInitializationSettings(
+          'mipmap/launcher_icon');
+      var initializationSettingsIOS = new IOSInitializationSettings();
+      var initializationSettings = new InitializationSettings(
+          initializationSettingsAndroid, initializationSettingsIOS);
+      notificationsPlugin.initialize(
+          initializationSettings, onSelectNotification: onSelectNotification);
+      await load();
+      await this.scheduleAllNotifications();
+    }
   /*_handleSignIn()
         .then((FirebaseUser user) => print(user))
         .catchError((e) => print(e));*/
 
+    if (!test && onAuthChanged == null)
+      onAuthChanged = auth.onAuthStateChanged.listen((v) => this.dispose());
+    onAuthChanged?.resume();
+    return initialised = true;
   }
 
   Future onSelectNotification(String payload) async {
@@ -60,7 +88,7 @@ class Global extends SettingsBase<GlobalSettings> {
     }
   }
 
-  void scheduleAllNotifications() async {
+  Future scheduleAllNotifications() async {
     await notificationsPlugin.cancelAll();
     int i = 0;
     i+=await this.scheduleNotifications(notificationsPlugin, i);
@@ -90,6 +118,14 @@ class Global extends SettingsBase<GlobalSettings> {
   }*/
   static DateTime stripTime(DateTime date){
     return DateTime.utc(date.year, date.month, date.day);
+  }
+
+  void dispose(){
+
+    notificationsPlugin.cancelAll();
+    habitManager = null;
+    courseManager = null;
+    initialised = false;
   }
 
   @override

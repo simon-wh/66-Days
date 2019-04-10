@@ -5,10 +5,11 @@ import 'package:path_provider/path_provider.dart';
 
 class SettingsBase<T> {
   final String saveFileName;
+  String prefix = "main";
 
   T settings;
 
-  SettingsBase(this.saveFileName, this.settings);
+  SettingsBase(this.prefix, this.saveFileName, this.settings);
 
   String getJson(){
     return json.encode(settings);
@@ -19,7 +20,7 @@ class SettingsBase<T> {
   }
 
   Future<File> save() async {
-    print("Saving $saveFileName...");
+    print("Saving $prefix-$saveFileName...");
     final file = await _localFile;
     String output = json.encode(settings);
     return file.writeAsString(output);
@@ -27,7 +28,7 @@ class SettingsBase<T> {
 
   Future<File> load() async {
     try {
-      print("Loading $saveFileName...");
+      print("Loading $prefix-$saveFileName...");
       File localFile = await _localFile;
 
       if (!(await localFile.exists()))
@@ -38,14 +39,15 @@ class SettingsBase<T> {
       });
     } catch (e) {
       // If we encounter an error, return 0
-      print("Error loading $saveFileName, saving default");
+      print("Error loading $prefix-$saveFileName, saving default");
       return save();
     }
   }
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/$saveFileName');
+
+    return File('$path/$prefix-$saveFileName');
   }
 
   Future<String> get _localPath async {
