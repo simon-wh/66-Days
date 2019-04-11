@@ -83,7 +83,7 @@ class CourseState extends State<CourseWidget> {
                               begin: Alignment.centerRight,
                               end: Alignment(0.7, 0.0),
                               // 10% of the width, so there are ten blinds.
-                              colors: [current ? Colors.green : (enabled ? Colors.red : Colors.grey), Theme.of(context).cardColor],
+                              colors: [current ? Colors.orange : (enabled ? Colors.green : Colors.grey), Theme.of(context).cardColor],
                               // whitish to gray
                               tileMode: TileMode.clamp, // repeats the gradient over the canvas
                             ),
