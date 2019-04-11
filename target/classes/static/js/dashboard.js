@@ -3,23 +3,99 @@ window.onload = function(){
 };
 
 function requestEngagementChartData(){
-  let year = document.getElementById('yearInput').value;
+  
+  let week = document.getElementById('weekNumberInput').value;
   let month = document.getElementById('monthInput').value;
+  let year = document.getElementById('yearInput').value;
   
   let requestURL = location.origin + "/web-api/get-engagement/" + year + "/" + month;
   
+  if (week != "None"){
+    requestURL += "/" + week;
+  }
   
   //https://www.w3schools.com/xml/tryit.asp?filename=tryajax_get
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       engagementValues = JSON.parse(this.responseText);
-      loadEngagementChart(engagementValues, year, month);
+      if (week != "None"){
+        loadWeeklyEngagementChart(engagementValues, year, month, week);
+      } else {
+        loadMonthlyEngagementChart(engagementValues, year, month);
+      }
     }
   };
+  
   xhttp.open("GET", requestURL, true);
   xhttp.send();
   
+  
+}
+
+function getFullMonthName(number){
+  switch(number){
+    case "01":
+      return "Jan";
+    case "02":
+      return "Feb";
+    case "03":
+      return "Mar";
+    case "04":
+      return "Apr";
+    case "05":
+      return "May";
+    case "06":
+      return "Jun";
+    case "07":
+      return "Jul";
+    case "08":
+      return "Aug";
+    case "09":
+      return "Sep";
+    case "10":
+      return "Oct";
+    case "11":
+      return "Nov";
+    case "12":
+      return "Dec";
+  }
+}
+
+function getNumberOfUsersEngagedText(engagementValues){
+  if (engagementValues[70] == 1){
+    return "(" +engagementValues[70]+ " User)";
+  } else if(engagementValues[70] > 1){
+    return "(" +engagementValues[70]+ " Users)";
+  } else {
+    return "(No Users in Selected Range)";
+  }
+}
+
+function loadWeeklyEngagementChart(engagementValues, year, month, weekOfMonth){
+  let weekOfMonthText;
+  
+  switch(weekOfMonth){
+    case "1":
+      weekOfMonthText = "1st Week"; break;
+    case "2":
+      weekOfMonthText = "2nd Week"; break;
+    case "3":
+      weekOfMonthText = "3rd Week"; break;
+    case "4":
+      weekOfMonthText = "4th Week"; break;
+    default:
+      break;
+  }
+
+  
+  let message = "Progress of Users Starting in the " + weekOfMonthText + " of " + getFullMonthName(month) + " " + year + " " + getNumberOfUsersEngagedText(engagementValues); 
+  loadEngagementChart(engagementValues, message);
+}
+
+function loadMonthlyEngagementChart(engagementValues, year, month){
+  let message = "Progress of Users Starting in " + getFullMonthName(month) + " " + year + " " + getNumberOfUsersEngagedText(engagementValues); 
+  loadEngagementChart(engagementValues, message);
 }
 
 function loadEngagementChart(engagementValues, message){
@@ -79,38 +155,3 @@ function loadEngagementChart(engagementValues, message){
   });
 }
 
-function loadWeeklyEngagementChart(engagementValues, year, month, weekOfMonth){
-  let message = "Engagement with 66 Days for week " + weekOfMonth + " of " + month + "/" + year;
-  loadEngagementChart(engagementValues, message);
-}
-
-function loadMonthlyEngagementChart(engagementValues, year, month){
-  let message = "Engagement with 66 Days " + month + "/" + year;
-  loadEngagementChart(engagementValues, message);
-}
-
-function loadDefaultChart(){    
-  var ctx = document.getElementById('engagementChart');
-  var chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-          labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10"],
-          datasets: [{
-              label: "Overall User Interaction with 66 Days",
-              backgroundColor: 'rgba(92,184,92, 0.5)',
-              borderColor: 'rgba(92,184,92,1)',
-              data: [0, 10, 5, 2, 20, 30, 35, 32, 40, 45],
-          }]
-      },
-      options: {
-          legend: {
-              labels: {
-                  // This more specific font property overrides the global property
-                  fontColor: 'black',
-                  fontSize: 18
-              }
-          }
-      }
-
-  });
-}

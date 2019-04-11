@@ -13,23 +13,48 @@
             <div style="padding-top: 1em;"></div>
             
             <h1 class="display-4">Dashboard</h1>
-            <p style="padding-top: 1em; padding-bottom: 1em;" class="lead">This Dashboard displays the general progress of users through the 66 Days course depending on the month that they started the course. Set the year and date below, then click Load Data to see the chart.</p>
+            <p style="padding-top: 1em; padding-bottom: 1em;" class="lead">This Dashboard displays the general progress of users through the 66 Days course depending on the month that they started the course. Select which week, and enter year and date below, then click Load Data to see the chart. If you choose none for the week number, the results will display for all the users that started in the specified month.</p>
             
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-3"></div>
+                
+                <div class="row" id="monthDateInput">
+                    <div class="col-sm-0 col-md-3"></div>
                     
-                    <div class="col-sm-3 text-center">
-                        <label for="monthInput">Enter Start Month (01 to 12)</label>
-                        <input type="text" class="form-control" id="monthInput" value="01">
+                    <div class="col-sm-4 col-md-2 text-center">
+                        <label for="weekNumberInput">Select Week</label>
+                        <select name="weekNumberInput" id="weekNumberInput" class="custom-select">
+                            <option value="None">None</option>
+                            <option value="1">First Week</option>
+                            <option value="2">Second Week</option>
+                            <option value="3">Third Week</option>
+                            <option value="4">Final Week</option>
+                        </select> 
                     </div>
                     
-                    <div class="col-sm-3 text-center">
+                    <div class="col-sm-4 col-md-2 text-center">
+                        <label for="monthInput">Select Month</label>
+                        <select name="monthInput" id="monthInput" class="custom-select">
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>                            
+                        </select> 
+                    </div>
+                    
+                    <div class="col-sm-4 col-md-2 text-center">
                         <label for="yearInput">Enter Start Year</label>
                         <input type="text" class="form-control" id="yearInput" value="2019">
                     </div>
 
-                    <div class="col-sm-3"></div>
+                    <div class="col-sm-0 col-md-3"></div>
                 </div>
                 
                 <div class="row">

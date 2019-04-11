@@ -34,7 +34,11 @@ public class WebAPIController {
             
             ArrayList<Integer> habitsChecked = new ArrayList(70);
             ArrayList<Integer> usersActive = new ArrayList(70);
-            ArrayList<Float> engagementForMonth = new ArrayList(70);
+            ArrayList<Float> engagementForMonth = new ArrayList(71);
+            
+            // Note that an extra value is returned after the engagement statistics
+            // This is a tally of all the users which make up the current graph.
+            int activeUsers = 0;
             
             for (int i = 0; i < 70; i++) {
                 habitsChecked.add(0);
@@ -53,6 +57,7 @@ public class WebAPIController {
                 if (dateIsInMonthlyRegion(userStartDate, year, month)){
                     habitsChecked = tallyHabits(habitsChecked, userStartDate, habitsArray);
                     usersActive = tallyActiveUsers(usersActive, userStartDate, habitsArray);
+                    activeUsers += 1;
                 }
             }
             
@@ -64,17 +69,18 @@ public class WebAPIController {
                 }
             }
             
+            engagementForMonth.add((float) activeUsers);
+            
             return engagementForMonth;
         }
         
         @GetMapping(path="/get-engagement/{year}/{month}/{weekNumberInMonth}")
         public @ResponseBody ArrayList<Float> getUserEngagementFromWeekNumber(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer weekNumberInMonth){
-            
             ArrayList<Integer> habitsChecked = new ArrayList(70);
             ArrayList<Integer> usersActive = new ArrayList(70);
-            ArrayList<Float> engagementForWeek = new ArrayList(70);
+            ArrayList<Float> engagementForWeek = new ArrayList(71);
+            int activeUsers = 0;
             
-            //ArrayLists used instead of Arrays for flexibility and a nice JSON responsebody.
             for (int i = 0; i < 70; i++) {
                 habitsChecked.add(0);
                 usersActive.add(0);
@@ -90,6 +96,7 @@ public class WebAPIController {
                 if (dateIsInWeeklyRegion(userStartDate, year, month, weekNumberInMonth)){
                     habitsChecked = tallyHabits(habitsChecked, userStartDate, habitsArray);
                     usersActive = tallyActiveUsers(usersActive, userStartDate, habitsArray);
+                    activeUsers += 1;
                 }
             }
             
@@ -100,6 +107,8 @@ public class WebAPIController {
                     engagementForWeek.set(i, (float) 0);
                 }
             }
+            
+            engagementForWeek.add((float) activeUsers);
             
             return engagementForWeek;
         }
