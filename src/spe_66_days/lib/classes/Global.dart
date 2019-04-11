@@ -70,7 +70,13 @@ class Global extends SettingsBase<GlobalSettings> {
         .catchError((e) => print(e));*/
 
     if (!test && onAuthChanged == null)
-      onAuthChanged = auth.onAuthStateChanged.listen((v) => this.dispose());
+      onAuthChanged = auth.onAuthStateChanged.listen((v) {
+        if (v == null) {
+          this.dispose();
+          StartApp.navigatorKey.currentState.pushNamedAndRemoveUntil(
+              "sign_in", (Route<dynamic> route) => false);
+        }
+      });
     onAuthChanged?.resume();
     return initialised = true;
   }

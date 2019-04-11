@@ -66,7 +66,6 @@ class SettingsState extends State<SettingsWidget> {
                           Container(child: Text('${user.isAnonymous ? "Anonymous" : user.displayName}'), padding: EdgeInsets.only(left:5.0))]), alignment: Alignment.centerLeft),
                         Align(child: FlatButton(child: Text("Sign out"), onPressed: (){
                           Global.auth.signOut();
-                          Navigator.pushNamedAndRemoveUntil(context, "sign_in", (Route<dynamic> route) => false);
                         }), alignment: Alignment.centerRight)
                       ]);
                   }
