@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/course/CourseEntry.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'CourseEntryWidget.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 
 class CourseWidget extends StatefulWidget {
   final bool compact;
@@ -26,6 +27,18 @@ class CourseScreen extends CourseWidget implements BottomNavigationBarItem {
 
 class CourseState extends State<CourseWidget> {
   CourseState();
+  static List<CoreHabit> habits = Global.habitManager.getHabits().values.toList();
+  DateTime earliestDate = habits.isEmpty ? Global.currentDate : findEarliest( habits );
+
+  static DateTime findEarliest( List<CoreHabit> habits) {
+    DateTime earliest = Global.currentDate;
+    habits.forEach((habit) {
+      if(habit.startDate.isBefore(earliest)){
+        earliest = habit.startDate;
+      }
+    });
+    return earliest;
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,8 +74,12 @@ class CourseState extends State<CourseWidget> {
                   itemCount: entries.length,
                   itemBuilder: (context, index) {
                     CourseEntry entry = entries[index];
-                    bool current = index == 2;
-                    bool enabled = index <= 2;
+                    bool current =
+                      Global.currentDate.isAfter(earliestDate.add(Duration(days: 7 * entry.weekNo - 1)))
+                        &&
+                      Global.currentDate.isBefore(earliestDate.add(Duration(days: 7 * entry.weekNo)));
+                    bool enabled = (entry.weekNo == 1) ? true
+                        : Global.currentDate.isAfter(earliestDate.add(Duration(days: 7 * entry.weekNo)));
                     return Card(
                         elevation: 2.0,
                         margin: EdgeInsets.all(5.0),
