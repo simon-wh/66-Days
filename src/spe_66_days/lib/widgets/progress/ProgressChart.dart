@@ -1,10 +1,12 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'dart:collection';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:spe_66_days/main.dart';
+import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
 
 class ProgressChart extends StatelessWidget {
   List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
@@ -62,6 +64,15 @@ class ProgressChart extends StatelessWidget {
     );
   }
 
+  int calculateScore( num numberOfMarkedOff, num previousVal ) {
+    int returnValue = 0;
+    int streaks = StatsWidget.calcStreak(Global.habitManager.getHabits().values.map((s) => s.markedOff).toList());
+    streaks = streaks > 0 ? streaks : 1;
+    returnValue = numberOfMarkedOff * streaks * exp(Global.habitManager.getHabits().values.length).toInt();
+    returnValue = returnValue > 0 ? returnValue + (previousVal * 0.7).toInt() : (previousVal * 0.7).toInt();
+    return returnValue;
+  }
+
   List<MapEntry<DateTime, int>> _getHabitDataFromString(String habit) {
     return _getHabitDataFromHabit(Global.habitManager.getHabit(habit));
   }
@@ -104,28 +115,22 @@ class ProgressChart extends StatelessWidget {
   }
 
   List<MapEntry<DateTime, int>> _getData() {
+    num previousValue = 0;
     DateTime _currentDate = Global.currentDate;
     Map<DateTime, int> dates = <DateTime, int>{
       _currentDate : 0
     };
-    DateTime earliest = (_currentDate);
+
     Global.habitManager.getHabits().forEach((key, value){
-      value.markedOff.forEach((ddate) {
-        DateTime date = (ddate);
-        //Keep track of the earliest marked off date
-        if (earliest.isAfter(date))
-          earliest = date;
-        dates.update(date, (val) => (val != 0) ? val *= 2 : val = 2, ifAbsent: () => 2);
+      value.markedOff.forEach((date) {
+        dates.update(date, (val) => val += 1);
       });
     });
 
-    //Start a day after the earliest as we know that earliest is already present
-    DateTime addDate = (earliest.add(Duration(days: 1)));
-    //Add entries for every day between the current date and the earliest
-    while (_currentDate.isAfter(addDate)){
-      dates.update(addDate, (val) => val, ifAbsent: () => 0);
-      addDate = (addDate.add(Duration(days: 1)));
-    }
+    dates.forEach((date, value){
+      dates.update(date, (val) => calculateScore( val, previousValue ));
+      previousValue = value;
+    });
 
     var entries = dates.entries.toList();
     if (entries.length == 1) {

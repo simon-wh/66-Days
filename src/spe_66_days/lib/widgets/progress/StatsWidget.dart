@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:spe_66_days/classes/Global.dart';
 
 class StatsWidget extends StatelessWidget {
-  List<Stat> stats = [
+  final List<Stat> stats = [
     Stat("Perfect Days", Icon(Icons.check), perfectDaysCount, false),
     Stat("Total Habits Done", Icon(Icons.check_circle_outline), habitsDone, true),
     Stat("Current Streak", Icon(Icons.whatshot), calcStreak, false),
@@ -42,7 +42,7 @@ class StatsWidget extends StatelessWidget {
       else if (date.difference(lastDate).inDays == 1)
         currentStreak.add(date);
       else {
-        if (currentStreak.length > 1)
+        if (currentStreak.length > 0)
           streaks.add(currentStreak);
         currentStreak = List<DateTime>();
         currentStreak.add(date);
@@ -50,10 +50,11 @@ class StatsWidget extends StatelessWidget {
 
       lastDate = date;
     }
-    if (currentStreak.length > 1)
+    if (currentStreak.length > 0)
       streaks.add(currentStreak);
     return streaks;
   }
+
   static int calcStreak(List<HashSet<DateTime>> habits) {
     return calcStreakWithDate(habits, Global.currentDate);
   }
@@ -68,10 +69,7 @@ class StatsWidget extends StatelessWidget {
       throw Exception("currentDate out of range!");
     }
     var streak = s.last;
-    return streak.contains(currentDate) ||
-            streak.contains(currentDate.add(Duration(days: -1)))
-        ? streak.length
-        : 0;
+    return streak.contains(currentDate) || streak.contains(currentDate.add(Duration(days: -1))) ? streak.length : 0;
   }
 
   static int bestStreak(List<HashSet<DateTime>> habits) {
