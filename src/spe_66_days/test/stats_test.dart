@@ -151,9 +151,9 @@ void main() {
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
         expect(StatsWidget.calcStreakWithDate(dates,DateTime(2019, 1, 5).add(Duration(days: 2))), equals(0));
       });
-      test('Check for exception when currentdate is before the last streak date', (){
+      test('Correct streak when in middle of a streak', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
-        expect(() => StatsWidget.calcStreakWithDate(dates,DateTime(2019, 1, 5).add(Duration(days: -1))), throwsException);
+        expect(StatsWidget.calcStreakWithDate(dates,DateTime(2019, 1, 5).add(Duration(days: -1))), equals(4));
       });
     });
 
