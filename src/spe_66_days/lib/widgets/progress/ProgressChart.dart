@@ -64,11 +64,23 @@ class ProgressChart extends StatelessWidget {
     );
   }
 
-  int calculateScore( num numberOfMarkedOff, DateTime date ) {
-    int returnValue = 0;
+  int calculateScore( num numberOfMarked, DateTime date) {
+    int numberOfHabits = Global.habitManager.getHabits().values.length;
     int streaks = StatsWidget.calcStreakWithDate(Global.habitManager.getHabits().values.map((s) => s.markedOff).toList(), date);
     streaks = streaks > 0 ? streaks : 1;
-    returnValue = numberOfMarkedOff * streaks * exp(Global.habitManager.getHabits().values.length).toInt();
+    int returnValue = numberOfMarked * streaks * exp(numberOfHabits).toInt();
+    return returnValue;
+  }
+
+  int getPreviousValue(DateTime findDate, Map<DateTime, int> dates){
+    int returnValue = 0;
+    if(dates.containsKey(findDate)){
+      dates.forEach((date, value){
+        if(date.isAtSameMomentAs(findDate)){
+          returnValue = value;
+        }
+      });
+    }
     return returnValue;
   }
 
@@ -114,20 +126,33 @@ class ProgressChart extends StatelessWidget {
   }
 
   List<MapEntry<DateTime, int>> _getData() {
+    int previousValue;
     DateTime _currentDate = Global.currentDate;
     Map<DateTime, int> dates = <DateTime, int>{
       _currentDate : 0
     };
 
+    //Find number of marked off habits for each date
     Global.habitManager.getHabits().forEach((key, value){
       value.markedOff.forEach((date) {
-        dates.update(date, (val) => val += 1, ifAbsent: () => 1);
+        dates.update(date, (numberOfMarked) => numberOfMarked += 1, ifAbsent: () => 1);
       });
     });
 
+    /*Calculate the score of the habit based on the streak for that day, the number of
+      marked off habits and the total number of habits*/
     dates.forEach((date, value){
-      dates.update(date, (val) => calculateScore( val, date ));
+      dates.update(date, (numberOfMarked) => calculateScore(numberOfMarked, date));
     });
+
+    /*Add 70% of the previous day's score on (prevents score from returning to zero
+      if a day is missed)*/
+    dates.forEach((date, value){
+      previousValue = getPreviousValue(date.add(Duration(days: -1)), dates);
+      print(previousValue);
+      dates.update(date, (score) => score + (0.7 * previousValue).toInt());
+    });
+
 
     var entries = dates.entries.toList();
     if (entries.length == 1) {
