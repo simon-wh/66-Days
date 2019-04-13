@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/widgets/progress/ProgressChart.dart';
 import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
-import '../progress/ProgressWidget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/widgets/habits/EditHabitWidget.dart';
 import 'package:spe_66_days/widgets/progress/StreaksChart.dart';
@@ -21,6 +20,7 @@ class HabitOverviewState extends State<HabitOverview> {
 
   Widget build(context) {
     var habit = Global.habitManager.getHabit(this.widget.habitKey);
+    if(habit == null) {Navigator.pop(context);}
     var formatter = new DateFormat('MMM\ndd');
     var startDate = habit.startDate ?? Global.currentDate;
     print(habit.startDate?.toString() ?? "StartDate is null");
