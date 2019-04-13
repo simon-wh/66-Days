@@ -43,7 +43,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   Future initFuture;
 
   void setFuture(){
-    initFuture = Global.instance.init().whenComplete(()=>setState((){}));
+    initFuture = Global.instance.init().whenComplete(() { if(this.mounted) setState((){}); });
   }
 
   @override

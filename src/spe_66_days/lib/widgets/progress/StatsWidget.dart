@@ -125,7 +125,7 @@ class StatsWidget extends StatelessWidget {
     List<HashSet<DateTime>> habits = this.habitKey == null ?
         Global.habitManager.getHabits().values.map((s) => s.markedOff).toList() : <HashSet<DateTime>>[Global.habitManager.getHabit(this.habitKey).markedOff];
     return Container(
-        padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 5.0),
+        padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: stats.map((stat) {
@@ -133,10 +133,9 @@ class StatsWidget extends StatelessWidget {
               return Container();
 
             num val = stat.habitFunc(habits);
-            String str =
-                val is double ? val.toStringAsFixed(1) : val.toString();
-            return Stack(
-              children: <Widget>[Align(child: stat.icon, alignment: Alignment.centerLeft), Center(child: Text("${stat.title}")), Align(child: Text(str), alignment: Alignment.centerRight)],
+            String str = val is double ? val.toStringAsFixed(1) : val.toString();
+            return Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[Container(width:40,alignment: Alignment.centerLeft, child:stat.icon), Text("${stat.title}"), Container(width:40, alignment: Alignment.centerRight, child:Text(str))],
             );
           }).toList(),
         ));
