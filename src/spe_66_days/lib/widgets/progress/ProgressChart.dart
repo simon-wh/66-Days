@@ -145,12 +145,11 @@ class ProgressChart extends StatelessWidget {
       dates.update(date, (numberOfMarked) => calculateScore(numberOfMarked, date));
     });
 
-    /*Add 70% of the previous day's score on (prevents score from returning to zero
+    /*Add 90% of the previous day's score on (prevents score from returning to zero
       if a day is missed)*/
     dates.forEach((date, value){
       previousValue = getPreviousValue(date.add(Duration(days: -1)), dates);
-      print(previousValue);
-      dates.update(date, (score) => score + (0.7 * previousValue).toInt());
+      dates.update(date, (score) => score + (0.9 * previousValue).toInt());
     });
 
 
