@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.concurrent.ExecutionException;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 import packages.comparators.WeekNumberComparer;
 
@@ -46,7 +43,7 @@ public class MobileAPIController {
 
         // ### VERIFY THE USERS EMAIL ### //
     
-        @RequestMapping(method = RequestMethod.POST, value = "/verify-email", consumes = "application/json")
+        @RequestMapping(method = RequestMethod.GET, value = "/verify-email", consumes = "application/json")
 	public Boolean verifyEmail(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             String userId = getUserIdFromIdToken(idToken);
             return checkIfUserIdIsAuthorised(userId);
@@ -54,7 +51,7 @@ public class MobileAPIController {
         
         // ### GET THE COURSE CONTENT AS JSON ### //
        
-        @RequestMapping(value = "/get-course-content", method = RequestMethod.POST)
+        @RequestMapping(value = "/get-course-content", method = RequestMethod.GET)
         @ResponseBody
         public Iterable<CourseWeek> getCourseContent(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             
@@ -79,7 +76,7 @@ public class MobileAPIController {
         
         
         // ### CREATE A RECORD FOR NEW USER'S STATISTICS ### //
-        @RequestMapping(value = "/new-user-statistics-record", method = RequestMethod.POST, consumes = "application/json")
+        @RequestMapping(value = "/new-user-statistics-record", method = RequestMethod.GET, consumes = "application/json")
         public String createNewAccount(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             
             //1 - Get the user id from the request.
@@ -103,16 +100,19 @@ public class MobileAPIController {
         //// UPDATE AN ACCOUNTS USER STATISTICS ////
         
         @RequestMapping(value = "/update-statistics", method = RequestMethod.POST, consumes = "application/json")
-        public String updateUserStatistics(@RequestParam String json, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
+        public String updateUserStatistics(HttpEntity<String> httpEntity, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
+            //1 - Get the JSON from the body of the request.
+            String json = httpEntity.getBody();
             
-            //1 - Get the user id from the request.
+            //2 - Get the user id from the request.
             String userId = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
             
-            //2 - If the user id is null, decline the request.
+            //3 - If the user id is null, decline the request.
             if (userId == null){
                 return "unauthorized";
             }
             
+            //4 - Iterate through the sites users and update the appropriate one.
             boolean userFound = false;
             
             Iterable<UserStatistics> allUsers = userStatisticsRepo.findAll();
@@ -121,10 +121,10 @@ public class MobileAPIController {
                     user.setJson(json);
                     userStatisticsRepo.save(user);
                     userFound = true;
-                    
                 }
             }
-
+            
+            //5 - Return whether the request was successful.
             if (userFound)
                 return "success";
             else 
