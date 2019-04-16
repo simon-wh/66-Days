@@ -64,26 +64,6 @@ class ProgressChart extends StatelessWidget {
     );
   }
 
-  int calculateScore( num numberOfMarked, DateTime date) {
-    int numberOfHabits = Global.habitManager.getHabits().values.length;
-    int streaks = StatsWidget.calcStreakWithDate(Global.habitManager.getHabits().values.map((s) => s.markedOff).toList(), date);
-    streaks = streaks > 0 ? streaks : 1;
-    int returnValue = numberOfMarked * streaks * exp(numberOfHabits).toInt();
-    return returnValue;
-  }
-
-  int getPreviousValue(DateTime findDate, Map<DateTime, int> dates){
-    int returnValue = 0;
-    if(dates.containsKey(findDate)){
-      dates.forEach((date, value){
-        if(date.isAtSameMomentAs(findDate)){
-          returnValue = value;
-        }
-      });
-    }
-    return returnValue;
-  }
-
   List<MapEntry<DateTime, int>> _getHabitDataFromString(String habit) {
     return _getHabitDataFromHabit(Global.habitManager.getHabit(habit));
   }
@@ -91,6 +71,8 @@ class ProgressChart extends StatelessWidget {
   List<MapEntry<DateTime, int>> _getHabitDataFromHabit(CoreHabit habit) {
     return _getHabitData(habit.markedOff);
   }
+
+
 
   List<MapEntry<DateTime, int>> _getHabitData(HashSet<DateTime> markedOff) {
     DateTime _currentDate = Global.currentDate;
@@ -125,6 +107,26 @@ class ProgressChart extends StatelessWidget {
     return entries;
   }
 
+  int calculateScore( num numberOfMarked, DateTime date) {
+    int numberOfHabits = Global.habitManager.getHabits().values.length;
+    int streaks = StatsWidget.calcStreakWithDate(Global.habitManager.getHabits().values.map((s) => s.markedOff).toList(), date);
+    streaks = streaks > 0 ? streaks : 1;
+    int returnValue = numberOfMarked * streaks * exp(numberOfHabits).toInt();
+    return returnValue;
+  }
+
+  int getPreviousValue(DateTime findDate, Map<DateTime, int> dates){
+    int returnValue = 0;
+    if(dates.containsKey(findDate)){
+      dates.forEach((date, value){
+        if(date.isAtSameMomentAs(findDate)){
+          returnValue = value;
+        }
+      });
+    }
+    return returnValue;
+  }
+
   List<MapEntry<DateTime, int>> _getData() {
     int previousValue;
     DateTime _currentDate = Global.currentDate;
@@ -132,12 +134,23 @@ class ProgressChart extends StatelessWidget {
       _currentDate : 0
     };
 
+    var habits = Global.habitManager.getHabits();
     //Find number of marked off habits for each date
-    Global.habitManager.getHabits().forEach((key, value){
+    habits.forEach((key, value){
       value.markedOff.forEach((date) {
         dates.update(date, (numberOfMarked) => numberOfMarked += 1, ifAbsent: () => 1);
       });
     });
+
+    /* Ensure there are date entries for every date between the first Start Date and the Current.
+    Without this days with no habits checked off wouldn't have any data */
+    if (habits.length > 0){
+      var startDates = habits.values.map((habit) => habit.startDate).toList();
+      startDates.sort();
+      for(DateTime date = startDates.first; !date.isAfter(Global.currentDate); date=date.add(Duration(days:1))){
+        dates.update(date, (val)=>val, ifAbsent: ()=>0);
+      }
+    }
 
     /*Calculate the score of the habit based on the streak for that day, the number of
       marked off habits and the total number of habits*/
