@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spe_66_days/widgets/progress/ProgressWidget.dart';
+import 'package:spe_66_days/widgets/progress/StatsOverviewScreen.dart';
 import 'package:spe_66_days/widgets/habits/HabitWidget.dart';
 import 'package:spe_66_days/widgets/home/HomeWidget.dart';
 import 'package:spe_66_days/widgets/course/CourseScreen.dart';
@@ -27,7 +27,7 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   final List<Widget> _sideNav = [
     //HomeWidget(Icon(Icons.home), Text("Home")),
     HabitsScreen(Icon(Icons.assignment), Text("Habit Manager")),
-    ProgressTab(Icon(Icons.timeline), Text('Stats')),
+    StatsOverviewScreen(Icon(Icons.timeline), Text('Stats')),
     //CourseScreen(Icon(Icons.library_books), Text('Course')),
     SettingsScreen(Icon(Icons.settings), Text('Settings'))
   ];

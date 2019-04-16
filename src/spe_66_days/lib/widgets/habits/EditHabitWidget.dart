@@ -121,7 +121,7 @@ class EditHabitState extends State<EditHabitWidget> {
             icon: Icon(Icons.add),
             label: const Text('Add Notification')),
         body: ListView(
-          padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0, bottom: 50.0),
+          padding: EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0, bottom: 50.0),
           //shrinkWrap: true,
           children: <Widget>[
             TextField(
