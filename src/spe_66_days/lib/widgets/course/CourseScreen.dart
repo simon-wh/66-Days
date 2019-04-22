@@ -75,11 +75,11 @@ class CourseState extends State<CourseWidget> {
                   itemBuilder: (context, index) {
                     CourseEntry entry = entries[index];
                     bool current =
-                      Global.currentDate.isAfter(earliestDate.add(Duration(days: 7 * entry.weekNo - 1)))
+                    (Global.currentDate.isAfter(earliestDate.add(Duration(days: 7 * (entry.weekNo - 1), milliseconds: -1)))
                         &&
-                      Global.currentDate.isBefore(earliestDate.add(Duration(days: 7 * entry.weekNo)));
+                      Global.currentDate.isBefore(earliestDate.add(Duration(days: 7 * entry.weekNo))));
                     bool enabled = (entry.weekNo == 1) ? true
-                        : Global.currentDate.isAfter(earliestDate.add(Duration(days: 7 * entry.weekNo)));
+                        : (Global.currentDate.isAfter(earliestDate.add(Duration(days: (7 * (entry.weekNo - 1)), milliseconds: -1))));
                     return Card(
                         elevation: 2.0,
                         margin: EdgeInsets.all(5.0),
@@ -100,7 +100,7 @@ class CourseState extends State<CourseWidget> {
                               begin: Alignment.centerRight,
                               end: Alignment(0.7, 0.0),
                               // 10% of the width, so there are ten blinds.
-                              colors: [current ? Colors.orange : (enabled ? Colors.green : Colors.grey), Theme.of(context).cardColor],
+                              colors: [current ? Colors.green : (enabled ? Colors.orange : Colors.grey), Theme.of(context).cardColor],
                               // whitish to gray
                               tileMode: TileMode.clamp, // repeats the gradient over the canvas
                             ),

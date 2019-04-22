@@ -72,8 +72,6 @@ class ProgressChart extends StatelessWidget {
     return _getHabitData(habit.markedOff);
   }
 
-
-
   List<MapEntry<DateTime, int>> _getHabitData(HashSet<DateTime> markedOff) {
     DateTime _currentDate = Global.currentDate;
     Map<DateTime, int> dates = <DateTime, int>{
