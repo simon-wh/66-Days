@@ -192,7 +192,7 @@ class ProgressChart extends StatelessWidget {
           new charts.PanAndZoomBehavior(),
           new charts.SlidingViewport(),
         ],
-        primaryMeasureAxis : charts.NumericAxisSpec(showAxisLine: false, renderSpec: charts.GridlineRendererSpec(labelStyle: labelStyle, lineStyle: charts.LineStyleSpec(color: charts.Color(a: 100, r:clr.r, g:clr.g, b:clr.b)))),
+        primaryMeasureAxis :  charts.NumericAxisSpec(showAxisLine: false, tickFormatterSpec: charts.BasicNumericTickFormatterSpec((s)=>""), renderSpec: charts.GridlineRendererSpec(labelStyle: labelStyle, lineStyle: charts.LineStyleSpec(color: charts.Color(a: 100, r:clr.r, g:clr.g, b:clr.b)))),
         domainAxis: new charts.DateTimeAxisSpec(
             showAxisLine: false,
           viewport: charts.DateTimeExtents(start: Global.currentDate.add(Duration(days:-30)), end: Global.currentDate.add(Duration(days: 1))),
