@@ -128,9 +128,7 @@ class ProgressChart extends StatelessWidget {
   List<MapEntry<DateTime, int>> _getData() {
     int previousValue;
     DateTime _currentDate = Global.currentDate;
-    Map<DateTime, int> dates = <DateTime, int>{
-      _currentDate : 0
-    };
+    Map<DateTime, int> dates = Map<DateTime, int>();
 
     var habits = Global.habitManager.getHabits();
     //Find number of marked off habits for each date
