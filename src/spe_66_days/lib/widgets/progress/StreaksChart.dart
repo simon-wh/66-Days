@@ -15,6 +15,7 @@ class StreaksChart extends StatelessWidget {
   StreaksChart(this.seriesList, {this.animate});
 
   StreaksChart.fromDates(List<List<DateTime>> dates, {this.animate}){
+    dates = dates.where((lst) => lst.length > 1).toList().reversed.take(8).toList();
     this.seriesList= [
       new charts.Series<List<DateTime>, String>(
         id: 'Sales',
@@ -63,6 +64,8 @@ class StreaksChart extends StatelessWidget {
       seriesList,
       animate: animate,
       vertical: false,
+      behaviors: [new charts.PanAndZoomBehavior(),
+      new charts.SlidingViewport()],
       // Set a bar label decorator.
       // Example configuring different styles for inside/outside:
       //       barRendererDecorator: new charts.BarLabelDecorator(
