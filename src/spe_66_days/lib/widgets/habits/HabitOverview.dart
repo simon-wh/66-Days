@@ -81,7 +81,7 @@ class HabitOverviewState extends State<HabitOverview> {
           sanitiseWidget(context, ProgressChart.habitFromString(this.widget.habitKey),
                     title: "History", constraints: BoxConstraints(maxHeight: 100.0), margin: EdgeInsets.only(bottom:5.0)),
           sanitiseWidget(context, StreaksChart.habitFromString(this.widget.habitKey),
-                    title: "Streaks", constraints: BoxConstraints(maxHeight: 200.0), margin: EdgeInsets.only(bottom:5.0)),
+                    title: "Recent Streaks", constraints: BoxConstraints(maxHeight: 200.0), margin: EdgeInsets.only(bottom:5.0)),
 
           sanitiseWidget(context, StatsWidget(habitKey: this.widget.habitKey), margin: EdgeInsets.symmetric(vertical:5.0))
         ].map((s) => Card(child: s)).toList()));
