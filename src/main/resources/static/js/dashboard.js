@@ -2,6 +2,8 @@ window.onload = function(){
 
 };
 
+let chart;
+
 function requestEngagementChartData(){
   
   let week = document.getElementById('weekNumberInput').value;
@@ -116,7 +118,10 @@ function loadEngagementChart(engagementValues, message){
   }
   
   let ctx = document.getElementById('engagementChart');
-  let chart = new Chart(ctx, {
+  if (chart != null){
+    chart.destroy();
+  }
+  chart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: dayNumbers,
