@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.concurrent.ExecutionException;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 import packages.comparators.WeekNumberComparer;
 
 import packages.repositories.CourseContentRepository;
@@ -70,7 +72,7 @@ public class MobileAPIController {
                 return weeksList;
             }
             
-            return null;
+            throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "unauthorized");
         }
         
         
@@ -84,7 +86,7 @@ public class MobileAPIController {
             
             //2 - Verify that the user is authorised.
             if(checkIfUserIdIsAuthorised(userId) == false){
-                return "unauthorised";
+                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "unauthorized");
             }
                     
             //3 - Create a new UserStatistics entry for the database.
@@ -109,7 +111,7 @@ public class MobileAPIController {
             
             //3 - If the user id is null, decline the request.
             if (userId == null){
-                return "unauthorized";
+                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "unauthorized");
             }
             
             //4 - Iterate through the sites users and update the appropriate one.
@@ -128,7 +130,7 @@ public class MobileAPIController {
             if (userFound)
                 return "success";
             else 
-                return "user not found";
+                throw new ResponseStatusException( HttpStatus.NOT_FOUND, "user not found");
         }
         
         //Code sourced from... https://thepro.io/post/firebase-authentication-for-spring-boot-rest-api/
@@ -146,7 +148,6 @@ public class MobileAPIController {
         }
         
         private boolean checkIfUserIdIsAuthorised(String userId){
-            //1 - If the user id is null, decline the request.
             if (userId == null){
                 return false;
             }
