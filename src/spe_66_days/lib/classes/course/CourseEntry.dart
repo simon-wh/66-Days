@@ -97,13 +97,13 @@ class CourseEntry
         })?.toList());
 
   factory CourseEntry.fromJsonSimplified(Map<String, dynamic> json) => CourseEntry(
-      json['week-title'] as String,
+      json['weekTitle'] as String,
       <CourseEntryItem>[
-        CourseEntryText(json['week-description'] as String),
-        CourseEntryChange("Experiments", json['habit-key'] as String, "experimentTitle", (json['habit-experiments'] as List)?.map((e) => e as String)?.toList(), defaultHabit: CoreHabit(json['habit-title'] as String, "")),
-        CourseEntryChange("Environment Design", json['habit-key'] as String, "environmentDesign", (json['environment-design'] as List)?.map((e) => e as String)?.toList(), defaultHabit: CoreHabit(json['habit-title'] as String, "")),
-      ],
-      weekNo: json['week-id'] as int);
+        CourseEntryText(json['weekDescription'] as String),
+        CourseEntryChange("Experiments", json['habitKey'] as String, "experimentTitle", (json['habitExperimentsList'] as List)?.map((e) => e as String)?.toList(), defaultHabit: CoreHabit(json['habitTitle'] as String, "")),
+        CourseEntryChange("Environment Design", json['habitKey'] as String, "environmentDesign", (json['environmentDesignList'] as List)?.map((e) => e as String)?.where((s) => s.isNotEmpty)?.toList(), defaultHabit: CoreHabit(json['habitTitle'] as String, "")),
+      ].where((s) => s is CourseEntryText || (s is CourseEntryChange && s.items.length>0)).toList(),
+      weekNo: json['weekNumber'] as int);
 
   //Map<String, dynamic> toJson() => _$CourseEntryToJson(this);
 }

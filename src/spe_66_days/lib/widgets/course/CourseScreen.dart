@@ -89,8 +89,8 @@ class CourseState extends State<CourseWidget> {
                           child: Container(
                               child: ListTile(
                                   leading: CircleAvatar(backgroundColor: Theme.of(context).canvasColor, foregroundColor: Theme.of(context).accentColor, child: Icon(Icons.book)),
-                                  title: Text(entry.title.split("-").first),
-                                  subtitle: Text(entry.title.split("- ")[1]),
+                                  title: Text("Week ${entry.weekNo}"),
+                                  subtitle: Text(entry.title),
                                   onTap: () {
                                     if (enabled)Navigator.push(context, MaterialPageRoute(builder: (context) => CourseEntryScreen(entry)));
                                   },

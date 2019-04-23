@@ -39,7 +39,6 @@ class Global extends SettingsBase<GlobalSettings> {
       return false;
 
 
-
     //await Future.delayed(Duration(milliseconds: 500));
 
 
@@ -129,6 +128,7 @@ class Global extends SettingsBase<GlobalSettings> {
   void dispose(){
 
     notificationsPlugin.cancelAll();
+    courseManager.dispose();
     habitManager = null;
     courseManager = null;
     initialised = false;

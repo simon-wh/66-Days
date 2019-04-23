@@ -10,23 +10,23 @@ import 'course/CourseEntry.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:spe_66_days/classes/Global.dart';
 
 class APIResponse{
 
 }
 
 abstract class API {
-  static String baseURL = "wt-a2f50f91fada7f05131c207a29276c24-0.sandbox.auth0-extend.com";
-  static String apiURL = "";
+  static String baseURL = "129.213.90.30";
+  static String apiURL = "mobile-api";
 
-  static Future<File> _apiCall(String endpoint, {bool forceDownload, Map<String, String> args}) async {
-    String url = Uri.https(baseURL, '$apiURL$endpoint', args).toString();
+  static Future<File> _apiCall(String endpoint, {bool forceDownload, Map<String, String> header}) async {
+    String url = Uri.http(baseURL, '/$apiURL/$endpoint').toString();
     File response;
-
     if (forceDownload)
-      response = (await DefaultCacheManager().downloadFile(url))?.file;
+      response = (await DefaultCacheManager().downloadFile(url, authHeaders: header))?.file;
     else
-      response = await DefaultCacheManager().getSingleFile(url);
+      response = await DefaultCacheManager().getSingleFile(url, headers: header);
 
     return response;
   }
@@ -34,7 +34,9 @@ abstract class API {
   static Future<List<CourseEntry>> fetchCourseEntries({bool force = false}) async {
     //Use this if we want to always use fresh data when loading, if we have this uncommented it means that if no new data is able to be found (i.e. if no internet connection is avaialble, it can still use the existing loaded data)
     //courseWeeks = null;
-    final response = await _apiCall('spe-all-course-weeks', forceDownload: force);
+    var user = await Global.auth.currentUser();
+
+    final response = await _apiCall('get-course-content', forceDownload: force, header: <String, String>{ "ID-TOKEN": await user.getIdToken()});
 
     if (response != null) {
       // If server returns an OK response, parse the JSON
