@@ -52,7 +52,10 @@ class _HomeState extends State<HomeWidget> {
   }
 
   Widget build(BuildContext context) {
-    DateTime EndOfDayHabit = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, Global.instance.settings.dailyNotification.time.hour);
+    DateTime EndOfDayHabit =
+    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
+        Global.instance.settings.dailyNotification.time.hour,
+        Global.instance.settings.dailyNotification.time.minute);
     print(EndOfDayHabit);
     print(DateTime.now());
     return Scaffold(
