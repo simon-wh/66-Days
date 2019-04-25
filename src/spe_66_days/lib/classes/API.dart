@@ -13,6 +13,10 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:tuple/tuple.dart';
 
+class UnauthorizedException implements Exception {
+  UnauthorizedException();
+}
+
 abstract class API {
   static Client client = Client();
   static String baseURL = "129.213.90.30";

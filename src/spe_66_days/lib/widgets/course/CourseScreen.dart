@@ -3,6 +3,7 @@ import 'package:spe_66_days/classes/course/CourseEntry.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'CourseEntryWidget.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
+import 'package:spe_66_days/classes/API.dart';
 
 class CourseWidget extends StatefulWidget {
   final bool compact;
@@ -40,6 +41,10 @@ class CourseState extends State<CourseWidget> {
     return earliest;
   }
 
+  String _errorText(Exception e){
+    return e is UnauthorizedException ? "You are unauthoized. Contact the App Owner" : "Could not refresh the Course.\nCheck your internet connection?";
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: RefreshIndicator(
@@ -47,7 +52,7 @@ class CourseState extends State<CourseWidget> {
               return Future(() async {
                 await Global.courseManager.getCourseEntries(force: true).catchError((e){
                   Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text("Could not refresh the Course.\nCheck your internet connection?")));
+                      SnackBar(content: Text(_errorText(e))));
                   return null;
                 });
                 setState(() {
@@ -66,7 +71,7 @@ class CourseState extends State<CourseWidget> {
                   return Align(alignment: Alignment.topCenter,  child:CircularProgressIndicator());
                 case ConnectionState.done:
                   if (snapshot.hasError)
-                    return Center(child:Text('Error: ${snapshot.error}'));
+                    return Center(child:Text(_errorText(snapshot.error as Exception)));
                   List<CourseEntry> entries = snapshot.data;
                   return
                 //Global.courseManager.courseWeeks == null ? PageView( physics: AlwaysScrollableScrollPhysics(), scrollDirection: Axis.vertical,  children: <Widget>[Center(child:Text("Unable to load course"))]) :
