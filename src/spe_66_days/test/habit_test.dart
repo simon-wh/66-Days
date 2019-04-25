@@ -24,7 +24,7 @@ void main() async {
       return Response("success", 200);
     }
     else if (url.endsWith("get-course-content")){
-      String text = new File(resourcePath + 'CourseEntryDecode1.json').readAsStringSync();
+      String text = new File(resourcePath + 'CourseAPI.json').readAsStringSync();
       return Response(text, 200);
     }
 
