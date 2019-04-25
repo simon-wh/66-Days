@@ -11,39 +11,45 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:spe_66_days/classes/Global.dart';
-
-class APIResponse{
-
-}
+import 'package:tuple/tuple.dart';
 
 abstract class API {
+  static Client client = Client();
   static String baseURL = "129.213.90.30";
   static String apiURL = "mobile-api";
 
-  static Future<File> _apiCall(String endpoint, {bool forceDownload, Map<String, String> header}) async {
-    String url = Uri.http(baseURL, '/$apiURL/$endpoint').toString();
-    File response;
-    if (forceDownload)
-      response = (await DefaultCacheManager().downloadFile(url, authHeaders: header))?.file;
-    else
-      response = await DefaultCacheManager().getSingleFile(url, headers: header);
-
-    return response;
+  static Uri getEndpointURI(String endpoint){
+    return Uri.http(baseURL, '/$apiURL/$endpoint');
   }
 
-  static Future<List<CourseEntry>> fetchCourseEntries({bool force = false}) async {
+  static Future<Response> _apiGET(String endpoint, {bool forceDownload, Map<String, String> header}) async {
+    String url = getEndpointURI(endpoint).toString();
+
+    return await client.get(url, headers: header);
+  }
+
+  static Future<Map<String,String>> getAuthHeaders() async {
+    return <String, String>{ "ID-TOKEN": await (await Global.auth.currentUser()).getIdToken()};
+  }
+
+  static Future<Tuple2<int, List<CourseEntry>>> fetchCourseEntries() async {
     //Use this if we want to always use fresh data when loading, if we have this uncommented it means that if no new data is able to be found (i.e. if no internet connection is avaialble, it can still use the existing loaded data)
     //courseWeeks = null;
-    var user = await Global.auth.currentUser();
 
-    final response = await _apiCall('get-course-content', forceDownload: force, header: <String, String>{ "ID-TOKEN": await user.getIdToken()});
+    final response = await _apiGET('get-course-content', header: await getAuthHeaders());
 
-    if (response != null) {
+    if (response.statusCode == HttpStatus.ok) {
       // If server returns an OK response, parse the JSON
-      final contents = await response.readAsString();
-      return (json.decode(contents) as List).map((f) => CourseEntry.fromJsonSimplified(f)).toList();
+      final contents = response.body;
+      return Tuple2(response.statusCode, (json.decode(contents) as List).map((f) => CourseEntry.fromJsonSimplified(f)).toList());
     } else {
-      return null;
+      return Tuple2(response.statusCode, null);
     }
+  }
+
+  static Future<int> pushUserStats(String json) async {
+    var uri = getEndpointURI("update-statistics");
+    Response response = await post(uri, headers: await getAuthHeaders(), body: json);
+    return response.statusCode;
   }
 }

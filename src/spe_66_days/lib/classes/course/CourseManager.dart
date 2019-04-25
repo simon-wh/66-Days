@@ -34,11 +34,11 @@ class CourseManager extends SettingsBase<CourseSettings> {
     //Use this if we want to always use fresh data when loading, if we have this uncommented it means that if no new data is able to be found (i.e. if no internet connection is avaialble, it can still use the existing loaded data)
     //courseWeeks = null;
 
-    final result = await API.fetchCourseEntries(force: force);
-    if (result != null)
-      return courseWeeks = result;
+    final result = await API.fetchCourseEntries();
+    if (result.item2 != null)
+      return courseWeeks = result.item2;
     else
-      throw new Exception("Unable to load Course");
+      throw new Exception("Unable to load Course. Error ${result.item1}");
   }
 
   void dispose(){

@@ -8,6 +8,7 @@ import 'package:spe_66_days/classes/SettingsBase.dart';
 import 'HabitSettings.dart';
 import '../Global.dart';
 import 'package:event_bus/event_bus.dart';
+import "package:spe_66_days/classes/API.dart";
 
 class HabitCheckedChangedEvent {
   final CoreHabit habit;
@@ -140,6 +141,11 @@ class HabitManager extends SettingsBase<HabitSettings> {
     });
 
     return count;
+  }
+
+  Future<int> pushUserStats() async {
+    String encoded = json.encode(this.settings.toStatsJson());
+    return await API.pushUserStats(encoded);
   }
 
   @override

@@ -8,11 +8,27 @@ import 'dart:convert';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:collection/collection.dart';
-
+import 'package:spe_66_days/classes/API.dart';
+import 'package:http/testing.dart';
+import 'package:http/http.dart';
+import 'dart:io';
 
 void main() async {
   await Global.instance.init(test: true);
   var habitManager = Global.habitManager;
+  var resourcePath = "../test_resources/";
+
+  API.client = MockClient((request) async {
+    String url = request.url.toString();
+    if (url.endsWith("update-statistics")){
+      return Response("success", 200);
+    }
+    else if (url.endsWith("get-course-content")){
+      String text = new File(resourcePath + 'CourseEntryDecode1.json').readAsStringSync();
+      return Response(text, 200);
+    }
+
+  });
 
   group("HabitManager JSON", () {
     test('Encode/Decode 1', () {

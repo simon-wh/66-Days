@@ -31,6 +31,7 @@ dependencies:
   flutter_cache_manager: ^0.3.2
   dynamic_theme: ^1.0.0
   event_bus: ^1.0.3
+  tuple: ^1.0.2
 
 dev_dependencies:
   flutter_test:
