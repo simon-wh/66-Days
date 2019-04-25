@@ -5,6 +5,7 @@ import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/widgets/habits/EditHabitWidget.dart';
 import 'package:spe_66_days/widgets/progress/StreaksChart.dart';
 import 'package:intl/intl.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 class HabitOverview extends StatefulWidget {
   final String habitKey;
@@ -72,7 +73,7 @@ class HabitOverviewState extends State<HabitOverview> {
               height: 100,
               child: ListView.builder(reverse:true, scrollDirection: Axis.horizontal,itemCount: Global.currentDate.difference(startDate).inDays+1,  itemBuilder: (context, i){
                 var date = Global.currentDate.add(Duration(days: -i));
-                return Card(color: Theme.of(context).backgroundColor, child: Column(children: <Widget>[
+                return Card(color: DynamicTheme.of(context).brightness == Brightness.dark ? Theme.of(context).backgroundColor : Colors.grey.shade100, child: Column(children: <Widget>[
                     Container(padding: EdgeInsets.only(top:5.0, left:5.0, right: 5.0), child: Text(formatter.format(date), textAlign: TextAlign.center,)),
                     Checkbox(  value: habit.markedOff.contains(date), onChanged: (checked) => setState(()=>Global.habitManager.setCheckHabit(this.widget.habitKey, checked, date:date)))
                 ]));

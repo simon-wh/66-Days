@@ -35,7 +35,6 @@ class CourseManager extends SettingsBase<CourseSettings> {
     //courseWeeks = null;
 
     final result = await API.fetchCourseEntries();
-    print(result.item1);
     if (result.item2 != null)
       return courseWeeks = result.item2;            //Temporary additional check until server is fixed
     else if (result.item1 == HttpStatus.unauthorized || result.item1 == HttpStatus.internalServerError)
