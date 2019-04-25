@@ -52,12 +52,10 @@ class _HomeState extends State<HomeWidget> {
   }
 
   Widget build(BuildContext context) {
-    DateTime EndOfDayHabit =
+    DateTime endOfDayHabit =
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
         Global.instance.settings.dailyNotification.time.hour,
         Global.instance.settings.dailyNotification.time.minute);
-    print(EndOfDayHabit);
-    print(DateTime.now());
     return Scaffold(
       body: RefreshIndicator(
           onRefresh: () {
@@ -97,7 +95,7 @@ class _HomeState extends State<HomeWidget> {
                         },
                         child: c.getCard(context));
                   }),
-              DateTime.now().isAfter(EndOfDayHabit) ? CardSwipes() : Container()// Item Builder
+              DateTime.now().isAfter(endOfDayHabit) ? CardSwipes() : Container()// Item Builder
             ],
           ),
         ],
