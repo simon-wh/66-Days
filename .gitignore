@@ -65,3 +65,6 @@ fastlane/test_output
 fastlane/readme.md
 
 src/spe_66_days/secrets\.tar
+*.yml
+src/main/resources/firebase-admin.json
+target/classes/firebase-admin.json
