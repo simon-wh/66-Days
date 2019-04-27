@@ -79,7 +79,7 @@ public class MobileAPIController {
             //1 - Get the JSON from the body of the request.
             String json = httpEntity.getBody();
             
-            System.out.println(json);
+            System.out.println("### JSON ### " + json);
             
             if (json == null) {
                 throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "no JSON found in request body");
@@ -87,6 +87,8 @@ public class MobileAPIController {
             
             //2 - Get the user id from the request.
             String userId = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
+            
+            System.out.println("### USER ID ### " + userId);
             
             //3 - If the user id is null, decline the request.
             if (userId == null){
@@ -99,6 +101,7 @@ public class MobileAPIController {
                 if (user.getUserId() == userId){
                     user.setJson(json);
                     userStatisticsRepo.save(user);
+                    System.out.println("### UPDATED USER ###");
                     throw new ResponseStatusException( HttpStatus.OK, "successfully updated"); 
                 }
             }
@@ -106,6 +109,7 @@ public class MobileAPIController {
             //5 - If we never throw that it's been updated, create a new record entry then throw.
             UserStatistics u = new UserStatistics(userId, json);
             userStatisticsRepo.save(u);
+            System.out.println("### CREATED AND SAVED USER ###");
             
             throw new ResponseStatusException( HttpStatus.OK, "new statistics record created"); 
         }

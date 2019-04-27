@@ -49,6 +49,13 @@ public class WebAPIController {
             }
 
             Iterable<UserStatistics> allUserStats = userStatisticsRepo.findAll();
+            
+            int count = 0;
+            for (UserStatistics user : allUserStats){
+                count += 1;
+            }
+            
+            System.out.println("~~~ NUMBER OF USERS IN DATABASE : " + count + " ~~~");
 
             for (UserStatistics user : allUserStats){
                 
