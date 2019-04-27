@@ -144,6 +144,11 @@ void main() async {
     test('New Custom Habit', () {
       int len = habitManager.getHabits().length;
       CoreHabit habit = habitManager.newCustomHabit();
+      expect(habit.startDate, equals(Global.currentDate));
+      expect(habit.title, isNotEmpty);
+      expect(habit.key, isNotEmpty);
+      expect(habit.isCustom(), isTrue);
+      
       var habits = habitManager.getHabits();
       expect(habits.containsKey(habit.key), isTrue);
       expect(habits.containsValue(habit), isTrue);
