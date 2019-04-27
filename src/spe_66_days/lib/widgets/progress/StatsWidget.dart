@@ -20,7 +20,7 @@ class StatsWidget extends StatelessWidget {
   StatsWidget({this.habitKey});
 
   static HashSet<DateTime> intersection(List<HashSet<DateTime>> habits) {
-    return habits.reduce((u, v) => u.intersection(v));
+    return habits.length>0 ? habits.reduce((u, v) => u.intersection(v)) : HashSet<DateTime>();
   }
 
   static HashSet<DateTime> union(List<HashSet<DateTime>> habits) {

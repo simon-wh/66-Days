@@ -12,11 +12,16 @@ import 'package:spe_66_days/widgets/course/CourseScreen.dart';
 import 'package:spe_66_days/widgets/habits/HabitListWidget.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:spe_66_days/classes/NotificationConfig.dart';
+import 'dart:collection';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:spe_66_days/main.dart';
 
 void main() async {
   await Global.instance.init(test: true);
+  Global.habitManager.addHabit('observation', CoreHabit("Eating Observation", "Taken a photo of my meal", reminders: <NotificationConfig>[ NotificationConfig("Take a photo of your meal!", Time(14, 0), HashSet.from(<Day>[Day.Monday, Day.Tuesday, Day.Friday]), true) ]));
+  Global.habitManager.addHabit("eat_slowly", CoreHabit("Eat Slowly", "Put down your cutlery after each mouthful"));
   testWidgets('Initialisation is correct', (WidgetTester tester) async {
     //Build app
     await tester.pumpWidget(new StartApp(signIn: false));
@@ -49,6 +54,7 @@ void main() async {
   });
 
   testWidgets('Test habit checked updates', (WidgetTester tester) async{
+    //Global.habitManager.newCustomHabit();
     await tester.pumpWidget(new StartApp(signIn: false));
     Finder habitFind = find.byType(HabitListWidget);
     Finder ck = find.byType(Checkbox);

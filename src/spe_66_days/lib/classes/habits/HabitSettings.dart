@@ -44,10 +44,11 @@ class HabitSettings{
   }).toList();
 
   void setDefaults(){
-    habits = habits ?? <String, CoreHabit> {
+   /* habits = habits ?? <String, CoreHabit> {
       "observation": CoreHabit("Eating Observation", "Taken a photo of my meal", reminders: <NotificationConfig>[ NotificationConfig("Take a photo of your meal!", Time(14, 0), HashSet.from(<Day>[Day.Monday, Day.Tuesday, Day.Friday]), true) ]),
       "eat_slowly": CoreHabit("Eat Slowly", "Put down your cutlery after each mouthful ")
     }..forEach((s, v) => v..key = s
-                          ..startDate=Global.currentDate);
+                          ..startDate=Global.currentDate);*/
+   habits = habits ?? <String, CoreHabit>{};
   }
 }
