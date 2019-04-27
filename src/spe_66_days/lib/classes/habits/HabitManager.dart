@@ -51,7 +51,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
       id = customIds.last + 1;
     String key = customHabitPrefix + id.toString();
 
-    this.settings.habits.putIfAbsent(key, () => CoreHabit("New Custom Habit Title", "New Custom Habit Experiment", key: key));
+    this.settings.habits.putIfAbsent(key, () => CoreHabit("New Custom Habit Title", "New Custom Habit Experiment", key: key, startDate: Global.currentDate));
     return this.settings.habits[key];
   }
 
