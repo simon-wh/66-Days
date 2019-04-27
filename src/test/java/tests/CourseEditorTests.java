@@ -12,7 +12,7 @@ import packages.Application;
 import packages.tables.CourseWeek;
 import packages.repositories.CourseContentRepository;
 
-@Transactional //Rolls back changes to the database after testing.
+@Transactional 
 @SpringBootTest(classes=Application.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CourseEditorTests {
@@ -118,7 +118,7 @@ public class CourseEditorTests {
         assert(envDesignList.get(4).equals("Four!"));
     }
     
-    private void printRepositoryContents(){
+    private void printCourseWeekRepositoryContents(){
         Iterable<CourseWeek> weeks = courseContentRepo.findAll();
         for (CourseWeek week : weeks){
             printWeekContents(week);

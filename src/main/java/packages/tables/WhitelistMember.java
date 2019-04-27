@@ -20,7 +20,6 @@ public class WhitelistMember {
             email = "default";
         }
 
-        // See Slide 13 of Simon's intro to Spring databases.
         public WhitelistMember(String emailAddress) {
             email = emailAddress;
         }

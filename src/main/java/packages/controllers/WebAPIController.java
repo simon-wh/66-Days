@@ -8,12 +8,14 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 import packages.repositories.UserStatisticsRepository;
 import packages.tables.UserStatistics;
 
@@ -113,31 +115,51 @@ public class WebAPIController {
             return engagementForWeek;
         }
         
-        @RequestMapping(path="/reset-user-statistics")
-        public @ResponseBody String resetUserStatistics(){
+        @RequestMapping(path="/add-test-user-statistics")
+        public @ResponseBody void addTestUserStatisticsRecords(){
+            UserStatistics userStats;
             
-            userStatisticsRepo.deleteAll();
-            
-            UserStatistics userStats = new UserStatistics("Example1", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-01', 'daysChecked': [1,1,1,1,0,0,0,1,1,1,1,0,1,0,1,1,1,1,1,0,0,1,0,1,0,1,1,0] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,0,1,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,0,1,1] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,0,1,1,1,0,0,0,1,1,1] } ]");
-            userStatisticsRepo.save(userStats);
-            
-            userStats = new UserStatistics("Example2", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,1,1,1,0,1,0,1,1,0,1,1,1,0,1,1,0,1,0,1,1] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-15', 'daysChecked': [0,1,1,0,1,0,1,1,0,1,1,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,0,0,0,1,1] } ]");
-            userStatisticsRepo.save(userStats);
-            
-            userStats = new UserStatistics("Example3", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,1,1,1,1,1,1,0,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,1,1,0,1,1] } ]");
-            userStatisticsRepo.save(userStats);
-            
-            return "Successfully reset.";
+            try {
+                if (userStatisticsRepo.findById("Example1").isPresent() == false){
+                    userStats = new UserStatistics("Example1", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-01', 'daysChecked': [1,1,1,1,0,0,0,1,1,1,1,0,1,0,1,1,1,1,1,0,0,1,0,1,0,1,1,0] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,0,1,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,0,1,1] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,0,1,1,1,0,0,0,1,1,1] } ]");
+                    userStatisticsRepo.save(userStats);
+                }
+                
+                if (userStatisticsRepo.findById("Example2").isPresent() == false){
+                    userStats = new UserStatistics("Example2", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,1,1,1,0,1,0,1,1,0,1,1,1,0,1,1,0,1,0,1,1] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-15', 'daysChecked': [0,1,1,0,1,0,1,1,0,1,1,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,0,0,0,1,1] } ]");
+                    userStatisticsRepo.save(userStats);
+                }
+                
+                if (userStatisticsRepo.findById("Example3").isPresent() == false){
+                    userStats = new UserStatistics("Example3", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,1,1,1,1,1,1,0,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,1,1,0,1,1] } ]");
+                    userStatisticsRepo.save(userStats);                
+                }
+                
+                throw new ResponseStatusException( HttpStatus.OK, "Successfully added test users.");
+            } catch (Exception ex){
+                throw new ResponseStatusException( HttpStatus.INTERNAL_SERVER_ERROR, "Unable to create test user statistics"); 
+            }
         }
         
-        //// HELPER FUNCTIONS ////
+        @RequestMapping(path="/delete-all-test-user-statistics")
+        public @ResponseBody void deleteAllTestUserStatistics(){
+            try {
+                userStatisticsRepo.deleteById("Example1");
+                userStatisticsRepo.deleteById("Example2");
+                userStatisticsRepo.deleteById("Example3");
+                
+                throw new ResponseStatusException( HttpStatus.OK, "Successfully deleted test users.");
+            } catch(Exception ex){
+                throw new ResponseStatusException( HttpStatus.INTERNAL_SERVER_ERROR, "Test users already deleted.");
+            }
+        }
         
-        private int getDifferenceInDaysBetween(Date d1, Date d2) {
+        public static int getDifferenceInDaysBetween(Date d1, Date d2) {
             long diff = d2.getTime() - d1.getTime();
             return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         }
         
-        private Boolean dateIsInWeeklyRegion(Date date, int year, int month, int weekOfMonth){
+        public static Boolean dateIsInWeeklyRegion(Date date, int year, int month, int weekOfMonth){
             
             if (((int) date.getYear() + 1900) == year){
                 if(((int) date.getMonth() + 1) == month){
@@ -153,7 +175,7 @@ public class WebAPIController {
             return false;
         }
         
-        private Boolean dateIsInMonthlyRegion(Date date, int year, int month){
+        public static Boolean dateIsInMonthlyRegion(Date date, int year, int month){
             return (((int) date.getYear() + 1900) == year && ((int) date.getMonth() + 1) == month);
         }
         
