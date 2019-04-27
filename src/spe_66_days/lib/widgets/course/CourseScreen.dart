@@ -71,7 +71,7 @@ class CourseState extends State<CourseWidget> {
                   return Align(alignment: Alignment.topCenter,  child:CircularProgressIndicator());
                 case ConnectionState.done:
                   if (snapshot.hasError)
-                    return Center(child:Text(_errorText(snapshot.error as Exception)));
+                    return PageView(scrollDirection: Axis.vertical, physics: AlwaysScrollableScrollPhysics(), children:  <Widget>[Center(child:Text(_errorText(snapshot.error as Exception)))]);
                   List<CourseEntry> entries = snapshot.data;
                   return
                 ListView.builder(
