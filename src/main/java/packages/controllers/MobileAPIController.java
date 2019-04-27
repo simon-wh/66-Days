@@ -42,14 +42,6 @@ public class MobileAPIController {
         
         @Autowired
         private UserStatisticsRepository userStatisticsRepo;
-
-        // ### VERIFY THE USERS EMAIL ### //
-    
-        @RequestMapping(method = RequestMethod.GET, value = "/verify-email", consumes = "application/json")
-	public Boolean verifyEmail(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
-            String userId = getUserIdFromIdToken(idToken);
-            return checkIfUserIdIsAuthorised(userId);
-	}
         
         // ### GET THE COURSE CONTENT AS JSON ### //
        
@@ -60,77 +52,60 @@ public class MobileAPIController {
             //1 - Get the user id from the request.
             String userId = getUserIdFromIdToken(idToken);
             
-            //2 - Verify that the user is authorised.
+            //2 - If the user id is null, decline the request.
+            if (userId == null){
+                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "no user id found from ID token");
+            }
+            
+            //3 - Verify that the user is authorised.
             if (checkIfUserIdIsAuthorised(userId)){
                 
-                //3 - Get all the weeks of the course from the database.
+                //4 - Get all the weeks of the course from the database.
                 List<CourseWeek> weeksList = new ArrayList<>();
                 courseContentRepo.findAll().forEach(weeksList::add);
                 Collections.sort(weeksList, new WeekNumberComparer());
                 
-                //4 - Send the list back as JSON.
+                //5 - Send the list back as JSON.
                 return weeksList;
             }
             
             throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "unauthorized");
         }
         
-        
-        
-        // ### CREATE A RECORD FOR NEW USER'S STATISTICS ### //
-        @RequestMapping(value = "/new-user-statistics-record", method = RequestMethod.GET, consumes = "application/json")
-        public String createNewAccount(@RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
-            
-            //1 - Get the user id from the request.
-            String userId = getUserIdFromIdToken(idToken);
-            
-            //2 - Verify that the user is authorised.
-            if(checkIfUserIdIsAuthorised(userId) == false){
-                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "unauthorized");
-            }
-                    
-            //3 - Create a new UserStatistics entry for the database.
-            UserStatistics u = new UserStatistics(userId, "[]");
-            
-            //4 - Save the entry into the database.
-            userStatisticsRepo.save(u);
-            
-            //5 - Respond with confirmation.
-            return "success";
-        }
-
-        //// UPDATE AN ACCOUNTS USER STATISTICS ////
+        // ### UPDATE USER STATISTICS / CREATE NEW USER STATISTICS RECORD ### //
         
         @RequestMapping(value = "/update-statistics", method = RequestMethod.POST, consumes = "application/json")
-        public String updateUserStatistics(HttpEntity<String> httpEntity, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
+        public void updateUserStatistics(HttpEntity<String> httpEntity, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             //1 - Get the JSON from the body of the request.
             String json = httpEntity.getBody();
+            
+            if (json == null) {
+                throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "no JSON found in request body");
+            }
             
             //2 - Get the user id from the request.
             String userId = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
             
             //3 - If the user id is null, decline the request.
             if (userId == null){
-                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "unauthorized");
+                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "no user id found from ID token");
             }
             
             //4 - Iterate through the sites users and update the appropriate one.
-            boolean userFound = false;
-            
             Iterable<UserStatistics> allUsers = userStatisticsRepo.findAll();
             for (UserStatistics user : allUsers){
                 if (user.getUserId() == userId){
                     user.setJson(json);
                     userStatisticsRepo.save(user);
-                    userFound = true;
+                    throw new ResponseStatusException( HttpStatus.OK, "successfully updated"); 
                 }
             }
             
-            //5 - Return whether the request was successful.
-            if (userFound)
-                return "success";
-            else 
-                throw new ResponseStatusException( HttpStatus.NOT_FOUND, "user not found");
+            //5 - If we never throw that it's been updated, create a new record entry then throw.
+            UserStatistics u = new UserStatistics(userId, json);
+            userStatisticsRepo.save(u);
+            
+            throw new ResponseStatusException( HttpStatus.OK, "new statistics record created"); 
         }
         
         //Code sourced from... https://thepro.io/post/firebase-authentication-for-spring-boot-rest-api/
