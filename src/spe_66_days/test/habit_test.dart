@@ -11,8 +11,19 @@ import 'package:spe_66_days/classes/API.dart';
 import 'package:http/testing.dart';
 import 'package:http/http.dart';
 import 'dart:io';
+import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class FirebaseAuthMock extends Mock implements FirebaseAuth {}
+class FirebaseUserMock extends Mock implements FirebaseUser {}
+
 
 void main() async {
+  Global.auth = FirebaseAuthMock();
+  var user = FirebaseUserMock();
+  when(Global.auth.currentUser()).thenAnswer((_) => Future<FirebaseUserMock>.value(user));
+  when(user.getIdToken()).thenAnswer((_) => Future<String>.value("token"));
+
   await Global.instance.init(test: true);
   var habitManager = Global.habitManager;
   var resourcePath = "../test_resources/";

@@ -21,7 +21,7 @@ class Global extends SettingsBase<GlobalSettings> {
   static CourseManager courseManager;
   StreamSubscription<FirebaseUser> onAuthChanged = null;
 
-  static final FirebaseAuth auth = FirebaseAuth.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
 
   Global._internal() : super("", "main_settings.json", GlobalSettings()){
     //auth.onAuthStateChanged.listen((v) => this.dispose());

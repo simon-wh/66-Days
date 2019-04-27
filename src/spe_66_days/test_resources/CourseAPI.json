@@ -1,169 +1,169 @@
 [
   {
-    "week-id":1,
-    "week-title":"Week One - Observation Week",
-    "week-description":"This is a description",
-    "habit-key":"observation",
-    "habit-title":"Observation",
-    "habit-experiments":[
+    "weekNumber":1,
+    "weekTitle":"Week One - Observation Week",
+    "weekDescription":"This is a description",
+    "habitKey":"observation",
+    "habitTitle":"Observation",
+    "habitExperimentsList":[
       "Put down your cutlery after each mouthful",
       "Eat with your non-dominant hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your meals at a table. Never eat at your desk",
       "Eat in a calm environment",
       "..."
     ]
   },
   {
-    "week-id":2,
-    "week-title":"Week Two - Eat Slowly and Savour Your Food",
-    "week-description":"This is a description",
-    "habit-key":"eat_slowly",
-    "habit-title":"Eat Slowly",
-    "habit-experiments":[
+    "weekNumber":2,
+    "weekTitle":"Week Two - Eat Slowly and Savour Your Food",
+    "weekDescription":"This is a description",
+    "habitKey":"eat_slowly",
+    "habitTitle":"Eat Slowly",
+    "habitExperimentsList":[
       "Put down your cutlery after each mouthful",
       "Eat with your non-dominant hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your meals at a table. Never eat at your desk",
       "Eat in a calm environment",
       "..."
     ]
   },
   {
-    "week-id":3,
-    "week-title":"Week Three - Eat Slowly and Savour Your Food Part Two",
-    "week-description":"This is a description",
-    "habit-key":"eat_slowly",
-    "habit-title":"Eat Slowly",
-    "habit-experiments":[
+    "weekNumber":3,
+    "weekTitle":"Week Three - Eat Slowly and Savour Your Food Part Two",
+    "weekDescription":"This is a description",
+    "habitKey":"eat_slowly",
+    "habitTitle":"Eat Slowly",
+    "habitExperimentsList":[
       "Put down your cutlery after each mouthful",
       "Eat with your non-dominant hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your meals at a table. Never eat at your desk",
       "Eat in a calm environment",
       "..."
     ]
   },
   {
-    "week-id":4,
-    "week-title":"Week Four - Doing Something Different",
-    "week-description":"This is a description",
-    "habit-key":"whole_food",
-    "habit-title":"Whole Foods",
-    "habit-experiments":[
+    "weekNumber":4,
+    "weekTitle":"Week Four - Doing Something Different",
+    "weekDescription":"This is a description",
+    "habitKey":"whole_food",
+    "habitTitle":"Whole Foods",
+    "habitExperimentsList":[
       "Eat whole foods",
       "Eat with your hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your drink. Never drink your desk.",
       "Eat in a calm food.",
       "..."
     ]
   },
   {
-    "week-id":5,
-    "week-title":"Week Five - Observation Week",
-    "week-description":"This is a description",
-    "habit-key":"observation",
-    "habit-title":"Observation",
-    "habit-experiments":[
+    "weekNumber":5,
+    "weekTitle":"Week Five - Observation Week",
+    "weekDescription":"This is a description",
+    "habitKey":"observation",
+    "habitTitle":"Observation",
+    "habitExperimentsList":[
       "Put down your cutlery after each mouthful",
       "Eat with your non-dominant hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your meals at a table. Never eat at your desk",
       "Eat in a calm environment",
       "..."
     ]
   },
   {
-    "week-id":6,
-    "week-title":"Week Six - Eat Slowly and Savour Your Food",
-    "week-description":"This is a description",
-    "habit-key":"eat_slowly",
-    "habit-title":"Eat Slowly",
-    "habit-experiments":[
+    "weekNumber":6,
+    "weekTitle":"Week Six - Eat Slowly and Savour Your Food",
+    "weekDescription":"This is a description",
+    "habitKey":"eat_slowly",
+    "habitTitle":"Eat Slowly",
+    "habitExperimentsList":[
       "Put down your cutlery after each mouthful",
       "Eat with your non-dominant hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your meals at a table. Never eat at your desk",
       "Eat in a calm environment",
       "..."
     ]
   },
   {
-    "week-id":7,
-    "week-title":"Week Seven - Eat Slowly and Savour Your Food Part Two",
-    "week-description":"This is a description",
-    "habit-key":"eat_slowly",
-    "habit-title":"Eat Slowly",
-    "habit-experiments":[
+    "weekNumber":7,
+    "weekTitle":"Week Seven - Eat Slowly and Savour Your Food Part Two",
+    "weekDescription":"This is a description",
+    "habitKey":"eat_slowly",
+    "habitTitle":"Eat Slowly",
+    "habitExperimentsList":[
       "Put down your cutlery after each mouthful",
       "Eat with your non-dominant hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your meals at a table. Never eat at your desk",
       "Eat in a calm environment",
       "..."
     ]
   },
   {
-    "week-id":8,
-    "week-title":"Week Eight - Doing Something Different",
-    "week-description":"This is a description",
-    "habit-key":"whole_food",
-    "habit-title":"Whole Foods",
-    "habit-experiments":[
+    "weekNumber":8,
+    "weekTitle":"Week Eight - Doing Something Different",
+    "weekDescription":"This is a description",
+    "habitKey":"whole_food",
+    "habitTitle":"Whole Foods",
+    "habitExperimentsList":[
       "Eat whole foods",
       "Eat with your hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your drink. Never drink your desk.",
       "Eat in a calm food.",
       "..."
     ]
   },
   {
-    "week-id":9,
-    "week-title":"Week Nine - Eat Slowly and Savour Your Food Part Two",
-    "week-description":"This is a description",
-    "habit-key":"eat_slowly",
-    "habit-title":"Eat Slowly",
-    "habit-experiments":[
+    "weekNumber":9,
+    "weekTitle":"Week Nine - Eat Slowly and Savour Your Food Part Two",
+    "weekDescription":"This is a description",
+    "habitKey":"eat_slowly",
+    "habitTitle":"Eat Slowly",
+    "habitExperimentsList":[
       "Put down your cutlery after each mouthful",
       "Eat with your non-dominant hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your meals at a table. Never eat at your desk",
       "Eat in a calm environment",
       "..."
     ]
   },
   {
-    "week-id":10,
-    "week-title":"Week Ten - Think diff.",
-    "week-description":"This is a description",
-    "habit-key":"whole_food",
-    "habit-title":"Whole Foods",
-    "habit-experiments":[
+    "weekNumber":10,
+    "weekTitle":"Week Ten - Think diff.",
+    "weekDescription":"This is a description",
+    "habitKey":"whole_food",
+    "habitTitle":"Whole Foods",
+    "habitExperimentsList":[
       "Eat whole foods",
       "Eat with your hand",
       "..."
     ],
-    "environment-design":[
+    "environmentDesignList":[
       "Eat your drink. Never drink your desk.",
       "Eat in a calm food.",
       "..."
