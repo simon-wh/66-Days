@@ -79,6 +79,8 @@ public class MobileAPIController {
             //1 - Get the JSON from the body of the request.
             String json = httpEntity.getBody();
             
+            System.out.println(json);
+            
             if (json == null) {
                 throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "no JSON found in request body");
             }

@@ -14,7 +14,7 @@ import packages.controllers.WebAPIController;
 import packages.repositories.UserStatisticsRepository;
 import packages.tables.UserStatistics;
 
-@Transactional //Rolls back changes to the database after testing.
+@Transactional
 @SpringBootTest(classes=Application.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DashboardTests {
