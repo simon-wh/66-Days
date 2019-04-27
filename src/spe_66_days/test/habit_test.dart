@@ -1,21 +1,23 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:spe_66_days/classes/habits/CoreHabit.dart';
-import 'package:spe_66_days/classes/NotificationConfig.dart';
-import 'package:spe_66_days/classes/habits/HabitSettings.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'dart:collection';
-import 'dart:convert';
+import 'package:spe_66_days/classes/habits/HabitSettings.dart';
+import 'package:spe_66_days/classes/course/CourseEntry.dart';
+import 'package:spe_66_days/classes/NotificationConfig.dart';
+import 'package:spe_66_days/classes/habits/CoreHabit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spe_66_days/classes/Global.dart';
-import 'package:collection/collection.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:spe_66_days/classes/API.dart';
+import 'package:collection/collection.dart';
+import 'package:mockito/mockito.dart';
 import 'package:http/testing.dart';
 import 'package:http/http.dart';
+import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
-import 'package:mockito/mockito.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthMock extends Mock implements FirebaseAuth {}
 class FirebaseUserMock extends Mock implements FirebaseUser {}
+
 
 
 void main() async {
@@ -37,14 +39,48 @@ void main() async {
       String text = new File(resourcePath + 'CourseAPI.json').readAsStringSync();
       return Response(text, 200);
     }
+    else
+      return Response("Unauthorised access", 401);
 
   });
 
-  group("Client calls", () {
-    test('Gets course content', () {
-      final item = API.fetchCourseEntries();
+
+
+
+  group("Course content", () {
+    test('Gets course content', () async {
+      final item = await API.fetchCourseEntries();
       expect(item, isNotNull);
     });
+
+    test('Unlocks course correctly', () async {
+      final data = await API.fetchCourseEntries();
+      List<CourseEntry> entries = data.item2;
+      DateTime earliestDate = Global.currentDate.add(Duration(days: - 14));
+      expect(
+          Global.currentDate.isAfter(earliestDate.add(
+              Duration(days: (7 * (entries.where((entry) => entry.weekNo == 2).toList().first.weekNo - 1)),
+                  milliseconds: -1))), isTrue);
+      expect(
+          Global.currentDate.isAfter(earliestDate.add(
+              Duration(days: (7 * (entries.where((entry) => entry.weekNo == 3).toList().first.weekNo - 1)),
+                  milliseconds: -1))), isTrue);
+      for(int i = 4; i < 11; i++){
+        expect(
+            Global.currentDate.isAfter(earliestDate.add(
+                Duration(days: (7 * (entries.where((entry) => entry.weekNo == i).toList().first.weekNo - 1)),
+                    milliseconds: -1))), isFalse);
+      }
+    });
+
+    test('Unathourised access', () async {
+      final url = API.getEndpointURI("fail").toString();
+      final response = await API.client.get(url);
+
+      expect(response.statusCode, equals(401));
+      expect(response.body, equals("Unauthorised access"));
+    });
+
   });
 
 

@@ -74,7 +74,6 @@ class CourseState extends State<CourseWidget> {
                     return Center(child:Text(_errorText(snapshot.error as Exception)));
                   List<CourseEntry> entries = snapshot.data;
                   return
-                //Global.courseManager.courseWeeks == null ? PageView( physics: AlwaysScrollableScrollPhysics(), scrollDirection: Axis.vertical,  children: <Widget>[Center(child:Text("Unable to load course"))]) :
                 ListView.builder(
                   itemCount: entries.length,
                   itemBuilder: (context, index) {
