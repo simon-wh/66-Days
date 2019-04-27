@@ -33,9 +33,9 @@ class HabitManager extends SettingsBase<HabitSettings> {
       return;
     initialised = true;
 
-    eventBus.on<HabitCheckedChangedEvent>().listen((event) {
+    eventBus.on<HabitCheckedChangedEvent>().listen((event) async {
       // All events are of type UserLoggedInEvent (or subtypes of it).
-      this.save();
+      await this.save();
     });
 
 
