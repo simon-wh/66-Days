@@ -39,7 +39,7 @@ class HabitSettings{
   Map<String, dynamic> toJson() => _$HabitSettingsToJson(this);
   List<Map<String, dynamic>> toStatsJson() => this.habits.values.map((habit)=><String, dynamic>{
     'habitKey':habit.key,
-    'dateStarted': habit.startDate.toIso8601String(),
+    'dateStarted': habit.startDate.toString().split(" ").first,
     'daysChecked' : List.generate(Global.currentDate.difference(habit.startDate).inDays, (i)=> habit.startDate.add(Duration(days:i))).map((s) => habit.markedOff.contains(s) ? 1 : 0).toList()
   }).toList();
 
