@@ -27,35 +27,8 @@ void main() async {
     expect(find.text('66  DAYS'), findsOneWidget);
     expect(find.byType(Card), findsNWidgets(3));
     expect(find.byIcon(Icons.home), findsOneWidget);
-    /*expect(find.byIcon(Icons.assignment), findsOneWidget);
-    expect(find.byIcon(Icons.timeline), findsOneWidget);*/
     expect(find.byIcon(Icons.library_books), findsOneWidget);
   });
-
-  /*testWidgets('Test Navigation to progress is  correct', (WidgetTester tester) async{
-    Global.auth.signInAnonymously();
-    await tester.pumpWidget(new StartApp(signIn: false));
-    await tester.tap(find.byIcon(Icons.timeline));
-    await tester.pump(new Duration(seconds: 1));
-
-    expect(find.byType(ProgressChart), findsOneWidget);
-    expect(find.byType(StreaksChart), findsOneWidget);
-    expect(find.text("Perfect Days", skipOffstage: false), findsOneWidget);
-    expect(find.text("Total Habits Done", skipOffstage: false), findsOneWidget);
-    expect(find.text("Current Streak", skipOffstage: false), findsOneWidget);
-    expect(find.text("Best Streak", skipOffstage: false), findsOneWidget);
-    expect(find.text("Habit Daily Average", skipOffstage: false), findsOneWidget);
-    expect(find.text("Habits Checked Today", skipOffstage: false), findsOneWidget);
-  });
-
-  testWidgets('Test Navigation to habits is  correct', (WidgetTester tester) async{
-    await tester.pumpWidget(new StartApp(signIn: false));
-    await tester.tap(find.byIcon(Icons.assignment));
-    await tester.pump(new Duration(seconds: 1));
-
-    expect(find.byType(Checkbox), findsWidgets);
-    expect(find.byIcon(Icons.edit), findsWidgets);
-  });*/
 
   testWidgets('Test Navigation to course is  correct', (WidgetTester tester) async{
     await tester.pumpWidget(new StartApp(signIn: false));
@@ -77,7 +50,6 @@ void main() async {
 
   testWidgets('Test habit checked updates', (WidgetTester tester) async{
     await tester.pumpWidget(new StartApp(signIn: false));
-    //await tester.tap(find.byIcon(Icons.assignment));
     Finder habitFind = find.byType(HabitListWidget);
     Finder ck = find.byType(Checkbox);
     HabitListWidget habitWidget = tester.firstElement(habitFind).widget;
@@ -85,5 +57,14 @@ void main() async {
     expect(habit.markedOff, isNot(contains(Global.currentDate)));
     await tester.tap(find.descendant(of: habitFind, matching: ck).first);
     expect(habit.markedOff, contains(Global.currentDate));
+  });
+
+  testWidgets('Test Course unlock is correct', (WidgetTester tester) async{
+    await tester.pumpWidget(new StartApp(signIn: false));
+    await tester.tap(find.byIcon(Icons.library_books));
+    await tester.pump(new Duration(seconds: 1));
+
+    expect(find.byType(CourseScreen), findsOneWidget);
+
   });
 }
