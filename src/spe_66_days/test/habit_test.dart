@@ -25,6 +25,7 @@ void main() async {
   var user = FirebaseUserMock();
   when(Global.auth.currentUser()).thenAnswer((_) => Future<FirebaseUserMock>.value(user));
   when(user.getIdToken()).thenAnswer((_) => Future<String>.value("token"));
+  when(user.isAnonymous).thenAnswer((_) => false);
 
   await Global.instance.init(test: true);
   var habitManager = Global.habitManager;

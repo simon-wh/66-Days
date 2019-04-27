@@ -37,6 +37,9 @@ abstract class API {
   }
 
   static Future<Tuple2<int, List<CourseEntry>>> fetchCourseEntries() async {
+    if ((await Global.auth.currentUser()).isAnonymous)
+      return Tuple2(HttpStatus.unauthorized, null);
+
     //Use this if we want to always use fresh data when loading, if we have this uncommented it means that if no new data is able to be found (i.e. if no internet connection is avaialble, it can still use the existing loaded data)
     //courseWeeks = null;
 
