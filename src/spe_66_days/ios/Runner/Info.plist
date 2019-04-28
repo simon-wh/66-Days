@@ -58,14 +58,14 @@
 	</array>
 	<!-- End of the Google Sign-in Section -->
 
-
+    <!-- BEGIN Facebook Sign-in Section -->
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb2172283843083678</string>
-      </array>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>fb2172283843083678</string>
+          </array>
       </dict>
     </array>
     <key>FacebookAppID</key>
@@ -81,5 +81,6 @@
       <string>fbauth2</string>
       <string>fbshareextension</string>
     </array>
+    <!-- END Facebook Sign-in Section -->
 </dict>
 </plist>

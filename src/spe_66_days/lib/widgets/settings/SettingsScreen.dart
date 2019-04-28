@@ -3,7 +3,7 @@ import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/widgets/habits/EditNotificationWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class SettingsWidget extends StatefulWidget {
   final bool compact;
@@ -64,7 +64,8 @@ class SettingsState extends State<SettingsWidget> {
                             //child: user.isAnonymous ? Icon(Icons.person) : Image.network(user.photoUrl),
                           ),
                           Container(child: Text('${user.isAnonymous ? "Anonymous" : user.displayName}'), padding: EdgeInsets.only(left:5.0))]), alignment: Alignment.centerLeft),
-                        Align(child: FlatButton(child: Text("Sign out"), onPressed: (){
+                        Align(child: FlatButton(child: Text("Sign out"), onPressed: () async {
+                          await FacebookLogin().logOut();
                           Global.auth.signOut();
                         }), alignment: Alignment.centerRight)
                       ]);

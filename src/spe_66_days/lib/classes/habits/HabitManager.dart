@@ -118,7 +118,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails('habit_reminder',  'User Habit Reminders', 'Reminders to check in/complete a habit');
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     NotificationDetails platformChannelSpecifics = new NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    int count;
+    int count = 0;
     this.settings.habits.forEach((key, value) {
       value.reminders.forEach((notif) {
         if (!notif.enabled)
