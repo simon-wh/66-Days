@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.concurrent.ExecutionException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 import packages.comparators.WeekNumberComparer;
@@ -73,6 +75,44 @@ public class MobileAPIController {
         }
         
         // ### UPDATE USER STATISTICS / CREATE NEW USER STATISTICS RECORD ### //
+        //https://stackoverflow.com/questions/29313687/trying-to-use-spring-boot-rest-to-read-json-string-from-post
+        
+        @RequestMapping(value = "/update-stats", method = RequestMethod.POST, consumes = "text/plain")
+        @ResponseBody
+        public ResponseEntity update(@RequestBody String json, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
+            System.out.println("### JSON ### " + json);
+            
+            if (json == null) {
+                return new ResponseEntity<String>("User id not found.", HttpStatus.BAD_REQUEST); 
+            }
+            
+            String userId = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
+            
+            System.out.println("### USER ID ### " + userId);
+            
+            //3 - If the user id is null, decline the request.
+            if (userId == null){
+                return new ResponseEntity<String>("User id not found.", HttpStatus.UNAUTHORIZED); 
+            }
+            
+            //4 - Iterate through the sites users and update the appropriate one.
+            Iterable<UserStatistics> allUsers = userStatisticsRepo.findAll();
+            for (UserStatistics user : allUsers){
+                if (user.getUserId() == userId){
+                    user.setJson(json);
+                    userStatisticsRepo.save(user);
+                    System.out.println("### UPDATED USER ###");
+                    return new ResponseEntity<String>("Successfully updated.", HttpStatus.OK); 
+                }
+            }
+            
+            //5 - If we never throw that it's been updated, create a new record entry then throw.
+            UserStatistics u = new UserStatistics(userId, json);
+            userStatisticsRepo.save(u);
+            System.out.println("### CREATED AND SAVED USER ###");
+            
+            return new ResponseEntity<String>("New user created.", HttpStatus.OK);
+        }
         
         @RequestMapping(value = "/update-statistics", method = RequestMethod.POST, consumes = "application/json")
         public void updateUserStatistics(HttpEntity<String> httpEntity, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
