@@ -76,7 +76,7 @@ class _HomeState extends State<HomeWidget> {
                     HomeCard c = cards[index];
                     if (c.hidden)
                       return Container();
-                    return Dismissible(
+                    return c.getCard(context);/*Dismissible(
                         direction: DismissDirection.startToEnd,
                         key: c.key,
                         onDismissed: (direction) {
@@ -93,7 +93,7 @@ class _HomeState extends State<HomeWidget> {
                                 });
                               }),));
                         },
-                        child: c.getCard(context));
+                        child: c.getCard(context));*/
                   }),
               DateTime.now().isAfter(endOfDayHabit) ? CardSwipes() : Container()// Item Builder
             ],
