@@ -3,7 +3,7 @@
 ## Getting started
 Upon start up of the app you will be greeted with the sign-in screen. Here you can chose to sign-in with you gmail account (if you have purchased access to the 66 Days course content), or you sign-in anonymously, should you wish to just track your own custom habits.
 
-![Sign-in page]()
+![Sign-in page](https://github.com/simon-wh/66-Days/blob/master/User%20manual/Images/Signing%20in.png)
 
 Once you have signed into the app, you will be taken to the home page. The homepage displays multiple cards which you can scroll between to help you with your journey through habit tracking. These cards are compact versions of more detailed sections of the app, which include; your score chart, your currently tracked habits and your statistics. Should you decide that you do not want one of the cards on the home screen, then you can swipe to dismiss them.
 
@@ -49,7 +49,7 @@ Another tab on the side bar is the statistics page. Here you can view your graph
 ![Statistics 2]()
 
 ## Managing settings
-The settings page allows for quite and easy changes to aspects of the apps that don't involve habit. Here you can change whether you use the light or dark mode colour scheme. You can also change when/if you recieve the end of day habit notification. This will remind you to check off all your habits before you go to bed. When you open the home page after this time, you will be shown a selection of cards which you swipe in order to check off/dismiss any remaining unchecked habits.
+The settings page allows for quite and easy changes to aspects of the apps that don't involve habit. Here you can change whether you use the light or dark mode colour scheme. You can also change when/if you receive the end of day habit notification. This will remind you to check off all your habits before you go to bed. When you open the home page after this time, you will be shown a selection of cards which you swipe in order to check off/dismiss any remaining unchecked habits.
 
 ![Settings page]()
 ![Habit cards]()
