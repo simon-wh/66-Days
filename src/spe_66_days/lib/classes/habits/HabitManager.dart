@@ -37,7 +37,9 @@ class HabitManager extends SettingsBase<HabitSettings> {
       // All events are of type UserLoggedInEvent (or subtypes of it).
       await this.save();
     });
-
+    
+    var res = await this.pushUserStats();
+    print("Pushing user stats to server returned code: $res");
 
     await load();
   }
@@ -124,7 +126,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
         if (!notif.enabled)
           return;
         notif.repeatDays.forEach((day) async {
-          count = (count  ?? -1)+1;
+          count += 1;
           int id = i+count;
           print("$id Notification scheduled for ${day.value.toString()}, ${notif.time.hour}:${notif.time.minute} ");
 
