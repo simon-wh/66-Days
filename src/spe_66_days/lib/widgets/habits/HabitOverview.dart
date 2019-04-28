@@ -31,7 +31,13 @@ class HabitOverviewState extends State<HabitOverview> {
 
   Widget build(context) {
     var habit = Global.habitManager.getHabit(this.widget.habitKey);
-    if(habit == null) {Navigator.pop(context);}
+    if(habit == null){
+      setState(() {
+
+        Future(() { Navigator.pop(context); });
+      });
+      return Container();
+    }
     var formatter = new DateFormat('MMM\ndd');
     var startDate = habit.startDate ?? Global.currentDate;
     //print(habit.startDate?.toString() ?? "StartDate is null");
