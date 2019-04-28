@@ -58,7 +58,7 @@ class CourseEntryState extends State<CourseEntryWidget> {
             children: this.widget.entry.items.map((item) {
           if (item is CourseEntryText) {
             CourseEntryText text = item;
-            return Center(child: Container(padding: EdgeInsets.all(5.0), child: Text(text.text, textAlign: TextAlign.justify)));
+            return Center(child: Container(padding: EdgeInsets.all(5.0), child: Text(text.text, textAlign: TextAlign.left)));
           } else if (item is CourseEntryChange) {
             //if (!Global.habitManager.hasHabit(item.habitKey))
             //  throw new Exception("Habit doesn't exist!");
