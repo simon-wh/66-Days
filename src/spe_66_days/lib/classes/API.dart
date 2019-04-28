@@ -56,7 +56,9 @@ abstract class API {
 
   static Future<int> pushUserStats(String json) async {
     var uri = getEndpointURI("update-statistics");
-    Response response = await post(uri, headers: await getAuthHeaders(), body: json);
+    //print(json);
+    Response response = await client.post(uri, headers: await getAuthHeaders(), body: json);
+    //print(response.body.toString());
     return response.statusCode;
   }
 }
