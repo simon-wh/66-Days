@@ -22,9 +22,9 @@ Unauthorised or anonymous users are not permitted to access the course content o
 
 If, however, you are allowed to view the course content then when you track your first habit, your journey begins! You will go through each day trying to track each habit you set yourself, and be introduced to a new habit every other week, with the option to update your current habit each week. Weeks that are highlighted in orange are ones that have already tracked the necessary habits for, the green week is the one in which you are currently on, and greyed out weeks are ones which you will have to track for a little bit longer in order to unlock.
 
-![Library content 1](https://raw.githubusercontent.com/simon-wh/66-Days/blob/master/User%20manual/Images/Course%20content%20completed.png)
-![Library content 2](https://raw.githubusercontent.com/simon-wh/66-Days/blob/master/User%20manual/Images/Course%20content%20current.png)
-![Library content refresh](https://raw.githubusercontent.com/simon-wh/66-Days/blob/master/User%20manual/Images/Course%20content%20refresh.png)
+![Library content 1](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Course%20content%20completed.png)
+![Library content 2](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Course%20content%20current.png)
+![Library content refresh](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Course%20content%20refresh.png)
 
 For each given week, you are prompted to set up you own experiment and environment design. By tapping on one of the weeks shown above, you will be presented with the overview of the current week, which includes what experiment you are following, alongside the environment design. Simple select one of the experiments to chose it for that week. Simply pull down until the refresh icon appears to refresh the course content.
 
