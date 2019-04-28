@@ -3,7 +3,7 @@
 ## Getting started
 Upon start up of the app you will be greeted with the sign-in screen. Here you can chose to sign-in with you gmail account (if you have purchased access to the 66 Days course content), or you sign-in anonymously, should you wish to just track your own custom habits.
 
-![Sign-in page](https://raw.githubusercontent.com/simon-wh/66-Days/blob/master/User%20manual/Images/Signing%20in.png =720x1440)
+![](https://raw.githubusercontent.com/simon-wh/66-Days/blob/master/User%20manual/Images/Signing%20in.png =720x1440)
 
 Once you have signed into the app, you will be taken to the home page. The homepage displays multiple cards which you can scroll between to help you with your journey through habit tracking. These cards are compact versions of more detailed sections of the app, which include; your score chart, your currently tracked habits and your statistics. Should you decide that you do not want one of the cards on the home screen, then you can swipe to dismiss them.
 
