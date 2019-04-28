@@ -77,7 +77,7 @@ public class MobileAPIController {
         // ### UPDATE USER STATISTICS / CREATE NEW USER STATISTICS RECORD ### //
         //https://stackoverflow.com/questions/29313687/trying-to-use-spring-boot-rest-to-read-json-string-from-post
         
-        @RequestMapping(value = "/update-stats", method = RequestMethod.POST, consumes = "text/plain")
+        @RequestMapping(value = "/update-stats", method = RequestMethod.GET, consumes = "text/plain")
         @ResponseBody
         public ResponseEntity update(@RequestBody String json, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
             System.out.println("### JSON ### " + json);
