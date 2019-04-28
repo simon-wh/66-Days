@@ -28,8 +28,7 @@ class CourseScreen extends CourseWidget implements BottomNavigationBarItem {
 
 class CourseState extends State<CourseWidget> {
   CourseState();
-  static List<CoreHabit> habits = Global.habitManager.getHabits().values.toList();
-  DateTime earliestDate = habits.isEmpty ? Global.currentDate : findEarliest( habits );
+  DateTime earliestDate;
 
   static DateTime findEarliest( List<CoreHabit> habits) {
     DateTime earliest = Global.currentDate;
@@ -41,6 +40,12 @@ class CourseState extends State<CourseWidget> {
     return earliest;
   }
 
+  @override
+  void initState(){
+    super.initState();
+    var habits = Global.habitManager.getHabits().values.toList();
+    earliestDate = habits.isEmpty ? Global.currentDate : findEarliest( habits );
+  }
   String _errorText(Exception e){
     return e is UnauthorizedException ? "You are unauthoized. Contact the App Owner" : "Could not refresh the Course.\nCheck your internet connection?";
   }
