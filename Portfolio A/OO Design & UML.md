@@ -2,6 +2,7 @@
 
 ## High-level Architecture diagram
 
+### Activity diagram
 ![Activity Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/Architecture%20diagram.jpg)
 
 Each annotated arrow describes the following processes:
