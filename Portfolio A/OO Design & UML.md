@@ -2,6 +2,8 @@
 
 ## High-level Architecture diagram
 
+![Architecture Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/Architecture.png)
+
 ### Activity diagram
 ![Activity Diagram](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/Architecture%20diagram.jpg)
 
