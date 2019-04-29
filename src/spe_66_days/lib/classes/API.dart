@@ -18,6 +18,7 @@ class UnauthorizedException implements Exception {
 }
 
 abstract class API {
+  //Use the Client so we can swap it out with a MockClient when testing
   static Client client = Client();
   static String baseURL = "129.213.90.30";
   static String apiURL = "mobile-api";

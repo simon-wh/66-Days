@@ -1,0 +1,3 @@
+# App Deployment
+
+The App is built using the CodeMagic CI which is designed specifically to work with Flutter. Right now(28/04/19), everything is setup to build both the Android and iOS versions properly. All that is required is for the client to setup the App on the Play Store and the App store and then configuring it in the CI. The CI is designed to be able to automatically handle pushing the app to the Play Store and App store so it should be fairly easy to get it all running.
