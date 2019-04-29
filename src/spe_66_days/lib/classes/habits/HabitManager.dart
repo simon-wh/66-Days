@@ -38,9 +38,9 @@ class HabitManager extends SettingsBase<HabitSettings> {
       await this.save();
     });
     
-    this.pushUserStats().then((res) => print("Pushing user stats to server returned code: $res")).catchError((e){ print (e);});
 
     await load();
+    this.pushUserStats().then((res) => print("Pushing user stats to server returned code: $res")).catchError((e){ print (e);});
   }
 
   static const String customHabitPrefix = "custom-";
