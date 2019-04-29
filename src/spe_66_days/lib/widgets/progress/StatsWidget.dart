@@ -25,6 +25,9 @@ class StatsWidget extends StatelessWidget {
   }
 
   static HashSet<DateTime> intersectionWithStartDate(List<Tuple2<DateTime, HashSet<DateTime>>> fhabits) {
+    if (fhabits.length ==0)
+      return HashSet<DateTime>();
+
     var habits = fhabits.toList();
     habits.sort((u,v) => u.item1.compareTo(v.item1));
     var first = habits.removeAt(0);

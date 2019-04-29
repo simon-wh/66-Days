@@ -34,7 +34,7 @@ class _HabitsState extends State<HabitsWidget> {
     }).toList();
 
     if (this.widget.displayMode != mode.Standard)
-      return Column(mainAxisSize: MainAxisSize.min, children: habits);
+      return Column(mainAxisSize: MainAxisSize.min, children: habits.length == 0 ? <Widget>[Center(child: Text("You've got no habits! Go to the Course or Habit Manager to get started!", textAlign: TextAlign.center))] : habits);
     else {
     return Scaffold(
       floatingActionButton:  FloatingActionButton.extended(
@@ -49,7 +49,7 @@ class _HabitsState extends State<HabitsWidget> {
           label: const Text('Add Habit')),
       body:  Container(
       padding: const EdgeInsets.only(top: 10.0),
-      child: ListView.builder(itemCount: habits.length, itemBuilder: (context, i)=>Card(child:Container(padding: EdgeInsets.only(top: 5.0, bottom: 5.0), child: habits[i]), elevation: 2.0), shrinkWrap: true),
+      child: habits.length == 0 ? Center(child: Text("You've got no habits! Go to the Course or add a habit to get started!", textAlign: TextAlign.center)) : ListView.builder(itemCount: habits.length, itemBuilder: (context, i)=>Card(child:Container(padding: EdgeInsets.only(top: 5.0, bottom: 5.0), child: habits[i]), elevation: 2.0), shrinkWrap: true),
     ));
   }
   } // Build
