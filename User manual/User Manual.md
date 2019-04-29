@@ -50,7 +50,7 @@ In the top right of the habit overview there is an icon which allows you to edit
 ![Edit Habit](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Editing%20a%20habit.png)
 
 ## Viewing your statistics
-Another tab on the [side bar](#Navigation) is the statistics page. Here you can view your graph which shows your progress overtime. The more consistent you are with tracking your habits, the more the graph goes up, leave it too long however, and you will see your progress begin to slowly decline. Furthermore you can view what streaks you had going for this habit, alongside some extra statistics beneath this. Most are self-explanatory, but the perfect days stat describes the days in which you checked off every single habit which you were tracking.
+Another tab on the [side bar](#Navigation) is the statistics page. Here you can view your graph which shows your progress overtime. The more consistent you are with tracking your habits, the more the graph goes up, leave it too long however, and you will see your progress begin to slowly decline. Furthermore you can view what streaks you had going for all habits, alongside some extra statistics beneath this. Most are self-explanatory, but the perfect days stat describes the days in which you checked off every single habit which you were tracking.
 
 ![Statistics 1](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Stats.png)
 ![Statistics 2](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Streaks.png)
