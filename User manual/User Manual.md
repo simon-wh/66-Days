@@ -1,4 +1,4 @@
-# 66 Days mobile application user manual
+# 66 Days Mobile Application User Manual
 
 ## Getting started
 
