@@ -69,6 +69,7 @@ class SignInState extends State<SignInWidget> {
                 }),
                 SignInButton(Buttons.Facebook, onPressed: () async {
                   final facebookLogin = FacebookLogin();
+                  await facebookLogin.logOut();
                   final result = await facebookLogin.logInWithReadPermissions(['email']);
 
                   switch (result.status) {

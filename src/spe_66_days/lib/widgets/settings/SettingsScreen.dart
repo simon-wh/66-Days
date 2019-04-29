@@ -65,7 +65,6 @@ class SettingsState extends State<SettingsWidget> {
                           ),
                           Container(child: Text('${user.isAnonymous ? "Anonymous" : user.displayName}'), padding: EdgeInsets.only(left:5.0))]), alignment: Alignment.centerLeft),
                         Align(child: FlatButton(child: Text("Sign out"), onPressed: () async {
-                          await FacebookLogin().logOut();
                           Global.auth.signOut();
                         }), alignment: Alignment.centerRight)
                       ]);
