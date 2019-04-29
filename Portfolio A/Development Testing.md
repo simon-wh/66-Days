@@ -2,31 +2,23 @@
 
 ### Testing each component in the architecture diagram
 
------ note
-
-using a mix of black & white box testing. i.e. to skip testing methods that just calls another method with some preset parameters. i.e. HabitManager.dart checkHabit & uncheckHabit
-
------
-
-#### Back end tests
+#### Server tests
 
 To test that information stored on the server is correct, we will use black box testing. We would like to ensure that our range of inputs to the server, gets stored and remains unedited on the server, so that when the data is recalled, it is exactly the same as we stored it. This tests all aspects of Ben pushing updates of course content to the server, whilst receiving usage data of all his clients, and also that the course content is replicated correctly to the user.
 
-#### Front end tests
+#### Mobile App tests
 
-For two of the components within the application program of our architecture diagram, namely the habit manager and the visualisation manager, we will adopt the equivalence partitioning strategy. If we hand the habit manager a range of inputs, e.g. habits being checked, then our component should behave the same for all of these inputs. It should refer to the instance of the habit and update any variables as is necessary. If we input a selection of `CoreHabit` instances to the habit manager, then it should also ensure that each of these instances are stored in the correct file format, and can also be read from this file format as appropriate.
+In the App, for all the classes behind the scenes (i.e. Habit Manager, not the UI) we are approaching it using Unit testing with a mixed Black box and White box testing strategy. Firstly we will design tests based on what we would expect the result to be from the aspect we are testing. For example, for a function like `getHabit(String) : CoreHabit` we would test it giving it valid input which we would expect to return an existing `CoreHabit` and additionally check how it acts when giving it invalid input. Once we set-up a range of black box tests and ensure those are working from our implementation, we design white box tests that focus primarily on parts of the code we think may break on certain input. We also do this to see if we can throw out some tests in cases where the function is just passing along some default parameters to another fully tested function (i.e. `checkHabit` and `uncheckHabit` in `HabitManager` which can be seen in the Static UML diagram). Doing testing with this strategy can be very beneficial as we can ensure that we don't miss out on any particular edge cases that we may not have found through the Black box testing.
 
-Similarly with the various visualisation classes, if we hand them a range of inputs, with these inputs being a list of `CoreHabit`, then it should abstract the appropriate information from these inputs and display it in their chosen format. The behaviour for the inputs should be the same, we must ensure that the inputs get displayed in a specific form, hence equivalence partitioning, but the outputted result may be different, i.e. there may be a line graph output, or a heatmap output.
-
-To test that the course content manager is correct, we will use black box testing. We don't necessarily need to see the internal representation of this component, however we must ensure that the output is correct. The range of acceptable inputs for this component would be all of the course content that is uploaded to the server from Ben, hence the corresponding correct outputs, would simply be the same content to be outputted to the device, meaning that our code for the content manager will simply read, and write without any edits. We can do this by splitting up the input, i.e. the whole course, into the corresponding weeks. That is, we are ensuring that when we input week 1, the course content for week 1 is outputted correctly and unedited, and this is repeated for all weeks.
+For the UI part of the App we will approach it using the Widget testing that's available in the Flutter SDK. We concluded that the UI would be changing rapidly as we were iterating on the design as we got feedback on the design from Ben. As a result we decided that we would not write very in-depth Widget tests for the UI as they would become outdated fairly often and would require a lot of time to maintain. Additionally, we felt as though the UI wouldn't vary that much in different situations so it would be fairly easy to ensure everything is working without the use of Unit tests, just through our playing with the app in the development environment. We will do more general overall tests to ensure the core functionality that won't really change drastically that often. However, this is mainly due to the relatively short nature of this project, if we were developing it for longer we would have more detailed tests. This would be because for a longer term project we would likely have a UI which would be staying more consistent and only seeing minor alterations, so in-depth tests would make more sense.
 
 ### Testing framework to develop the tests
 
-Flutter and Dart have a very nice range of Testing capabilities built right in. These include Unit testing, Widget Testing (for testing UI components) and Integration testing (Which tests the system working as a whole in an emulator). For our system we'll only be making using of primarily Unit testing and some Widget testing to ensure data is processed correctly and displayed properly to the user. At this point in time our system is not complicated enough for there to be a need to use Integration testing.
+Flutter and Dart have a very nice range of Testing capabilities built right in. These include Unit testing, Widget Testing (for testing UI components) and Integration testing (Which tests the system working as a whole in an emulator). For our system we'll only be making using of primarily Unit testing and some Widget testing to ensure data is processed correctly and displayed properly to the user. 
 
 ### Challenges that may affect the testability of the components
 
-There may be issues should we wish to test that the widgets within flutter function appropriately according to the underlying logic classes in our application. To overcome this issue we will make use of flutters built in library for widget testing to ensure that values update correctly and hence show that if our logic tests pass, and the our tests for the widgets show that values within the code update appropriately, then our code should be tested to an approriate degree.
+The primarily difficulty we will have when writing tests is the fact that a lot of our code will be using aspects which don't have implicit testability. Such as FirebaseAuth and the server API. Without any intervention this will result in tests not working at all. As, for example, the testing environment won't and can't have a signed in user, so all code that tries to use the signed in user will fail. To get around this we will design the system so that it's easy for aspects such as FirebaseAuth and the API can be swapped out with Mock versions which give sample returns so that the code can progress.
 
 
 
