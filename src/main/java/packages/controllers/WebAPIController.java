@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.server.ResponseStatusException;
 import packages.repositories.UserStatisticsRepository;
 import packages.tables.UserStatistics;
 
@@ -56,7 +55,7 @@ public class WebAPIController {
                 count += 1;
             }
             
-            System.out.println("~~~ NUMBER OF USERS IN DATABASE : " + count + " ~~~");
+            //System.out.println("~~~ NUMBER OF USERS IN DATABASE : " + count + " ~~~");
 
             for (UserStatistics user : allUserStats){
                 
@@ -70,6 +69,7 @@ public class WebAPIController {
                     activeUsers += 1;
                 }
             }
+            //System.out.println("TALLIED HABITS ENGAGEMENT AND USERS");
             
             for (int i = 0; i < 70; i++){
                 if (usersActive.get(i) != 0){
@@ -110,6 +110,8 @@ public class WebAPIController {
                 }
             }
             
+            //System.out.println("TALLIED HABITS ENGAGEMENT AND USERS");
+            
             for (int i = 0; i < habitsChecked.size(); i++){
                 if (usersActive.get(i) != 0){
                     engagementForWeek.set(i, ((float) habitsChecked.get(i) / (float) usersActive.get(i)));
@@ -133,6 +135,9 @@ public class WebAPIController {
                 userStatisticsRepo.save(userStats);
                 userStats = new UserStatistics("Example3", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,1,1,1,1,1,1,0,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,1,1,0,1,1] } ]");
                 userStatisticsRepo.save(userStats);
+                userStats = new UserStatistics("Example4", "[{'habitKey':'observation','dateStarted':'2018-12-09','daysChecked':[1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,0,0,0,0,0,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,1,0,1,1]},{'habitKey':'eat_slowly','dateStarted':'2018-12-09','daysChecked':[1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,1,0,1,0]},{'habitKey':'eat_whole','dateStarted':'2019-02-20','daysChecked':[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0]},{'habitKey':'drink_water','dateStarted':'2019-02-20','daysChecked':[1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,1,1,0,0,1,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1]},{'habitKey':'eat_3meals','dateStarted':'2019-03-01','daysChecked':[1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1]}]");
+                userStatisticsRepo.save(userStats);
+                
                 
                 return new ResponseEntity<>("Test users added.", HttpStatus.OK);
             } catch (Exception ex){
@@ -152,6 +157,9 @@ public class WebAPIController {
                     userStatisticsRepo.deleteById(user.getId());
                 }
                 if ("Example3".equals(user.getUserId())){
+                    userStatisticsRepo.deleteById(user.getId());
+                }
+                if ("Example4".equals(user.getUserId())){
                     userStatisticsRepo.deleteById(user.getId());
                 }
             }
@@ -202,6 +210,8 @@ public class WebAPIController {
                 }
             }
             
+            //System.out.println("The start date is : " + userStartDate.toString());
+            
             return userStartDate;
         }
         
@@ -216,7 +226,7 @@ public class WebAPIController {
                     JSONArray checklist = habit.getJSONArray("daysChecked");
 
                     if (userStartDate.equals(habitStartDate)){ //Only tally active days for one habit.
-                        for (int j = 0; j < checklist.length(); j++){
+                        for (int j = 0; j < 70; j++){
                             int totalActiveUsers = usersActive.get(j) + 1;
                             usersActive.set(j, totalActiveUsers);
                         }
@@ -235,18 +245,24 @@ public class WebAPIController {
 
                 JSONObject habit = habitsArray.getJSONObject(i);
                 String startDateString = habit.get("dateStarted").toString();
+                
+                //System.out.println("### Tallying habits...");
+                //System.out.println(" - The start date is : " + startDateString);
 
                 try { 
                     Date habitStartDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDateString);
                     int daysOffset = getDifferenceInDaysBetween(userStartDate, habitStartDate);
+                    //System.out.println("- Days offset is : " + daysOffset);
                     JSONArray checklist = habit.getJSONArray("daysChecked");
 
                     //Iterating through all of the days of the habit, tallying if they are checked to another array.
                     for (int j = 0; j < checklist.length(); j++){
                         int checked = checklist.getInt(j);
                         if (checked == 1){
-                            int newTotalHabitsChecked = habitsChecked.get(j + daysOffset) + 1;
-                            habitsChecked.set(j + daysOffset, newTotalHabitsChecked);
+                            if (j + daysOffset < 70){
+                                int newTotalHabitsChecked = habitsChecked.get(j + daysOffset) + 1;
+                                habitsChecked.set(j + daysOffset, newTotalHabitsChecked);
+                            }
                         }
                     }
 

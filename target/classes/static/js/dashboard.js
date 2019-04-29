@@ -20,6 +20,7 @@ function requestEngagementChartData(){
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+      
       engagementValues = JSON.parse(this.responseText);
       if (week != "None"){
         loadWeeklyEngagementChart(engagementValues, year, month, week);
@@ -31,8 +32,6 @@ function requestEngagementChartData(){
   
   xhttp.open("GET", requestURL, true);
   xhttp.send();
-  
-  
 }
 
 function getFullMonthName(number){
