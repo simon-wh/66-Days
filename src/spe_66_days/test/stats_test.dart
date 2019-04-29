@@ -1,6 +1,37 @@
 import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
 import 'dart:collection';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tuple/tuple.dart';
+
+List<Tuple2<DateTime, HashSet<DateTime>>> getDatesWithStartDate(List<HashSet<DateTime>> dates, List<DateTime> startDates){
+  if (dates.isEmpty)
+    return List<Tuple2<DateTime, HashSet<DateTime>>>();
+
+  var start = startDates.toList();
+  return dates.map((date) => Tuple2<DateTime, HashSet<DateTime>>(start.length > 1 ? start.removeAt(0) : start.first, date)).toList();
+}
+
+DateTime getFirstDate(HashSet<DateTime> date){
+  SplayTreeSet<DateTime> sorted = SplayTreeSet.from(date);
+  return sorted.first;
+
+}
+
+List<DateTime> getEarliestDate(List<HashSet<DateTime>> dates){
+  if(dates.isEmpty)
+    return <DateTime>[];
+
+
+  var date = dates.reduce((u,v) => u.union(v));
+  SplayTreeSet<DateTime> sorted = SplayTreeSet.from(date);
+  return <DateTime>[sorted.first];
+
+}
+
+List<Tuple2<DateTime, HashSet<DateTime>>> getDatesWithEarliestDate(List<HashSet<DateTime>> dates){
+  return getDatesWithStartDate(dates, getEarliestDate(dates));
+}
+
 
 void main() {
   HashSet<DateTime> streak = HashSet.from(<DateTime> [DateTime(2019, 1, 1), DateTime(2019, 1, 2), DateTime(2019, 1, 3),
@@ -128,98 +159,99 @@ void main() {
       });
     });
 
+    DateTime mainDate =  DateTime(2019, 1, 5);
     group("Calculate Streak", () {
       test('Empty list', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [];
-        expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5)), equals(0));
+        expect(StatsWidget.calcStreakWithDate(getDatesWithStartDate(dates, List<DateTime>()), mainDate), equals(0));
       });
 
       test('Empty Hashset', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [HashSet<DateTime>()];
-        expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5)), equals(0));
+        expect(StatsWidget.calcStreakWithDate(getDatesWithStartDate(dates, <DateTime>[mainDate]), mainDate), equals(0));
       });
 
       test('Multiple Empty Hashsets', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [HashSet<DateTime>(), HashSet<DateTime>()];
-        expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5)), equals(0));
+        expect(StatsWidget.calcStreakWithDate(getDatesWithStartDate(dates, <DateTime>[mainDate,mainDate]), mainDate), equals(0));
       });
       test('Correct streak unmarked current day after', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
-        expect(StatsWidget.calcStreakWithDate(dates, DateTime(2019, 1, 5).add(Duration(days: 1))), equals(5));
+        expect(StatsWidget.calcStreakWithDate(getDatesWithStartDate(dates, <DateTime>[getFirstDate(streak)]), DateTime(2019, 1, 5).add(Duration(days: 1))), equals(5));
       });
       test('Correct streak broken after 2 days', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
-        expect(StatsWidget.calcStreakWithDate(dates,DateTime(2019, 1, 5).add(Duration(days: 2))), equals(0));
+        expect(StatsWidget.calcStreakWithDate(getDatesWithStartDate(dates, <DateTime>[getFirstDate(streak)]),DateTime(2019, 1, 5).add(Duration(days: 2))), equals(0));
       });
       test('Correct streak when in middle of a streak', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
-        expect(StatsWidget.calcStreakWithDate(dates,DateTime(2019, 1, 5).add(Duration(days: -1))), equals(4));
+        expect(StatsWidget.calcStreakWithDate(getDatesWithStartDate(dates, <DateTime>[getFirstDate(streak)]),DateTime(2019, 1, 5).add(Duration(days: -1))), equals(4));
       });
     });
 
     group("Best Streak", (){
       test('Test best streak on emptpy set returns 0', () {
-        expect(StatsWidget.bestStreak(List<HashSet<DateTime>>()), equals(0));
+        expect(StatsWidget.bestStreak(List<Tuple2<DateTime, HashSet<DateTime>>>()), equals(0));
       });
       test('Test correct best streak at start of set', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [bestStartStreaks];
-        expect(StatsWidget.bestStreak(dates), equals(5));
+        expect(StatsWidget.bestStreak(getDatesWithStartDate(dates, dates.map((d) => getFirstDate(d)).toList())), equals(5));
       });
       test('Test correct best streak in middle of set', (){
         List<HashSet<DateTime>> datesMid = <HashSet<DateTime>> [bestMiddleStreaks];
-        expect(StatsWidget.bestStreak(datesMid), equals(5));
+        expect(StatsWidget.bestStreak(getDatesWithStartDate(datesMid, datesMid.map((d) => getFirstDate(d)).toList())), equals(5));
       });
       test('Test correct best streak at end of set', (){
         List<HashSet<DateTime>> datesEnd = <HashSet<DateTime>> [bestFinalStreaks];
-        expect(StatsWidget.bestStreak(datesEnd), equals(5));
+        expect(StatsWidget.bestStreak(getDatesWithStartDate(datesEnd, datesEnd.map((d) => getFirstDate(d)).toList())), equals(5));
       });
     });
 
     group("Habits Done", () {
       test('Test no habits returns 0', () {
-        expect(StatsWidget.habitsDone(List<HashSet<DateTime>>()), equals(0));
+        expect(StatsWidget.habitsDone(List<Tuple2<DateTime, HashSet<DateTime>>>()), equals(0));
       });
       test('Test correct habits done for a single habit', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [brokenStreak];
-        expect(StatsWidget.habitsDone(dates), equals(brokenStreak.length));
+        expect(StatsWidget.habitsDone(getDatesWithEarliestDate(dates)), equals(brokenStreak.length));
       });
       test('Test correct habits done for multiple habits', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [brokenStreak, brokenStreak1];
-        expect(StatsWidget.habitsDone(dates), equals(brokenStreak.length + brokenStreak1.length));
+        expect(StatsWidget.habitsDone(getDatesWithEarliestDate(dates)), equals(brokenStreak.length + brokenStreak1.length));
       });
     });
 
     group("Habits on date", () {
       test('No habits on date returns 0', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
-        expect(StatsWidget.habitsOnDate(dates, DateTime(2019, 1, 6)), equals(0.0));
+        expect(StatsWidget.habitsOnDate(getDatesWithEarliestDate(dates), DateTime(2019, 1, 6)), equals(0.0));
       });
       test('Habits on date for single habits', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
-        expect(StatsWidget.habitsOnDate(dates, DateTime(2019, 1, 5)), equals(1.0));
+        expect(StatsWidget.habitsOnDate(getDatesWithEarliestDate(dates), DateTime(2019, 1, 5)), equals(1.0));
       });
       test('Habits on date for multiple habits', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak, streak1, brokenYear1];
-        expect(StatsWidget.habitsOnDate(dates, DateTime(2019, 1, 2)), equals(3));
+        expect(StatsWidget.habitsOnDate(getDatesWithEarliestDate(dates), DateTime(2019, 1, 2)), equals(3));
       });
     });
 
     group("Habits average on date", (){
       test('Habits before end date returns 0', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [];
-        expect(StatsWidget.habitAvgOnDate(dates, DateTime(2019, 1, 4)), equals(0));
+        expect(StatsWidget.habitAvgOnDate(getDatesWithEarliestDate(dates), DateTime(2019, 1, 4)), equals(0));
       });
       test('No habits on date returns 0', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [];
-        expect(StatsWidget.habitAvgOnDate(dates, DateTime(2019, 1, 6)), equals(0));
+        expect(StatsWidget.habitAvgOnDate(getDatesWithEarliestDate(dates), DateTime(2019, 1, 6)), equals(0));
       });
       test('Habits on date for single habits', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak];
-        expect(StatsWidget.habitAvgOnDate(dates, DateTime(2019, 1, 5)), equals(1));
+        expect(StatsWidget.habitAvgOnDate(getDatesWithEarliestDate(dates), DateTime(2019, 1, 5)), equals(1));
       });
       test('Habits on date for multiple habits', (){
         List<HashSet<DateTime>> dates = <HashSet<DateTime>> [streak, streak1, brokenYear1];
-        expect(StatsWidget.habitAvgOnDate(dates, DateTime(2019, 1, 6)), equals(15/13));
+        expect(StatsWidget.habitAvgOnDate(getDatesWithEarliestDate(dates), DateTime(2019, 1, 6)), equals(15/13));
       });
     });
   });

@@ -7,6 +7,7 @@ import 'package:spe_66_days/classes/Global.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:spe_66_days/main.dart';
 import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
+import 'package:tuple/tuple.dart';
 
 class ProgressChart extends StatelessWidget {
   List<charts.Series<MapEntry<DateTime,int>, DateTime>> seriesList;
@@ -107,7 +108,7 @@ class ProgressChart extends StatelessWidget {
 
   int calculateScore( num numberOfMarked, DateTime date) {
     int numberOfHabits = Global.habitManager.getHabits().values.length;
-    int streaks = StatsWidget.calcStreakWithDate(Global.habitManager.getHabits().values.map((s) => s.markedOff).toList(), date);
+    int streaks = StatsWidget.calcStreakWithDate(Global.habitManager.getHabits().values.map((s) => Tuple2<DateTime, HashSet<DateTime>>(s.startDate, s.markedOff)).toList(), date);
     streaks = streaks > 0 ? streaks : 1;
     int returnValue = numberOfMarked * streaks * exp(numberOfHabits).toInt();
     return returnValue;

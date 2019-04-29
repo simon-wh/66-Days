@@ -3,6 +3,7 @@ import 'package:spe_66_days/widgets/progress/stats.dart';
 import 'dart:collection';
 import 'dart:math';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:tuple/tuple.dart';
 
 class StatsWidget extends StatelessWidget {
   final List<Stat> stats = [
@@ -23,12 +24,28 @@ class StatsWidget extends StatelessWidget {
     return habits.length>0 ? habits.reduce((u, v) => u.intersection(v)) : HashSet<DateTime>();
   }
 
-  static HashSet<DateTime> union(List<HashSet<DateTime>> habits) {
-    return habits.reduce((u, v) => u.union(v));
+  static HashSet<DateTime> intersectionWithStartDate(List<Tuple2<DateTime, HashSet<DateTime>>> fhabits) {
+    var habits = fhabits.toList();
+    habits.sort((u,v) => u.item1.compareTo(v.item1));
+    var first = habits.removeAt(0);
+    return habits.fold(first.item2, (s, u) {
+      var intersectElements = s.where((e)=>!e.isBefore(u.item1)).toSet();
+      var intersected = intersectElements.intersection(u.item2);
+      var prevElems = s.where((e)=>e.isBefore(u.item1)).toSet();
+      var set = prevElems.union(intersected);
+      return HashSet<DateTime>.from(set);
+    });
+    return habits.length>0 ? habits.reduce((u, v) => Tuple2<DateTime, HashSet<DateTime>>(u.item1, HashSet<DateTime>.from( u.item2.takeWhile((d) => d.isAfter(v.item1)).toSet().intersection(v.item2).toSet().union(u.item2.takeWhile(((d) => d.isBefore(v.item1))).toSet()).toSet()))).item2 : HashSet<DateTime>();
   }
 
-  static int perfectDaysCount(List<HashSet<DateTime>> habits) {
-    return intersection(habits).length;
+  static HashSet<DateTime> union(List<Tuple2<DateTime, HashSet<DateTime>>> habits) {
+    return habits.fold(HashSet<DateTime>(), (u, v) => u.union(v.item2));
+    //return habits.reduce((u, v) => Tuple2<DateTime, HashSet<DateTime>>(u.item1, u.item2.union(v.item2))).item2;
+  }
+
+  static int perfectDaysCount(List<Tuple2<DateTime, HashSet<DateTime>>> habits) {
+
+    return intersectionWithStartDate(habits).length;
   }
 
   static List<List<DateTime>> streaks(HashSet<DateTime> set) {
@@ -55,17 +72,17 @@ class StatsWidget extends StatelessWidget {
     return streaks;
   }
 
-  static int calcStreak(List<HashSet<DateTime>> habits) {
+  static int calcStreak(List<Tuple2<DateTime, HashSet<DateTime>>>  habits) {
     return calcStreakWithDate(habits, Global.currentDate);
   }
 
-  static int calcStreakWithDate(List<HashSet<DateTime>> habits, DateTime currentDate) {
+  static int calcStreakWithDate(List<Tuple2<DateTime, HashSet<DateTime>>> habits, DateTime currentDate) {
     List<DateTime> streak = new List<DateTime>();
     int streakCount = 0;
     if (habits.length == 0)
       return 0;
 
-    var s = streaks(intersection(habits));
+    var s = streaks(intersectionWithStartDate(habits));
     if (s.isEmpty) return 0;
     if (currentDate.isBefore(s.last.last)){
       s.forEach((list) {
@@ -86,27 +103,27 @@ class StatsWidget extends StatelessWidget {
     return streakCount;
   }
 
-  static int bestStreak(List<HashSet<DateTime>> habits) {
+  static int bestStreak(List<Tuple2<DateTime, HashSet<DateTime>>> habits) {
     if (habits.isEmpty) return 0;
-    var s = streaks(intersection(habits));
+    var s = streaks(intersectionWithStartDate(habits));
     if (s.length == 0) return 0;
 
     return s.map((v) => v.length).reduce(max);
   }
 
-  static int habitsDone(List<HashSet<DateTime>> habits) {
-    return habits.fold(0, (n, s) => n + s.length);
+  static int habitsDone(List<Tuple2<DateTime, HashSet<DateTime>>> habits) {
+    return habits.fold(0, (n, s) => n + s.item2.length);
   }
 
-  static int habitsOnDate(List<HashSet<DateTime>> habits, DateTime onDate) {
-    return habits.fold(0, (n, s) => n + (s.contains(onDate) ? 1 : 0));
+  static int habitsOnDate(List<Tuple2<DateTime, HashSet<DateTime>>> habits, DateTime onDate) {
+    return habits.fold(0, (n, s) => n + (s.item2.contains(onDate) ? 1 : 0));
   }
 
-  static int habitsToday(List<HashSet<DateTime>> habits) {
+  static int habitsToday(List<Tuple2<DateTime, HashSet<DateTime>>> habits) {
     return habitsOnDate(habits, Global.currentDate);
   }
 
-  static double habitAvgOnDate(List<HashSet<DateTime>> habits, DateTime endDate) {
+  static double habitAvgOnDate(List<Tuple2<DateTime, HashSet<DateTime>>> habits, DateTime endDate) {
     if (habits.isEmpty) return 0.0;
     var s = union(habits).toList()..sort();
     if (s.length == 0) return 0.0;
@@ -116,14 +133,15 @@ class StatsWidget extends StatelessWidget {
     return (habitsDone(habits) / (endDate.difference(first).inDays + 1));
   }
 
-  static double habitAvgToday(List<HashSet<DateTime>> habits){
+  static double habitAvgToday(List<Tuple2<DateTime, HashSet<DateTime>>> habits){
     return habitAvgOnDate(habits, Global.currentDate);
   }
 
   @override
   Widget build(BuildContext context) {
-    List<HashSet<DateTime>> habits = this.habitKey == null ?
-        Global.habitManager.getHabits().values.map((s) => s.markedOff).toList() : <HashSet<DateTime>>[Global.habitManager.getHabit(this.habitKey).markedOff];
+
+    List<Tuple2<DateTime, HashSet<DateTime>>> habits = this.habitKey == null ?
+        Global.habitManager.getHabits().values.map((s) => Tuple2<DateTime, HashSet<DateTime>>(s.startDate, s.markedOff)).toList() : <Tuple2<DateTime, HashSet<DateTime>>>[Tuple2<DateTime, HashSet<DateTime>>(Global.habitManager.getHabit(this.habitKey).startDate, Global.habitManager.getHabit(this.habitKey).markedOff)];
     return Container(
         padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
         child: Column(
