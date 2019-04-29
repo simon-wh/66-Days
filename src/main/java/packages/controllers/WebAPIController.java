@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,42 +124,39 @@ public class WebAPIController {
         }
         
         @RequestMapping(path="/add-test-user-statistics")
-        public @ResponseBody void addTestUserStatisticsRecords(){
-            UserStatistics userStats;
+        public ResponseEntity<String> addTestUserStatisticsRecords(){
             
             try {
-                if (userStatisticsRepo.findById("Example1").isPresent() == false){
-                    userStats = new UserStatistics("Example1", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-01', 'daysChecked': [1,1,1,1,0,0,0,1,1,1,1,0,1,0,1,1,1,1,1,0,0,1,0,1,0,1,1,0] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,0,1,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,0,1,1] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,0,1,1,1,0,0,0,1,1,1] } ]");
-                    userStatisticsRepo.save(userStats);
-                }
+                UserStatistics userStats = new UserStatistics("Example1", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-01', 'daysChecked': [1,1,1,1,0,0,0,1,1,1,1,0,1,0,1,1,1,1,1,0,0,1,0,1,0,1,1,0] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,0,1,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,0,1,1] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,0,1,1,1,0,0,0,1,1,1] } ]");
+                userStatisticsRepo.save(userStats);
+                userStats = new UserStatistics("Example2", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,1,1,1,0,1,0,1,1,0,1,1,1,0,1,1,0,1,0,1,1] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-15', 'daysChecked': [0,1,1,0,1,0,1,1,0,1,1,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,0,0,0,1,1] } ]");
+                userStatisticsRepo.save(userStats);
+                userStats = new UserStatistics("Example3", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,1,1,1,1,1,1,0,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,1,1,0,1,1] } ]");
+                userStatisticsRepo.save(userStats);
                 
-                if (userStatisticsRepo.findById("Example2").isPresent() == false){
-                    userStats = new UserStatistics("Example2", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-08', 'daysChecked': [1,1,1,1,0,1,0,1,1,0,1,1,1,0,1,1,0,1,0,1,1] }, { 'habitKey': 'three meals_key', 'dateStarted': '2019-01-15', 'daysChecked': [0,1,1,0,1,0,1,1,0,1,1,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,0,0,0,1,1] } ]");
-                    userStatisticsRepo.save(userStats);
-                }
-                
-                if (userStatisticsRepo.findById("Example3").isPresent() == false){
-                    userStats = new UserStatistics("Example3", "[ { 'habitKey': 'eat slowly_key', 'dateStarted': '2019-01-15', 'daysChecked': [1,1,1,0,1,1,1,1,1,1,0,1,1,0] }, { 'habitKey': 'whole foods_key', 'dateStarted': '2019-01-22', 'daysChecked': [1,1,1,1,0,1,1] } ]");
-                    userStatisticsRepo.save(userStats);                
-                }
-                
-                throw new ResponseStatusException( HttpStatus.OK, "Successfully added test users.");
+                return new ResponseEntity<>("Test users added.", HttpStatus.OK);
             } catch (Exception ex){
-                throw new ResponseStatusException( HttpStatus.INTERNAL_SERVER_ERROR, "Unable to create test user statistics"); 
+                return new ResponseEntity<>("Unable to add new test users.", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
         
-        @RequestMapping(path="/delete-all-test-user-statistics")
-        public @ResponseBody void deleteAllTestUserStatistics(){
-            try {
-                userStatisticsRepo.deleteById("Example1");
-                userStatisticsRepo.deleteById("Example2");
-                userStatisticsRepo.deleteById("Example3");
-                
-                throw new ResponseStatusException( HttpStatus.OK, "Successfully deleted test users.");
-            } catch(Exception ex){
-                throw new ResponseStatusException( HttpStatus.INTERNAL_SERVER_ERROR, "Test users already deleted.");
+        @RequestMapping(path="/delete-test-user-statistics")
+        public ResponseEntity<String> deleteAllTestUserStatistics(){
+            Iterable<UserStatistics> allUserStats = userStatisticsRepo.findAll();
+            
+            for (UserStatistics user : allUserStats){
+                if ("Example1".equals(user.getUserId())){
+                    userStatisticsRepo.deleteById(user.getId());
+                }
+                if ("Example2".equals(user.getUserId())){
+                    userStatisticsRepo.deleteById(user.getId());
+                }
+                if ("Example3".equals(user.getUserId())){
+                    userStatisticsRepo.deleteById(user.getId());
+                }
             }
+            
+            return new ResponseEntity<>("Users deleted.", HttpStatus.OK);
         }
         
         public static int getDifferenceInDaysBetween(Date d1, Date d2) {
