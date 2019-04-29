@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import packages.repositories.UserStatisticsRepository;
 import packages.tables.UserStatistics;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller 
 @RequestMapping(path="/web-api")
