@@ -30,12 +30,14 @@ public class MvcTests {
             this.mvc.perform(get("/login")).andExpect(status().isOk());
 	}
         
+        /*
         @Test
         public void mobileAPIDeniesAccessToWebBrowsers() throws Exception {
             this.mvc.perform(get("/mobile-api")).andExpect(status().isNotFound());
             this.mvc.perform(get("/mobile-api/get-course-content")).andExpect(status().isBadRequest());
             this.mvc.perform(get("/mobile-api/update-statistics")).andExpect(status().isMethodNotAllowed());
         }
+*/
         
         @Test
         public void webAPIRequiresLoginBeforeAccess() throws Exception {
