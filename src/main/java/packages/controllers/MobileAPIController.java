@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 import packages.comparators.WeekNumberComparer;
 
@@ -56,7 +57,7 @@ public class MobileAPIController {
             
             //2 - If the user id is null, decline the request.
             if (userId == null){
-                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "no user id found from ID token");
+                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "User ID not found.");
             }
             
             //3 - Verify that the user is authorised.
@@ -71,87 +72,40 @@ public class MobileAPIController {
                 return weeksList;
             }
             
-            throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "unauthorized");
+            throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "User ID not authorized.");
         }
         
         // ### UPDATE USER STATISTICS / CREATE NEW USER STATISTICS RECORD ### //
         //https://stackoverflow.com/questions/29313687/trying-to-use-spring-boot-rest-to-read-json-string-from-post
         
-        @RequestMapping(value = "/update-stats", method = RequestMethod.GET, consumes = "text/plain")
-        @ResponseBody
+        @RequestMapping(value = "/update-statistics", method = RequestMethod.POST, consumes = "text/plain")
+        @ResponseStatus(HttpStatus.OK)
         public ResponseEntity update(@RequestBody String json, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
-            System.out.println("### JSON ### " + json);
-            
             if (json == null) {
-                return new ResponseEntity<String>("User id not found.", HttpStatus.BAD_REQUEST); 
+                return new ResponseEntity<>("User ID not found.", HttpStatus.BAD_REQUEST); 
             }
             
             String userId = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
             
-            System.out.println("### USER ID ### " + userId);
-            
-            //3 - If the user id is null, decline the request.
+            //If the user id is null, decline the request.
             if (userId == null){
-                return new ResponseEntity<String>("User id not found.", HttpStatus.UNAUTHORIZED); 
+                return new ResponseEntity<>("User ID not found.", HttpStatus.UNAUTHORIZED); 
             }
             
             //4 - Iterate through the sites users and update the appropriate one.
             Iterable<UserStatistics> allUsers = userStatisticsRepo.findAll();
             for (UserStatistics user : allUsers){
-                if (user.getUserId() == userId){
+                if (user.getUserId().equals(userId)){
                     user.setJson(json);
                     userStatisticsRepo.save(user);
-                    System.out.println("### UPDATED USER ###");
-                    return new ResponseEntity<String>("Successfully updated.", HttpStatus.OK); 
+                    return new ResponseEntity<>("Successfully updated.", HttpStatus.OK); 
                 }
             }
             
             //5 - If we never throw that it's been updated, create a new record entry then throw.
             UserStatistics u = new UserStatistics(userId, json);
             userStatisticsRepo.save(u);
-            System.out.println("### CREATED AND SAVED USER ###");
-            
-            return new ResponseEntity<String>("New user created.", HttpStatus.OK);
-        }
-        
-        @RequestMapping(value = "/update-statistics", method = RequestMethod.POST, consumes = "application/json")
-        public void updateUserStatistics(HttpEntity<String> httpEntity, @RequestHeader(value = "ID-TOKEN", required = true) String idToken) throws Exception {
-            //1 - Get the JSON from the body of the request.
-            String json = httpEntity.getBody();
-            
-            System.out.println("### JSON ### " + json);
-            
-            if (json == null) {
-                throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "no JSON found in request body");
-            }
-            
-            //2 - Get the user id from the request.
-            String userId = getUserIdFromIdToken(idToken); //Note that idToken comes from the HTTP Header.
-            
-            System.out.println("### USER ID ### " + userId);
-            
-            //3 - If the user id is null, decline the request.
-            if (userId == null){
-                throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "no user id found from ID token");
-            }
-            
-            //4 - Iterate through the sites users and update the appropriate one.
-            Iterable<UserStatistics> allUsers = userStatisticsRepo.findAll();
-            for (UserStatistics user : allUsers){
-                if (user.getUserId() == userId){
-                    user.setJson(json);
-                    userStatisticsRepo.save(user);
-                    System.out.println("### UPDATED USER ###");
-                    throw new ResponseStatusException( HttpStatus.OK, "successfully updated"); 
-                }
-            }
-            
-            //5 - If we never throw that it's been updated, create a new record entry then throw.
-            UserStatistics u = new UserStatistics(userId, json);
-            userStatisticsRepo.save(u);
-            System.out.println("### CREATED AND SAVED USER ###");
-            
-            throw new ResponseStatusException( HttpStatus.OK, "new statistics record created"); 
+            return new ResponseEntity<>("New user created.", HttpStatus.OK);
         }
         
         //Code sourced from... https://thepro.io/post/firebase-authentication-for-spring-boot-rest-api/
