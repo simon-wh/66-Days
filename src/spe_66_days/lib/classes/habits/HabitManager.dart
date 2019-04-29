@@ -38,8 +38,7 @@ class HabitManager extends SettingsBase<HabitSettings> {
       await this.save();
     });
     
-    //var res = await this.pushUserStats();
-    //print("Pushing user stats to server returned code: $res");
+    this.pushUserStats().then((res) => print("Pushing user stats to server returned code: $res")).catchError((e){ print (e);});
 
     await load();
   }
