@@ -35,7 +35,7 @@ class StatsWidget extends StatelessWidget {
       var set = prevElems.union(intersected);
       return HashSet<DateTime>.from(set);
     });
-    return habits.length>0 ? habits.reduce((u, v) => Tuple2<DateTime, HashSet<DateTime>>(u.item1, HashSet<DateTime>.from( u.item2.takeWhile((d) => d.isAfter(v.item1)).toSet().intersection(v.item2).toSet().union(u.item2.takeWhile(((d) => d.isBefore(v.item1))).toSet()).toSet()))).item2 : HashSet<DateTime>();
+    //return habits.length>0 ? habits.reduce((u, v) => Tuple2<DateTime, HashSet<DateTime>>(u.item1, HashSet<DateTime>.from( u.item2.takeWhile((d) => d.isAfter(v.item1)).toSet().intersection(v.item2).toSet().union(u.item2.takeWhile(((d) => d.isBefore(v.item1))).toSet()).toSet()))).item2 : HashSet<DateTime>();
   }
 
   static HashSet<DateTime> union(List<Tuple2<DateTime, HashSet<DateTime>>> habits) {

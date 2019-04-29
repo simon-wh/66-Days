@@ -55,6 +55,9 @@ abstract class API {
   }
 
   static Future<int> pushUserStats(String json) async {
+    if ((await Global.auth.currentUser()).isAnonymous)
+      return HttpStatus.unauthorized;
+
     var uri = getEndpointURI("update-statistics");
     //print(json);
     Response response = await client.post(uri, headers: await getAuthHeaders(), body: json);
