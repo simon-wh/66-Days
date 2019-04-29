@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tests.MvcTests
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.64 s - in tests.MvcTests
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.437 s - in tests.MvcTests
