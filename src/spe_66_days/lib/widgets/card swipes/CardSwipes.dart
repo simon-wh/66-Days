@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'package:spe_66_days/widgets/card swipes/habitCard.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 
 class CardSwipes extends StatefulWidget {
   @override
@@ -83,12 +81,6 @@ class CardSwipesState extends State<CardSwipes> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<Null> _swipeAnimation() async {
-    try {
-      await _buttonController.forward();
-    } on TickerCanceled {}
-  }
-
   dismissHabit(CoreHabit habit) {
     setState(() {
       Global.habitManager.uncheckHabit(habit.key, date:date);
@@ -106,10 +98,9 @@ class CardSwipesState extends State<CardSwipes> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 0.4;
-    var datalength = uncheckedHabits.length;
+    var dataLength = uncheckedHabits.length;
 
-    return datalength > 0 ? Container(
+    return dataLength > 0 ? Container(
       color: Color.fromARGB(150, 0, 0, 0),
       child: new Stack(
           alignment: AlignmentDirectional.center,

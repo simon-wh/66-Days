@@ -6,7 +6,7 @@ import 'package:spe_66_days/widgets/habits/HabitListWidget.dart';
 import 'package:spe_66_days/widgets/progress/StatsWidget.dart';
 import 'package:spe_66_days/classes/Global.dart';
 import 'package:spe_66_days/classes/habits/HabitManager.dart';
-import 'package:spe_66_days/widgets/card swipes/index.dart';
+import 'package:spe_66_days/widgets/card swipes/CardSwipes.dart';
 import 'package:spe_66_days/classes/GlobalSettings.dart';
 import 'dart:async';
 
@@ -59,44 +59,25 @@ class _HomeState extends State<HomeWidget> {
     return Scaffold(
       body: RefreshIndicator(
           onRefresh: () {
-            return Future(() {setState(() {
-
-            });});
+            return Future(() {setState(() {});});
           },
           child: PageView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        children: <Widget>[
-          new Stack(
+            physics: const AlwaysScrollableScrollPhysics(),
             children: <Widget>[
-              ListView.builder(
-                  primary: true,
-                  shrinkWrap: true,
-                  itemCount: cards.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    HomeCard c = cards[index];
-                    if (c.hidden)
-                      return Container();
-                    return c.getCard(context);/*Dismissible(
-                        direction: DismissDirection.startToEnd,
-                        key: c.key,
-                        onDismissed: (direction) {
-
-                          setState(() {
-                            cards[index].hidden = true;
-                          });
-
-                          // Show a snackbar! This snackbar could also contain "Undo" actions.
-                          Scaffold.of(context).showSnackBar(
-                              SnackBar(content: Text("Card dismissed"), action: SnackBarAction(label: "Undo", onPressed: () {
-                                setState(() {
-                                  cards[index].hidden = false;
-                                });
-                              }),));
-                        },
-                        child: c.getCard(context));*/
-                  }),
-              DateTime.now().isAfter(endOfDayHabit) ? CardSwipes() : Container()// Item Builder
-            ],
+              new Stack(
+                children: <Widget>[
+                  ListView.builder(
+                      primary: true,
+                      shrinkWrap: true,
+                      itemCount: cards.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        HomeCard c = cards[index];
+                        if (c.hidden)
+                          return Container();
+                        return c.getCard(context);
+                      }),
+                  DateTime.now().isAfter(endOfDayHabit) ? CardSwipes() : Container()// Item Builder
+           ],
           ),
         ],
       )));
