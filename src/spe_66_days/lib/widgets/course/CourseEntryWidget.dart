@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/course/CourseEntry.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 import 'package:spe_66_days/classes/Global.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourseEntryScreen extends StatefulWidget {
   final CourseEntry entry;
@@ -58,7 +60,13 @@ class CourseEntryState extends State<CourseEntryWidget> {
             children: this.widget.entry.items.map((item) {
           if (item is CourseEntryText) {
             CourseEntryText text = item;
-            return Center(child: Container(padding: EdgeInsets.all(5.0), child: Text(text.text, textAlign: TextAlign.left)));
+            return Container(padding: EdgeInsets.all(15.0), child: MarkdownBody(data: text.text, onTapLink: (url) async {
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                Scaffold.of(context).showSnackBar(SnackBar(content: Text("Could not open $url")));
+              }
+            }));
           } else if (item is CourseEntryChange) {
             //if (!Global.habitManager.hasHabit(item.habitKey))
             //  throw new Exception("Habit doesn't exist!");
