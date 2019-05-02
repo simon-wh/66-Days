@@ -5,7 +5,7 @@ We talked to ten students and adults about their experience using the app and ga
 
 One user was unable to test the app fully as different features of the app depended on internet access, which cut out shortly after they installed it. This resulted in a “Neutral” response for app functionality, as the user saw that they needed internet access to use the app fully. We decided to take this feedback forward and add various caching systems so the user doesn’t need internet to use the app properly, which should spare users confusion in the future.
 
-![Survey Chart Photo](https://raw.githubusercontent.com/simon-wh/66-Days/master/Documentation/UserEval/Screenshot%202019-04-29%20at%2013.21.38.png)
+![Survey Chart Photo](https://github.com/simon-wh/66-Days/blob/master/Documentation/User%20Evaluation/Survey1/Screenshot%202019-04-29%20at%2013.21.38.png)
 
 We ran an survey evaluating the users feelings towards the design, layout and features of the app. We wanted to provide Ben with some reassurance that we'd created something that users found helpful, the questions of the survey mostly focused around contenious issues we'd debated during development. For example, whether two forms of login (Facebook and Gmail) were enough, and whether the score graph was a feature users actually wanted. The feature where cards were swiped to the left and right to check them off was considered intuitive by all our users. We conclude that future versions of this app shouldn't need radical updates to it's core functionality and feel, we can verify this after users gain prolonged experience with the app. The full survey results are availible in the documentation section of the GitHub repository.
 
