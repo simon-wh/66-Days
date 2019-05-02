@@ -1,7 +1,11 @@
 ## Quantitative Survey for Useability Requirements
 We talked to ten students and adults about their experience using the app and gathered quantitative survey data from them on its key usability metrics. The survey questions were based on our agreed design requirements, to verify to Ben we’d delivered what we’d agreed. The results from this survey showed that the app had excellent useability, with some disagreement over the overall aesthetic feel. If we were to run the survey again we would change some of the 5 option questions from the format of “Strongly Agree, Agree, …” to “Yes / No” questions, for example “Did the app freeze for 3 second or longer periods?”
 
+![User Feedback Photo](https://raw.githubusercontent.com/simon-wh/66-Days/master/Portfolio%20A/Images/SPEFeedback.png)
+
 One user was unable to test the app fully as different features of the app depended on internet access, which cut out shortly after they installed it. This resulted in a “Neutral” response for app functionality, as the user understood that they needed internet access to use the app fully. We decided to take this feedback forward and add various caching systems so the user doesn’t need internet to use the app properly, which should spare users confusion in the future.
+
+![Survey Chart Photo](https://raw.githubusercontent.com/simon-wh/66-Days/master/Documentation/UserEval/Screenshot%202019-04-29%20at%2013.21.38.png)
 
 -------------------------
 
