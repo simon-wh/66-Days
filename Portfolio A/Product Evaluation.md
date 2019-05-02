@@ -3,7 +3,7 @@ We talked to ten students and adults about their experience using the app and ga
 
 -------------------------
 
-## Agile Iterative Development Combined with Evaluation
+## Agile Development with Regular Evaluation
 We performed minor evaluations of the app and website throughout the product, as we had fortnightly meetings and feedback sessions with Ben throughout the project. These took a far more qualitative form of feedback; demoing our work and taking notes of things to fix or improve, we were later able to create work packages accordingly and add them to our product backlog. Features implemented from this feedback include many fixes to minor bugs and errors, a dark mode for the app and a new scoring system for the habits score chart. This iterative evaluation process meant that by the time came for major release deadlines, Ben already knew much about how the project worked and was happy with its functionality for the release.
 
 -------------------------
