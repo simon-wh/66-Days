@@ -102,6 +102,8 @@
                 <!-- THE COURSE WEEK EDITOR FORM -->
                 <section>
                     <div th:if="${courseWeek != null}">
+                        
+                        <h1 class="text-center" th:text="@{'Week ' + ${courseWeek.getWeekNumberAsString()}}" style="padding-bottom: 0.5em;"></h1>
 
                         <form th:action="@{'/course-editor/update-week/' + ${courseWeek.getWeekNumber()}}" th:object="${courseWeek}" th:method="PUT" enctype="multipart/form-data">
 

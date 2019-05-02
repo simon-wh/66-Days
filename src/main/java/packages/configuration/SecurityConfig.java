@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //Administration sign-on service.
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("ben@66days.co")
-                .password("tolerant-calendar-expression")
+                .password("This isn't the actual password.")
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user);
