@@ -32,7 +32,7 @@ If, however, you are allowed to view the course content then when you track your
 ![Library content 2](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Course%20content%20current.png)
 ![Library content refresh](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Course%20content%20refresh.png)
 
-For each given week, you are prompted to set up you own experiment and environment design. By tapping on one of the weeks shown above, you will be presented with the overview of the current week, which includes what experiment you are following, alongside the environment design. Simply select one of the experiments to chose it for that week.
+For each given week, you are prompted to set up you own experiment and environment design. The habit is your overall goal which you aim to achieve. The experiment is the chosen activity which you will do in order to help you achieve this goal, and the environment design is how you should design your environment in order to help you conduct your experiment. By tapping on one of the weeks shown above, you will be presented with the overview of the current week, which includes what experiment you are following, alongside the environment design. Simply select one of the experiments to chose it for that week.
 
 ![Selecting an experiment](https://raw.githubusercontent.com/simon-wh/66-Days/master/User%20manual/Images/Selecting%20from%20the%20course.png)
 
