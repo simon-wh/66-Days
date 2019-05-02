@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:spe_66_days/classes/habits/CoreHabit.dart';
 
 class CardSwipes extends StatefulWidget {
+  final Function completed;
+
+
+  CardSwipes(this.completed);
+
   @override
   CardSwipesState createState() => new CardSwipesState();
 }
@@ -99,6 +104,8 @@ class CardSwipesState extends State<CardSwipes> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var dataLength = uncheckedHabits.length;
+    if (dataLength == 0)
+      this.widget.completed();
 
     return dataLength > 0 ? Container(
       color: Color.fromARGB(150, 0, 0, 0),

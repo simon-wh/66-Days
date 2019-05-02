@@ -9,7 +9,7 @@ import 'package:spe_66_days/classes/habits/HabitManager.dart';
 import 'package:spe_66_days/widgets/card swipes/CardSwipes.dart';
 import 'package:spe_66_days/classes/GlobalSettings.dart';
 import 'dart:async';
-
+import 'dart:collection';
 
 class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
   final Icon icon;
@@ -28,7 +28,8 @@ class HomeWidget extends StatefulWidget implements BottomNavigationBarItem {
 class _HomeState extends State<HomeWidget> {
   List<HomeCard> cards;
   StreamSubscription<HabitCheckedChangedEvent> _event;
-
+  bool showCards = false;
+  static HashSet<DateTime> cardsComplete = new HashSet<DateTime>();
   @override
   void initState(){
     super.initState();
@@ -37,6 +38,9 @@ class _HomeState extends State<HomeWidget> {
       HomeCard(Key("habit"), "Habits", () => HabitsWidget(displayMode: mode.Minimal, editable: true)),
       HomeCard(Key("stats"), "Statistics", () => StatsWidget())
     ];
+
+
+
     _event = Global.habitManager.eventBus.on<HabitCheckedChangedEvent>().listen((event) {
       if (this.mounted){
       setState(() {
@@ -52,10 +56,26 @@ class _HomeState extends State<HomeWidget> {
   }
 
   Widget build(BuildContext context) {
-    DateTime endOfDayHabit =
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
-        Global.instance.settings.dailyNotification.time.hour,
-        Global.instance.settings.dailyNotification.time.minute);
+    if (!cardsComplete.contains(Global.currentDate)) {
+      final bool args = ModalRoute
+          .of(context)
+          .settings
+          .arguments ?? false;
+      if (args)
+        showCards = true;
+
+      /*if (!showCards){
+        DateTime endOfDayHabit =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
+            Global.instance.settings.dailyNotification.time.hour,
+            Global.instance.settings.dailyNotification.time.minute);
+
+        if (DateTime.now().isAfter(endOfDayHabit)){
+          showCards = true;
+        }
+      }*/
+    }
+
     return Scaffold(
       body: RefreshIndicator(
           onRefresh: () {
@@ -76,7 +96,10 @@ class _HomeState extends State<HomeWidget> {
                           return Container();
                         return c.getCard(context);
                       }),
-                  DateTime.now().isAfter(endOfDayHabit) ? CardSwipes() : Container()// Item Builder
+                  showCards ? CardSwipes((){
+                    this.showCards = false;
+                    cardsComplete.add(Global.currentDate);
+                  }) : Container()// Item Builder
            ],
           ),
         ],

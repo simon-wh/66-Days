@@ -82,8 +82,8 @@ class Global extends SettingsBase<GlobalSettings> {
 
   Future onSelectNotification(String payload) async {
     if (payload == "all") {
-      var bm = HabitsScreen(Icon(Icons.assignment), Text("Habit Manager"));
-      await  StartApp.navigatorKey.currentState.push(MaterialPageRoute(builder: (context) =>Scaffold(appBar: AppBar(title: bm.title) ,body: bm)));
+      //var bm = HabitsScreen(Icon(Icons.assignment), Text("Habit Manager"));
+      await  StartApp.navigatorKey.currentState.pushNamed("home", arguments: true);
     }
     else
     {
