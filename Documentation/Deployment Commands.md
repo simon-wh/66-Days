@@ -1,5 +1,7 @@
 # Deployment Commands
 
+Deployment Commands to modify/update the server -
+
 Commands to git pull:
 - git status
 - git checkout .
