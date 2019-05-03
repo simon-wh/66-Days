@@ -15,7 +15,7 @@ Commands to follow after git pull:
 
 
 Commands to deploy:
-- tux a 	( ctrl b + d )
+- tmux a 	( ctrl b + d )
 - sudo -u user-nkQ68o curl localhost;
 - tail -f /var/log/nginx/access.log
 - sudo -u user-nkQ68o java -jar /home/ubuntu/66-Days/target/66days-0.0.1-SNAPSHOT.jar
