@@ -1,14 +1,9 @@
+# Deployment Commands
+
 Commands to git pull:
 - git status
 - git checkout .
 - git pull
-
-
-Command to change password:
-line no.26
-Change password to "*******************"
-- sudo nano src/main/java/packages/configuration/SecurityConfig.java
-
 
 Commands to follow after git pull:
 - mvn clean package -DskipTests-True
@@ -16,12 +11,18 @@ Commands to follow after git pull:
 - sudo chown user-nkQ68o:user-nkQ68o target/66days-0.0.1-SNAPSHOT.jar
 - sudo service nginx restart
 
-------------------------------------------------------------------------------------------
+
 Commands to deploy:
 - tux a 	( ctrl b + d )
 - sudo -u user-nkQ68o curl localhost;
 - tail -f /var/log/nginx/access.log
 - sudo -u user-nkQ68o java -jar /home/ubuntu/66-Days/target/66days-0.0.1-SNAPSHOT.jar
+
+------------------------------------------------------------------------------------------
+Command to change server log-in password:
+line no.26
+Change password to "*******************"
+- sudo nano src/main/java/packages/configuration/SecurityConfig.java
 
 
 Commands to git push:
