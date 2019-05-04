@@ -102,6 +102,9 @@ class Global extends SettingsBase<GlobalSettings> {
   }
 
   Future<int> scheduleNotifications(FlutterLocalNotificationsPlugin notificationsPlugin, int i) async{
+    if (!this.settings.dailyNotification.enabled)
+      return 0;
+
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails('end_of_day_reminder', 'End of Day Habit Reminder', 'Reminder to check in on habits at the end of the day');
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     NotificationDetails platformChannelSpecifics = new NotificationDetails(
